@@ -1,69 +1,38 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-BR">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Química Interativa — Diagnóstico</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <!-- Tailwind via CDN (para agilizar, mas manteremos CSS custom) -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <style>
     /* ============================================================
-       Tema e variáveis (cores do exemplo)
-    ============================================================ */
+       PALETA DE CORES CALMA E ACOLHEDORA
+       ============================================================ */
     :root {
-      --on-secondary-container: #6f5400;
-      --surface-dim: #dad7f3;
-      --inverse-on-surface: #f2efff;
-      --on-tertiary-fixed: #001d32;
-      --surface: #fcf8ff;
-      --on-secondary-fixed-variant: #5a4300;
-      --on-surface-variant: #5a413f;
-      --surface-container-highest: #e2e0fc;
-      --secondary-container: #fcc838;
-      --outline: #8e706e;
-      --on-tertiary-container: #00304e;
-      --error-container: #ffdad6;
-      --on-error: #ffffff;
-      --surface-container-high: #e8e5ff;
-      --primary-container: #ff5e5b;
-      --on-primary: #ffffff;
-      --on-primary-fixed-variant: #910717;
-      --on-error-container: #93000a;
-      --on-secondary: #ffffff;
-      --primary-fixed-dim: #ffb3ae;
-      --surface-container: #efecff;
-      --on-secondary-fixed: #251a00;
-      --surface-container-low: #f5f2ff;
-      --inverse-primary: #ffb3ae;
-      --on-tertiary-fixed-variant: #004a75;
-      --secondary-fixed-dim: #f3bf2f;
-      --primary-fixed: #ffdad7;
-      --surface-container-lowest: #ffffff;
-      --secondary-fixed: #ffdf98;
-      --inverse-surface: #2f2e43;
-      --on-tertiary: #ffffff;
-      --on-surface: #1a1a2e;
-      --surface-tint: #b4272b;
-      --surface-bright: #fcf8ff;
-      --tertiary: #006399;
-      --error: #ba1a1a;
-      --secondary: #775a00;
-      --primary: #b4272b;
-      --on-background: #1a1a2e;
-      --tertiary-container: #419bdf;
-      --on-primary-container: #63000a;
-      --on-primary-fixed: #410004;
-      --background: #fcf8ff;
-      --tertiary-fixed: #cde5ff;
-      --tertiary-fixed-dim: #95ccff;
-      --outline-variant: #e2bebb;
-      --surface-variant: #e2e0fc;
-      --radius: 1rem;
-      --shadow: 6px 6px 0px 0px rgba(26, 26, 46, 0.15);
+      --bg-primary: #F5F7F5;
+      --bg-card: #FFFFFF;
+      --bg-soft: #EDF2ED;
+      --text-primary: #1A2A2A;
+      --text-secondary: #4A6A6A;
+      --text-soft: #7A9A9A;
+      --green-main: #6BCB9A;
+      --green-dark: #4AAF7A;
+      --green-light: #D4F0E4;
+      --coral: #F5A0A0;
+      --coral-soft: #FDE8E8;
+      --gold: #F5D76E;
+      --gold-soft: #FEF6DD;
+      --blue: #8FC1D9;
+      --blue-soft: #E8F4FA;
+      --shadow: 0 8px 30px rgba(26, 42, 42, 0.08);
+      --shadow-hover: 0 12px 40px rgba(26, 42, 42, 0.14);
+      --radius: 28px;
+      --radius-sm: 16px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     * {
@@ -71,46 +40,65 @@
       margin: 0;
       padding: 0;
     }
+
     html, body {
-      background: var(--background);
-      color: var(--on-surface);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       font-family: 'Nunito Sans', sans-serif;
       font-size: 16px;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      scroll-behavior: smooth;
+      min-height: 100vh;
     }
-    h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+
+    /* ===== FUNDO COM PADRÃO SUAVE ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(107, 203, 154, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(143, 193, 217, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(245, 215, 110, 0.05) 0%, transparent 70%);
+      background-attachment: fixed;
     }
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+
+    /* ===== PADRÃO DE PONTOS SUAVES ===== */
+    .pattern-dots {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.4;
+      background-image: radial-gradient(var(--text-soft) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      pointer-events: none;
     }
 
     /* ===== SCREENS ===== */
     .screen { display: none; min-height: 100vh; }
     .screen.active { display: block; }
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-    /* ===== NEOBRUTALIST CARDS ===== */
-    .neobrutalist {
-      box-shadow: var(--shadow);
-      border: 2px solid var(--outline-variant);
-      border-radius: var(--radius);
-      transition: all 0.2s ease;
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    .neobrutalist:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 8px 8px 0px 0px rgba(26, 26, 46, 0.2);
+
+    /* ===== TIPOGRAFIA ===== */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
-    .neobrutalist-sm {
-      box-shadow: 4px 4px 0px 0px rgba(26, 26, 46, 0.15);
-    }
-    .neobrutalist-active:active {
-      transform: scale(0.95);
-      box-shadow: 2px 2px 0px 0px rgba(26, 26, 46, 0.15);
-    }
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.4rem; }
+    h4 { font-size: 1.1rem; }
+
+    .text-soft { color: var(--text-secondary); }
+    .text-small { font-size: 0.85rem; }
 
     /* ===== BOTÕES ===== */
     .btn {
@@ -118,131 +106,299 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 24px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
-      cursor: pointer;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
       font-family: 'Nunito Sans', sans-serif;
-      background: var(--surface);
-      color: var(--on-surface);
-      box-shadow: var(--shadow);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(26, 42, 42, 0.06);
+      text-decoration: none;
     }
-    .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px 0px rgba(26, 26, 46, 0.2); }
-    .btn:active { transform: scale(0.95); box-shadow: 2px 2px 0px 0px rgba(26, 26, 46, 0.15); }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn:active { transform: scale(0.96); }
+
     .btn-primary {
-      background: var(--primary);
-      color: var(--on-primary);
-      border-color: var(--primary);
+      background: var(--green-main);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(107, 203, 154, 0.35);
     }
-    .btn-primary:hover { background: var(--on-primary-fixed-variant); border-color: var(--on-primary-fixed-variant); }
+    .btn-primary:hover { background: var(--green-dark); box-shadow: 0 6px 24px rgba(107, 203, 154, 0.45); }
+
     .btn-secondary {
-      background: var(--secondary-container);
-      color: var(--on-secondary-container);
-      border-color: var(--secondary-container);
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(143, 193, 217, 0.35);
     }
-    .btn-tertiary {
-      background: var(--tertiary-container);
-      color: var(--on-tertiary);
-      border-color: var(--tertiary-container);
+    .btn-secondary:hover { background: #7AB0C8; }
+
+    .btn-coral {
+      background: var(--coral);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(245, 160, 160, 0.35);
     }
+    .btn-coral:hover { background: #E88A8A; }
+
     .btn-outline {
       background: transparent;
-      border-color: var(--outline-variant);
-      color: var(--on-surface-variant);
+      border: 2px solid var(--green-main);
+      color: var(--green-main);
       box-shadow: none;
     }
-    .btn-outline:hover { background: var(--surface-container); border-color: var(--outline); }
+    .btn-outline:hover { background: var(--green-light); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      box-shadow: none;
+    }
+    .btn-ghost:hover { background: var(--bg-soft); }
+
     .btn-block { width: 100%; justify-content: center; }
-    .btn-xl { padding: 16px 36px; font-size: 1.05rem; }
-    .btn-icon { font-size: 1.2rem; }
+    .btn-xl { padding: 18px 40px; font-size: 1.1rem; }
 
     /* ===== NAV ===== */
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 0;
+      padding: 18px 0;
       flex-wrap: wrap;
       gap: 12px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-weight: 800;
       font-size: 1.2rem;
+      color: var(--text-primary);
     }
     .brand .logo {
-      background: var(--primary);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--green-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 1rem;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-actions .btn { padding: 10px 20px; font-size: 0.85rem; }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 48px 0 24px;
+    }
+    .hero h1 { font-size: 3rem; margin: 12px 0 16px; }
+    .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 480px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+    .hero-art {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-art svg { width: 100%; max-width: 320px; height: auto; }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 24px 0; }
+      .hero p { margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .hero-art { order: -1; }
+      h1 { font-size: 2.2rem; }
     }
 
-    /* ===== HOME - SEÇÕES ===== */
-    .section-highlight {
-      margin: 60px 0;
-      padding: 40px 0;
-      border-top: 2px solid var(--outline-variant);
-    }
-    .section-highlight:last-of-type { border-bottom: 2px solid var(--outline-variant); }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      margin-top: 24px;
-    }
-    .feature-item {
-      background: var(--surface);
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--bg-card);
       border-radius: var(--radius);
-      padding: 24px;
-      border: 2px solid var(--outline-variant);
       box-shadow: var(--shadow);
-      transition: 0.3s;
+      padding: 28px 32px;
+      border: 1px solid rgba(26, 42, 42, 0.04);
+      transition: var(--transition);
     }
-    .feature-item:hover { transform: translateY(-4px); box-shadow: 8px 8px 0px 0px rgba(26,26,46,0.2); }
-    .feature-item .icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .card:hover { box-shadow: var(--shadow-hover); }
+
+    .card-soft {
+      background: var(--bg-soft);
+      border: none;
+    }
+
+    /* ===== SEÇÕES DA HOME ===== */
+    .section-spacing { padding: 50px 0; }
+    .section-border {
+      border-top: 2px solid rgba(26, 42, 42, 0.06);
+      padding: 50px 0;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .section-title h2 { font-size: 2.2rem; }
+    .section-title p { color: var(--text-secondary); font-size: 1.05rem; max-width: 560px; margin: 8px auto 0; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(26, 42, 42, 0.04);
+      transition: var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .feature-card .icon { font-size: 2.8rem; margin-bottom: 12px; display: block; }
+    .feature-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    /* ===== STATS ===== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      padding: 24px 0;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--green-main);
+    }
+    .stat-item .label { color: var(--text-secondary); font-size: 0.85rem; }
 
     /* ===== LOGIN CARDS ===== */
-    .login-card {
-      max-width: 480px;
+    .login-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 32px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 2px solid var(--outline-variant);
-      box-shadow: var(--shadow);
+      padding: 40px 0;
     }
-    .login-card .header-badge {
+    @media (max-width: 820px) { .login-container { grid-template-columns: 1fr; } }
+
+    .login-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(26, 42, 42, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .login-card .badge {
       display: inline-block;
       padding: 4px 16px;
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       margin-bottom: 12px;
     }
-    .login-card .header-badge.teacher { background: var(--primary-fixed); color: var(--on-primary-fixed); }
-    .login-card .header-badge.student { background: var(--tertiary-fixed); color: var(--on-tertiary-fixed); }
-    .login-card .signup-link {
+    .login-card .badge.teacher { background: var(--green-light); color: var(--green-dark); }
+    .login-card .badge.student { background: var(--blue-soft); color: #5A8FA8; }
+
+    .login-card h2 { font-size: 1.8rem; margin-bottom: 4px; }
+    .login-card .sub { color: var(--text-secondary); margin-bottom: 20px; }
+
+    .login-card input,
+    .login-card select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 2px solid rgba(26, 42, 42, 0.08);
+      background: var(--bg-primary);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      margin-bottom: 12px;
+    }
+    .login-card input:focus,
+    .login-card select:focus {
+      outline: none;
+      border-color: var(--green-main);
+      box-shadow: 0 0 0 4px rgba(107, 203, 154, 0.15);
+    }
+    .login-card label {
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .login-card .input-icon {
+      position: relative;
+    }
+    .login-card .input-icon .icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-soft);
+      font-size: 1.2rem;
+    }
+    .login-card .input-icon input {
+      padding-left: 48px;
+    }
+
+    .signup-link {
       display: block;
       text-align: center;
       margin-top: 16px;
+      padding: 14px;
+      border: 2px dashed var(--green-main);
+      border-radius: var(--radius-full);
       font-weight: 700;
       font-size: 0.9rem;
-      color: var(--primary);
-      padding: 12px;
-      border: 2px dashed var(--primary);
-      border-radius: 999px;
-      transition: 0.3s;
+      color: var(--green-main);
       cursor: pointer;
+      transition: var(--transition);
     }
-    .login-card .signup-link:hover { background: var(--primary-fixed); border-color: var(--primary); }
+    .signup-link:hover {
+      background: var(--green-light);
+      border-color: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    .login-card .err {
+      color: var(--coral);
+      font-size: 0.85rem;
+      min-height: 1.4em;
+      margin-top: 8px;
+    }
 
     /* ===== TABS ===== */
     .tab-nav {
@@ -250,166 +406,166 @@
       gap: 8px;
       flex-wrap: wrap;
       margin-bottom: 28px;
+      padding: 4px;
+      background: var(--bg-soft);
+      border-radius: var(--radius-full);
     }
     .tab-btn {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 10px 18px;
-      border-radius: 60px;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
       font-weight: 700;
       font-size: 0.85rem;
       background: transparent;
-      color: var(--on-surface-variant);
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
+      color: var(--text-secondary);
+      border: none;
       cursor: pointer;
+      transition: var(--transition);
       font-family: 'Nunito Sans', sans-serif;
     }
-    .tab-btn:hover { background: var(--surface-container); }
+    .tab-btn:hover { background: rgba(255,255,255,0.5); }
     .tab-btn.active {
-      background: var(--primary);
-      color: var(--on-primary);
-      border-color: var(--primary);
-      box-shadow: var(--shadow);
+      background: #fff;
+      color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(26,42,42,0.08);
     }
+    .tab-btn .icon { font-size: 1.2rem; }
 
-    /* ===== CARDS GENÉRICOS ===== */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 2px solid var(--outline-variant);
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-    .card-empty {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--on-surface-variant);
-    }
-    .grid-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    /* ===== TUTORIAL OVERLAY ===== */
-    #tutorialOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(26, 26, 46, 0.7);
-      backdrop-filter: blur(6px);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    #tutorialOverlay.open { display: flex; }
-    #tutorialCard {
-      max-width: 500px;
-      width: 100%;
-      padding: 32px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 2px solid var(--outline-variant);
-      position: relative;
-    }
-    .tutorial-step {
+    /* ===== DASHBOARD HEADER ===== */
+    .dash-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin: 16px 0;
+      padding: 20px 0 8px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    .tutorial-step .num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--primary-container);
-      color: var(--on-primary-container);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      flex-shrink: 0;
+    .dash-header .greeting {
+      font-size: 1.4rem;
+      font-weight: 700;
     }
-    .tutorial-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 20px;
-    }
-    .tutorial-dots .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--outline-variant);
-      transition: 0.3s;
-    }
-    .tutorial-dots .dot.active { background: var(--primary); width: 24px; border-radius: 20px; }
-
-    /* ===== PROGRESSO ARQUIVO ===== */
-    .file-progress {
-      height: 8px;
-      background: var(--surface-container);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-    .file-progress .bar {
-      height: 100%;
-      background: var(--primary-container);
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
+    .dash-header .greeting span { color: var(--green-main); }
 
     /* ===== QUIZ ===== */
     .quiz-wrap { max-width: 680px; margin: 0 auto; padding: 30px 22px 60px; }
     .progress-bar {
-      height: 12px;
-      background: var(--surface-container);
-      border-radius: 999px;
+      height: 10px;
+      background: var(--bg-soft);
+      border-radius: var(--radius-full);
       overflow: hidden;
       margin-bottom: 24px;
     }
     .progress-fill {
       height: 100%;
-      background: var(--primary-container);
-      border-radius: 999px;
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, var(--green-main), var(--blue));
+      border-radius: var(--radius-full);
+      transition: width 0.4s ease;
+    }
+    .q-topic {
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .q-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 12px 0 20px;
+      line-height: 1.6;
     }
     .opt {
       display: block;
       width: 100%;
       text-align: left;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 2px solid var(--outline-variant);
-      background: var(--surface);
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      border: 2px solid rgba(26,42,42,0.08);
+      background: var(--bg-card);
       margin-bottom: 10px;
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--on-surface);
-      transition: all 0.2s ease;
+      color: var(--text-primary);
+      transition: var(--transition);
       cursor: pointer;
+      font-family: 'Nunito Sans', sans-serif;
     }
-    .opt:hover { border-color: var(--tertiary); }
-    .opt.selected { border-color: var(--tertiary-container); background: var(--tertiary-fixed); }
+    .opt:hover { border-color: var(--green-main); background: var(--green-light); }
+    .opt.selected {
+      border-color: var(--green-main);
+      background: var(--green-light);
+      box-shadow: 0 0 0 4px rgba(107,203,154,0.15);
+    }
     .opt:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* ===== RESULTADO ===== */
+    /* ===== RESULT ===== */
     .result-hero {
-      background: var(--tertiary-container);
-      color: var(--on-tertiary);
       border-radius: var(--radius);
-      padding: 32px;
-      margin-bottom: 22px;
-      box-shadow: var(--shadow);
-      border: 2px solid var(--outline-variant);
+      padding: 32px 36px;
+      margin-bottom: 24px;
+      background: var(--green-light);
+      border: 2px solid var(--green-main);
     }
-    .result-hero.warn { background: var(--primary-container); color: var(--on-primary-container); }
-    .result-hero h2 { color: inherit; }
+    .result-hero.warn { background: var(--coral-soft); border-color: var(--coral); }
+    .result-hero h2 { font-size: 1.8rem; margin-bottom: 4px; }
+    .result-hero p { font-size: 1.05rem; color: var(--text-secondary); }
+
+    /* ===== CHIPS / BADGES ===== */
+    .chip {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg-soft);
+      color: var(--text-secondary);
+      margin: 2px 4px 2px 0;
+      border: 1px solid rgba(26,42,42,0.06);
+    }
+    .chip-green { background: var(--green-light); color: var(--green-dark); border-color: var(--green-main); }
+    .chip-coral { background: var(--coral-soft); color: #C07070; border-color: var(--coral); }
+    .chip-gold { background: var(--gold-soft); color: #A08040; border-color: var(--gold); }
+    .chip-blue { background: var(--blue-soft); color: #5A8FA8; border-color: var(--blue); }
+
+    .level-badge {
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #fff;
+    }
+    .lvl-0 { background: var(--green-main); }
+    .lvl-1 { background: var(--gold); color: var(--text-primary); }
+    .lvl-2 { background: var(--coral); }
+
+    /* ===== UPLOAD ===== */
+    .upload-area {
+      border: 2px dashed rgba(26,42,42,0.12);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      background: var(--bg-soft);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .upload-area:hover { border-color: var(--green-main); background: var(--green-light); }
+    .upload-area.dragover { border-color: var(--green-main); background: var(--green-light); }
+
+    .file-progress {
+      height: 6px;
+      background: var(--bg-soft);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .file-progress .bar {
+      height: 100%;
+      background: var(--green-main);
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+    }
 
     /* ===== MODAL ===== */
     #modalOverlay {
@@ -417,8 +573,8 @@
       position: fixed;
       inset: 0;
       z-index: 500;
-      background: rgba(26, 26, 46, 0.6);
-      backdrop-filter: blur(4px);
+      background: rgba(26,42,42,0.5);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -428,10 +584,9 @@
       max-width: 480px;
       width: 100%;
       padding: 32px;
-      background: var(--surface);
+      background: var(--bg-card);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 2px solid var(--outline-variant);
+      box-shadow: var(--shadow-hover);
       max-height: 90vh;
       overflow-y: auto;
     }
@@ -440,56 +595,74 @@
       background: none;
       border: none;
       font-size: 1.5rem;
-      color: var(--on-surface-variant);
+      color: var(--text-soft);
       cursor: pointer;
+      padding: 4px;
     }
+    #modalCard .close-btn:hover { color: var(--text-primary); }
 
-    /* ===== UPLOAD AREA ===== */
-    .upload-area {
-      border: 2px dashed var(--outline-variant);
+    /* ===== TUTORIAL OVERLAY ===== */
+    #tutorialOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(26,42,42,0.6);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #tutorialOverlay.open { display: flex; }
+    #tutorialCard {
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      background: var(--bg-card);
       border-radius: var(--radius);
-      padding: 30px 20px;
-      text-align: center;
-      background: var(--surface-container-low);
-      transition: 0.3s;
-      cursor: pointer;
+      box-shadow: var(--shadow-hover);
     }
-    .upload-area.dragover { border-color: var(--primary); background: var(--primary-fixed); }
-
-    /* ===== MISC ===== */
-    .chip {
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      background: var(--surface-container);
-      color: var(--on-surface-variant);
-      border: 1px solid var(--outline-variant);
-      margin: 2px 4px 2px 0;
-    }
-    .chip-primary { background: var(--primary-fixed); color: var(--on-primary-fixed); border-color: var(--primary); }
-    .chip-secondary { background: var(--secondary-fixed); color: var(--on-secondary-fixed); border-color: var(--secondary); }
-    .chip-tertiary { background: var(--tertiary-fixed); color: var(--on-tertiary-fixed); border-color: var(--tertiary); }
-
-    .level-badge {
-      padding: 4px 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.75rem;
+    .tutorial-step { margin: 16px 0; }
+    .tutorial-step .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green-main);
       color: #fff;
+      font-weight: 800;
+      margin-right: 12px;
     }
-    .lvl-0 { background: var(--tertiary-container); }
-    .lvl-1 { background: var(--secondary-container); color: var(--on-secondary-container); }
-    .lvl-2 { background: var(--primary-container); color: var(--on-primary-container); }
+    .tutorial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px 0 16px;
+    }
+    .tutorial-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(26,42,42,0.15);
+      transition: var(--transition);
+    }
+    .tutorial-dots .dot.active {
+      background: var(--green-main);
+      width: 28px;
+      border-radius: 20px;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
-      .tab-btn { padding: 6px 12px; font-size: 0.75rem; }
-      .btn { padding: 8px 16px; font-size: 0.8rem; }
-      .card { padding: 16px; }
-      .login-card { padding: 20px; }
-      .feature-grid { grid-template-columns: 1fr; }
+      .btn { padding: 10px 18px; font-size: 0.8rem; }
+      .card { padding: 20px; }
+      .login-card { padding: 24px; }
+      .hero h1 { font-size: 2rem; }
+      .section-title h2 { font-size: 1.6rem; }
+      .tab-btn { padding: 6px 14px; font-size: 0.75rem; }
+      .dash-header .greeting { font-size: 1.1rem; }
     }
 
     /* ===== CONFETTI ===== */
@@ -499,302 +672,328 @@
       height: 10px;
       pointer-events: none;
       z-index: 999;
-      border-radius: 2px;
+      border-radius: 3px;
     }
-    /* ===== INPUTS ===== */
-    input, select {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 2px solid var(--outline-variant);
-      background: var(--surface);
-      font-family: 'Nunito Sans', sans-serif;
-      font-size: 0.9rem;
-      transition: 0.3s;
-    }
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-fixed);
-    }
-    label {
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: var(--on-surface-variant);
-      display: block;
-      margin-bottom: 4px;
-    }
+
+    /* ===== UTILITÁRIOS ===== */
+    .text-center { text-align: center; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .flex-center { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .gap-16 { gap: 16px; }
   </style>
 </head>
 <body>
 
+<!-- ===== PADRÃO DE FUNDO ===== -->
+<div class="pattern-dots"></div>
+
 <!-- ================================================================== -->
-<!-- TUTORIAL OVERLAY (aparece para o gestor na primeira vez) -->
+<!-- TUTORIAL OVERLAY -->
 <!-- ================================================================== -->
 <div id="tutorialOverlay">
   <div id="tutorialCard">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;">📖 Bem-vindo ao Painel!</h3>
-      <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;">📖 Bem-vindo ao painel!</h3>
+      <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-soft);">✕</button>
     </div>
     <div id="tutorialBody"></div>
     <div class="tutorial-dots" id="tutorialDots"></div>
-    <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeTutorial()">Pular</button>
+    <div style="display:flex;gap:12px;justify-content:flex-end;">
+      <button class="btn btn-ghost" onclick="closeTutorial()">Pular</button>
       <button class="btn btn-primary" id="tutorialNextBtn" onclick="nextTutorialStep()">Próximo</button>
     </div>
   </div>
 </div>
 
 <!-- ================================================================== -->
-<!-- SCREENS -->
+<!-- HOME -->
 <!-- ================================================================== -->
-
-<!-- ============ HOME ============ -->
 <section id="screen-home" class="screen active">
   <div class="wrap">
     <div class="nav">
-      <div class="brand"><span class="logo">Sₓ</span> Diagnóstico de Soluções</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="goTo('login-manager')">👩‍🏫 Entrar como gestora</button>
-        <button class="btn btn-tertiary" onclick="goTo('login-student')">🧪 Sou aluno(a)</button>
+      <div class="brand">
+        <span class="logo">S</span>
+        <span>Diagnóstico de Soluções</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-outline" onclick="goTo('login-student')">🧪 Sou aluno</button>
+        <button class="btn btn-primary" onclick="goTo('login-manager')">👩‍🏫 Gestora</button>
       </div>
     </div>
 
-    <!-- Hero -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0 60px;align-items:center;">
+    <!-- HERO -->
+    <div class="hero">
       <div>
-        <span style="font-weight:700;color:var(--primary);letter-spacing:0.1em;">Química · Soluções · 2ª série</span>
-        <h1 style="font-size:2.8rem;margin:12px 0;">Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
-        <p style="font-size:1.05rem;color:var(--on-surface-variant);margin-bottom:24px;">Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas.</p>
-        <button class="btn btn-tertiary btn-xl" onclick="goTo('login-student')">🚀 Sou aluno(a) — começar</button>
+        <span style="font-weight:700;color:var(--green-dark);letter-spacing:0.08em;font-size:0.8rem;text-transform:uppercase;">Química · Soluções · 2ª série</span>
+        <h1>Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
+        <p>Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas para você brilhar.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-xl" onclick="goTo('login-student')">🚀 Começar agora</button>
+        </div>
       </div>
-      <div style="display:flex;justify-content:center;">
-        <svg viewBox="0 0 200 200" width="100%" style="max-width:280px;">
-          <circle cx="100" cy="100" r="90" fill="var(--primary-fixed)" opacity="0.3"/>
-          <path d="M70 40h60v50l30 90c6 18-6 32-24 32H64c-18 0-30-14-24-32l30-90V40z" fill="var(--primary)" opacity="0.8"/>
-          <circle cx="95" cy="110" r="6" fill="var(--surface)"/>
-          <circle cx="115" cy="95" r="4" fill="var(--secondary-container)"/>
-          <path d="M30 170 Q60 140 100 160 T170 140" stroke="var(--secondary-container)" stroke-width="6" fill="none"/>
+      <div class="hero-art">
+        <svg viewBox="0 0 260 220" fill="none">
+          <circle cx="130" cy="110" r="100" fill="#D4F0E4" opacity="0.4"/>
+          <circle cx="130" cy="110" r="70" fill="#D4F0E4" opacity="0.3"/>
+          <path d="M95 50h70v55l35 100c7 20-7 35-28 35H88c-21 0-35-15-28-35l35-100V50z" fill="#6BCB9A" opacity="0.9"/>
+          <circle cx="120" cy="130" r="7" fill="#fff" opacity="0.9"/>
+          <circle cx="140" cy="112" r="5" fill="#F5D76E"/>
+          <circle cx="128" cy="100" r="4" fill="#8FC1D9"/>
+          <path d="M40 180 Q75 150 120 170 T200 150" stroke="#F5D76E" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <text x="115" y="78" font-size="14" fill="#fff" font-weight="700" font-family="Nunito Sans">S</text>
         </svg>
       </div>
     </div>
 
-    <!-- Seção 1: O que é -->
-    <div class="section-highlight">
-      <h2 style="font-size:2rem;text-align:center;">🔬 O que é o Diagnóstico de Soluções?</h2>
-      <p style="font-size:1.1rem;color:var(--on-surface-variant);text-align:center;max-width:700px;margin:12px auto 0;">
-        Uma ferramenta interativa que identifica, em tempo real, quais tópicos de Química você já domina e quais precisam de mais atenção.
-      </p>
-      <div class="feature-grid">
-        <div class="feature-item">
-          <div class="icon">🧪</div>
+    <!-- STATS -->
+    <div class="stats-row" id="homeStats">
+      <div class="stat-item"><div class="number" id="statRounds">0</div><div class="label">aplicações</div></div>
+      <div class="stat-item"><div class="number" id="statAttempts">0</div><div class="label">diagnósticos</div></div>
+      <div class="stat-item"><div class="number" id="statTags">0</div><div class="label">dificuldades mapeadas</div></div>
+    </div>
+
+    <!-- SEÇÃO 1: O QUE É -->
+    <div class="section-border">
+      <div class="section-title">
+        <h2>🔬 O que é o Diagnóstico de Soluções?</h2>
+        <p>Uma ferramenta interativa que identifica, em tempo real, quais tópicos de Química você já domina e quais precisam de mais atenção.</p>
+      </div>
+      <div class="grid-3">
+        <div class="feature-card">
+          <span class="icon">🧪</span>
           <h3>Adaptativo</h3>
-          <p style="color:var(--on-surface-variant);">As perguntas se ajustam ao seu desempenho, focando nas áreas que precisam de reforço.</p>
+          <p>As perguntas se ajustam ao seu desempenho, focando nas áreas que precisam de reforço.</p>
         </div>
-        <div class="feature-item">
-          <div class="icon">📊</div>
+        <div class="feature-card">
+          <span class="icon">📊</span>
           <h3>Visualização clara</h3>
-          <p style="color:var(--on-surface-variant);">Gráficos e resumos mostram seu progresso de forma intuitiva.</p>
+          <p>Gráficos e resumos mostram seu progresso de forma intuitiva e motivadora.</p>
         </div>
-        <div class="feature-item">
-          <div class="icon">🎯</div>
+        <div class="feature-card">
+          <span class="icon">🎯</span>
           <h3>Dicas personalizadas</h3>
-          <p style="color:var(--on-surface-variant);">Cada dificuldade mapeada vem com uma sugestão de estudo direcionada.</p>
+          <p>Cada dificuldade mapeada vem com uma sugestão de estudo direcionada.</p>
         </div>
       </div>
     </div>
 
-    <!-- Seção 2: Por que usar -->
-    <div class="section-highlight">
-      <h2 style="font-size:2rem;text-align:center;">💡 Por que usar?</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;">
-        <div class="card" style="background:var(--primary-fixed);border-color:var(--primary);">
+    <!-- SEÇÃO 2: POR QUE USAR -->
+    <div class="section-border">
+      <div class="section-title">
+        <h2>💡 Por que usar?</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="background:var(--green-light);border-color:var(--green-main);">
           <span style="font-size:2rem;">⏱️</span>
           <h3 style="margin:8px 0;">Economia de tempo</h3>
-          <p style="color:var(--on-surface-variant);">Em menos de 10 minutos, você tem um diagnóstico completo do seu nível em Soluções.</p>
+          <p style="color:var(--text-secondary);">Em menos de 10 minutos, você tem um diagnóstico completo do seu nível em Soluções.</p>
         </div>
-        <div class="card" style="background:var(--tertiary-fixed);border-color:var(--tertiary);">
+        <div class="card" style="background:var(--blue-soft);border-color:var(--blue);">
           <span style="font-size:2rem;">📈</span>
           <h3 style="margin:8px 0;">Acompanhamento contínuo</h3>
-          <p style="color:var(--on-surface-variant);">Compare seu desempenho entre tentativas e veja sua evolução ao longo do tempo.</p>
+          <p style="color:var(--text-secondary);">Compare seu desempenho entre tentativas e veja sua evolução ao longo do tempo.</p>
         </div>
-        <div class="card" style="background:var(--secondary-fixed);border-color:var(--secondary);">
+        <div class="card" style="background:var(--gold-soft);border-color:var(--gold);">
           <span style="font-size:2rem;">👩‍🏫</span>
           <h3 style="margin:8px 0;">Para professores</h3>
-          <p style="color:var(--on-surface-variant);">Visualize o desempenho da turma, identifique dificuldades coletivas e ajuste seu planejamento.</p>
+          <p style="color:var(--text-secondary);">Visualize o desempenho da turma, identifique dificuldades coletivas e ajuste seu planejamento.</p>
         </div>
-        <div class="card" style="background:var(--surface-container-high);border-color:var(--outline);">
+        <div class="card" style="background:var(--coral-soft);border-color:var(--coral);">
           <span style="font-size:2rem;">📚</span>
           <h3 style="margin:8px 0;">Materiais de apoio</h3>
-          <p style="color:var(--on-surface-variant);">Receba recomendações de exercícios, resumos e vídeos exatamente sobre os tópicos que você precisa revisar.</p>
+          <p style="color:var(--text-secondary);">Receba recomendações de exercícios, resumos e vídeos sobre os tópicos que você precisa revisar.</p>
         </div>
       </div>
     </div>
 
-    <!-- Seção 3: Como funciona -->
-    <div class="section-highlight">
-      <h2 style="font-size:2rem;text-align:center;">🚀 Como funciona?</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;">
-        <div class="feature-item" style="text-align:center;">
-          <div style="font-size:3rem;font-weight:800;color:var(--primary);">1</div>
+    <!-- SEÇÃO 3: COMO FUNCIONA -->
+    <div class="section-border" style="border-bottom:none;">
+      <div class="section-title">
+        <h2>🚀 Como funciona?</h2>
+      </div>
+      <div class="grid-3">
+        <div class="feature-card" style="border-top:5px solid var(--green-main);">
+          <div style="font-size:2.8rem;font-weight:800;color:var(--green-main);">1</div>
           <h3>Responda à pergunta inicial</h3>
-          <p style="color:var(--on-surface-variant);">Comece com uma questão diagnóstica que define o caminho.</p>
+          <p style="color:var(--text-secondary);">Comece com uma questão diagnóstica que define o caminho.</p>
         </div>
-        <div class="feature-item" style="text-align:center;">
-          <div style="font-size:3rem;font-weight:800;color:var(--tertiary);">2</div>
+        <div class="feature-card" style="border-top:5px solid var(--blue);">
+          <div style="font-size:2.8rem;font-weight:800;color:var(--blue);">2</div>
           <h3>Caminho adaptativo</h3>
-          <p style="color:var(--on-surface-variant);">Cada resposta acumula "tags" de dificuldade — o sistema escolhe a próxima pergunta com base no seu desempenho.</p>
+          <p style="color:var(--text-secondary);">Cada resposta acumula "tags" de dificuldade — o sistema escolhe a próxima pergunta com base no seu desempenho.</p>
         </div>
-        <div class="feature-item" style="text-align:center;">
-          <div style="font-size:3rem;font-weight:800;color:var(--secondary);">3</div>
+        <div class="feature-card" style="border-top:5px solid var(--gold);">
+          <div style="font-size:2.8rem;font-weight:800;color:var(--gold);">3</div>
           <h3>Resumo educativo</h3>
-          <p style="color:var(--on-surface-variant);">No final, você vê o que já domina, o que precisa revisar e recebe dicas e materiais de apoio.</p>
+          <p style="color:var(--text-secondary);">No final, você vê o que já domina, o que precisa revisar e recebe dicas e materiais de apoio.</p>
         </div>
       </div>
     </div>
 
-    <!-- CTA final -->
-    <div style="text-align:center;padding:40px 0;margin-top:20px;">
-      <p style="font-size:1.2rem;color:var(--on-surface-variant);margin-bottom:16px;">Pronto para começar?</p>
-      <button class="btn btn-primary btn-xl" onclick="goTo('login-student')">🧪 Sou aluno(a) — iniciar diagnóstico</button>
-      <span style="display:inline-block;margin:0 12px;color:var(--on-surface-variant);">ou</span>
+    <!-- CTA FINAL -->
+    <div style="text-align:center;padding:40px 0 60px;">
+      <p style="font-size:1.2rem;color:var(--text-secondary);margin-bottom:16px;">Pronto para começar sua jornada?</p>
+      <button class="btn btn-primary btn-xl" onclick="goTo('login-student')">🧪 Sou aluno(a) — iniciar</button>
+      <span style="display:inline-block;margin:0 12px;color:var(--text-secondary);">ou</span>
       <button class="btn btn-secondary btn-xl" onclick="goTo('login-manager')">👩‍🏫 Acessar painel do professor</button>
     </div>
   </div>
 </section>
 
-<!-- ============ LOGIN PROFESSOR ============ -->
+<!-- ================================================================== -->
+<!-- LOGIN GESTORA -->
+<!-- ================================================================== -->
 <section id="screen-login-manager" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
-    <div class="login-card">
-      <div class="header-badge teacher">👩‍🏫 Acesso Docente</div>
-      <h2 style="font-size:2rem;">Professor</h2>
-      <p style="color:var(--on-surface-variant);margin-bottom:24px;">Acompanhe o desempenho das suas turmas e gerencie diagnósticos personalizados.</p>
+    <div class="login-container" style="max-width:1000px;width:100%;">
+      <div style="grid-column:1/2;">
+        <div class="login-card">
+          <div class="badge teacher">👩‍🏫 Acesso Docente</div>
+          <h2>Professora</h2>
+          <p class="sub">Acompanhe o desempenho das suas turmas e gerencie diagnósticos personalizados.</p>
 
-      <!-- Formulário de login -->
-      <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
-        <label>E-mail</label>
-        <div style="position:relative;margin-bottom:12px;">
-          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">mail</span>
-          <input type="email" id="loginEmail" placeholder="exemplo@escola.com" style="padding-left:46px;">
-        </div>
-        <label>Senha</label>
-        <div style="position:relative;margin-bottom:12px;">
-          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
-          <input type="password" id="loginPass" placeholder="••••••••" style="padding-left:46px;">
-        </div>
-        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
-          <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
-        </label>
-        <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
-        <div class="err" id="loginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-      </form>
+          <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
+            <label>E-mail</label>
+            <div class="input-icon">
+              <span class="icon material-symbols-outlined">mail</span>
+              <input type="email" id="loginEmail" placeholder="exemplo@escola.com">
+            </div>
+            <label>Senha</label>
+            <div class="input-icon">
+              <span class="icon material-symbols-outlined">lock</span>
+              <input type="password" id="loginPass" placeholder="••••••••">
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin:4px 0 12px;">
+              <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
+            <div class="err" id="loginErr"></div>
+          </form>
 
-      <!-- Link para criar conta (destacado) -->
-      <div class="signup-link" onclick="document.getElementById('loginFormEl').style.display='none';document.getElementById('signupFormEl').style.display='block';"> 
-        ✨ Não tem uma conta? <strong>Criar conta agora</strong>
+          <div class="signup-link" onclick="document.getElementById('loginFormEl').style.display='none';document.getElementById('signupFormEl').style.display='block';">
+            ✨ Não tem uma conta? <strong>Criar conta agora</strong>
+          </div>
+
+          <form id="signupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignup();">
+            <label>Nome</label>
+            <input type="text" id="suName" placeholder="Seu nome completo">
+            <label>E-mail</label>
+            <input type="email" id="suEmail" placeholder="exemplo@escola.com">
+            <label>Senha (8-12 caracteres)</label>
+            <input type="password" id="suPass" placeholder="••••••••" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)">
+            <div id="suPassCheck" style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:8px;"></div>
+            <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
+            <div class="err" id="signupErr"></div>
+            <button type="button" class="btn btn-ghost btn-block" style="margin-top:8px;font-size:0.85rem;" onclick="document.getElementById('loginFormEl').style.display='block';document.getElementById('signupFormEl').style.display='none';">← Voltar para login</button>
+          </form>
+
+          <p style="text-align:center;color:var(--text-soft);font-size:0.7rem;margin-top:16px;">⚠️ Protótipo de teste — dados salvos localmente.</p>
+        </div>
       </div>
 
-      <!-- Formulário de cadastro (inicialmente escondido) -->
-      <form id="signupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignup();">
-        <label>Nome</label>
-        <input type="text" id="suName" placeholder="Seu nome" style="margin-bottom:12px;">
-        <label>E-mail</label>
-        <input type="email" id="suEmail" placeholder="exemplo@escola.com" style="margin-bottom:12px;">
-        <label>Senha (8-12 caracteres)</label>
-        <input type="password" id="suPass" placeholder="••••••••" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="margin-bottom:6px;">
-        <div id="suPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
-        <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
-        <div class="err" id="signupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-        <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('loginFormEl').style.display='block';document.getElementById('signupFormEl').style.display='none';">← Voltar para login</button>
-      </form>
-
-      <p style="text-align:center;color:var(--on-surface-variant);font-size:0.75rem;margin-top:20px;">⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.</p>
+      <div style="grid-column:2/3;display:flex;align-items:center;justify-content:center;background:var(--green-light);border-radius:var(--radius);padding:40px;text-align:center;">
+        <div>
+          <span style="font-size:4rem;">🧪</span>
+          <h3 style="font-size:1.6rem;margin:12px 0 8px;">Painel do Professor</h3>
+          <p style="color:var(--text-secondary);max-width:280px;margin:0 auto;">Gerencie turmas, acompanhe o progresso dos alunos e crie diagnósticos personalizados.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ LOGIN ALUNO ============ -->
+<!-- ================================================================== -->
+<!-- LOGIN ALUNO -->
+<!-- ================================================================== -->
 <section id="screen-login-student" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
-    <div class="login-card">
-      <div class="header-badge student">🧪 Espaço do Aluno</div>
-      <h2 style="font-size:2rem;">Estudante</h2>
-      <p style="color:var(--on-surface-variant);margin-bottom:24px;">Entre para realizar seus testes, ver seus selos e progredir na sua jornada química.</p>
-
-      <!-- Formulário de login -->
-      <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
-        <label>E-mail</label>
-        <div style="position:relative;margin-bottom:12px;">
-          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">person</span>
-          <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com" style="padding-left:46px;">
+    <div class="login-container" style="max-width:1000px;width:100%;">
+      <div style="grid-column:1/2;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);border-radius:var(--radius);padding:40px;text-align:center;">
+        <div>
+          <span style="font-size:4rem;">📚</span>
+          <h3 style="font-size:1.6rem;margin:12px 0 8px;">Área do Aluno</h3>
+          <p style="color:var(--text-secondary);max-width:280px;margin:0 auto;">Aprenda no seu ritmo, acompanhe seu progresso e receba recomendações personalizadas.</p>
         </div>
-        <label>Senha</label>
-        <div style="position:relative;margin-bottom:12px;">
-          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
-          <input type="password" id="stuLoginPass" placeholder="••••••••" style="padding-left:46px;">
-        </div>
-        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
-          <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
-        </label>
-        <button type="submit" class="btn btn-tertiary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
-        <div class="err" id="stuLoginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-      </form>
-
-      <!-- Link para criar conta (destacado) -->
-      <div class="signup-link" onclick="document.getElementById('stuLoginFormEl').style.display='none';document.getElementById('stuSignupFormEl').style.display='block';"> 
-        ✨ Não tem uma conta? <strong>Criar conta agora</strong>
       </div>
 
-      <!-- Formulário de cadastro (inicialmente escondido) -->
-      <form id="stuSignupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignupStudent();">
-        <label>Nome</label>
-        <input type="text" id="stuSuName" placeholder="Nome e sobrenome" style="margin-bottom:12px;">
-        <label>E-mail</label>
-        <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com" style="margin-bottom:12px;">
-        <label>Senha (8-12 caracteres)</label>
-        <input type="password" id="stuSuPass" placeholder="••••••••" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="margin-bottom:6px;">
-        <div id="stuPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
-        <button type="submit" class="btn btn-tertiary btn-block">Criar conta e entrar</button>
-        <div class="err" id="stuSignupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-        <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('stuLoginFormEl').style.display='block';document.getElementById('stuSignupFormEl').style.display='none';">← Voltar para login</button>
-      </form>
+      <div style="grid-column:2/3;">
+        <div class="login-card">
+          <div class="badge student">🧪 Espaço do Aluno</div>
+          <h2>Estudante</h2>
+          <p class="sub">Entre para realizar seus testes, ver seus selos e progredir na sua jornada química.</p>
 
-      <p style="text-align:center;color:var(--on-surface-variant);font-size:0.75rem;margin-top:20px;">⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.</p>
+          <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
+            <label>E-mail</label>
+            <div class="input-icon">
+              <span class="icon material-symbols-outlined">person</span>
+              <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com">
+            </div>
+            <label>Senha</label>
+            <div class="input-icon">
+              <span class="icon material-symbols-outlined">lock</span>
+              <input type="password" id="stuLoginPass" placeholder="••••••••">
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin:4px 0 12px;">
+              <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
+            </label>
+            <button type="submit" class="btn btn-secondary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
+            <div class="err" id="stuLoginErr"></div>
+          </form>
+
+          <div class="signup-link" onclick="document.getElementById('stuLoginFormEl').style.display='none';document.getElementById('stuSignupFormEl').style.display='block';">
+            ✨ Não tem uma conta? <strong>Criar conta agora</strong>
+          </div>
+
+          <form id="stuSignupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignupStudent();">
+            <label>Nome</label>
+            <input type="text" id="stuSuName" placeholder="Nome e sobrenome">
+            <label>E-mail</label>
+            <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com">
+            <label>Senha (8-12 caracteres)</label>
+            <input type="password" id="stuSuPass" placeholder="••••••••" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)">
+            <div id="stuPassCheck" style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:8px;"></div>
+            <button type="submit" class="btn btn-secondary btn-block">Criar conta e entrar</button>
+            <div class="err" id="stuSignupErr"></div>
+            <button type="button" class="btn btn-ghost btn-block" style="margin-top:8px;font-size:0.85rem;" onclick="document.getElementById('stuLoginFormEl').style.display='block';document.getElementById('stuSignupFormEl').style.display='none';">← Voltar para login</button>
+          </form>
+
+          <p style="text-align:center;color:var(--text-soft);font-size:0.7rem;margin-top:16px;">⚠️ Protótipo de teste — dados salvos localmente.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PAINEL DO GESTOR (PROFESSOR) ============ -->
+<!-- ================================================================== -->
+<!-- PAINEL GESTORA -->
+<!-- ================================================================== -->
 <section id="screen-managerDashboard" class="screen">
-  <header style="background:var(--surface-container-low);border-bottom:2px solid var(--outline-variant);padding:12px 0;position:sticky;top:0;z-index:50;box-shadow:var(--shadow);">
-    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+  <div class="wrap">
+    <header style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid rgba(26,42,42,0.06);margin-bottom:8px;">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span class="material-symbols-outlined" style="color:var(--primary);font-size:28px;">science</span>
-        <span style="font-weight:800;font-size:1.1rem;">Química Interativa</span>
-        <span style="background:var(--primary-fixed);padding:2px 12px;border-radius:999px;font-size:0.7rem;font-weight:700;">Painel do Professor</span>
+        <span class="material-symbols-outlined" style="color:var(--green-main);font-size:28px;">science</span>
+        <span style="font-weight:800;">Química Interativa</span>
+        <span style="background:var(--green-light);padding:2px 16px;border-radius:var(--radius-full);font-size:0.7rem;font-weight:700;color:var(--green-dark);">Painel da Professora</span>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="btn btn-outline" onclick="showTutorial()">📖 Tutorial</button>
-        <button class="btn btn-ghost" onclick="doLogout()">Sair</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="showTutorial()" style="padding:8px 16px;font-size:0.8rem;">📖 Tutorial</button>
+        <button class="btn btn-ghost" onclick="doLogout()" style="padding:8px 16px;font-size:0.8rem;">Sair</button>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <div class="wrap" style="padding:24px 0;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
-      <div>
-        <span style="font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.05em;font-size:0.8rem;">Painel do Professor</span>
-        <h2 style="font-size:2rem;">Visão Geral</h2>
-      </div>
-      <div style="display:flex;gap:8px;background:var(--surface-container);padding:4px;border-radius:999px;border:2px solid var(--outline-variant);">
-        <button class="btn btn-primary" style="padding:6px 20px;" onclick="setManagerTab('overview')">Ativo</button>
-        <button class="btn btn-outline" style="padding:6px 20px;" onclick="setManagerTab('historico')">Histórico</button>
+    <div class="dash-header">
+      <div class="greeting">Olá, <span id="dashManagerName">gestora</span> 👋</div>
+      <div style="display:flex;gap:8px;background:var(--bg-soft);padding:4px;border-radius:var(--radius-full);">
+        <button class="btn btn-primary" style="padding:6px 20px;font-size:0.8rem;" onclick="setManagerTab('overview')">Ativo</button>
+        <button class="btn btn-ghost" style="padding:6px 20px;font-size:0.8rem;" onclick="setManagerTab('historico')">Histórico</button>
       </div>
     </div>
 
-    <!-- Tabs do gestor -->
     <div class="tab-nav" id="managerTabs">
       <button class="tab-btn active" data-tab="overview" onclick="setManagerTab('overview')"><span class="icon">📊</span> Visão geral</button>
       <button class="tab-btn" data-tab="alunos" onclick="setManagerTab('alunos')"><span class="icon">👥</span> Alunos</button>
@@ -807,52 +1006,58 @@
   </div>
 </section>
 
-<!-- ============ QUIZ ============ -->
+<!-- ================================================================== -->
+<!-- QUIZ -->
+<!-- ================================================================== -->
 <section id="screen-quiz" class="screen">
   <div class="quiz-wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
-      <button class="btn btn-outline" onclick="confirmExitQuiz()">← Sair</button>
+      <button class="btn btn-ghost" onclick="confirmExitQuiz()" style="padding-left:0;">← Sair</button>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-secondary" onclick="saveQuizProgress()">💾 Salvar</button>
-        <button class="btn btn-primary" onclick="confirmFinishQuiz()">✅ Finalizar</button>
+        <button class="btn btn-outline" onclick="saveQuizProgress()" style="padding:8px 16px;font-size:0.8rem;">💾 Salvar</button>
+        <button class="btn btn-primary" onclick="confirmFinishQuiz()" style="padding:8px 20px;font-size:0.8rem;">✅ Finalizar</button>
       </div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%;"></div></div>
     <div class="card" style="padding:32px;">
-      <div class="q-topic" style="font-weight:700;color:var(--primary);"></div>
+      <div class="q-topic" id="qTopic"></div>
       <div id="qExtra"></div>
-      <div class="q-text" id="qText" style="font-size:1.2rem;font-weight:600;margin:14px 0 20px;"></div>
+      <div class="q-text" id="qText"></div>
       <div id="qOptions"></div>
       <div style="display:flex;gap:12px;margin-top:22px;">
-        <button class="btn btn-outline" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
+        <button class="btn btn-ghost" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
         <button class="btn btn-primary" id="btnNext" onclick="goNextQuestion()" disabled>Avançar</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ RESULTADO DO ALUNO ============ -->
+<!-- ================================================================== -->
+<!-- RESULTADO -->
+<!-- ================================================================== -->
 <section id="screen-result" class="screen">
-  <div style="max-width:800px;margin:0 auto;padding:40px 24px 70px;">
+  <div style="max-width:760px;margin:0 auto;padding:40px 24px 60px;">
     <div id="resultHero" class="result-hero"></div>
     <div id="resultCompare"></div>
     <div id="resultTags"></div>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
       <button class="btn btn-primary" onclick="goTo('studentPanel')">📊 Ver meu painel</button>
-      <button class="btn btn-outline" onclick="goTo('home')">Início</button>
+      <button class="btn btn-ghost" onclick="goTo('home')">Início</button>
     </div>
-    <p style="text-align:center;color:var(--on-surface-variant);font-size:0.8rem;margin-top:32px;">Protótipo de teste — o envio de e-mail é simulado.</p>
+    <p style="text-align:center;color:var(--text-soft);font-size:0.8rem;margin-top:32px;">Protótipo de teste — o envio de e-mail é simulado.</p>
   </div>
 </section>
 
-<!-- ============ PAINEL DO ALUNO ============ -->
+<!-- ================================================================== -->
+<!-- PAINEL ALUNO -->
+<!-- ================================================================== -->
 <section id="screen-studentPanel" class="screen">
   <div class="wrap">
-    <header style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;flex-wrap:wrap;gap:12px;">
+    <header style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid rgba(26,42,42,0.06);">
       <div style="font-weight:800;font-size:1.2rem;">Olá, <span id="panelStudentName">aluno</span> 👋</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="openStudentEntryModal()">🚀 Novo diagnóstico</button>
-        <button class="btn btn-outline" onclick="doLogoutStudent()">Sair</button>
+        <button class="btn btn-primary" onclick="openStudentEntryModal()" style="padding:10px 20px;font-size:0.85rem;">🚀 Novo diagnóstico</button>
+        <button class="btn btn-ghost" onclick="doLogoutStudent()" style="padding:10px 18px;font-size:0.85rem;">Sair</button>
       </div>
     </header>
     <div class="tab-nav">
@@ -864,7 +1069,9 @@
   </div>
 </section>
 
-<!-- ============ MODAL ============ -->
+<!-- ================================================================== -->
+<!-- MODAL -->
+<!-- ================================================================== -->
 <div id="modalOverlay">
   <div class="card" id="modalCard">
     <button class="close-btn" onclick="hideModal()">✕</button>
@@ -873,7 +1080,7 @@
 </div>
 
 <!-- ================================================================== -->
-<!-- JAVASCRIPT COMPLETO -->
+<!-- JAVASCRIPT -->
 <!-- ================================================================== -->
 <script>
 /* ============================================================
@@ -881,78 +1088,107 @@
    ============================================================ */
 const memoryStore = {};
 
-async function loadJSON(key, fallback){
-  if(Object.prototype.hasOwnProperty.call(memoryStore, key)) return memoryStore[key];
-  try{
+async function loadJSON(key, fallback) {
+  if (Object.prototype.hasOwnProperty.call(memoryStore, key)) return memoryStore[key];
+  try {
     const raw = localStorage.getItem(key);
-    const value = raw ? JSON.parse(raw) : fallback;
+    let value = fallback;
+    if (raw) {
+      try { value = JSON.parse(raw); }
+      catch(e) { console.warn('Erro ao parsear', key, e); value = fallback; }
+    }
     memoryStore[key] = value;
     return value;
-  }catch(e){ return fallback; }
+  } catch(e) {
+    console.warn('Erro ao carregar', key, e);
+    return fallback;
+  }
 }
-async function saveJSON(key, value){
+
+async function saveJSON(key, value) {
   memoryStore[key] = value;
-  try{ localStorage.setItem(key, JSON.stringify(value)); }
-  catch(e){ console.warn('Não foi possível salvar', key, e); }
+  try { localStorage.setItem(key, JSON.stringify(value)); }
+  catch(e) { console.warn('Não foi possível salvar', key, e); }
 }
-async function loadPersonal(key, fallback){
+
+async function loadPersonal(key, fallback) {
   const mkey = 'personal:'+key;
-  if(Object.prototype.hasOwnProperty.call(memoryStore, mkey)) return memoryStore[mkey];
-  try{
+  if (Object.prototype.hasOwnProperty.call(memoryStore, mkey)) return memoryStore[mkey];
+  try {
     const raw = localStorage.getItem('p_'+key);
-    const value = raw ? JSON.parse(raw) : fallback;
+    let value = fallback;
+    if (raw) {
+      try { value = JSON.parse(raw); }
+      catch(e) { value = fallback; }
+    }
     memoryStore[mkey] = value;
     return value;
-  }catch(e){ return fallback; }
+  } catch(e) { return fallback; }
 }
-async function savePersonal(key, value){
+
+async function savePersonal(key, value) {
   memoryStore['personal:'+key] = value;
-  try{ localStorage.setItem('p_'+key, JSON.stringify(value)); }
-  catch(e){ console.warn('Não foi possível salvar preferência', key, e); }
+  try { localStorage.setItem('p_'+key, JSON.stringify(value)); }
+  catch(e) { console.warn('Não foi possível salvar preferência', key, e); }
 }
-function obfuscate(str){ try{ return btoa(unescape(encodeURIComponent(str))); }catch(e){ return str; } }
-function escapeHTML(str){ return (str||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function slug(str){ return (str||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-'); }
+
+function obfuscate(str) {
+  try { return btoa(unescape(encodeURIComponent(str))); }
+  catch(e) { return str; }
+}
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function slug(str) {
+  if (!str) return '';
+  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-');
+}
 
 /* ============================================================
    NAVEGAÇÃO
    ============================================================ */
-function goTo(screenId){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+screenId).classList.add('active');
+function goTo(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-'+screenId);
+  if (el) el.classList.add('active');
   window.scrollTo(0,0);
-  if(screenId==='managerDashboard') renderDashboard();
-  if(screenId==='studentPanel') renderStudentPanel();
-  if(screenId==='home') renderHomeStats();
+  if (screenId === 'managerDashboard') renderDashboard();
+  if (screenId === 'studentPanel') renderStudentPanel();
+  if (screenId === 'home') updateHomeStats();
 }
-function goManagerArea(){ 
-  if(currentManager) goTo('managerDashboard');
+
+function goManagerArea() {
+  if (currentManager) goTo('managerDashboard');
   else goTo('login-manager');
 }
-function goStudentArea(){ 
-  if(currentStudent) goTo('studentPanel');
+
+function goStudentArea() {
+  if (currentStudent) goTo('studentPanel');
   else goTo('login-student');
 }
 
-async function renderHomeStats(){
-  const el = document.getElementById('homeStats');
-  if(!el) return;
+/* ============================================================
+   HOME STATS
+   ============================================================ */
+async function updateHomeStats() {
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
-  const tagsSet = new Set(); attempts.forEach(a=>a.tags.forEach(t=>tagsSet.add(t)));
-  el.innerHTML = `
-    <div><div style="font-size:2rem;font-weight:800;">${rounds.length}</div><div style="color:var(--on-surface-variant);">aplicações</div></div>
-    <div><div style="font-size:2rem;font-weight:800;">${attempts.length}</div><div style="color:var(--on-surface-variant);">diagnósticos</div></div>
-    <div><div style="font-size:2rem;font-weight:800;">${tagsSet.size}</div><div style="color:var(--on-surface-variant);">dificuldades mapeadas</div></div>
-  `;
+  const tagsSet = new Set();
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsSet.add(t)); });
+  document.getElementById('statRounds').textContent = rounds.length || 0;
+  document.getElementById('statAttempts').textContent = attempts.length || 0;
+  document.getElementById('statTags').textContent = tagsSet.size || 0;
 }
 
 /* ============================================================
    SENHA — CHECKLIST
    ============================================================ */
-function passwordChecks(pwd){
+function passwordChecks(pwd) {
   return {
-    length: pwd.length>=8 && pwd.length<=12,
+    length: pwd.length >= 8 && pwd.length <= 12,
     upper: /[A-Z]/.test(pwd),
     lower: /[a-z]/.test(pwd),
     number: /[0-9]/.test(pwd),
@@ -960,710 +1196,763 @@ function passwordChecks(pwd){
     notWeak: !isWeakPassword(pwd)
   };
 }
-function isWeakPassword(pwd){
+
+function isWeakPassword(pwd) {
   const weakList = ['12345678','123456789','password','senha123','qwerty123','11111111','abc12345','123123123'];
   const lower = pwd.toLowerCase();
-  if(weakList.includes(lower)) return true;
-  if(/^(.)\1+$/.test(pwd)) return true;
-  if(/0123456789|9876543210|123456|654321/.test(pwd)) return true;
+  if (weakList.includes(lower)) return true;
+  if (/^(.)\1+$/.test(pwd)) return true;
+  if (/0123456789|9876543210|123456|654321/.test(pwd)) return true;
   return false;
 }
-function passwordAllValid(pwd){
+
+function passwordAllValid(pwd) {
   const c = passwordChecks(pwd);
   return c.length && c.upper && c.lower && c.number && c.symbol && c.notWeak;
 }
-function renderPasswordChecklist(pwd){
+
+function renderPasswordChecklist(pwd) {
+  if (!pwd) return '';
   const c = passwordChecks(pwd);
-  const item=(ok,label)=>`<div style="color:${ok?'var(--tertiary)':'var(--on-surface-variant)'};">${ok?'✓':'○'} ${label}</div>`;
-  return item(c.length,'8 a 12 caracteres')
-    + item(c.upper && c.lower,'maiúsculas e minúsculas')
-    + item(c.number,'pelo menos um número')
-    + item(c.symbol,'um símbolo (# @ $ etc.)')
-    + item(c.notWeak,'sem sequências óbvias');
+  const item = (ok, label) =>
+    `<div style="color:${ok ? 'var(--green-main)' : 'var(--text-soft)'};">${ok ? '✓' : '○'} ${label}</div>`;
+  return item(c.length, '8 a 12 caracteres')
+    + item(c.upper && c.lower, 'maiúsculas e minúsculas')
+    + item(c.number, 'pelo menos um número')
+    + item(c.symbol, 'um símbolo (# @ $ etc.)')
+    + item(c.notWeak, 'sem sequências óbvias');
 }
 
 /* ============================================================
-   AUTENTICAÇÃO GESTORA (Professor)
+   AUTENTICAÇÃO GESTORA
    ============================================================ */
 let currentManager = null;
 
-async function doSignup(){
+async function doSignup() {
   const name = document.getElementById('suName').value.trim();
   const email = document.getElementById('suEmail').value.trim().toLowerCase();
   const pass = document.getElementById('suPass').value;
   const errEl = document.getElementById('signupErr');
-  errEl.textContent='';
-  if(!name || !email){ errEl.textContent='Preencha nome e e-mail.'; return; }
-  if(!passwordAllValid(pass)){ errEl.textContent='A senha não atende aos critérios.'; return; }
-  const gestores = await loadJSON('gestores', []);
-  if(gestores.find(g=>g.email===email)){ errEl.textContent='E-mail já cadastrado. Tente entrar.'; return; }
+  errEl.textContent = '';
+
+  if (!name || !email) { errEl.textContent = 'Preencha nome e e-mail.'; return; }
+  if (!passwordAllValid(pass)) { errEl.textContent = 'A senha não atende aos critérios.'; return; }
+
+  let gestores = await loadJSON('gestores', []);
+  if (!Array.isArray(gestores)) gestores = [];
+
+  if (gestores.find(g => g.email && g.email.toLowerCase() === email)) {
+    errEl.textContent = 'E-mail já cadastrado. Tente entrar.';
+    return;
+  }
+
   gestores.push({ name, email, pass: obfuscate(pass), createdAt: Date.now() });
   await saveJSON('gestores', gestores);
   currentManager = { name, email };
   document.getElementById('dashManagerName').textContent = name;
   goTo('managerDashboard');
   const tutorialSeen = await loadPersonal('tutorialSeen', false);
-  if(!tutorialSeen) showTutorial();
+  if (!tutorialSeen) showTutorial();
 }
 
-async function doLogin(){
+async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const pass = document.getElementById('loginPass').value;
   const errEl = document.getElementById('loginErr');
-  errEl.textContent='';
-  const gestores = await loadJSON('gestores', []);
-  const found = gestores.find(g=>g.email===email);
-  if(!found || found.pass !== obfuscate(pass)){ errEl.textContent='E-mail ou senha incorretos.'; return; }
+  errEl.textContent = '';
+
+  let gestores = await loadJSON('gestores', []);
+  if (!Array.isArray(gestores)) gestores = [];
+
+  const found = gestores.find(g => g.email && g.email.toLowerCase() === email);
+  if (!found || found.pass !== obfuscate(pass)) {
+    errEl.textContent = 'E-mail ou senha incorretos.';
+    return;
+  }
+
   currentManager = { name: found.name, email: found.email };
   document.getElementById('dashManagerName').textContent = found.name;
   await savePersonal('lastEmailGestor', document.getElementById('rememberMeGestor').checked ? email : '');
   goTo('managerDashboard');
   const tutorialSeen = await loadPersonal('tutorialSeen', false);
-  if(!tutorialSeen) showTutorial();
+  if (!tutorialSeen) showTutorial();
 }
-function doLogout(){ currentManager = null; goTo('home'); }
+
+function doLogout() {
+  currentManager = null;
+  goTo('home');
+}
 
 /* ============================================================
    AUTENTICAÇÃO ALUNO
    ============================================================ */
 let currentStudent = null;
 
-async function doSignupStudent(){
+async function doSignupStudent() {
   const name = document.getElementById('stuSuName').value.trim();
   const email = document.getElementById('stuSuEmail').value.trim().toLowerCase();
   const pass = document.getElementById('stuSuPass').value;
   const errEl = document.getElementById('stuSignupErr');
-  errEl.textContent='';
-  if(!name || !email){ errEl.textContent='Preencha nome e e-mail.'; return; }
-  if(!passwordAllValid(pass)){ errEl.textContent='A senha não atende aos critérios.'; return; }
-  const alunos = await loadJSON('alunos', []);
-  if(alunos.find(a=>a.email===email)){ errEl.textContent='E-mail já cadastrado. Tente entrar.'; return; }
+  errEl.textContent = '';
+
+  if (!name || !email) { errEl.textContent = 'Preencha nome e e-mail.'; return; }
+  if (!passwordAllValid(pass)) { errEl.textContent = 'A senha não atende aos critérios.'; return; }
+
+  let alunos = await loadJSON('alunos', []);
+  if (!Array.isArray(alunos)) alunos = [];
+
+  if (alunos.find(a => a.email && a.email.toLowerCase() === email)) {
+    errEl.textContent = 'E-mail já cadastrado. Tente entrar.';
+    return;
+  }
+
   alunos.push({ name, email, pass: obfuscate(pass), createdAt: Date.now() });
   await saveJSON('alunos', alunos);
   currentStudent = { name, email };
   goTo('studentPanel');
 }
 
-async function doLoginStudent(){
+async function doLoginStudent() {
   const email = document.getElementById('stuLoginEmail').value.trim().toLowerCase();
   const pass = document.getElementById('stuLoginPass').value;
   const errEl = document.getElementById('stuLoginErr');
-  errEl.textContent='';
-  const alunos = await loadJSON('alunos', []);
-  const found = alunos.find(a=>a.email===email);
-  if(!found || found.pass !== obfuscate(pass)){ errEl.textContent='E-mail ou senha incorretos.'; return; }
+  errEl.textContent = '';
+
+  let alunos = await loadJSON('alunos', []);
+  if (!Array.isArray(alunos)) alunos = [];
+
+  const found = alunos.find(a => a.email && a.email.toLowerCase() === email);
+  if (!found || found.pass !== obfuscate(pass)) {
+    errEl.textContent = 'E-mail ou senha incorretos.';
+    return;
+  }
+
   currentStudent = { name: found.name, email: found.email };
   await savePersonal('lastEmailAluno', document.getElementById('rememberMeAluno').checked ? email : '');
   goTo('studentPanel');
 }
-function doLogoutStudent(){ currentStudent = null; goTo('home'); }
 
-async function initRemembered(){
+function doLogoutStudent() {
+  currentStudent = null;
+  goTo('home');
+}
+
+async function initRemembered() {
   const ge = await loadPersonal('lastEmailGestor', '');
-  if(ge){ const el=document.getElementById('loginEmail'); if(el){ el.value=ge; document.getElementById('rememberMeGestor').checked=true; } }
+  if (ge) {
+    const el = document.getElementById('loginEmail');
+    if (el) { el.value = ge; document.getElementById('rememberMeGestor').checked = true; }
+  }
   const se = await loadPersonal('lastEmailAluno', '');
-  if(se){ const el=document.getElementById('stuLoginEmail'); if(el){ el.value=se; document.getElementById('rememberMeAluno').checked=true; } }
+  if (se) {
+    const el = document.getElementById('stuLoginEmail');
+    if (el) { el.value = se; document.getElementById('rememberMeAluno').checked = true; }
+  }
 }
 
 /* ============================================================
-   TUTORIAL PASSO A PASSO (com sobreposição)
+   TUTORIAL
    ============================================================ */
 let tutorialSteps = [
   { title: 'Visão Geral', text: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.' },
-  { title: 'Alunos', text: 'Acompanhe o progresso individual, acertos/erros, e detalhes de cada tentativa. Use a busca para encontrar alunos rapidamente.' },
+  { title: 'Alunos', text: 'Acompanhe o progresso individual, acertos/erros e detalhes de cada tentativa. Use a busca para encontrar alunos rapidamente.' },
   { title: 'Assuntos', text: 'Explore gráficos interativos (barras, pizza, radar) para identificar quais tópicos estão sendo mais desafiadores para a turma.' },
   { title: 'Atividades', text: 'Crie pastas, faça upload de arquivos (imagens, PDFs), adicione materiais com links e organize por tags personalizadas.' },
   { title: 'Aplicações', text: 'Crie novos diagnósticos com códigos únicos, visualize respostas e desabilite aplicações antigas conforme necessário.' }
 ];
 let tutorialCurrentStep = 0;
 
-async function showTutorial(){
+async function showTutorial() {
   await savePersonal('tutorialSeen', true);
   tutorialCurrentStep = 0;
   document.getElementById('tutorialOverlay').classList.add('open');
   renderTutorialStep();
 }
 
-function renderTutorialStep(){
+function renderTutorialStep() {
   const step = tutorialSteps[tutorialCurrentStep];
   document.getElementById('tutorialBody').innerHTML = `
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
-      <span class="num" style="background:var(--primary);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;">${tutorialCurrentStep+1}</span>
-      <h3 style="font-family:'Playfair Display',serif;">${step.title}</h3>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="num">${tutorialCurrentStep + 1}</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;">${step.title}</h3>
     </div>
-    <p style="color:var(--on-surface-variant);font-size:1rem;line-height:1.6;">${step.text}</p>
+    <p style="color:var(--text-secondary);font-size:1rem;line-height:1.6;">${step.text}</p>
   `;
-  const dotsContainer = document.getElementById('tutorialDots');
-  dotsContainer.innerHTML = tutorialSteps.map((_,i) =>
-    `<span class="dot ${i===tutorialCurrentStep?'active':''}"></span>`
+  const dots = document.getElementById('tutorialDots');
+  dots.innerHTML = tutorialSteps.map((_, i) =>
+    `<span class="dot ${i === tutorialCurrentStep ? 'active' : ''}"></span>`
   ).join('');
   const btn = document.getElementById('tutorialNextBtn');
-  btn.textContent = tutorialCurrentStep === tutorialSteps.length-1 ? 'Concluir' : 'Próximo';
+  btn.textContent = tutorialCurrentStep === tutorialSteps.length - 1 ? 'Concluir' : 'Próximo';
 }
 
-function nextTutorialStep(){
-  if(tutorialCurrentStep === tutorialSteps.length-1){
+function nextTutorialStep() {
+  if (tutorialCurrentStep === tutorialSteps.length - 1) {
     closeTutorial();
   } else {
     tutorialCurrentStep++;
     renderTutorialStep();
   }
 }
-function closeTutorial(){
+
+function closeTutorial() {
   document.getElementById('tutorialOverlay').classList.remove('open');
 }
 
 /* ============================================================
-   PAINEL GESTOR - ABAS (conteúdo idêntico ao anterior)
+   PAINEL GESTORA - ABAS (conteúdo simplificado)
    ============================================================ */
 let managerTab = 'overview';
 let selectedRoundId = null;
 let alunosSelectedTurma = null;
 let alunosSearch = '';
 
-function renderDashboard(){
-  if(!currentManager){ goTo('login-manager'); return; }
+function renderDashboard() {
+  if (!currentManager) { goTo('login-manager'); return; }
   renderManagerTabContent();
 }
-function setManagerTab(tab){ managerTab = tab; renderManagerTabContent(); }
-function renderManagerTabContent(){
-  document.querySelectorAll('#screen-managerDashboard .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===managerTab));
-  if(managerTab==='overview' || managerTab==='historico') renderOverviewTab();
-  else if(managerTab==='alunos') renderAlunosTab();
-  else if(managerTab==='assuntos') renderAssuntosTab();
-  else if(managerTab==='atividades') renderAtividadesTab();
-  else if(managerTab==='aplicacoes') renderAplicacoesTab();
+
+function setManagerTab(tab) {
+  managerTab = tab;
+  renderManagerTabContent();
 }
 
-/* ===== VISÃO GERAL (idêntica) ===== */
-async function renderOverviewTab(){
-  const attempts = await loadJSON('tentativas', []);
-  const byTurma = {};
-  attempts.forEach(a=>{
-    const k = (a.studentClass||'Sem turma').trim() || 'Sem turma';
-    byTurma[k] = byTurma[k]||[]; byTurma[k].push(a);
+function renderManagerTabContent() {
+  document.querySelectorAll('#screen-managerDashboard .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === managerTab);
   });
-  const turmas = Object.keys(byTurma).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  const content = document.getElementById('managerContent');
+  if (managerTab === 'overview' || managerTab === 'historico') renderOverviewTab(content);
+  else if (managerTab === 'alunos') renderAlunosTab(content);
+  else if (managerTab === 'assuntos') renderAssuntosTab(content);
+  else if (managerTab === 'atividades') renderAtividadesTab(content);
+  else if (managerTab === 'aplicacoes') renderAplicacoesTab(content);
+}
+
+/* ===== VISÃO GERAL ===== */
+async function renderOverviewTab(container) {
+  const attempts = await loadJSON('tentativas', []);
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
   let html = '';
-  if(turmas.length===0){
-    html = `<div class="card card-empty">Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
+
+  if (turmas.length === 0) {
+    html = `<div class="card card-soft text-center">📭 Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
   } else {
     const total = attempts.length;
-    const avgLevel = attempts.reduce((s,a)=>s+a.levelIdx,0)/total;
+    const avgLevel = attempts.reduce((s, a) => s + (a.levelIdx || 0), 0) / total;
     const tagsCount = {};
-    attempts.forEach(a=>a.tags.forEach(t=>tagsCount[t]=(tagsCount[t]||0)+1));
-    const sortedTags = Object.entries(tagsCount).sort((a,b)=>b[1]-a[1]);
-    const top3 = sortedTags.slice(0,3).map(([id])=>TAGS[id]?.label||id);
-    html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;">`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${total}</div><div style="color:var(--on-surface-variant);">diagnósticos</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${turmas.length}</div><div style="color:var(--on-surface-variant);">turmas</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${avgLevel.toFixed(1)}</div><div style="color:var(--on-surface-variant);">nível médio</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;">${top3.join(', ') || '—'}</div><div style="color:var(--on-surface-variant);">mais difíceis</div></div>`;
-    html += `</div>`;
-    const allQuestions = ['start','q1a','q2a','energetico','acucares','sodio'];
-    const correctCount = {};
-    allQuestions.forEach(q=>correctCount[q]=0);
-    attempts.forEach(a=>{
-      a.answersDetail.forEach(d=>{
-        if(d.isCorrect) correctCount[d.questionId] = (correctCount[d.questionId]||0)+1;
-      });
-    });
-    const totalQ = attempts.length || 1;
-    const chartData = allQuestions.map(q=>({
-      label: QUESTIONS[q]?.topic || q,
-      correct: Math.round((correctCount[q]||0)/totalQ*100)
-    }));
-    html += `<div class="card" style="padding:20px;margin-bottom:24px;">
-      <h4 style="margin-bottom:16px;">📊 Percentual de acertos por questão</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        ${chartData.map(d=>`
-          <div>
-            <div style="font-size:0.8rem;font-weight:600;">${d.label}</div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div style="flex:1;height:10px;background:var(--surface-container);border-radius:10px;overflow:hidden;">
-                <div style="height:100%;width:${d.correct}%;background:var(--tertiary-container);border-radius:10px;"></div>
-              </div>
-              <span style="font-size:0.75rem;font-weight:700;">${d.correct}%</span>
-            </div>
-          </div>
-        `).join('')}
+    attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsCount[t] = (tagsCount[t] || 0) + 1); });
+    const sorted = Object.entries(tagsCount).sort((a, b) => b[1] - a[1]);
+    const top3 = sorted.slice(0, 3).map(([id]) => TAGS[id]?.label || id);
+
+    html = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--green-main);">${total}</div><div style="color:var(--text-secondary);">diagnósticos</div></div>
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--blue);">${turmas.length}</div><div style="color:var(--text-secondary);">turmas</div></div>
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--gold);">${avgLevel.toFixed(1)}</div><div style="color:var(--text-secondary);">nível médio</div></div>
+        <div class="card text-center"><div style="font-size:1.1rem;font-weight:700;color:var(--coral);">${top3.join(', ') || '—'}</div><div style="color:var(--text-secondary);">mais difíceis</div></div>
       </div>
-    </div>`;
-    html += `<div class="grid-cards">`;
-    turmas.forEach(t=>{
-      const list = byTurma[t];
-      const avg = list.reduce((s,a)=>s+a.levelIdx,0)/list.length;
-      let badge='Bom', cls='lvl-0';
-      if(avg>=1.4){ badge='Atenção'; cls='lvl-2'; }
-      else if(avg>=0.6){ badge='Médio'; cls='lvl-1'; }
-      const pct = Math.min(100, Math.round((avg/2)*100));
-      html += `
-        <div class="card" style="padding:20px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <h4 style="font-size:1rem;">${escapeHTML(t)}</h4>
-            <span class="level-badge ${cls}">${badge}</span>
-          </div>
-          <div style="height:8px;background:var(--surface-container);border-radius:10px;margin-top:12px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--primary-container);border-radius:10px;"></div></div>
-          <div style="font-size:0.8rem;color:var(--on-surface-variant);margin-top:8px;">${list.length} diagnóstico(s)</div>
-        </div>`;
-    });
-    html += `</div>`;
+      <div class="card"><div class="text-center" style="color:var(--text-secondary);padding:20px 0;">📊 Gráficos detalhados disponíveis na aba "Assuntos"</div></div>
+    `;
   }
-  document.getElementById('managerContent').innerHTML = html;
+  container.innerHTML = html;
 }
 
-/* ===== ALUNOS (idêntica) ===== */
-async function renderAlunosTab(){
+/* ===== ALUNOS ===== */
+async function renderAlunosTab(container) {
   const attempts = await loadJSON('tentativas', []);
-  const rounds = await loadJSON('rodadas', []);
-  const getRoundLabel = (id)=> { const r = rounds.find(x=>x.id===id); return r ? r.label : 'Aplicação'; };
-  const turmas = [...new Set(attempts.map(a=>(a.studentClass||'Sem turma').trim()||'Sem turma'))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-  if(!alunosSelectedTurma && turmas.length) alunosSelectedTurma = turmas[0];
-  let html = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">` + turmas.map(t=>
-    `<button class="btn ${t===alunosSelectedTurma?'btn-primary':'btn-outline'}" onclick="selectAlunosTurma('${escapeHTML(t).replace(/'/g,"\\'")}')" style="padding:6px 16px;">${escapeHTML(t)}</button>`
-  ).join('') + `</div>`;
-  if(turmas.length===0){
-    html += `<div class="card card-empty">Ainda não há alunos com diagnósticos respondidos.</div>`;
-    document.getElementById('managerContent').innerHTML = html;
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
+  if (!alunosSelectedTurma && turmas.length) alunosSelectedTurma = turmas[0];
+
+  let html = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">`;
+  turmas.forEach(t => {
+    html += `<button class="btn ${t === alunosSelectedTurma ? 'btn-primary' : 'btn-ghost'}" onclick="selectAlunosTurma('${t.replace(/'/g, "\\'")}')" style="padding:6px 18px;">${escapeHTML(t)}</button>`;
+  });
+  html += `</div>`;
+
+  if (turmas.length === 0) {
+    html += `<div class="card card-soft text-center">📭 Ainda não há alunos com diagnósticos respondidos.</div>`;
+    container.innerHTML = html;
     return;
   }
-  html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:16px;">`;
-  const inTurma = attempts.filter(a=> ((a.studentClass||'Sem turma').trim()||'Sem turma')===alunosSelectedTurma );
-  const uniqueNames = [...new Set(inTurma.map(a=>a.studentName.trim()))]
-    .filter(n=> n.toLowerCase().includes(alunosSearch.toLowerCase()))
-    .sort((a,b)=>a.localeCompare(b,'pt-BR'));
-  if(uniqueNames.length===0){
-    html += `<div class="card card-empty">Nenhum aluno encontrado.</div>`;
+
+  html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:12px 18px;border-radius:var(--radius-sm);border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);font-family:'Nunito Sans',sans-serif;margin-bottom:16px;">`;
+
+  const inTurma = attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosSelectedTurma);
+  const uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))]
+    .filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()))
+    .sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
+  if (uniqueNames.length === 0) {
+    html += `<div class="card card-soft text-center">Nenhum aluno encontrado.</div>`;
   } else {
     html += `<div class="card" style="padding:8px 0;">`;
-    uniqueNames.forEach(n=>{
-      const studAttempts = inTurma.filter(a=>a.studentName.trim()===n).sort((a,b)=>a.finishedAt-b.finishedAt);
-      const last = studAttempts[studAttempts.length-1];
-      const totalCorrect = last.answersDetail.filter(d=>d.isCorrect).length;
-      const totalQuestions = last.answersDetail.length;
+    uniqueNames.forEach(n => {
+      const studAttempts = inTurma.filter(a => a.studentName.trim() === n).sort((a, b) => a.finishedAt - b.finishedAt);
+      const last = studAttempts[studAttempts.length - 1];
+      const correct = last?.answersDetail?.filter(d => d.isCorrect).length || 0;
+      const totalQ = last?.answersDetail?.length || 0;
       html += `
-        <div class="aluno-row" onclick="toggleAlunoDetail('${slug(n)}-key')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--outline-variant);cursor:pointer;">
-          <div style="font-weight:700;">${escapeHTML(n)}</div>
-          <div style="display:flex;gap:12px;align-items:center;">
-            <span style="font-size:0.75rem;background:var(--tertiary-fixed);padding:2px 12px;border-radius:999px;">✅ ${totalCorrect}</span>
-            <span style="font-size:0.75rem;background:var(--primary-fixed);padding:2px 12px;border-radius:999px;">❌ ${totalQuestions - totalCorrect}</span>
-            <span class="level-badge ${last.levelIdx===0?'lvl-0':last.levelIdx===1?'lvl-1':'lvl-2'}">${escapeHTML(last.levelLabel)}</span>
+        <div onclick="toggleAlunoDetail('${slug(n)}')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(26,42,42,0.06);cursor:pointer;">
+          <span style="font-weight:700;">${escapeHTML(n)}</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="chip chip-green">✅ ${correct}</span>
+            <span class="chip chip-coral">❌ ${totalQ - correct}</span>
+            <span class="level-badge ${last?.levelIdx === 0 ? 'lvl-0' : last?.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(last?.levelLabel || '—')}</span>
           </div>
         </div>
-        <div class="aluno-detail" id="detail-${slug(n)}-key" style="display:none;padding:8px 18px 16px;background:var(--surface-container-low);">
-          ${studAttempts.map(a=>`<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid var(--outline-variant);"><strong>${escapeHTML(getRoundLabel(a.roundId))}:</strong> ${a.tags.length? a.tags.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join(''): 'nenhuma dificuldade'}</div>`).join('')}
-        </div>`;
+        <div id="detail-${slug(n)}" style="display:none;padding:8px 16px 16px;background:var(--bg-soft);border-radius:0 0 var(--radius-sm) var(--radius-sm);">
+          ${studAttempts.map(a => `<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid rgba(26,42,42,0.06);">📘 ${escapeHTML(a.roundId || 'Diagnóstico')}: ${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('') : 'nenhuma dificuldade'}</div>`).join('')}
+        </div>
+      `;
     });
     html += `</div>`;
   }
-  document.getElementById('managerContent').innerHTML = html;
-}
-function selectAlunosTurma(t){ alunosSelectedTurma = t; renderAlunosTab(); }
-function onAlunosSearch(v){ alunosSearch = v; renderAlunosTab(); }
-function toggleAlunoDetail(name){
-  const el = document.getElementById('detail-'+slug(name));
-  if(el) el.style.display = el.style.display==='none' ? 'block' : 'none';
+  container.innerHTML = html;
 }
 
-/* ===== ASSUNTOS (idêntica, removido colunas) ===== */
+function selectAlunosTurma(t) { alunosSelectedTurma = t; renderManagerTabContent(); }
+function onAlunosSearch(v) { alunosSearch = v; renderManagerTabContent(); }
+function toggleAlunoDetail(name) {
+  const el = document.getElementById('detail-'+slug(name));
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+/* ===== ASSUNTOS ===== */
 let chartType = 'bar';
-async function renderAssuntosTab(){
+
+async function renderAssuntosTab(container) {
   const attempts = await loadJSON('tentativas', []);
   const counts = {};
-  Object.keys(TAGS).forEach(t=>counts[t]=0);
-  attempts.forEach(a=>a.tags.forEach(t=>counts[t]=(counts[t]||0)+1));
+  Object.keys(TAGS).forEach(t => counts[t] = 0);
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
   const total = attempts.length || 1;
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
   let html = `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
-      <button class="btn ${chartType==='bar'?'btn-primary':'btn-outline'}" onclick="setChartType('bar')">📊 Barras</button>
-      <button class="btn ${chartType==='pie'?'btn-primary':'btn-outline'}" onclick="setChartType('pie')">🍕 Pizza</button>
-      <button class="btn ${chartType==='radar'?'btn-primary':'btn-outline'}" onclick="setChartType('radar')">🕸️ Radar</button>
+      <button class="btn ${chartType === 'bar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('bar')">📊 Barras</button>
+      <button class="btn ${chartType === 'pie' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('pie')">🍕 Pizza</button>
+      <button class="btn ${chartType === 'radar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('radar')">🕸️ Radar</button>
     </div>
-    <div class="card" style="padding:20px;min-height:300px;display:flex;align-items:center;justify-content:center;">
-      <canvas id="chartCanvas" width="500" height="300"></canvas>
+    <div class="card" style="padding:20px;min-height:280px;display:flex;align-items:center;justify-content:center;">
+      <canvas id="chartCanvas" width="500" height="280"></canvas>
     </div>
     <div style="margin-top:16px;">
-      ${sorted.map(([tid,count])=>{
-        const pct = Math.round((count/total)*100);
-        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--outline-variant);">
-          <span>${TAGS[tid].icon} ${escapeHTML(TAGS[tid].label)}</span>
+      ${sorted.map(([tid, count]) => {
+        const pct = Math.round((count / total) * 100);
+        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(26,42,42,0.06);">
+          <span>${TAGS[tid]?.icon || '📌'} ${escapeHTML(TAGS[tid]?.label || tid)}</span>
           <span style="font-weight:700;">${pct}%</span>
         </div>`;
       }).join('')}
     </div>
   `;
-  document.getElementById('managerContent').innerHTML = html;
+  container.innerHTML = html;
   drawChart(sorted, total);
 }
-function setChartType(type){ chartType = type; renderAssuntosTab(); }
-function drawChart(data, total){
+
+function setChartType(type) { chartType = type; renderManagerTabContent(); }
+
+function drawChart(data, total) {
   const canvas = document.getElementById('chartCanvas');
-  if(!canvas) return;
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0,0,w,h);
-  if(data.length===0){
-    ctx.fillStyle = '#aaa';
+  ctx.clearRect(0, 0, w, h);
+
+  if (data.length === 0 || data.every(d => d[1] === 0)) {
+    ctx.fillStyle = 'var(--text-soft)';
     ctx.font = '16px Nunito Sans';
     ctx.textAlign = 'center';
-    ctx.fillText('Sem dados', w/2, h/2);
+    ctx.fillText('Sem dados para exibir', w/2, h/2);
     return;
   }
-  if(chartType==='bar'){
-    const max = Math.max(...data.map(d=>d[1]),1);
-    const pad = 40, gap = 20;
-    const chartW = w - 2*pad, chartH = h - 2*pad;
+
+  if (chartType === 'bar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const pad = 40, chartW = w - 2*pad, chartH = h - 2*pad;
     const step = chartW / (data.length + 1);
-    ctx.font = '12px Nunito Sans';
+    ctx.font = '11px Nunito Sans';
     ctx.textAlign = 'center';
-    data.forEach(([tid,count], i)=>{
-      const x = pad + step*(i+1);
-      const barH = (count/max)*chartH;
+    data.forEach(([tid, count], i) => {
+      const x = pad + step * (i + 1);
+      const barH = (count / max) * chartH;
       const y = h - pad - barH;
-      ctx.fillStyle = TAGS[tid]?.colorClass==='coral'?'#ff6b6b': TAGS[tid]?.colorClass==='teal'?'#6bcb9a': TAGS[tid]?.colorClass==='gold'?'#ffd93d':'#4d8cf7';
-      ctx.fillRect(x-12, y, 24, barH);
-      ctx.fillStyle = '#333';
-      ctx.fillText(TAGS[tid]?.label?.slice(0,12)||tid, x, h - pad + 20);
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
+      ctx.fillRect(x - 14, y, 28, barH);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 10) || tid, x, h - pad + 18);
       ctx.fillText(count, x, y - 6);
     });
-  } else if(chartType==='pie'){
-    const totalSum = data.reduce((s,d)=>s+d[1],0);
-    if(totalSum===0) return;
-    const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 30;
-    let start = -Math.PI/2;
-    data.forEach(([tid,count])=>{
-      const angle = (count/totalSum)*2*Math.PI;
+  } else if (chartType === 'pie') {
+    const totalSum = data.reduce((s, d) => s + d[1], 0);
+    if (totalSum === 0) return;
+    const cx = w/2, cy = h/2, r = Math.min(w, h)/2 - 30;
+    let start = -Math.PI / 2;
+    data.forEach(([tid, count]) => {
+      const angle = (count / totalSum) * 2 * Math.PI;
       ctx.beginPath();
-      ctx.moveTo(cx,cy);
-      ctx.arc(cx,cy,r,start,start+angle);
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, start + angle);
       ctx.closePath();
-      ctx.fillStyle = TAGS[tid]?.colorClass==='coral'?'#ff6b6b': TAGS[tid]?.colorClass==='teal'?'#6bcb9a': TAGS[tid]?.colorClass==='gold'?'#ffd93d':'#4d8cf7';
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
       ctx.fill();
       start += angle;
     });
     let legY = 20;
-    ctx.font = '11px Nunito Sans';
+    ctx.font = '10px Nunito Sans';
     ctx.textAlign = 'left';
-    data.slice(0,6).forEach(([tid])=>{
-      ctx.fillStyle = TAGS[tid]?.colorClass==='coral'?'#ff6b6b': TAGS[tid]?.colorClass==='teal'?'#6bcb9a': TAGS[tid]?.colorClass==='gold'?'#ffd93d':'#4d8cf7';
-      ctx.fillRect(w-140, legY, 12,12);
-      ctx.fillStyle = '#333';
-      ctx.fillText(TAGS[tid]?.label?.slice(0,15)||tid, w-122, legY+10);
-      legY += 22;
+    data.slice(0, 6).forEach(([tid]) => {
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
+      ctx.fillRect(w - 130, legY, 12, 12);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 14) || tid, w - 112, legY + 10);
+      legY += 20;
     });
-  } else if(chartType==='radar'){
-    const max = Math.max(...data.map(d=>d[1]),1);
-    const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 40;
+  } else if (chartType === 'radar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const cx = w/2, cy = h/2, r = Math.min(w, h)/2 - 40;
     const n = data.length;
-    if(n===0) return;
-    for(let i=0;i<n;i++){
-      const angle = (i/n)*2*Math.PI - Math.PI/2;
-      const x = cx + r*Math.cos(angle);
-      const y = cy + r*Math.sin(angle);
+    if (n === 0) return;
+    for (let i = 0; i < n; i++) {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
       ctx.beginPath();
-      ctx.moveTo(cx,cy);
-      ctx.lineTo(x,y);
-      ctx.strokeStyle = '#ddd';
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'rgba(26,42,42,0.1)';
       ctx.stroke();
     }
     ctx.beginPath();
-    data.forEach(([tid,count],i)=>{
-      const angle = (i/n)*2*Math.PI - Math.PI/2;
-      const val = count/max;
-      const x = cx + r*val*Math.cos(angle);
-      const y = cy + r*val*Math.sin(angle);
-      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    data.forEach(([tid, count], i) => {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const val = count / max;
+      const x = cx + r * val * Math.cos(angle);
+      const y = cy + r * val * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     });
     ctx.closePath();
-    ctx.fillStyle = 'rgba(77,140,247,0.3)';
+    ctx.fillStyle = 'rgba(107, 203, 154, 0.25)';
     ctx.fill();
-    ctx.strokeStyle = '#4d8cf7';
+    ctx.strokeStyle = 'var(--green-main)';
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.font = '10px Nunito Sans';
     ctx.textAlign = 'center';
-    data.forEach(([tid,count],i)=>{
-      const angle = (i/n)*2*Math.PI - Math.PI/2;
-      const x = cx + (r+20)*Math.cos(angle);
-      const y = cy + (r+20)*Math.sin(angle);
-      ctx.fillStyle = '#333';
-      ctx.fillText(TAGS[tid]?.label?.slice(0,8)||tid, x, y+4);
+    data.forEach(([tid], i) => {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const x = cx + (r + 18) * Math.cos(angle);
+      const y = cy + (r + 18) * Math.sin(angle);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 8) || tid, x, y + 4);
     });
   }
 }
 
-/* ===== ATIVIDADES (idêntica) ===== */
+/* ===== ATIVIDADES ===== */
 let uploadedFiles = [];
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-async function renderAtividadesTab(){
+async function renderAtividadesTab(container) {
   const materiais = await loadJSON('materiais', []);
   const pastas = await loadJSON('pastas', []);
   const tagsPersonalizadas = await loadJSON('tagsPersonalizadas', []);
+
   let html = `
-    <div style="background:var(--surface-container-low);padding:16px 20px;border-radius:var(--radius);border-left:5px solid var(--tertiary);margin-bottom:20px;">
+    <div style="background:var(--green-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--green-main);margin-bottom:20px;">
       <strong>📌 O que são tags?</strong> As tags são etiquetas que você cria para organizar os materiais e associar às dificuldades dos alunos.
       <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
-        ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)}</span>`).join('') : '<span style="color:var(--on-surface-variant);">Nenhuma tag criada ainda. Crie abaixo!</span>'}
+        ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('') : '<span style="color:var(--text-secondary);">Nenhuma tag criada ainda.</span>'}
       </div>
     </div>
+
     <div class="card" style="margin-bottom:20px;">
-      <h4 style="margin-bottom:12px;">📁 Pastas de tags</h4>
+      <h4 style="margin-bottom:12px;">📁 Pastas</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
         <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;">
         <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        ${pastas.map(p=>`<span style="background:var(--surface);padding:4px 16px;border-radius:999px;font-weight:600;border:2px solid var(--outline-variant);">📁 ${escapeHTML(p)}</span>`).join('')}
+        ${pastas.map(p => `<span class="chip">📁 ${escapeHTML(p)}</span>`).join('')}
       </div>
     </div>
+
     <div class="card" style="margin-bottom:20px;">
-      <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags personalizadas</h4>
+      <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
         <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;">
-        <button class="btn btn-tertiary" onclick="addTag()">➕ Adicionar tag</button>
+        <button class="btn btn-secondary" onclick="addTag()">➕ Adicionar</button>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        ${tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--error);">✕</button></span>`).join('')}
+        ${tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--coral);font-weight:700;">✕</button></span>`).join('')}
       </div>
     </div>
+
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
       <label>Título</label>
-      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:12px;">
+      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:10px;">
       <label>Tipo</label>
-      <select id="matType" style="margin-bottom:12px;">
+      <select id="matType" style="margin-bottom:10px;">
         <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
       </select>
       <label>Link (opcional)</label>
-      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:12px;">
+      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:10px;">
       <label>Descrição</label>
-      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:12px;">
+      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:10px;">
       <label>Pasta</label>
-      <select id="matFolder" style="margin-bottom:12px;">
+      <select id="matFolder" style="margin-bottom:10px;">
         <option value="">Sem pasta</option>
-        ${pastas.map(p=>`<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
+        ${pastas.map(p => `<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
       </select>
       <label>Tags</label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
-        ${tagsPersonalizadas.map(t=>`<label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><input type="checkbox" value="${escapeHTML(t)}" class="matTagCheck"> ${escapeHTML(t)}</label>`).join('')}
-        ${tagsPersonalizadas.length===0 ? '<span style="color:var(--on-surface-variant);">Nenhuma tag criada. Crie acima.</span>' : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+        ${tagsPersonalizadas.map(t => `<label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;"><input type="checkbox" value="${escapeHTML(t)}" class="matTagCheck"> ${escapeHTML(t)}</label>`).join('')}
+        ${tagsPersonalizadas.length === 0 ? '<span style="color:var(--text-secondary);">Nenhuma tag criada.</span>' : ''}
       </div>
+
       <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
         <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
-        <div style="font-size:0.8rem;color:var(--on-surface-variant);">Máx. 10MB · PDF, Imagem, Word, etc.</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">Máx. 10MB · PDF, Imagem, Word, etc.</div>
         <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
       </div>
       <div id="fileList" style="margin-top:12px;"></div>
+
       <button class="btn btn-primary" style="margin-top:16px;" onclick="addMaterial()">Salvar material</button>
-      <div class="err" id="matErr" style="color:var(--error);margin-top:8px;"></div>
+      <div class="err" id="matErr" style="color:var(--coral);margin-top:8px;"></div>
     </div>
+
     <div id="matList"></div>
   `;
-  document.getElementById('managerContent').innerHTML = html;
+  container.innerHTML = html;
   renderMaterialsList(materiais);
 }
-async function addTag(){
+
+async function addTag() {
   const name = document.getElementById('newTagName').value.trim();
-  if(!name) return;
+  if (!name) return;
   const tags = await loadJSON('tagsPersonalizadas', []);
-  if(!tags.includes(name)) tags.push(name);
+  if (!tags.includes(name)) tags.push(name);
   await saveJSON('tagsPersonalizadas', tags);
   document.getElementById('newTagName').value = '';
-  renderAtividadesTab();
+  renderManagerTabContent();
 }
-async function removeTag(name){
+
+async function removeTag(name) {
   let tags = await loadJSON('tagsPersonalizadas', []);
-  tags = tags.filter(t=>t!==name);
+  tags = tags.filter(t => t !== name);
   await saveJSON('tagsPersonalizadas', tags);
-  renderAtividadesTab();
+  renderManagerTabContent();
 }
-async function addFolder(){
+
+async function addFolder() {
   const name = document.getElementById('newFolderName').value.trim();
-  if(!name) return;
+  if (!name) return;
   const pastas = await loadJSON('pastas', []);
-  if(!pastas.includes(name)) pastas.push(name);
+  if (!pastas.includes(name)) pastas.push(name);
   await saveJSON('pastas', pastas);
   document.getElementById('newFolderName').value = '';
-  renderAtividadesTab();
+  renderManagerTabContent();
 }
-function handleFiles(files){
-  for(let f of files){
-    if(f.size > MAX_FILE_SIZE){
+
+function handleFiles(files) {
+  for (let f of files) {
+    if (f.size > MAX_FILE_SIZE) {
       alert(`O arquivo ${f.name} excede o limite de 10MB.`);
       continue;
     }
-    const id = 'f_'+Date.now()+Math.random().toString(36).slice(2,6);
-    uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0, status: 'uploading' });
+    const id = 'f_' + Date.now() + Math.random().toString(36).slice(2, 6);
+    uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0 });
     let p = 0;
-    const interval = setInterval(()=>{
-      p += Math.floor(Math.random()*15)+5;
-      if(p>=100){ p=100; clearInterval(interval); }
-      const item = uploadedFiles.find(u=>u.id===id);
-      if(item) { item.progress = Math.min(100, p); renderFileList(); }
+    const interval = setInterval(() => {
+      p += Math.floor(Math.random() * 12) + 3;
+      if (p >= 100) { p = 100; clearInterval(interval); }
+      const item = uploadedFiles.find(u => u.id === id);
+      if (item) { item.progress = Math.min(100, p); renderFileList(); }
     }, 150);
   }
   renderFileList();
 }
-function renderFileList(){
+
+function renderFileList() {
   const el = document.getElementById('fileList');
-  if(!el) return;
-  el.innerHTML = uploadedFiles.map(f=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface-container-low);border-radius:12px;margin-bottom:6px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="material-symbols-outlined">description</span>
+  if (!el) return;
+  el.innerHTML = uploadedFiles.map(f => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg-soft);border-radius:var(--radius-sm);margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="material-symbols-outlined" style="color:var(--text-soft);">description</span>
         <div>
           <div style="font-weight:600;">${escapeHTML(f.name)}</div>
-          <div style="font-size:0.7rem;color:var(--on-surface-variant);">${(f.size/1024).toFixed(1)} KB</div>
+          <div style="font-size:0.7rem;color:var(--text-secondary);">${(f.size / 1024).toFixed(1)} KB</div>
         </div>
       </div>
-      <div style="min-width:80px;text-align:right;">
+      <div style="min-width:70px;text-align:right;">
         <span style="font-weight:700;font-size:0.8rem;">${Math.round(f.progress)}%</span>
         <div class="file-progress"><div class="bar" style="width:${f.progress}%;"></div></div>
       </div>
     </div>
   `).join('');
 }
-function renderMaterialsList(materiais){
+
+function renderMaterialsList(materiais) {
   const wrap = document.getElementById('matList');
-  if(!wrap) return;
-  if(materiais.length===0){ wrap.innerHTML = `<div class="card card-empty">Nenhum material cadastrado ainda.</div>`; return; }
-  wrap.innerHTML = materiais.slice().reverse().map(m=>`
-    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start;">
+  if (!wrap) return;
+  if (materiais.length === 0) {
+    wrap.innerHTML = `<div class="card card-soft text-center">📭 Nenhum material cadastrado ainda.</div>`;
+    return;
+  }
+  wrap.innerHTML = materiais.slice().reverse().map(m => `
+    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
       <div>
-        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-secondary">${escapeHTML(m.type)}</span></div>
-        <div style="font-size:0.85rem;color:var(--on-surface-variant);margin:4px 0;">${escapeHTML(m.description||'')} ${m.folder ? '📁 '+escapeHTML(m.folder) : ''}</div>
-        ${m.link? `<a href="${escapeHTML(m.link)}" target="_blank" style="color:var(--tertiary);font-weight:700;">${escapeHTML(m.link)}</a>`:''}
-        ${m.files ? m.files.map(f=>`<div style="font-size:0.75rem;color:var(--on-surface-variant);">📄 ${escapeHTML(f)}</div>`).join('') : ''}
-        <div style="margin-top:6px;">${m.tagIds.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)}</span>`).join('')}</div>
-        <div style="font-size:0.7rem;color:var(--on-surface-variant);margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
+        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-blue">${escapeHTML(m.type)}</span></div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);margin:4px 0;">${escapeHTML(m.description || '')} ${m.folder ? '📁 ' + escapeHTML(m.folder) : ''}</div>
+        ${m.link ? `<a href="${escapeHTML(m.link)}" target="_blank" style="color:var(--green-main);font-weight:700;">${escapeHTML(m.link)}</a>` : ''}
+        ${m.files ? m.files.map(f => `<div style="font-size:0.75rem;color:var(--text-secondary);">📄 ${escapeHTML(f)}</div>`).join('') : ''}
+        <div style="margin-top:6px;">${m.tagIds.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('')}</div>
+        <div style="font-size:0.7rem;color:var(--text-soft);margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
       </div>
-      <button class="btn btn-outline" onclick="deleteMaterial('${m.id}')">Remover</button>
+      <button class="btn btn-ghost" onclick="deleteMaterial('${m.id}')" style="padding:4px 12px;font-size:0.8rem;">Remover</button>
     </div>
   `).join('');
 }
-async function addMaterial(){
+
+async function addMaterial() {
   const title = document.getElementById('matTitle').value.trim();
   const type = document.getElementById('matType').value;
   const link = document.getElementById('matLink').value.trim();
   const description = document.getElementById('matDesc').value.trim();
   const folder = document.getElementById('matFolder').value;
-  const tagIds = Array.from(document.querySelectorAll('.matTagCheck:checked')).map(i=>i.value);
+  const tagIds = Array.from(document.querySelectorAll('.matTagCheck:checked')).map(i => i.value);
   const errEl = document.getElementById('matErr');
-  if(!title){ errEl.textContent='Dê um título ao material.'; return; }
+  if (!title) { errEl.textContent = 'Dê um título ao material.'; return; }
   const materiais = await loadJSON('materiais', []);
-  const fileNames = uploadedFiles.map(f=>f.name);
+  const fileNames = uploadedFiles.map(f => f.name);
   materiais.push({
-    id:'m_'+Date.now(),
+    id: 'm_' + Date.now(),
     title, type, link, description, folder,
-    tagIds,
-    files: fileNames,
+    tagIds, files: fileNames,
     createdAt: Date.now()
   });
   await saveJSON('materiais', materiais);
   uploadedFiles = [];
-  renderAtividadesTab();
-}
-async function deleteMaterial(id){
-  let materiais = await loadJSON('materiais', []);
-  materiais = materiais.filter(m=>m.id!==id);
-  await saveJSON('materiais', materiais);
-  renderAtividadesTab();
+  renderManagerTabContent();
 }
 
-/* ===== APLICAÇÕES (idêntica) ===== */
-async function renderAplicacoesTab(){
+async function deleteMaterial(id) {
+  let materiais = await loadJSON('materiais', []);
+  materiais = materiais.filter(m => m.id !== id);
+  await saveJSON('materiais', materiais);
+  renderManagerTabContent();
+}
+
+/* ===== APLICAÇÕES ===== */
+async function renderAplicacoesTab(container) {
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
   let html = `<div style="display:grid;grid-template-columns:240px 1fr;gap:24px;">`;
   html += `<div>
     <button class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="createRound()">➕ Nova aplicação</button>
-    ${rounds.length===0 ? `<div class="card card-empty">Nenhuma aplicação ainda.</div>` : ''}
-    ${rounds.map(r=>`
-      <div class="round-item ${r.id===selectedRoundId?'active':''}" onclick="selectRound('${r.id}')" style="padding:14px 16px;border-radius:16px;border:2px solid ${r.id===selectedRoundId?'var(--primary)':'var(--outline-variant)'};margin-bottom:10px;cursor:pointer;background:var(--surface);box-shadow:var(--shadow-sm);">
+    ${rounds.length === 0 ? `<div class="card card-soft text-center">Nenhuma aplicação ainda.</div>` : ''}
+    ${rounds.map(r => `
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;cursor:pointer;border:2px solid ${r.id === selectedRoundId ? 'var(--green-main)' : 'transparent'};" onclick="selectRound('${r.id}')">
         <div style="font-weight:700;">${escapeHTML(r.label)}</div>
-        <div style="font-family:monospace;font-size:0.8rem;color:var(--on-surface-variant);">código: ${r.code}</div>
-        <div style="font-size:0.7rem;color:var(--on-surface-variant);">${new Date(r.createdAt).toLocaleString()}</div>
+        <div style="font-family:monospace;font-size:0.8rem;color:var(--text-secondary);">código: ${r.code}</div>
+        <div style="font-size:0.7rem;color:var(--text-soft);">${new Date(r.createdAt).toLocaleString()}</div>
         <div style="margin-top:6px;">
-          <button class="btn ${r.disabled?'btn-outline':'btn-secondary'}" style="padding:4px 12px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
+          <button class="btn ${r.disabled ? 'btn-ghost' : 'btn-primary'}" style="padding:4px 14px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
             ${r.disabled ? '🔴 Desabilitada' : '🟢 Ativa'}
           </button>
         </div>
       </div>
     `).join('')}
-  </div><div><div class="card" style="padding:24px;"><div id="roundHeader"></div><div id="attemptsTableWrap"></div></div></div></div>`;
-  document.getElementById('managerContent').innerHTML = html;
+  </div><div><div class="card"><div id="roundHeader"></div><div id="attemptsTableWrap"></div></div></div></div>`;
+  container.innerHTML = html;
   renderRoundAttempts(rounds, attempts);
 }
-function selectRound(id){ selectedRoundId = id; renderAplicacoesTab(); }
-async function toggleRoundEnabled(id){
+
+function selectRound(id) { selectedRoundId = id; renderManagerTabContent(); }
+
+async function toggleRoundEnabled(id) {
   const rounds = await loadJSON('rodadas', []);
-  const round = rounds.find(r=>r.id===id);
-  if(round){ round.disabled = !round.disabled; await saveJSON('rodadas', rounds); renderAplicacoesTab(); }
+  const round = rounds.find(r => r.id === id);
+  if (round) { round.disabled = !round.disabled; await saveJSON('rodadas', rounds); renderManagerTabContent(); }
 }
-function renderRoundAttempts(rounds, attempts){
-  const round = rounds.find(r=>r.id===selectedRoundId);
+
+function renderRoundAttempts(rounds, attempts) {
+  const round = rounds.find(r => r.id === selectedRoundId);
   const header = document.getElementById('roundHeader');
   const wrap = document.getElementById('attemptsTableWrap');
-  if(!round){ if(header) header.innerHTML=''; if(wrap) wrap.innerHTML=`<div class="card-empty">Crie uma aplicação.</div>`; return; }
+  if (!round) { if (header) header.innerHTML = ''; if (wrap) wrap.innerHTML = '<div class="text-center text-soft">Crie uma aplicação.</div>'; return; }
   header.innerHTML = `<h4 style="margin:0 0 4px;">${escapeHTML(round.label)}</h4>
-    <span style="font-family:monospace;background:var(--primary);color:#fff;padding:4px 12px;border-radius:10px;">${round.code}</span>
-    <span style="color:var(--on-surface-variant);font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
-    ${round.disabled ? ' <span style="color:var(--error);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
-  const list = attempts.filter(a=>a.roundId===round.id);
-  if(list.length===0){ wrap.innerHTML = `<div class="card-empty">Ainda não há respostas.</div>`; return; }
+    <span style="font-family:monospace;background:var(--green-main);color:#fff;padding:4px 12px;border-radius:var(--radius-full);">${round.code}</span>
+    <span style="color:var(--text-secondary);font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
+    ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
+  const list = attempts.filter(a => a.roundId === round.id);
+  if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
   wrap.innerHTML = `
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Tags</th></tr></thead>
+      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Tags</th></tr></thead>
       <tbody>
-      ${list.map(a=>`
+      ${list.map(a => `
         <tr>
-          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${escapeHTML(a.studentName)}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${escapeHTML(a.studentClass||'—')}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);"><span class="level-badge ${a.levelIdx===0?'lvl-0':a.levelIdx===1?'lvl-1':'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
-          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${a.tags.length===0 ? '<span style="color:var(--on-surface-variant);">nenhuma</span>' : a.tags.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${escapeHTML(a.studentName)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${escapeHTML(a.studentClass || '—')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);"><span class="level-badge ${a.levelIdx === 0 ? 'lvl-0' : a.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('') : '<span style="color:var(--text-soft);">nenhuma</span>'}</td>
         </tr>
       `).join('')}
       </tbody>
     </table>`;
 }
-function generateCode(){
-  const chars='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  let c=''; for(let i=0;i<4;i++) c+=chars[Math.floor(Math.random()*chars.length)];
+
+function generateCode() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
   return c;
 }
-function showModal(html){
+
+function showModal(html) {
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
 }
-function hideModal(){
+function hideModal() {
   document.getElementById('modalOverlay').classList.remove('open');
 }
-async function createRound(){
+
+async function createRound() {
   const rounds = await loadJSON('rodadas', []);
   showModal(`
-    <h3 style="margin-top:0;">Nova aplicação</h3>
-    <p style="color:var(--on-surface-variant);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
+    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">Nova aplicação</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
     <label>Nome</label>
-    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length+1}" style="margin-bottom:12px;">
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length + 1}" style="margin-bottom:10px;">
     <label>Código</label>
-    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;margin-bottom:12px;">
-    <div class="err" id="modalRoundErr" style="color:var(--error);min-height:1.2em;"></div>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;margin-bottom:10px;">
+    <div class="err" id="modalRoundErr" style="color:var(--coral);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
-      <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-ghost btn-block" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary btn-block" onclick="confirmCreateRound()">Criar</button>
     </div>
   `);
 }
-async function confirmCreateRound(){
+
+async function confirmCreateRound() {
   const label = document.getElementById('modalRoundLabel').value.trim();
   let code = document.getElementById('modalRoundCode').value.trim().toUpperCase();
   const errEl = document.getElementById('modalRoundErr');
-  if(!code) code = generateCode();
+  if (!code) code = generateCode();
   const rounds = await loadJSON('rodadas', []);
-  if(rounds.some(r=>r.code===code)){ errEl.textContent='Código já em uso. Escolha outro.'; return; }
-  const round = { id:'r_'+Date.now(), label: label||('Aplicação '+(rounds.length+1)), code, createdAt: Date.now(), disabled: false };
+  if (rounds.some(r => r.code === code)) { errEl.textContent = 'Código já em uso. Escolha outro.'; return; }
+  const round = { id: 'r_' + Date.now(), label: label || ('Aplicação ' + (rounds.length + 1)), code, createdAt: Date.now(), disabled: false };
   rounds.push(round);
   await saveJSON('rodadas', rounds);
   selectedRoundId = round.id;
@@ -1672,185 +1961,191 @@ async function confirmCreateRound(){
 }
 
 /* ============================================================
-   BANCO DE QUESTÕES (idêntico)
+   BANCO DE QUESTÕES
    ============================================================ */
 const TAGS = {
-  graf_interpretacao: { label:'Interpretação de gráficos', icon:'📊', colorClass:'teal',
-    tip:'Releia o gráfico com calma: identifique quem está mais alto em UMA temperatura, e depois observe a tendência.' },
-  endo_exo: { label:'Classificação ENDO/EXO', icon:'🔥', colorClass:'coral',
-    tip:'Se a solubilidade AUMENTA com a temperatura → endotérmica; se DIMINUI → exotérmica.' },
-  endo_exo_grafico: { label:'ENDO/EXO + gráfico', icon:'📈', colorClass:'gold',
-    tip:'Pratique unir as duas habilidades: leia o gráfico e classifique o tipo de dissolução.' },
-  titulos: { label:'Cálculos de títulos', icon:'🧪', colorClass:'blue',
-    tip:'No %m/V: massa (g) / volume (mL) × 100. Para mol/L, converta massa para mols.' },
-  g_l_mol_l: { label:'Conversão g/L → mol/L', icon:'🧮', colorClass:'teal',
-    tip:'Converta mg/L para g/L, depois divida pela massa molar — atenção às potências de 10.' },
-  nao_respondida: { label:'Questões em branco', icon:'✏️', colorClass:'coral',
-    tip:'Algumas perguntas ficaram sem resposta. Vale revisar com calma e tentar de novo.' }
+  graf_interpretacao: { label: 'Interpretação de gráficos', icon: '📊', colorClass: 'teal',
+    tip: 'Releia o gráfico com calma: identifique quem está mais alto em UMA temperatura, e depois observe a tendência.' },
+  endo_exo: { label: 'Classificação ENDO/EXO', icon: '🔥', colorClass: 'coral',
+    tip: 'Se a solubilidade AUMENTA com a temperatura → endotérmica; se DIMINUI → exotérmica.' },
+  endo_exo_grafico: { label: 'ENDO/EXO + gráfico', icon: '📈', colorClass: 'gold',
+    tip: 'Pratique unir as duas habilidades: leia o gráfico e classifique o tipo de dissolução.' },
+  titulos: { label: 'Cálculos de títulos', icon: '🧪', colorClass: 'blue',
+    tip: 'No %m/V: massa (g) / volume (mL) × 100. Para mol/L, converta massa para mols.' },
+  g_l_mol_l: { label: 'Conversão g/L → mol/L', icon: '🧮', colorClass: 'teal',
+    tip: 'Converta mg/L para g/L, depois divida pela massa molar — atenção às potências de 10.' },
+  nao_respondida: { label: 'Questões em branco', icon: '✏️', colorClass: 'coral',
+    tip: 'Algumas perguntas ficaram sem resposta. Vale revisar com calma e tentar de novo.' }
 };
 
-const POSITIVE_PHRASES = ['Mandou muito bem! Seu domínio em Soluções está sólido.','Show! Continue assim.','Parabéns pelo resultado!'];
-const SUPPORTIVE_PHRASES = ['Toda dificuldade identificada é tempo economizado.','Ninguém nasce sabendo — você está no caminho.','Respira: cada tentativa te aproxima do domínio.'];
-function pickEncouragement(levelIdx){ const arr = levelIdx===0 ? POSITIVE_PHRASES : SUPPORTIVE_PHRASES; return arr[Math.floor(Math.random()*arr.length)]; }
+const POSITIVE_PHRASES = ['Mandou muito bem! Seu domínio em Soluções está sólido.', 'Show! Continue assim.', 'Parabéns pelo resultado!'];
+const SUPPORTIVE_PHRASES = ['Toda dificuldade identificada é tempo economizado.', 'Ninguém nasce sabendo — você está no caminho.', 'Respira: cada tentativa te aproxima do domínio.'];
+
+function pickEncouragement(levelIdx) {
+  const arr = levelIdx === 0 ? POSITIVE_PHRASES : SUPPORTIVE_PHRASES;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 const NUTRITION_TABLE = `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;margin:12px 0;">
-  <tr><th style="border:1px solid var(--outline-variant);padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid var(--outline-variant);padding:6px;">Valor</th></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Valor energético</td><td style="border:1px solid var(--outline-variant);padding:6px;">66 kcal</td></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Carboidratos</td><td style="border:1px solid var(--outline-variant);padding:6px;">16 g</td></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Açúcares totais</td><td style="border:1px solid var(--outline-variant);padding:6px;">15 g</td></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Açúcares adicionados</td><td style="border:1px solid var(--outline-variant);padding:6px;">14 g</td></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Sódio</td><td style="border:1px solid var(--outline-variant);padding:6px;">64 mg</td></tr>
-  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Vitamina B5</td><td style="border:1px solid var(--outline-variant);padding:6px;">3,8 mg</td></tr>
+  <tr><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor</th></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor energético</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">66 kcal</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Carboidratos</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">16 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares totais</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">15 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares adicionados</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">14 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Sódio</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">64 mg</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Vitamina B5</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">3,8 mg</td></tr>
 </table>`;
 
 const GRAPH_MAIN = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
-  <line x1="50" y1="200" x2="340" y2="200" stroke="#162241" stroke-width="1.5"/>
-  <line x1="50" y1="20" x2="50" y2="200" stroke="#162241" stroke-width="1.5"/>
-  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A5573">Temperatura (°C)</text>
-  <text x="14" y="110" font-size="10" fill="#4A5573" transform="rotate(-90,14,110)">Solubilidade (g/100g H₂O)</text>
+  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
+  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade (g/100g H₂O)</text>
   <polyline points="50,112 108,92 166,75 224,51 282,32 311,20" fill="none" stroke="#2C5FE0" stroke-width="2.5"/>
   <text x="313" y="18" font-size="10" fill="#2C5FE0">NaNO₃</text>
   <polyline points="50,183 108,162 166,123 224,73 282,32 311,20" fill="none" stroke="#F1543C" stroke-width="2.5"/>
   <text x="225" y="68" font-size="10" fill="#F1543C">KNO₃</text>
-  <polyline points="50,176 108,166 166,154 224,145 282,135 340,130" fill="none" stroke="#F2B705" stroke-width="2.5"/>
-  <text x="342" y="132" font-size="10" fill="#8a6a00">KCl</text>
-  <polyline points="50,158 195,157 340,154" fill="none" stroke="#1B8A6B" stroke-width="2.5"/>
-  <text x="342" y="156" font-size="10" fill="#1B8A6B">NaCl</text>
+  <polyline points="50,176 108,166 166,154 224,145 282,135 340,130" fill="none" stroke="#F5D76E" stroke-width="2.5"/>
+  <text x="342" y="132" font-size="10" fill="#8A6A40">KCl</text>
+  <polyline points="50,158 195,157 340,154" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
+  <text x="342" y="156" font-size="10" fill="#6BCB9A">NaCl</text>
   <polyline points="50,176 108,186 195,192 340,196" fill="none" stroke="#9A6FB0" stroke-width="2.5"/>
   <text x="342" y="198" font-size="9" fill="#9A6FB0">Ce₂(SO₄)₃</text>
 </svg>`;
 
 const GRAPH_XYZ = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
-  <line x1="50" y1="200" x2="340" y2="200" stroke="#162241" stroke-width="1.5"/>
-  <line x1="50" y1="20" x2="50" y2="200" stroke="#162241" stroke-width="1.5"/>
-  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A5573">Temperatura (°C)</text>
-  <text x="14" y="110" font-size="10" fill="#4A5573" transform="rotate(-90,14,110)">Solubilidade</text>
-  <polyline points="50,140 123,158 195,167 268,173 340,176" fill="none" stroke="#F1543C" stroke-width="2.5"/>
-  <text x="342" y="178" font-size="11" fill="#F1543C">X</text>
-  <polyline points="50,101 195,95 340,92" fill="none" stroke="#1B8A6B" stroke-width="2.5"/>
-  <text x="342" y="94" font-size="11" fill="#1B8A6B">Y</text>
-  <polyline points="50,161 123,146 195,110 268,65 304,26" fill="none" stroke="#2C5FE0" stroke-width="2.5"/>
-  <text x="306" y="22" font-size="11" fill="#2C5FE0">Z</text>
+  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
+  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade</text>
+  <polyline points="50,140 123,158 195,167 268,173 340,176" fill="none" stroke="#F5A0A0" stroke-width="2.5"/>
+  <text x="342" y="178" font-size="11" fill="#F5A0A0">X</text>
+  <polyline points="50,101 195,95 340,92" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
+  <text x="342" y="94" font-size="11" fill="#6BCB9A">Y</text>
+  <polyline points="50,161 123,146 195,110 268,65 304,26" fill="none" stroke="#8FC1D9" stroke-width="2.5"/>
+  <text x="306" y="22" font-size="11" fill="#8FC1D9">Z</text>
 </svg>`;
 
 const QUESTIONS = {
-  start: { topic:'Introdução às soluções', extra: GRAPH_MAIN,
-    text:'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:',
-    options:['NaNO3','KNO3','KCl','NaCl','Ce2(SO4)3','Não consegui fazer a questão'] },
-  q1a: { topic:'Revisão: tipos de solução', extra: GRAPH_MAIN,
-    text:'Considerando o mesmo gráfico, classifique quanto ao tipo de solução (insaturada, saturada ou supersaturada) a mistura formada por 10 g de KNO₃ em 20 g de água a 40ºC. Em seguida, escolha um processo que poderia formar um corpo de fundo nesse sistema.',
-    options:['Insaturada e aquecimento','Insaturada e resfriamento','Insaturada e agitação','Saturada e aquecimento','Saturada e resfriamento','Saturada e agitação','Supersaturada e aquecimento','Supersaturada e resfriamento','Supersaturada e agitação','Não consegui fazer a questão'] },
-  q2a: { topic:'Gráficos de solubilidade', extra: GRAPH_XYZ,
-    text:'Considerando o gráfico de solubilidade de três sais (X, Y, Z), marque a opção com o sal mais solúvel a 20ºC e o sal cuja solubilidade diminui quando a temperatura aumenta (dissolução exotérmica).',
-    options:['X e X.','X e Y.','X e Z.','Y e X','Y e Y','Y e Z','Z e X','Z e Y','Z e Z','Não consegui fazer a questão.'] },
-  energetico: { topic:'Concentração de soluções', extra: NUTRITION_TABLE,
-    text:'Considere o rótulo nutricional de uma bebida energética. A concentração comum, em g/L, de Vitamina B5 nessa bebida é:',
-    options:['19.','1,9.','1,9 . 10^-2.','1,9 . 10^-3.','Não consegui fazer a questão'] },
-  acucares: { topic:'Títulos de concentração', extra: NUTRITION_TABLE,
-    text:'Considere o mesmo rótulo. A concentração em %m/V e em mol/L de açúcares adicionados nessa bebida é, respectivamente e aproximadamente (açúcares adicionados = sacarose, C₁₂H₂₂O₁₁, massa molar 342 g/mol):',
-    options:['6,8% m/V e 0,02 mol/L','6,8% m/V e 0,1 mol/L','6,8% m/V e 0,2 mol/L','6,8% m/V e 5 mol/L','3,4% m/V e 0,02 mol/L','3,4% m/V e 0,1 mol/L','3,4% m/V e 0,2 mol/L','3,4% m/V e 5 mol/L','Não consegui fazer a questão'] },
-  sodio: { topic:'Conversão de unidades', extra: NUTRITION_TABLE,
-    text:'Considere o mesmo rótulo. A concentração molar (mol/L) de sódio nessa bebida é, aproximadamente (MM Na = 23 g/mol):',
-    options:['32.','320.','14.','1,4 . 10^-2','Não consegui fazer a questão'] }
+  start: { topic: 'Introdução às soluções', extra: GRAPH_MAIN,
+    text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:',
+    options: ['NaNO3', 'KNO3', 'KCl', 'NaCl', 'Ce2(SO4)3', 'Não consegui fazer a questão'] },
+  q1a: { topic: 'Revisão: tipos de solução', extra: GRAPH_MAIN,
+    text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução (insaturada, saturada ou supersaturada) a mistura formada por 10 g de KNO₃ em 20 g de água a 40ºC. Em seguida, escolha um processo que poderia formar um corpo de fundo nesse sistema.',
+    options: ['Insaturada e aquecimento', 'Insaturada e resfriamento', 'Insaturada e agitação', 'Saturada e aquecimento', 'Saturada e resfriamento', 'Saturada e agitação', 'Supersaturada e aquecimento', 'Supersaturada e resfriamento', 'Supersaturada e agitação', 'Não consegui fazer a questão'] },
+  q2a: { topic: 'Gráficos de solubilidade', extra: GRAPH_XYZ,
+    text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z), marque a opção com o sal mais solúvel a 20ºC e o sal cuja solubilidade diminui quando a temperatura aumenta (dissolução exotérmica).',
+    options: ['X e X.', 'X e Y.', 'X e Z.', 'Y e X', 'Y e Y', 'Y e Z', 'Z e X', 'Z e Y', 'Z e Z', 'Não consegui fazer a questão.'] },
+  energetico: { topic: 'Concentração de soluções', extra: NUTRITION_TABLE,
+    text: 'Considere o rótulo nutricional de uma bebida energética. A concentração comum, em g/L, de Vitamina B5 nessa bebida é:',
+    options: ['19.', '1,9.', '1,9 . 10^-2.', '1,9 . 10^-3.', 'Não consegui fazer a questão'] },
+  acucares: { topic: 'Títulos de concentração', extra: NUTRITION_TABLE,
+    text: 'Considere o mesmo rótulo. A concentração em %m/V e em mol/L de açúcares adicionados nessa bebida é, respectivamente e aproximadamente (açúcares adicionados = sacarose, C₁₂H₂₂O₁₁, massa molar 342 g/mol):',
+    options: ['6,8% m/V e 0,02 mol/L', '6,8% m/V e 0,1 mol/L', '6,8% m/V e 0,2 mol/L', '6,8% m/V e 5 mol/L', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L', '3,4% m/V e 5 mol/L', 'Não consegui fazer a questão'] },
+  sodio: { topic: 'Conversão de unidades', extra: NUTRITION_TABLE,
+    text: 'Considere o mesmo rótulo. A concentração molar (mol/L) de sódio nessa bebida é, aproximadamente (MM Na = 23 g/mol):',
+    options: ['32.', '320.', '14.', '1,4 . 10^-2', 'Não consegui fazer a questão'] }
 };
 
 const CORRECT_ANSWERS = {
-  start:'KNO3', q1a:'Insaturada e resfriamento', q2a:'Y e X',
-  energetico:'1,9 . 10^-2.', acucares:'6,8% m/V e 0,2 mol/L', sodio:'1,4 . 10^-2'
+  start: 'KNO3', q1a: 'Insaturada e resfriamento', q2a: 'Y e X',
+  energetico: '1,9 . 10^-2.', acucares: '6,8% m/V e 0,2 mol/L', sodio: '1,4 . 10^-2'
 };
 
-function nextQuestionId(currentId, value){
-  if(currentId==='start') return value==='KNO3' ? 'q2a' : 'q1a';
-  if(currentId==='q1a') return 'q2a';
-  if(currentId==='q2a') return 'energetico';
-  if(currentId==='energetico') return 'acucares';
-  if(currentId==='acucares') return 'sodio';
+function nextQuestionId(currentId, value) {
+  if (currentId === 'start') return value === 'KNO3' ? 'q2a' : 'q1a';
+  if (currentId === 'q1a') return 'q2a';
+  if (currentId === 'q2a') return 'energetico';
+  if (currentId === 'energetico') return 'acucares';
+  if (currentId === 'acucares') return 'sodio';
   return null;
 }
-function tagsForAnswer(qId, value){
+
+function tagsForAnswer(qId, value) {
   const tags = [];
-  if(qId==='q2a'){
-    if(value==='X e X.' || value==='Z e X') tags.push('graf_interpretacao');
-    if(value==='Y e Z') tags.push('endo_exo');
-    if(value==='X e Y.') tags.push('endo_exo_grafico');
-    if(value==='Não consegui fazer a questão.') tags.push('nao_respondida');
+  if (qId === 'q2a') {
+    if (value === 'X e X.' || value === 'Z e X') tags.push('graf_interpretacao');
+    if (value === 'Y e Z') tags.push('endo_exo');
+    if (value === 'X e Y.') tags.push('endo_exo_grafico');
+    if (value === 'Não consegui fazer a questão.') tags.push('nao_respondida');
   }
-  if(qId==='acucares'){
-    if(['Não consegui fazer a questão','3,4% m/V e 0,02 mol/L','3,4% m/V e 0,1 mol/L','3,4% m/V e 0,2 mol/L'].includes(value)) tags.push('titulos');
+  if (qId === 'acucares') {
+    if (['Não consegui fazer a questão', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L'].includes(value)) tags.push('titulos');
   }
-  if(qId==='sodio'){
-    if(value!=='1,4 . 10^-2') tags.push('g_l_mol_l');
+  if (qId === 'sodio') {
+    if (value !== '1,4 . 10^-2') tags.push('g_l_mol_l');
   }
   return tags;
 }
 
 /* ============================================================
-   QUIZ — ALUNO (com salvamento e finalização)
+   QUIZ — ALUNO
    ============================================================ */
 let quizState = null;
 let quizFinished = false;
 
-function openStudentEntryModal(){
+function openStudentEntryModal() {
   showModal(`
-    <h3 style="margin-top:0;">🚀 Novo diagnóstico</h3>
-    <p style="color:var(--on-surface-variant);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
+    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">🚀 Novo diagnóstico</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
     <label>Sua turma</label>
-    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="margin-bottom:12px;">
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="margin-bottom:10px;">
     <label>Código da aplicação</label>
-    <input type="text" id="modalCode" style="text-transform:uppercase;margin-bottom:12px;" placeholder="Ex: ABCD">
-    <div class="err" id="modalEntryErr" style="color:var(--error);min-height:1.2em;"></div>
+    <input type="text" id="modalCode" style="text-transform:uppercase;margin-bottom:10px;" placeholder="Ex: ABCD">
+    <div class="err" id="modalEntryErr" style="color:var(--coral);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
-      <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-ghost btn-block" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary btn-block" onclick="confirmStartQuiz()">Começar</button>
     </div>
   `);
 }
-async function confirmStartQuiz(){
+
+async function confirmStartQuiz() {
   const turma = document.getElementById('modalTurma').value.trim();
   const code = document.getElementById('modalCode').value.trim().toUpperCase();
   const errEl = document.getElementById('modalEntryErr');
-  if(!code){ errEl.textContent='Informe o código.'; return; }
+  if (!code) { errEl.textContent = 'Informe o código.'; return; }
   const rounds = await loadJSON('rodadas', []);
-  const round = rounds.find(r=>r.code===code);
-  if(!round){ errEl.textContent='Código não encontrado.'; return; }
-  if(round.disabled){ errEl.textContent='Esta aplicação está desabilitada pela professora.'; return; }
+  const round = rounds.find(r => r.code === code);
+  if (!round) { errEl.textContent = 'Código não encontrado.'; return; }
+  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela professora.'; return; }
   hideModal();
 
-  const saved = await loadPersonal('quiz_'+round.id, null);
-  if(saved && saved.studentEmail===currentStudent.email){
+  const saved = await loadPersonal('quiz_' + round.id, null);
+  if (saved && saved.studentEmail === currentStudent.email) {
     quizState = saved;
     quizState.studentClass = turma;
     quizState.roundId = round.id;
     quizFinished = false;
   } else {
-    quizState = { roundId: round.id, studentClass: turma, path:['start'], answersByQ:{}, idx:0 };
+    quizState = { roundId: round.id, studentClass: turma, path: ['start'], answersByQ: {}, idx: 0 };
     quizFinished = false;
   }
   goTo('quiz');
   renderQuizQuestion();
 }
 
-function renderQuizQuestion(){
+function renderQuizQuestion() {
   const qId = quizState.path[quizState.idx];
   const q = QUESTIONS[qId];
-  document.querySelector('.q-topic').textContent = q.topic;
+  document.getElementById('qTopic').textContent = q.topic;
   document.getElementById('qExtra').innerHTML = q.extra || '';
   document.getElementById('qText').textContent = q.text;
-  const progress = Math.min(96, 12+quizState.idx*18);
-  document.getElementById('progressFill').style.width = progress+'%';
+  const progress = Math.min(96, 12 + quizState.idx * 18);
+  document.getElementById('progressFill').style.width = progress + '%';
   const selectedVal = quizState.answersByQ[qId];
   const container = document.getElementById('qOptions');
-  container.innerHTML = q.options.map(opt=>
-    `<button class="opt ${opt===selectedVal?'selected':''}" data-val="${escapeHTML(opt)}" onclick="selectOption(this)" ${quizFinished?'disabled':''}>${escapeHTML(opt)}</button>`
+  container.innerHTML = q.options.map(opt =>
+    `<button class="opt ${opt === selectedVal ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOption(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
   ).join('');
-  document.getElementById('btnBack').disabled = quizState.idx===0 || quizFinished;
-  document.getElementById('btnNext').textContent = (qId==='sodio') ? '✅ Finalizar' : 'Avançar';
+  document.getElementById('btnBack').disabled = quizState.idx === 0 || quizFinished;
+  document.getElementById('btnNext').textContent = (qId === 'sodio') ? '✅ Finalizar' : 'Avançar';
   document.getElementById('btnNext').disabled = !selectedVal || quizFinished;
 }
 
-function selectOption(btnEl){
-  if(quizFinished) return;
-  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
+function selectOption(btnEl) {
+  if (quizFinished) return;
+  document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
   btnEl.classList.add('selected');
   const qId = quizState.path[quizState.idx];
   quizState.answersByQ[qId] = btnEl.getAttribute('data-val');
@@ -1858,19 +2153,19 @@ function selectOption(btnEl){
   saveQuizProgress();
 }
 
-function goBackQuestion(){
-  if(quizState.idx===0 || quizFinished) return;
+function goBackQuestion() {
+  if (quizState.idx === 0 || quizFinished) return;
   quizState.idx--;
   renderQuizQuestion();
 }
 
-function goNextQuestion(){
-  if(quizFinished) return;
+function goNextQuestion() {
+  if (quizFinished) return;
   const qId = quizState.path[quizState.idx];
   const val = quizState.answersByQ[qId];
-  if(!val) return;
-  if(qId==='sodio'){ confirmFinishQuiz(); return; }
-  quizState.path = quizState.path.slice(0, quizState.idx+1);
+  if (!val) return;
+  if (qId === 'sodio') { confirmFinishQuiz(); return; }
+  quizState.path = quizState.path.slice(0, quizState.idx + 1);
   const next = nextQuestionId(qId, val);
   quizState.path.push(next);
   quizState.idx++;
@@ -1878,37 +2173,37 @@ function goNextQuestion(){
   saveQuizProgress();
 }
 
-async function saveQuizProgress(){
-  if(!currentStudent) return;
-  await savePersonal('quiz_'+quizState.roundId, {
+async function saveQuizProgress() {
+  if (!currentStudent) return;
+  await savePersonal('quiz_' + quizState.roundId, {
     ...quizState,
     studentEmail: currentStudent.email,
     studentName: currentStudent.name
   });
 }
 
-async function confirmFinishQuiz(){
-  if(quizFinished) return;
+async function confirmFinishQuiz() {
+  if (quizFinished) return;
   showModal(`
-    <h3 style="margin-top:0;">✅ Finalizar diagnóstico?</h3>
-    <p style="color:var(--on-surface-variant);">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</p>
+    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">✅ Finalizar diagnóstico?</h3>
+    <p style="color:var(--text-secondary);">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</p>
     <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn btn-outline btn-block" onclick="hideModal()">Continuar respondendo</button>
+      <button class="btn btn-ghost btn-block" onclick="hideModal()">Continuar respondendo</button>
       <button class="btn btn-primary btn-block" onclick="hideModal(); finishQuiz()">Sim, finalizar</button>
     </div>
   `);
 }
 
-async function finishQuiz(){
+async function finishQuiz() {
   quizFinished = true;
-  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('progressFill').style.width = '100%';
   const tagsArr = Array.from(recomputeTags());
   let levelIdx, levelLabel;
-  if(tagsArr.length===0){ levelIdx=0; levelLabel='Domínio sólido'; }
-  else if(tagsArr.length<=2){ levelIdx=1; levelLabel='Alguns pontos de atenção'; }
-  else { levelIdx=2; levelLabel='Vamos reforçar juntos'; }
+  if (tagsArr.length === 0) { levelIdx = 0; levelLabel = 'Domínio sólido'; }
+  else if (tagsArr.length <= 2) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
+  else { levelIdx = 2; levelLabel = 'Vamos reforçar juntos'; }
 
-  const answersDetail = quizState.path.map(qId=>({
+  const answersDetail = quizState.path.map(qId => ({
     questionId: qId,
     topic: QUESTIONS[qId].topic,
     value: quizState.answersByQ[qId],
@@ -1917,11 +2212,11 @@ async function finishQuiz(){
 
   const attempts = await loadJSON('tentativas', []);
   const prevAttempt = attempts
-    .filter(a=> a.studentEmail===currentStudent.email && a.roundId!==quizState.roundId)
-    .sort((a,b)=>b.finishedAt-a.finishedAt)[0];
+    .filter(a => a.studentEmail === currentStudent.email && a.roundId !== quizState.roundId)
+    .sort((a, b) => b.finishedAt - a.finishedAt)[0];
 
   const attempt = {
-    id:'a_'+Date.now(),
+    id: 'a_' + Date.now(),
     roundId: quizState.roundId,
     studentEmail: currentStudent.email,
     studentName: currentStudent.name,
@@ -1933,90 +2228,88 @@ async function finishQuiz(){
   };
   attempts.push(attempt);
   await saveJSON('tentativas', attempts);
-  await savePersonal('quiz_'+quizState.roundId, null);
+  await savePersonal('quiz_' + quizState.roundId, null);
   renderResult(attempt, prevAttempt);
   goTo('result');
   launchConfetti();
 }
 
-function recomputeTags(){
+function recomputeTags() {
   const tags = new Set();
-  quizState.path.forEach(qId=>{
+  quizState.path.forEach(qId => {
     const val = quizState.answersByQ[qId];
-    if(val!==undefined) tagsForAnswer(qId,val).forEach(t=>tags.add(t));
+    if (val !== undefined) tagsForAnswer(qId, val).forEach(t => tags.add(t));
   });
   return tags;
 }
 
-function confirmExitQuiz(){
-  if(quizFinished) { goTo('studentPanel'); return; }
+function confirmExitQuiz() {
+  if (quizFinished) { goTo('studentPanel'); return; }
   showModal(`
-    <h3 style="margin-top:0;">Sair do diagnóstico?</h3>
-    <p style="color:var(--on-surface-variant);">Suas respostas serão salvas e você poderá continuar depois.</p>
+    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">Sair do diagnóstico?</h3>
+    <p style="color:var(--text-secondary);">Suas respostas serão salvas e você poderá continuar depois.</p>
     <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn btn-outline btn-block" onclick="hideModal()">Continuar</button>
+      <button class="btn btn-ghost btn-block" onclick="hideModal()">Continuar</button>
       <button class="btn btn-primary btn-block" onclick="hideModal(); saveQuizProgress(); goTo('studentPanel');">Salvar e sair</button>
     </div>
   `);
 }
 
-function renderResult(attempt, prevAttempt){
+function renderResult(attempt, prevAttempt) {
   const hero = document.getElementById('resultHero');
-  hero.className = 'result-hero' + (attempt.levelIdx===2 ? ' warn':'');
+  hero.className = 'result-hero' + (attempt.levelIdx === 2 ? ' warn' : '');
   hero.innerHTML = `<h2>${escapeHTML(attempt.levelLabel)}</h2><p>Oi, ${escapeHTML(attempt.studentName.split(' ')[0])}! ${escapeHTML(pickEncouragement(attempt.levelIdx))}</p>`;
 
   const compareEl = document.getElementById('resultCompare');
-  if(prevAttempt){
-    const prevTags = new Set(prevAttempt.tags);
-    const curTags = new Set(attempt.tags);
-    const superadas = [...prevTags].filter(t=>!curTags.has(t));
-    const persistentes = [...prevTags].filter(t=>curTags.has(t));
-    const novas = [...curTags].filter(t=>!prevTags.has(t));
+  if (prevAttempt) {
+    const prevTags = new Set(prevAttempt.tags || []);
+    const curTags = new Set(attempt.tags || []);
+    const superadas = [...prevTags].filter(t => !curTags.has(t));
+    const persistentes = [...prevTags].filter(t => curTags.has(t));
+    const novas = [...curTags].filter(t => !prevTags.has(t));
     compareEl.innerHTML = `
       <div class="card" style="margin-bottom:16px;">
-        <h4>Comparando com sua tentativa anterior</h4>
-        ${superadas.length ? `<div style="font-size:0.9rem;color:var(--tertiary);"><strong>✅ Superadas:</strong> ${superadas.map(t=>`<span class="chip chip-tertiary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
-        ${persistentes.length ? `<div style="font-size:0.9rem;color:var(--error);"><strong>🔄 Ainda reforçar:</strong> ${persistentes.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
-        ${novas.length ? `<div style="font-size:0.9rem;color:var(--secondary);"><strong>🆕 Novo:</strong> ${novas.map(t=>`<span class="chip chip-secondary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
+        <h4 style="margin-bottom:8px;">Comparando com sua tentativa anterior</h4>
+        ${superadas.length ? `<div style="font-size:0.9rem;color:var(--green-main);"><strong>✅ Superadas:</strong> ${superadas.map(t => `<span class="chip chip-green">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${persistentes.length ? `<div style="font-size:0.9rem;color:var(--coral);"><strong>🔄 Ainda reforçar:</strong> ${persistentes.map(t => `<span class="chip chip-coral">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${novas.length ? `<div style="font-size:0.9rem;color:var(--gold);"><strong>🆕 Novo:</strong> ${novas.map(t => `<span class="chip chip-gold">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${(!superadas.length && !persistentes.length && !novas.length) ? '<div style="color:var(--text-secondary);">Sem diferenças em relação à tentativa anterior.</div>' : ''}
       </div>`;
   } else { compareEl.innerHTML = ''; }
 
   const tagsEl = document.getElementById('resultTags');
-  if(attempt.tags.length===0){
-    tagsEl.innerHTML = `<div class="card"><h4>🎉 Nenhuma dificuldade específica identificada</h4><p style="color:var(--on-surface-variant);">Continue praticando para manter esse domínio.</p></div>`;
+  if (!attempt.tags || attempt.tags.length === 0) {
+    tagsEl.innerHTML = `<div class="card"><h4>🎉 Nenhuma dificuldade específica identificada</h4><p style="color:var(--text-secondary);">Continue praticando para manter esse domínio.</p></div>`;
   } else {
-    tagsEl.innerHTML = attempt.tags.map(t=>`
+    tagsEl.innerHTML = attempt.tags.map(t => `
       <div class="card" style="margin-bottom:12px;">
-        <h4>${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</h4>
-        <p style="color:var(--on-surface-variant);">${escapeHTML(TAGS[t].tip)}</p>
+        <h4>${TAGS[t]?.icon || '📌'} ${escapeHTML(TAGS[t]?.label || t)}</h4>
+        <p style="color:var(--text-secondary);">${escapeHTML(TAGS[t]?.tip || 'Dica disponível em breve.')}</p>
       </div>
     `).join('');
   }
 }
 
-function launchConfetti(){
-  const colors = ['#ff5e5b','#fcc838','#419bdf','#b4272b','#6bcb9a'];
-  for(let i=0;i<80;i++){
+function launchConfetti() {
+  const colors = ['#6BCB9A', '#8FC1D9', '#F5D76E', '#F5A0A0', '#D4F0E4'];
+  for (let i = 0; i < 70; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
-    piece.style.left = Math.random()*100 + 'vw';
+    piece.style.left = Math.random() * 100 + 'vw';
     piece.style.top = '-10px';
-    piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-    piece.style.width = Math.random()*8+5 + 'px';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = Math.random() * 8 + 5 + 'px';
     piece.style.height = piece.style.width;
-    piece.style.borderRadius = Math.random()>0.5 ? '50%' : '0%';
-    piece.style.transform = `rotate(${Math.random()*360}deg)`;
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+    piece.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
     document.body.appendChild(piece);
-    const duration = Math.random()*2000+1500;
-    const dx = (Math.random()-0.5)*300;
+    const duration = Math.random() * 2000 + 1500;
+    const dx = (Math.random() - 0.5) * 300;
     const dy = window.innerHeight + 100;
     piece.animate([
-      { transform: `translate(0,0) rotate(0deg)`, opacity:1 },
-      { transform: `translate(${dx}px, ${dy}px) rotate(${Math.random()*720}deg)`, opacity:0 }
-    ], {
-      duration: duration,
-      easing: 'cubic-bezier(0, .9, .57, 1)'
-    }).onfinish = ()=> piece.remove();
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+    ], { duration, easing: 'cubic-bezier(0, .9, .57, 1)' }).onfinish = () => piece.remove();
   }
 }
 
@@ -2025,146 +2318,35 @@ function launchConfetti(){
    ============================================================ */
 let studentTab = 'overview';
 
-function renderStudentPanel(){
-  if(!currentStudent){ goTo('login-student'); return; }
+function renderStudentPanel() {
+  if (!currentStudent) { goTo('login-student'); return; }
   document.getElementById('panelStudentName').textContent = currentStudent.name.split(' ')[0];
   renderStudentTabContent();
 }
-function setStudentTab(tab){ studentTab = tab; renderStudentTabContent(); }
-function renderStudentTabContent(){
-  document.querySelectorAll('#screen-studentPanel .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===studentTab));
-  if(studentTab==='overview') renderStudentOverviewTab();
-  else if(studentTab==='desempenho') renderStudentDesempenhoTab();
-  else if(studentTab==='reforcos') renderStudentReforcosTab();
+
+function setStudentTab(tab) {
+  studentTab = tab;
+  renderStudentTabContent();
 }
 
-async function renderStudentOverviewTab(){
+function renderStudentTabContent() {
+  document.querySelectorAll('#screen-studentPanel .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === studentTab);
+  });
+  if (studentTab === 'overview') renderStudentOverviewTab();
+  else if (studentTab === 'desempenho') renderStudentDesempenhoTab();
+  else if (studentTab === 'reforcos') renderStudentReforcosTab();
+}
+
+async function renderStudentOverviewTab() {
   const attempts = await loadJSON('tentativas', []);
-  const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
+  const mine = attempts.filter(a => a.studentEmail === currentStudent.email).sort((a, b) => a.finishedAt - b.finishedAt);
   const content = document.getElementById('studentContent');
-  if(mine.length===0){
-    content.innerHTML = `<div class="card card-empty">Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
+  if (mine.length === 0) {
+    content.innerHTML = `<div class="card card-soft text-center">📭 Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
     return;
   }
-  const last = mine[mine.length-1];
+  const last = mine[mine.length - 1];
   let html = `
-    <div class="result-hero ${last.levelIdx===2?'warn':''}" style="margin-bottom:18px;">
-      <h2>${escapeHTML(last.levelLabel)}</h2>
-      <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
-    </div>`;
-  if(last.tags.length===0){
-    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:var(--on-surface-variant);">Continue praticando para manter esse domínio.</p></div>`;
-  } else {
-    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` + last.tags.map(t=>`
-      <div class="card" style="border-left:5px solid ${TAGS[t].colorClass==='coral'?'var(--primary)':TAGS[t].colorClass==='teal'?'var(--tertiary)':TAGS[t].colorClass==='gold'?'var(--secondary)':'var(--tertiary-container)'};">
-        <div style="font-size:1.5rem;">${TAGS[t].icon}</div>
-        <h4 style="font-size:0.9rem;">${escapeHTML(TAGS[t].label)}</h4>
-        <p style="font-size:0.8rem;color:var(--on-surface-variant);">${escapeHTML(TAGS[t].tip)}</p>
-      </div>
-    `).join('') + `</div>`;
-  }
-  content.innerHTML = html;
-}
-
-async function renderStudentDesempenhoTab(){
-  const attempts = await loadJSON('tentativas', []);
-  const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
-  const content = document.getElementById('studentContent');
-  if(mine.length===0){ content.innerHTML = `<div class="card card-empty">Sem dados de desempenho ainda.</div>`; return; }
-  const last = mine[mine.length-1];
-  const correct = last.answersDetail.filter(d=>d.isCorrect).length;
-  const total = last.answersDetail.length;
-  const pct = Math.round((correct/total)*100);
-  let html = `
-    <div class="card" style="margin-bottom:16px;">
-      <h4>Última tentativa</h4>
-      <div style="display:flex;align-items:center;gap:20px;">
-        <div style="width:70px;height:70px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;background:conic-gradient(var(--tertiary-container) ${pct}%, var(--surface-container) 0);">
-          <span style="position:relative;z-index:1;background:var(--surface);padding:0 4px;">${pct}%</span>
-          <div style="position:absolute;inset:6px;background:var(--surface);border-radius:50%;"></div>
-        </div>
-        <div><div style="font-weight:700;">${correct} de ${total} questões corretas</div><div style="color:var(--on-surface-variant);font-size:0.8rem;">Comparando com o gabarito</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h4>Por questão</h4>
-      ${last.answersDetail.map(d=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--outline-variant);">${d.isCorrect?'✅':'❌'} ${escapeHTML(d.topic)}</div>`).join('')}
-    </div>`;
-  if(mine.length>1){
-    html += `<div class="card" style="margin-top:16px;">
-      <h4>Evolução</h4>
-      ${mine.map((a,i)=>{
-        const c = a.answersDetail.filter(d=>d.isCorrect).length;
-        const t = a.answersDetail.length;
-        const p = Math.round((c/t)*100);
-        return `<div style="margin-bottom:8px;"><div style="font-size:0.8rem;">Tentativa ${i+1} — ${p}% acerto</div><div style="height:8px;background:var(--surface-container);border-radius:10px;overflow:hidden;"><div style="height:100%;width:${p}%;background:var(--tertiary-container);border-radius:10px;"></div></div></div>`;
-      }).join('')}
-    </div>`;
-  }
-  content.innerHTML = html;
-}
-
-async function renderStudentReforcosTab(){
-  const attempts = await loadJSON('tentativas', []);
-  const materiais = await loadJSON('materiais', []);
-  const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
-  const content = document.getElementById('studentContent');
-  if(mine.length===0){ content.innerHTML = `<div class="card card-empty">Responda um diagnóstico para receber recomendações.</div>`; return; }
-  const last = mine[mine.length-1];
-  const recommended = materiais.filter(m=>m.tagIds.some(t=>last.tags.includes(t) || (TAGS[t] && last.tags.includes(t))));
-  let html = '';
-  if(last.tags.length===0){
-    html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:var(--on-surface-variant);">Sem recomendações específicas agora — mas sinta-se livre para revisar a biblioteca geral.</p></div>`;
-  } else if(recommended.length===0){
-    html += `<div class="card card-empty">A professora ainda não cadastrou materiais para essas dificuldades. Volte em breve!</div>`;
-  } else {
-    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` + recommended.map(m=>`
-      <div class="card">
-        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-secondary">${escapeHTML(m.type)}</span></div>
-        <p style="font-size:0.8rem;color:var(--on-surface-variant);">${escapeHTML(m.description||'')}</p>
-        ${m.link? `<a href="${escapeHTML(m.link)}" target="_blank" class="btn btn-outline" style="margin-top:8px;padding:6px 14px;font-size:0.8rem;">Abrir material</a>`:''}
-      </div>
-    `).join('') + `</div>`;
-  }
-  content.innerHTML = html;
-}
-
-/* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
-initRemembered();
-renderHomeStats();
-
-// Recuperar quiz salvo se houver
-(async ()=>{
-  if(currentStudent){
-    const rounds = await loadJSON('rodadas', []);
-    for(let r of rounds){
-      const saved = await loadPersonal('quiz_'+r.id, null);
-      if(saved && saved.studentEmail===currentStudent.email){
-        quizState = saved;
-        quizFinished = false;
-        break;
-      }
-    }
-  }
-})();
-
-// Drag and drop para upload
-document.addEventListener('DOMContentLoaded', ()=>{
-  const area = document.getElementById('uploadArea');
-  if(area){
-    area.addEventListener('dragover', e=>{ e.preventDefault(); area.classList.add('dragover'); });
-    area.addEventListener('dragleave', ()=> area.classList.remove('dragover'));
-    area.addEventListener('drop', e=>{
-      e.preventDefault();
-      area.classList.remove('dragover');
-      if(e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
-    });
-  }
-});
-
-console.log('✅ Diagnóstico de Soluções v2.0 carregado!');
-</script>
-</body>
-</html>
+    <div class="result-hero ${last.levelIdx === 2 ? 'warn' : ''}" style="margin-bottom:18px;">
+      <h2>${escapeHTML(last
