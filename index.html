@@ -1,51 +1,116 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html class="light" lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico de Soluções — v2.0</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <title>Química Interativa — Diagnóstico</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- Tailwind via CDN (para agilizar, mas manteremos CSS custom) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <style>
-    /* ===== RESET & VARIÁVEIS ===== */
+    /* ============================================================
+       Tema e variáveis (cores do exemplo)
+    ============================================================ */
     :root {
-      --bg: #f4f2f0;
-      --surface: #ffffff;
-      --ink: #1a1a2e;
-      --ink-soft: #4a4a6a;
-      --coral: #ff6b6b;
-      --coral-deep: #e04e4e;
-      --gold: #ffd93d;
-      --teal: #6bcb9a;
-      --teal-deep: #3da57a;
-      --blue: #4d8cf7;
-      --blue-deep: #2b6ad4;
-      --purple: #a78bfa;
-      --radius: 20px;
-      --shadow: 0 12px 30px rgba(0,0,0,0.08);
-      --transition: all 0.25s ease;
+      --on-secondary-container: #6f5400;
+      --surface-dim: #dad7f3;
+      --inverse-on-surface: #f2efff;
+      --on-tertiary-fixed: #001d32;
+      --surface: #fcf8ff;
+      --on-secondary-fixed-variant: #5a4300;
+      --on-surface-variant: #5a413f;
+      --surface-container-highest: #e2e0fc;
+      --secondary-container: #fcc838;
+      --outline: #8e706e;
+      --on-tertiary-container: #00304e;
+      --error-container: #ffdad6;
+      --on-error: #ffffff;
+      --surface-container-high: #e8e5ff;
+      --primary-container: #ff5e5b;
+      --on-primary: #ffffff;
+      --on-primary-fixed-variant: #910717;
+      --on-error-container: #93000a;
+      --on-secondary: #ffffff;
+      --primary-fixed-dim: #ffb3ae;
+      --surface-container: #efecff;
+      --on-secondary-fixed: #251a00;
+      --surface-container-low: #f5f2ff;
+      --inverse-primary: #ffb3ae;
+      --on-tertiary-fixed-variant: #004a75;
+      --secondary-fixed-dim: #f3bf2f;
+      --primary-fixed: #ffdad7;
+      --surface-container-lowest: #ffffff;
+      --secondary-fixed: #ffdf98;
+      --inverse-surface: #2f2e43;
+      --on-tertiary: #ffffff;
+      --on-surface: #1a1a2e;
+      --surface-tint: #b4272b;
+      --surface-bright: #fcf8ff;
+      --tertiary: #006399;
+      --error: #ba1a1a;
+      --secondary: #775a00;
+      --primary: #b4272b;
+      --on-background: #1a1a2e;
+      --tertiary-container: #419bdf;
+      --on-primary-container: #63000a;
+      --on-primary-fixed: #410004;
+      --background: #fcf8ff;
+      --tertiary-fixed: #cde5ff;
+      --tertiary-fixed-dim: #95ccff;
+      --outline-variant: #e2bebb;
+      --surface-variant: #e2e0fc;
+      --radius: 1rem;
+      --shadow: 6px 6px 0px 0px rgba(26, 26, 46, 0.15);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     html, body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: 'Nunito Sans', sans-serif;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
-    h1,h2,h3,h4 {
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin: 0;
     }
-    a { color: inherit; text-decoration: none; }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
 
     /* ===== SCREENS ===== */
     .screen { display: none; min-height: 100vh; }
     .screen.active { display: block; }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== NEOBRUTALIST CARDS ===== */
+    .neobrutalist {
+      box-shadow: var(--shadow);
+      border: 2px solid var(--outline-variant);
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+    }
+    .neobrutalist:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0px 0px rgba(26, 26, 46, 0.2);
+    }
+    .neobrutalist-sm {
+      box-shadow: 4px 4px 0px 0px rgba(26, 26, 46, 0.15);
+    }
+    .neobrutalist-active:active {
+      transform: scale(0.95);
+      box-shadow: 2px 2px 0px 0px rgba(26, 26, 46, 0.15);
+    }
 
     /* ===== BOTÕES ===== */
     .btn {
@@ -54,40 +119,45 @@
       justify-content: center;
       gap: 8px;
       padding: 12px 24px;
-      border-radius: 60px;
+      border-radius: 999px;
       font-weight: 700;
       font-size: 0.9rem;
-      transition: var(--transition);
-      border: none;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      font-family: 'Nunito Sans', sans-serif;
       background: var(--surface);
-      color: var(--ink);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      color: var(--on-surface);
+      box-shadow: var(--shadow);
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px 0px rgba(26, 26, 46, 0.2); }
+    .btn:active { transform: scale(0.95); box-shadow: 2px 2px 0px 0px rgba(26, 26, 46, 0.15); }
     .btn-primary {
-      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
-      color: #fff;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
     }
-    .btn-primary:hover { background: linear-gradient(135deg, var(--coral-deep), var(--coral)); }
+    .btn-primary:hover { background: var(--on-primary-fixed-variant); border-color: var(--on-primary-fixed-variant); }
     .btn-secondary {
-      background: var(--ink);
-      color: #fff;
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border-color: var(--secondary-container);
     }
-    .btn-secondary:hover { background: #2a2a4a; }
+    .btn-tertiary {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary);
+      border-color: var(--tertiary-container);
+    }
     .btn-outline {
       background: transparent;
-      border: 2px solid var(--ink-soft);
-      color: var(--ink-soft);
+      border-color: var(--outline-variant);
+      color: var(--on-surface-variant);
+      box-shadow: none;
     }
-    .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
-    .btn-teal {
-      background: var(--teal);
-      color: #fff;
-    }
-    .btn-teal:hover { background: var(--teal-deep); }
+    .btn-outline:hover { background: var(--surface-container); border-color: var(--outline); }
     .btn-block { width: 100%; justify-content: center; }
     .btn-xl { padding: 16px 36px; font-size: 1.05rem; }
-    .btn-icon { font-size: 1.2rem; line-height: 1; }
+    .btn-icon { font-size: 1.2rem; }
 
     /* ===== NAV ===== */
     .nav {
@@ -95,61 +165,23 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px 0;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
-    .brand-mark {
-      width: 34px;
-      height: 34px;
+    .brand .logo {
+      background: var(--primary);
+      color: #fff;
+      padding: 6px 12px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--coral), var(--gold));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
-
-    /* ===== HERO ===== */
-    .hero {
-      background: linear-gradient(145deg, var(--coral), var(--coral-deep));
-      border-radius: 32px;
-      padding: 48px 40px;
-      margin: 16px 0 32px;
-      display: flex;
-      gap: 40px;
-      align-items: center;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero h1 { font-size: 2.6rem; margin: 14px 0 16px; color: #fff; }
-    .hero p { font-size: 1.05rem; opacity: 0.92; max-width: 480px; margin: 0 0 28px; }
-    .hero-art { flex: 0 0 240px; display: flex; justify-content: center; }
-    .hero-art svg { width: 100%; max-width: 240px; }
-    @media (max-width:760px){ .hero{ flex-direction:column; padding:32px 24px; } .hero h1{ font-size:2rem; } .hero-art{ order:-1; max-width:180px; } }
-
-    /* ===== CARDS ===== */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0,0,0,0.04);
-      padding: 24px;
-    }
-    .card-trio {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 18px;
-      margin: 20px 0;
-    }
-    @media (max-width:760px){ .card-trio{ grid-template-columns:1fr; } }
 
     /* ===== TABS ===== */
     .tab-nav {
@@ -161,408 +193,471 @@
     .tab-btn {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
+      gap: 6px;
+      padding: 10px 18px;
       border-radius: 60px;
       font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--ink-soft);
+      font-size: 0.85rem;
       background: transparent;
-      transition: var(--transition);
+      color: var(--on-surface-variant);
       border: 2px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      font-family: 'Nunito Sans', sans-serif;
     }
-    .tab-btn:hover { background: rgba(0,0,0,0.04); }
+    .tab-btn:hover { background: var(--surface-container); }
     .tab-btn.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
     }
     .tab-btn .icon { font-size: 1.2rem; }
 
-    /* ===== DASHBOARD ===== */
-    .dash-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 0 12px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .dash-grid {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 24px;
-      padding-bottom: 60px;
-    }
-    @media (max-width:760px){ .dash-grid{ grid-template-columns:1fr; } }
-
-    .round-item {
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 2px solid transparent;
-      background: var(--surface);
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-    .round-item:hover { border-color: var(--teal); }
-    .round-item.active {
-      border-color: var(--ink);
-      background: #f0f4ff;
-    }
-    .round-item .code {
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-    }
-    .round-item .date {
-      font-size: 0.7rem;
-      color: var(--ink-soft);
-      margin-top: 4px;
-    }
-
-    /* ===== ALUNOS ===== */
-    .aluno-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 18px;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .aluno-row:hover { background: var(--bg); }
-    .aluno-stats {
-      display: flex;
-      gap: 16px;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-    }
-    .aluno-stats span { background: var(--bg); padding: 2px 10px; border-radius: 20px; }
-    .aluno-stats .acertos { color: var(--teal-deep); }
-    .aluno-stats .erros { color: var(--coral-deep); }
-
-    /* ===== GRÁFICOS ===== */
-    .chart-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .chart-btn {
-      padding: 8px 16px;
-      border-radius: 40px;
-      background: var(--bg);
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      border: 2px solid transparent;
-      transition: var(--transition);
-    }
-    .chart-btn.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-    .chart-btn:hover { background: #ddd; }
-
-    .chart-container {
+    /* ===== CARDS GENÉRICOS ===== */
+    .card {
       background: var(--surface);
       border-radius: var(--radius);
-      padding: 20px;
+      border: 2px solid var(--outline-variant);
       box-shadow: var(--shadow);
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 24px;
     }
-    .chart-container canvas { max-width: 100%; max-height: 400px; }
-
-    /* ===== ATIVIDADES - UPLOAD ===== */
-    .upload-area {
-      border: 2px dashed var(--ink-soft);
-      border-radius: var(--radius);
-      padding: 30px 20px;
+    .card-empty {
       text-align: center;
-      color: var(--ink-soft);
-      transition: var(--transition);
-      margin: 16px 0;
-      background: var(--bg);
+      padding: 40px 20px;
+      color: var(--on-surface-variant);
     }
-    .upload-area.dragover { border-color: var(--teal); background: #e6f7f0; }
-    .upload-area input[type="file"] { display: none; }
-    .upload-area .label { font-weight: 700; font-size: 0.9rem; }
-    .upload-area .hint { font-size: 0.8rem; margin-top: 4px; }
-
-    .file-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: var(--bg);
-      border-radius: 12px;
-      margin-bottom: 8px;
-    }
-    .file-item .info { display: flex; align-items: center; gap: 12px; }
-    .file-item .info .name { font-weight: 600; }
-    .file-item .info .meta { font-size: 0.75rem; color: var(--ink-soft); }
-    .file-progress {
-      height: 6px;
-      background: #e0e0e0;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-    .file-progress .bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--teal), var(--blue));
-      width: 0%;
-      border-radius: 10px;
-      transition: width 0.3s ease;
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
     }
 
-    /* ===== TAGS EXPLICATION ===== */
-    .tags-explain {
-      background: #f0f7ff;
-      border-left: 5px solid var(--blue);
-      padding: 16px 20px;
-      border-radius: 12px;
-      margin: 16px 0;
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-    }
-    .tags-explain strong { color: var(--ink); }
-    .tag-example {
-      display: inline-block;
-      background: var(--surface);
-      padding: 4px 12px;
-      border-radius: 30px;
-      font-size: 0.8rem;
-      margin: 4px 4px 0 0;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-
-    /* ===== QUIZ ===== */
-    .quiz-wrap {
-      max-width: 680px;
+    /* ===== LOGIN ===== */
+    .login-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 30px 22px 60px;
     }
-    .progress-bar {
-      height: 8px;
-      background: var(--bg);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--teal), var(--blue));
-      border-radius: 10px;
-      transition: width 0.3s ease;
-    }
-    .q-card { padding: 32px; }
-    .q-text { font-size: 1.2rem; font-weight: 600; margin: 14px 0 20px; line-height: 1.5; }
-    .opt {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 2px solid #eaeaea;
-      background: var(--surface);
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-      color: var(--ink);
-      transition: var(--transition);
-    }
-    .opt:hover { border-color: var(--teal); }
-    .opt.selected { border-color: var(--teal); background: #e6f7f0; font-weight: 700; }
-    .opt:disabled { opacity: 0.5; cursor: not-allowed; }
+    @media (max-width: 760px) { .login-grid { grid-template-columns: 1fr; } }
 
-    .quiz-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
-
-    /* ===== RESULT ===== */
-    .result-hero {
-      background: var(--teal);
-      color: #fff;
-      border-radius: 28px;
-      padding: 32px;
-      margin-bottom: 22px;
-    }
-    .result-hero.warn { background: var(--coral); }
-    .result-hero h2 { color: #fff; font-size: 1.8rem; }
-
-    /* ===== MODAL ===== */
-    #modalOverlay {
+    /* ===== TUTORIAL OVERLAY ===== */
+    #tutorialOverlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
       z-index: 1000;
+      background: rgba(26, 26, 46, 0.7);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    #modalOverlay.open { display: flex; }
-    #modalCard {
-      max-width: 440px;
+    #tutorialOverlay.open { display: flex; }
+    #tutorialCard {
+      max-width: 500px;
       width: 100%;
       padding: 32px;
-      border-radius: var(--radius);
       background: var(--surface);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-      max-height: 90vh;
-      overflow-y: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 2px solid var(--outline-variant);
+      position: relative;
     }
-    #modalCard .modal-close {
-      float: right;
-      font-size: 1.4rem;
-      background: none;
-      border: none;
-      color: var(--ink-soft);
-      cursor: pointer;
-    }
-    #modalCard .modal-close:hover { color: var(--ink); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 600px) {
-      .tab-btn { padding: 8px 14px; font-size: 0.8rem; }
-      .btn { padding: 10px 18px; font-size: 0.85rem; }
-      .hero h1 { font-size: 1.8rem; }
-    }
-
-    /* ===== TUTORIAL ===== */
     .tutorial-step {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+      margin: 16px 0;
     }
     .tutorial-step .num {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: var(--teal);
-      color: #fff;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       flex-shrink: 0;
     }
+    .tutorial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .tutorial-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--outline-variant);
+      transition: 0.3s;
+    }
+    .tutorial-dots .dot.active { background: var(--primary); width: 24px; border-radius: 20px; }
+
+    /* ===== PROGRESSO ARQUIVO ===== */
+    .file-progress {
+      height: 8px;
+      background: var(--surface-container);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .file-progress .bar {
+      height: 100%;
+      background: var(--primary-container);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    /* ===== QUIZ ===== */
+    .quiz-wrap { max-width: 680px; margin: 0 auto; padding: 30px 22px 60px; }
+    .progress-bar {
+      height: 12px;
+      background: var(--surface-container);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--primary-container);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 2px solid var(--outline-variant);
+      background: var(--surface);
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .opt:hover { border-color: var(--tertiary); }
+    .opt.selected { border-color: var(--tertiary-container); background: var(--tertiary-fixed); }
+    .opt:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ===== RESULTADO ===== */
+    .result-hero {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--outline-variant);
+    }
+    .result-hero.warn { background: var(--primary-container); color: var(--on-primary-container); }
+    .result-hero h2 { color: inherit; }
+
+    /* ===== MODAL ===== */
+    #modalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(26, 26, 46, 0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #modalOverlay.open { display: flex; }
+    #modalCard {
+      max-width: 480px;
+      width: 100%;
+      padding: 32px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 2px solid var(--outline-variant);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    #modalCard .close-btn {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--on-surface-variant);
+      cursor: pointer;
+    }
+
+    /* ===== UPLOAD AREA ===== */
+    .upload-area {
+      border: 2px dashed var(--outline-variant);
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--surface-container-low);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .upload-area.dragover { border-color: var(--primary); background: var(--primary-fixed); }
+
+    /* ===== MISC ===== */
+    .chip {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      border: 1px solid var(--outline-variant);
+      margin: 2px 4px 2px 0;
+    }
+    .chip-primary { background: var(--primary-fixed); color: var(--on-primary-fixed); border-color: var(--primary); }
+    .chip-secondary { background: var(--secondary-fixed); color: var(--on-secondary-fixed); border-color: var(--secondary); }
+    .chip-tertiary { background: var(--tertiary-fixed); color: var(--on-tertiary-fixed); border-color: var(--tertiary); }
+
+    .level-badge {
+      padding: 4px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #fff;
+    }
+    .lvl-0 { background: var(--tertiary-container); }
+    .lvl-1 { background: var(--secondary-container); color: var(--on-secondary-container); }
+    .lvl-2 { background: var(--primary-container); color: var(--on-primary-container); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .tab-btn { padding: 6px 12px; font-size: 0.75rem; }
+      .btn { padding: 8px 16px; font-size: 0.8rem; }
+      .card { padding: 16px; }
+      .login-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CONFETTI ===== */
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      z-index: 999;
+      border-radius: 2px;
+    }
   </style>
 </head>
 <body>
+
+<!-- ================================================================== -->
+<!-- TUTORIAL OVERLAY (aparece para o gestor na primeira vez) -->
+<!-- ================================================================== -->
+<div id="tutorialOverlay">
+  <div id="tutorialCard">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;">📖 Bem-vindo ao Painel!</h3>
+      <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
+    </div>
+    <div id="tutorialBody">
+      <!-- conteúdo dinâmico via JS -->
+    </div>
+    <div class="tutorial-dots" id="tutorialDots"></div>
+    <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
+      <button class="btn btn-outline" onclick="closeTutorial()">Pular</button>
+      <button class="btn btn-primary" id="tutorialNextBtn" onclick="nextTutorialStep()">Próximo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- SCREENS -->
+<!-- ================================================================== -->
 
 <!-- ============ HOME ============ -->
 <section id="screen-home" class="screen active">
   <div class="wrap">
     <div class="nav">
-      <div class="brand"><span class="brand-mark">Sₓ</span> Diagnóstico de Soluções</div>
-      <button class="btn btn-outline" onclick="goManagerArea()">👩‍🏫 Entrar como gestora</button>
+      <div class="brand"><span class="logo">Sₓ</span> Diagnóstico de Soluções</div>
+      <button class="btn btn-primary" onclick="goManagerArea()">👩‍🏫 Entrar como gestora</button>
     </div>
 
-    <div class="hero">
-      <div class="hero-text">
-        <div class="eyebrow" style="font-weight:600;letter-spacing:0.1em;opacity:0.8;">Química · Soluções · 2ª série</div>
-        <h1>Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
-        <p>Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas.</p>
-        <div class="hero-actions" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-secondary btn-xl" onclick="goStudentArea()">🚀 Sou aluno(a) — começar</button>
-        </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0;align-items:center;">
+      <div>
+        <span style="font-weight:700;color:var(--primary);letter-spacing:0.1em;">Química · Soluções · 2ª série</span>
+        <h1 style="font-size:2.8rem;margin:12px 0;">Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
+        <p style="font-size:1.05rem;color:var(--on-surface-variant);margin-bottom:24px;">Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas.</p>
+        <button class="btn btn-primary btn-xl" onclick="goStudentArea()">🚀 Sou aluno(a) — começar</button>
       </div>
-      <div class="hero-art">
-        <svg viewBox="0 0 220 220" fill="none">
-          <circle cx="110" cy="110" r="100" fill="#FBF6EC" opacity="0.18"/>
-          <path d="M85 40 H135 V85 L160 165 C166 182 154 196 136 196 H84 C66 196 54 182 60 165 L85 85 Z" fill="#FBF6EC" opacity="0.9" stroke="#162241" stroke-width="3"/>
-          <path d="M70 150 C90 140 130 140 150 150 L142 168 C124 160 96 160 78 168 Z" fill="#F2B705"/>
-          <circle cx="100" cy="120" r="5" fill="#2C5FE0"/>
-          <circle cx="120" cy="105" r="3.5" fill="#1B8A6B"/>
-          <circle cx="108" cy="95" r="3" fill="#2C5FE0"/>
-          <path d="M30 190 C 50 165, 60 200, 80 175 S 110 195 130 170 S 170 190 195 165" stroke="#F2B705" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <div style="display:flex;justify-content:center;">
+        <svg viewBox="0 0 200 200" width="100%" style="max-width:280px;">
+          <circle cx="100" cy="100" r="90" fill="var(--primary-fixed)" opacity="0.3"/>
+          <path d="M70 40h60v50l30 90c6 18-6 32-24 32H64c-18 0-30-14-24-32l30-90V40z" fill="var(--primary)" opacity="0.8"/>
+          <circle cx="95" cy="110" r="6" fill="var(--surface)"/>
+          <circle cx="115" cy="95" r="4" fill="var(--secondary-container)"/>
+          <path d="M30 170 Q60 140 100 160 T170 140" stroke="var(--secondary-container)" stroke-width="6" fill="none"/>
         </svg>
       </div>
     </div>
 
-    <div class="card" id="homeStats" style="padding:26px 32px;display:flex;gap:40px;flex-wrap:wrap;"></div>
+    <div class="card" style="display:flex;gap:40px;flex-wrap:wrap;padding:26px 32px;" id="homeStats"></div>
 
-    <div class="card-trio">
-      <div class="card" style="background:#fef0ee;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:32px 0;">
+      <div class="card" style="background:var(--primary-fixed);border-color:var(--primary);">
         <div style="font-size:2rem;">01</div>
         <h3>Uma pergunta ampla</h3>
-        <p style="color:var(--ink-soft);">A prova começa com uma questão diagnóstica. Sua resposta decide o caminho.</p>
+        <p style="color:var(--on-surface-variant);">A prova começa com uma questão diagnóstica. Sua resposta decide o caminho.</p>
       </div>
-      <div class="card" style="background:#e8f5f0;">
+      <div class="card" style="background:var(--tertiary-fixed);border-color:var(--tertiary);">
         <div style="font-size:2rem;">02</div>
         <h3>Caminho adaptativo</h3>
-        <p style="color:var(--ink-soft);">Cada resposta acumula "tags" de dificuldade — exatamente como nas suas planilhas.</p>
+        <p style="color:var(--on-surface-variant);">Cada resposta acumula "tags" de dificuldade — exatamente como nas suas planilhas.</p>
       </div>
-      <div class="card" style="background:#fef8e7;">
+      <div class="card" style="background:var(--secondary-fixed);border-color:var(--secondary);">
         <div style="font-size:2rem;">03</div>
         <h3>Resumo educativo</h3>
-        <p style="color:var(--ink-soft);">No final, você vê o que já domina e o que vale reforçar — com dicas e materiais.</p>
+        <p style="color:var(--on-surface-variant);">No final, você vê o que já domina e o que vale reforçar — com dicas e materiais.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ MANAGER AUTH ============ -->
-<section id="screen-managerAuth" class="screen">
-  <div class="center-wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;">
-    <div class="card" style="max-width:420px;width:100%;padding:32px;">
-      <button class="btn btn-ghost" style="padding-left:0;margin-bottom:12px;" onclick="goTo('home')">← Voltar</button>
-      <h2>Painel da gestão</h2>
-      <p class="auth-sub" style="color:var(--ink-soft);margin:4px 0 20px;">Qualquer e-mail pode criar uma conta (teste).</p>
-      <div class="tabs" style="display:flex;gap:6px;background:var(--bg);border-radius:60px;padding:4px;margin-bottom:22px;">
-        <button class="tab active" id="tabLogin" onclick="setAuthTab('login')" style="flex:1;padding:8px;border-radius:60px;font-weight:700;border:none;background:transparent;">Entrar</button>
-        <button class="tab" id="tabSignup" onclick="setAuthTab('signup')" style="flex:1;padding:8px;border-radius:60px;font-weight:700;border:none;background:transparent;">Criar conta</button>
+<!-- ============ LOGIN UNIFICADO (Professor + Aluno) ============ -->
+<section id="screen-login" class="screen">
+  <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
+    <div style="width:100%;max-width:1100px;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <span class="material-symbols-outlined" style="font-size:48px;color:var(--primary);">science</span>
+        <h1 style="font-size:2.4rem;">Química Interativa</h1>
+        <p style="color:var(--on-surface-variant);">Acesse como professor ou aluno</p>
       </div>
-      <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">E-mail</label>
-        <input type="email" id="loginEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Senha</label>
-        <input type="password" id="loginPass" placeholder="••••••••" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:8px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--ink-soft);margin:8px 0 16px;">
-          <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
-        </label>
-        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-        <div class="err" id="loginErr" style="color:var(--coral);margin-top:10px;min-height:1.2em;"></div>
-      </form>
-      <form id="signupFormEl" style="display:none;" onsubmit="event.preventDefault(); doSignup();">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Seu nome</label>
-        <input type="text" id="suName" placeholder="Como devemos te chamar" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">E-mail</label>
-        <input type="email" id="suEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Senha</label>
-        <input type="password" id="suPass" placeholder="8 a 12 caracteres" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:6px;">
-        <div id="suPassCheck" style="font-size:0.75rem;color:var(--ink-soft);margin-bottom:12px;"></div>
-        <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
-        <div class="err" id="signupErr" style="color:var(--coral);margin-top:10px;min-height:1.2em;"></div>
-      </form>
-      <p class="note" style="font-size:0.75rem;color:var(--ink-soft);margin-top:16px;">⚠️ Protótipo de teste: dados salvos localmente. Não use senhas reais.</p>
+      <div class="login-grid">
+        <!-- Card Professor -->
+        <div class="card neobrutalist" style="position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;padding:16px;opacity:0.1;">
+            <span class="material-symbols-outlined" style="font-size:80px;">school</span>
+          </div>
+          <div style="background:var(--primary-fixed);padding:4px 16px;border-radius:999px;display:inline-block;font-weight:700;font-size:0.75rem;color:var(--on-primary-fixed);text-transform:uppercase;letter-spacing:0.05em;">Acesso Docente</div>
+          <h2 style="font-size:1.8rem;margin:12px 0 4px;">Professor</h2>
+          <p style="color:var(--on-surface-variant);margin-bottom:20px;">Acompanhe o desempenho das suas turmas e gerencie diagnósticos personalizados.</p>
+          <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
+            <div style="position:relative;margin-bottom:12px;">
+              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">mail</span>
+              <input type="email" id="loginEmail" placeholder="exemplo@escola.com" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
+            </div>
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha</label>
+            <div style="position:relative;margin-bottom:12px;">
+              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
+              <input type="password" id="loginPass" placeholder="••••••••" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
+              <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
+            <div class="err" id="loginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+          </form>
+          <div style="margin-top:16px;display:flex;justify-content:space-between;font-size:0.8rem;">
+            <a href="#" style="color:var(--primary);font-weight:700;">Esqueceu a senha?</a>
+            <a href="#" onclick="document.getElementById('loginFormEl').style.display='none';document.getElementById('signupFormEl').style.display='block';" style="color:var(--on-surface-variant);font-weight:700;">Criar conta</a>
+          </div>
+          <!-- Formulário de cadastro (inicialmente escondido) -->
+          <form id="signupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignup();">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
+            <input type="text" id="suName" placeholder="Seu nome" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
+            <input type="email" id="suEmail" placeholder="exemplo@escola.com" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha (8-12 caracteres)</label>
+            <input type="password" id="suPass" placeholder="••••••••" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:6px;">
+            <div id="suPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
+            <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
+            <div class="err" id="signupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+            <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('loginFormEl').style.display='block';document.getElementById('signupFormEl').style.display='none';">← Voltar para login</button>
+          </form>
+        </div>
+
+        <!-- Card Aluno -->
+        <div class="card neobrutalist" style="position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;padding:16px;opacity:0.1;">
+            <span class="material-symbols-outlined" style="font-size:80px;">biotech</span>
+          </div>
+          <div style="background:var(--tertiary-fixed);padding:4px 16px;border-radius:999px;display:inline-block;font-weight:700;font-size:0.75rem;color:var(--on-tertiary-fixed);text-transform:uppercase;letter-spacing:0.05em;">Espaço do Aluno</div>
+          <h2 style="font-size:1.8rem;margin:12px 0 4px;">Estudante</h2>
+          <p style="color:var(--on-surface-variant);margin-bottom:20px;">Entre para realizar seus testes, ver seus selos e progredir na sua jornada química.</p>
+          <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
+            <div style="position:relative;margin-bottom:12px;">
+              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">person</span>
+              <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
+            </div>
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha</label>
+            <div style="position:relative;margin-bottom:12px;">
+              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
+              <input type="password" id="stuLoginPass" placeholder="••••••••" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
+              <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
+            </label>
+            <button type="submit" class="btn btn-tertiary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
+            <div class="err" id="stuLoginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+          </form>
+          <form id="stuSignupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignupStudent();">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
+            <input type="text" id="stuSuName" placeholder="Nome e sobrenome" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
+            <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha (8-12 caracteres)</label>
+            <input type="password" id="stuSuPass" placeholder="••••••••" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:6px;">
+            <div id="stuPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
+            <button type="submit" class="btn btn-tertiary btn-block">Criar conta e entrar</button>
+            <div class="err" id="stuSignupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+            <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('stuLoginFormEl').style.display='block';document.getElementById('stuSignupFormEl').style.display='none';">← Voltar para login</button>
+          </form>
+          <div style="margin-top:16px;display:flex;justify-content:flex-end;font-size:0.8rem;">
+            <a href="#" onclick="document.getElementById('stuLoginFormEl').style.display='none';document.getElementById('stuSignupFormEl').style.display='block';" style="color:var(--on-surface-variant);font-weight:700;">Criar conta</a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px;color:var(--on-surface-variant);font-size:0.8rem;">
+        ⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ MANAGER DASHBOARD ============ -->
+<!-- ============ PAINEL DO GESTOR (PROFESSOR) ============ -->
 <section id="screen-managerDashboard" class="screen">
-  <div class="wrap">
-    <div class="dash-top">
-      <div class="brand"><span class="brand-mark">Sₓ</span> Painel — <span id="dashManagerName">gestora</span></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+  <header style="background:var(--surface-container-low);border-bottom:2px solid var(--outline-variant);padding:12px 0;position:sticky;top:0;z-index:50;box-shadow:var(--shadow);">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="material-symbols-outlined" style="color:var(--primary);font-size:28px;">science</span>
+        <span style="font-weight:800;font-size:1.1rem;">Química Interativa</span>
+        <span style="background:var(--primary-fixed);padding:2px 12px;border-radius:999px;font-size:0.7rem;font-weight:700;">Painel do Professor</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
         <button class="btn btn-outline" onclick="showTutorial()">📖 Tutorial</button>
         <button class="btn btn-ghost" onclick="doLogout()">Sair</button>
       </div>
     </div>
+  </header>
+
+  <div class="wrap" style="padding:24px 0;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
+      <div>
+        <span style="font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.05em;font-size:0.8rem;">Painel do Professor</span>
+        <h2 style="font-size:2rem;">Visão Geral</h2>
+      </div>
+      <div style="display:flex;gap:8px;background:var(--surface-container);padding:4px;border-radius:999px;border:2px solid var(--outline-variant);">
+        <button class="btn btn-primary" style="padding:6px 20px;" onclick="setManagerTab('overview')">Ativo</button>
+        <button class="btn btn-outline" style="padding:6px 20px;" onclick="setManagerTab('historico')">Histórico</button>
+      </div>
+    </div>
+
+    <!-- Tabs do gestor -->
     <div class="tab-nav" id="managerTabs">
       <button class="tab-btn active" data-tab="overview" onclick="setManagerTab('overview')"><span class="icon">📊</span> Visão geral</button>
       <button class="tab-btn" data-tab="alunos" onclick="setManagerTab('alunos')"><span class="icon">👥</span> Alunos</button>
@@ -570,67 +665,28 @@
       <button class="tab-btn" data-tab="atividades" onclick="setManagerTab('atividades')"><span class="icon">📁</span> Atividades</button>
       <button class="tab-btn" data-tab="aplicacoes" onclick="setManagerTab('aplicacoes')"><span class="icon">📋</span> Aplicações</button>
     </div>
-    <div id="managerContent" style="padding-bottom:60px;"></div>
-  </div>
-</section>
 
-<!-- ============ STUDENT AUTH ============ -->
-<section id="screen-studentAuth" class="screen">
-  <div class="center-wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;">
-    <div class="card" style="max-width:420px;width:100%;padding:32px;">
-      <button class="btn btn-ghost" style="padding-left:0;margin-bottom:12px;" onclick="goTo('home')">← Voltar</button>
-      <h2>Área do aluno</h2>
-      <p class="auth-sub" style="color:var(--ink-soft);margin:4px 0 20px;">Crie sua conta para acompanhar seu progresso.</p>
-      <div class="tabs" style="display:flex;gap:6px;background:var(--bg);border-radius:60px;padding:4px;margin-bottom:22px;">
-        <button class="tab active" id="stuTabLogin" onclick="setStudentAuthTab('login')" style="flex:1;padding:8px;border-radius:60px;font-weight:700;border:none;background:transparent;">Entrar</button>
-        <button class="tab" id="stuTabSignup" onclick="setStudentAuthTab('signup')" style="flex:1;padding:8px;border-radius:60px;font-weight:700;border:none;background:transparent;">Criar conta</button>
-      </div>
-      <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">E-mail</label>
-        <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Senha</label>
-        <input type="password" id="stuLoginPass" placeholder="••••••••" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:8px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--ink-soft);margin:8px 0 16px;">
-          <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
-        </label>
-        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-        <div class="err" id="stuLoginErr" style="color:var(--coral);margin-top:10px;min-height:1.2em;"></div>
-      </form>
-      <form id="stuSignupFormEl" style="display:none;" onsubmit="event.preventDefault(); doSignupStudent();">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Seu nome</label>
-        <input type="text" id="stuSuName" placeholder="Nome e sobrenome" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">E-mail</label>
-        <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Senha</label>
-        <input type="password" id="stuSuPass" placeholder="8 a 12 caracteres" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:6px;">
-        <div id="stuPassCheck" style="font-size:0.75rem;color:var(--ink-soft);margin-bottom:12px;"></div>
-        <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
-        <div class="err" id="stuSignupErr" style="color:var(--coral);margin-top:10px;min-height:1.2em;"></div>
-      </form>
-      <p class="note" style="font-size:0.75rem;color:var(--ink-soft);margin-top:16px;">⚠️ Protótipo de teste: dados salvos localmente.</p>
-    </div>
+    <div id="managerContent" style="padding-bottom:60px;"></div>
   </div>
 </section>
 
 <!-- ============ QUIZ ============ -->
 <section id="screen-quiz" class="screen">
   <div class="quiz-wrap">
-    <div class="topnav-back" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
-      <button class="btn btn-ghost" style="padding-left:0;" onclick="confirmExitQuiz()">← Sair</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
+      <button class="btn btn-outline" onclick="confirmExitQuiz()">← Sair</button>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline" onclick="saveQuizProgress()">💾 Salvar</button>
+        <button class="btn btn-secondary" onclick="saveQuizProgress()">💾 Salvar</button>
         <button class="btn btn-primary" onclick="confirmFinishQuiz()">✅ Finalizar</button>
       </div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%;"></div></div>
-    <div class="card q-card">
-      <div class="no-select" oncopy="return false;" oncontextmenu="return false;" onselectstart="return false;">
-        <div class="eyebrow q-topic" style="font-weight:700;color:var(--coral-deep);"></div>
-        <div id="qExtra"></div>
-        <div class="q-text" id="qText"></div>
-      </div>
+    <div class="card" style="padding:32px;">
+      <div class="q-topic" style="font-weight:700;color:var(--primary);"></div>
+      <div id="qExtra"></div>
+      <div class="q-text" id="qText" style="font-size:1.2rem;font-weight:600;margin:14px 0 20px;"></div>
       <div id="qOptions"></div>
-      <div class="quiz-actions">
+      <div style="display:flex;gap:12px;margin-top:22px;">
         <button class="btn btn-outline" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
         <button class="btn btn-primary" id="btnNext" onclick="goNextQuestion()" disabled>Avançar</button>
       </div>
@@ -638,30 +694,30 @@
   </div>
 </section>
 
-<!-- ============ RESULT ============ -->
+<!-- ============ RESULTADO DO ALUNO ============ -->
 <section id="screen-result" class="screen">
-  <div class="result-wrap" style="max-width:680px;margin:0 auto;padding:40px 22px 70px;">
+  <div style="max-width:800px;margin:0 auto;padding:40px 24px 70px;">
     <div id="resultHero" class="result-hero"></div>
     <div id="resultCompare"></div>
     <div id="resultTags"></div>
-    <div style="text-align:center;margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-secondary" onclick="goTo('studentPanel')">📊 Ver meu painel</button>
-      <button class="btn btn-ghost" onclick="goTo('home')">Início</button>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+      <button class="btn btn-primary" onclick="goTo('studentPanel')">📊 Ver meu painel</button>
+      <button class="btn btn-outline" onclick="goTo('home')">Início</button>
     </div>
-    <p class="footer-note" style="text-align:center;color:var(--ink-soft);font-size:0.8rem;padding:30px 0;">Protótipo de teste — o envio de e-mail é simulado.</p>
+    <p style="text-align:center;color:var(--on-surface-variant);font-size:0.8rem;margin-top:32px;">Protótipo de teste — o envio de e-mail é simulado.</p>
   </div>
 </section>
 
-<!-- ============ STUDENT PANEL ============ -->
+<!-- ============ PAINEL DO ALUNO ============ -->
 <section id="screen-studentPanel" class="screen">
   <div class="wrap">
-    <div class="dash-top">
-      <div class="brand">Olá, <span id="panelStudentName">aluno</span> 👋</div>
+    <header style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;flex-wrap:wrap;gap:12px;">
+      <div style="font-weight:800;font-size:1.2rem;">Olá, <span id="panelStudentName">aluno</span> 👋</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn btn-primary" onclick="openStudentEntryModal()">🚀 Novo diagnóstico</button>
-        <button class="btn btn-ghost" onclick="doLogoutStudent()">Sair</button>
+        <button class="btn btn-outline" onclick="doLogoutStudent()">Sair</button>
       </div>
-    </div>
+    </header>
     <div class="tab-nav">
       <button class="tab-btn active" data-tab="overview" onclick="setStudentTab('overview')"><span class="icon">📊</span> Visão geral</button>
       <button class="tab-btn" data-tab="desempenho" onclick="setStudentTab('desempenho')"><span class="icon">📈</span> Desempenho</button>
@@ -674,11 +730,14 @@
 <!-- ============ MODAL ============ -->
 <div id="modalOverlay">
   <div class="card" id="modalCard">
-    <button class="modal-close" onclick="hideModal()">✕</button>
+    <button class="close-btn" onclick="hideModal()">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
 
+<!-- ================================================================== -->
+<!-- JAVASCRIPT COMPLETO -->
+<!-- ================================================================== -->
 <script>
 /* ============================================================
    ARMAZENAMENTO (localStorage + memória)
@@ -729,8 +788,8 @@ function goTo(screenId){
   if(screenId==='studentPanel') renderStudentPanel();
   if(screenId==='home') renderHomeStats();
 }
-function goManagerArea(){ currentManager ? goTo('managerDashboard') : goTo('managerAuth'); }
-function goStudentArea(){ currentStudent ? goTo('studentPanel') : goTo('studentAuth'); }
+function goManagerArea(){ currentManager ? goTo('managerDashboard') : goTo('login'); }
+function goStudentArea(){ currentStudent ? goTo('studentPanel') : goTo('login'); }
 
 async function renderHomeStats(){
   const el = document.getElementById('homeStats');
@@ -739,9 +798,9 @@ async function renderHomeStats(){
   const attempts = await loadJSON('tentativas', []);
   const tagsSet = new Set(); attempts.forEach(a=>a.tags.forEach(t=>tagsSet.add(t)));
   el.innerHTML = `
-    <div><div style="font-size:2rem;font-weight:800;">${rounds.length}</div><div style="color:var(--ink-soft);">aplicações</div></div>
-    <div><div style="font-size:2rem;font-weight:800;">${attempts.length}</div><div style="color:var(--ink-soft);">diagnósticos</div></div>
-    <div><div style="font-size:2rem;font-weight:800;">${tagsSet.size}</div><div style="color:var(--ink-soft);">dificuldades mapeadas</div></div>
+    <div><div style="font-size:2rem;font-weight:800;">${rounds.length}</div><div style="color:var(--on-surface-variant);">aplicações</div></div>
+    <div><div style="font-size:2rem;font-weight:800;">${attempts.length}</div><div style="color:var(--on-surface-variant);">diagnósticos</div></div>
+    <div><div style="font-size:2rem;font-weight:800;">${tagsSet.size}</div><div style="color:var(--on-surface-variant);">dificuldades mapeadas</div></div>
   `;
 }
 
@@ -772,7 +831,7 @@ function passwordAllValid(pwd){
 }
 function renderPasswordChecklist(pwd){
   const c = passwordChecks(pwd);
-  const item=(ok,label)=>`<div style="color:${ok?'var(--teal)':'var(--ink-soft)'};">${ok?'✓':'○'} ${label}</div>`;
+  const item=(ok,label)=>`<div style="color:${ok?'var(--tertiary)':'var(--on-surface-variant)'};">${ok?'✓':'○'} ${label}</div>`;
   return item(c.length,'8 a 12 caracteres')
     + item(c.upper && c.lower,'maiúsculas e minúsculas')
     + item(c.number,'pelo menos um número')
@@ -781,16 +840,9 @@ function renderPasswordChecklist(pwd){
 }
 
 /* ============================================================
-   AUTENTICAÇÃO GESTORA
+   AUTENTICAÇÃO GESTORA (Professor)
    ============================================================ */
 let currentManager = null;
-
-function setAuthTab(tab){
-  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('tabSignup').classList.toggle('active', tab==='signup');
-  document.getElementById('loginFormEl').style.display = tab==='login' ? 'block':'none';
-  document.getElementById('signupFormEl').style.display = tab==='signup' ? 'block':'none';
-}
 
 async function doSignup(){
   const name = document.getElementById('suName').value.trim();
@@ -807,7 +859,8 @@ async function doSignup(){
   currentManager = { name, email };
   document.getElementById('dashManagerName').textContent = name;
   goTo('managerDashboard');
-  if(!await loadPersonal('tutorialSeen', false)) showTutorial();
+  const tutorialSeen = await loadPersonal('tutorialSeen', false);
+  if(!tutorialSeen) showTutorial();
 }
 
 async function doLogin(){
@@ -822,7 +875,8 @@ async function doLogin(){
   document.getElementById('dashManagerName').textContent = found.name;
   await savePersonal('lastEmailGestor', document.getElementById('rememberMeGestor').checked ? email : '');
   goTo('managerDashboard');
-  if(!await loadPersonal('tutorialSeen', false)) showTutorial();
+  const tutorialSeen = await loadPersonal('tutorialSeen', false);
+  if(!tutorialSeen) showTutorial();
 }
 function doLogout(){ currentManager = null; goTo('home'); }
 
@@ -830,13 +884,6 @@ function doLogout(){ currentManager = null; goTo('home'); }
    AUTENTICAÇÃO ALUNO
    ============================================================ */
 let currentStudent = null;
-
-function setStudentAuthTab(tab){
-  document.getElementById('stuTabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('stuTabSignup').classList.toggle('active', tab==='signup');
-  document.getElementById('stuLoginFormEl').style.display = tab==='login' ? 'block':'none';
-  document.getElementById('stuSignupFormEl').style.display = tab==='signup' ? 'block':'none';
-}
 
 async function doSignupStudent(){
   const name = document.getElementById('stuSuName').value.trim();
@@ -876,19 +923,54 @@ async function initRemembered(){
 }
 
 /* ============================================================
-   TUTORIAL
+   TUTORIAL PASSO A PASSO (com sobreposição)
    ============================================================ */
+let tutorialSteps = [
+  { title: 'Visão Geral', text: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.' },
+  { title: 'Alunos', text: 'Acompanhe o progresso individual, acertos/erros, e detalhes de cada tentativa. Use a busca para encontrar alunos rapidamente.' },
+  { title: 'Assuntos', text: 'Explore gráficos interativos (barras, pizza, radar) para identificar quais tópicos estão sendo mais desafiadores para a turma.' },
+  { title: 'Atividades', text: 'Crie pastas, faça upload de arquivos (imagens, PDFs), adicione materiais com links e organize por tags personalizadas.' },
+  { title: 'Aplicações', text: 'Crie novos diagnósticos com códigos únicos, visualize respostas e desabilite aplicações antigas conforme necessário.' }
+];
+let tutorialCurrentStep = 0;
+
 async function showTutorial(){
   await savePersonal('tutorialSeen', true);
-  showModal(`
-    <h2 style="margin-top:0;">📖 Bem-vinda ao painel!</h2>
-    <div class="tutorial-step"><span class="num">1</span> <div><strong>Visão geral</strong> — veja o desempenho consolidado de todas as turmas.</div></div>
-    <div class="tutorial-step"><span class="num">2</span> <div><strong>Alunos</strong> — acompanhe o progresso individual e acertos/erros.</div></div>
-    <div class="tutorial-step"><span class="num">3</span> <div><strong>Assuntos</strong> — explore gráficos dos tópicos mais difíceis.</div></div>
-    <div class="tutorial-step"><span class="num">4</span> <div><strong>Atividades</strong> — crie materiais, pastas e faça upload de arquivos.</div></div>
-    <div class="tutorial-step"><span class="num">5</span> <div><strong>Aplicações</strong> — crie novos diagnósticos e desabilite os antigos.</div></div>
-    <button class="btn btn-primary btn-block" onclick="hideModal()" style="margin-top:16px;">Entendi! 👍</button>
-  `);
+  tutorialCurrentStep = 0;
+  document.getElementById('tutorialOverlay').classList.add('open');
+  renderTutorialStep();
+}
+
+function renderTutorialStep(){
+  const step = tutorialSteps[tutorialCurrentStep];
+  document.getElementById('tutorialBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+      <span class="num" style="background:var(--primary);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;">${tutorialCurrentStep+1}</span>
+      <h3 style="font-family:'Playfair Display',serif;">${step.title}</h3>
+    </div>
+    <p style="color:var(--on-surface-variant);font-size:1rem;line-height:1.6;">${step.text}</p>
+  `;
+  // Dots
+  const dotsContainer = document.getElementById('tutorialDots');
+  dotsContainer.innerHTML = tutorialSteps.map((_,i) =>
+    `<span class="dot ${i===tutorialCurrentStep?'active':''}"></span>`
+  ).join('');
+  // Botão
+  const btn = document.getElementById('tutorialNextBtn');
+  btn.textContent = tutorialCurrentStep === tutorialSteps.length-1 ? 'Concluir' : 'Próximo';
+  // Blur no fundo já está no overlay
+}
+
+function nextTutorialStep(){
+  if(tutorialCurrentStep === tutorialSteps.length-1){
+    closeTutorial();
+  } else {
+    tutorialCurrentStep++;
+    renderTutorialStep();
+  }
+}
+function closeTutorial(){
+  document.getElementById('tutorialOverlay').classList.remove('open');
 }
 
 /* ============================================================
@@ -900,13 +982,13 @@ let alunosSelectedTurma = null;
 let alunosSearch = '';
 
 function renderDashboard(){
-  if(!currentManager){ goTo('managerAuth'); return; }
+  if(!currentManager){ goTo('login'); return; }
   renderManagerTabContent();
 }
 function setManagerTab(tab){ managerTab = tab; renderManagerTabContent(); }
 function renderManagerTabContent(){
   document.querySelectorAll('#screen-managerDashboard .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===managerTab));
-  if(managerTab==='overview') renderOverviewTab();
+  if(managerTab==='overview' || managerTab==='historico') renderOverviewTab();
   else if(managerTab==='alunos') renderAlunosTab();
   else if(managerTab==='assuntos') renderAssuntosTab();
   else if(managerTab==='atividades') renderAtividadesTab();
@@ -924,9 +1006,8 @@ async function renderOverviewTab(){
   const turmas = Object.keys(byTurma).sort((a,b)=>a.localeCompare(b,'pt-BR'));
   let html = '';
   if(turmas.length===0){
-    html = `<div class="card empty">Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
+    html = `<div class="card card-empty">Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
   } else {
-    // Métricas gerais
     const total = attempts.length;
     const avgLevel = attempts.reduce((s,a)=>s+a.levelIdx,0)/total;
     const tagsCount = {};
@@ -935,13 +1016,13 @@ async function renderOverviewTab(){
     const top3 = sortedTags.slice(0,3).map(([id])=>TAGS[id]?.label||id);
 
     html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;">`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${total}</div><div style="color:var(--ink-soft);">diagnósticos</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${turmas.length}</div><div style="color:var(--ink-soft);">turmas</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${avgLevel.toFixed(1)}</div><div style="color:var(--ink-soft);">nível médio</div></div>`;
-    html += `<div class="card" style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;">${top3.join(', ') || '—'}</div><div style="color:var(--ink-soft);">mais difíceis</div></div>`;
+    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${total}</div><div style="color:var(--on-surface-variant);">diagnósticos</div></div>`;
+    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${turmas.length}</div><div style="color:var(--on-surface-variant);">turmas</div></div>`;
+    html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${avgLevel.toFixed(1)}</div><div style="color:var(--on-surface-variant);">nível médio</div></div>`;
+    html += `<div class="card" style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;">${top3.join(', ') || '—'}</div><div style="color:var(--on-surface-variant);">mais difíceis</div></div>`;
     html += `</div>`;
 
-    // Gráfico de assuntos mais acertados/errados
+    // Gráfico de acertos
     const allQuestions = ['start','q1a','q2a','energetico','acucares','sodio'];
     const correctCount = {};
     allQuestions.forEach(q=>correctCount[q]=0);
@@ -953,8 +1034,7 @@ async function renderOverviewTab(){
     const totalQ = attempts.length || 1;
     const chartData = allQuestions.map(q=>({
       label: QUESTIONS[q]?.topic || q,
-      correct: Math.round((correctCount[q]||0)/totalQ*100),
-      wrong: 100 - Math.round((correctCount[q]||0)/totalQ*100)
+      correct: Math.round((correctCount[q]||0)/totalQ*100)
     }));
 
     html += `<div class="card" style="padding:20px;margin-bottom:24px;">
@@ -964,8 +1044,8 @@ async function renderOverviewTab(){
           <div>
             <div style="font-size:0.8rem;font-weight:600;">${d.label}</div>
             <div style="display:flex;align-items:center;gap:8px;">
-              <div style="flex:1;height:10px;background:#eaeaea;border-radius:10px;overflow:hidden;">
-                <div style="height:100%;width:${d.correct}%;background:var(--teal);border-radius:10px;"></div>
+              <div style="flex:1;height:10px;background:var(--surface-container);border-radius:10px;overflow:hidden;">
+                <div style="height:100%;width:${d.correct}%;background:var(--tertiary-container);border-radius:10px;"></div>
               </div>
               <span style="font-size:0.75rem;font-weight:700;">${d.correct}%</span>
             </div>
@@ -975,7 +1055,7 @@ async function renderOverviewTab(){
     </div>`;
 
     // Turmas
-    html += `<div class="grid-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">`;
+    html += `<div class="grid-cards">`;
     turmas.forEach(t=>{
       const list = byTurma[t];
       const avg = list.reduce((s,a)=>s+a.levelIdx,0)/list.length;
@@ -987,10 +1067,10 @@ async function renderOverviewTab(){
         <div class="card" style="padding:20px;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <h4 style="font-size:1rem;">${escapeHTML(t)}</h4>
-            <span style="padding:4px 12px;border-radius:30px;font-size:0.7rem;font-weight:700;background:${cls==='lvl-0'?'var(--teal)':cls==='lvl-1'?'var(--gold)':'var(--coral)'};color:#fff;">${badge}</span>
+            <span class="level-badge ${cls}">${badge}</span>
           </div>
-          <div class="mini-bar" style="height:8px;background:#eaeaea;border-radius:10px;margin-top:12px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--coral);border-radius:10px;"></div></div>
-          <div style="font-size:0.8rem;color:var(--ink-soft);margin-top:8px;">${list.length} diagnóstico(s)</div>
+          <div style="height:8px;background:var(--surface-container);border-radius:10px;margin-top:12px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--primary-container);border-radius:10px;"></div></div>
+          <div style="font-size:0.8rem;color:var(--on-surface-variant);margin-top:8px;">${list.length} diagnóstico(s)</div>
         </div>`;
     });
     html += `</div>`;
@@ -1006,17 +1086,17 @@ async function renderAlunosTab(){
   const turmas = [...new Set(attempts.map(a=>(a.studentClass||'Sem turma').trim()||'Sem turma'))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   if(!alunosSelectedTurma && turmas.length) alunosSelectedTurma = turmas[0];
 
-  let html = `<div class="chip-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">` + turmas.map(t=>
-    `<button class="chip-select ${t===alunosSelectedTurma?'active':''}" onclick="selectAlunosTurma('${escapeHTML(t).replace(/'/g,"\\'")}')" style="padding:8px 16px;border-radius:40px;border:2px solid #ddd;background:${t===alunosSelectedTurma?'var(--ink)':'transparent'};color:${t===alunosSelectedTurma?'#fff':'var(--ink-soft)'};font-weight:700;">${escapeHTML(t)}</button>`
+  let html = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">` + turmas.map(t=>
+    `<button class="btn ${t===alunosSelectedTurma?'btn-primary':'btn-outline'}" onclick="selectAlunosTurma('${escapeHTML(t).replace(/'/g,"\\'")}')" style="padding:6px 16px;">${escapeHTML(t)}</button>`
   ).join('') + `</div>`;
 
   if(turmas.length===0){
-    html += `<div class="card empty">Ainda não há alunos com diagnósticos respondidos.</div>`;
+    html += `<div class="card card-empty">Ainda não há alunos com diagnósticos respondidos.</div>`;
     document.getElementById('managerContent').innerHTML = html;
     return;
   }
 
-  html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:16px;">`;
+  html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:16px;">`;
 
   const inTurma = attempts.filter(a=> ((a.studentClass||'Sem turma').trim()||'Sem turma')===alunosSelectedTurma );
   const uniqueNames = [...new Set(inTurma.map(a=>a.studentName.trim()))]
@@ -1024,7 +1104,7 @@ async function renderAlunosTab(){
     .sort((a,b)=>a.localeCompare(b,'pt-BR'));
 
   if(uniqueNames.length===0){
-    html += `<div class="card empty">Nenhum aluno encontrado.</div>`;
+    html += `<div class="card card-empty">Nenhum aluno encontrado.</div>`;
   } else {
     html += `<div class="card" style="padding:8px 0;">`;
     uniqueNames.forEach(n=>{
@@ -1033,16 +1113,16 @@ async function renderAlunosTab(){
       const totalCorrect = last.answersDetail.filter(d=>d.isCorrect).length;
       const totalQuestions = last.answersDetail.length;
       html += `
-        <div class="aluno-row" onclick="toggleAlunoDetail('${slug(n)}-key')">
+        <div class="aluno-row" onclick="toggleAlunoDetail('${slug(n)}-key')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--outline-variant);cursor:pointer;">
           <div style="font-weight:700;">${escapeHTML(n)}</div>
-          <div class="aluno-stats">
-            <span class="acertos">✅ ${totalCorrect}</span>
-            <span class="erros">❌ ${totalQuestions - totalCorrect}</span>
-            <span class="level-badge" style="padding:4px 12px;border-radius:30px;font-size:0.7rem;font-weight:700;background:${last.levelIdx===0?'var(--teal)':last.levelIdx===1?'var(--gold)':'var(--coral)'};color:#fff;">${escapeHTML(last.levelLabel)}</span>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <span style="font-size:0.75rem;background:var(--tertiary-fixed);padding:2px 12px;border-radius:999px;">✅ ${totalCorrect}</span>
+            <span style="font-size:0.75rem;background:var(--primary-fixed);padding:2px 12px;border-radius:999px;">❌ ${totalQuestions - totalCorrect}</span>
+            <span class="level-badge ${last.levelIdx===0?'lvl-0':last.levelIdx===1?'lvl-1':'lvl-2'}">${escapeHTML(last.levelLabel)}</span>
           </div>
         </div>
-        <div class="aluno-detail" id="detail-${slug(n)}-key" style="display:none;padding:8px 18px 16px;background:var(--bg);">
-          ${studAttempts.map(a=>`<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid #eee;"><strong>${escapeHTML(getRoundLabel(a.roundId))}:</strong> ${a.tags.length? a.tags.map(t=>`<span style="background:var(--coral-soft);padding:2px 10px;border-radius:30px;font-size:0.7rem;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join(''): 'nenhuma dificuldade'}</div>`).join('')}
+        <div class="aluno-detail" id="detail-${slug(n)}-key" style="display:none;padding:8px 18px 16px;background:var(--surface-container-low);">
+          ${studAttempts.map(a=>`<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid var(--outline-variant);"><strong>${escapeHTML(getRoundLabel(a.roundId))}:</strong> ${a.tags.length? a.tags.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join(''): 'nenhuma dificuldade'}</div>`).join('')}
         </div>`;
     });
     html += `</div>`;
@@ -1058,7 +1138,8 @@ function toggleAlunoDetail(name){
 }
 
 /* ===== ASSUNTOS ===== */
-let chartType = 'bar'; // 'bar','pie','column','radar'
+let chartType = 'bar'; // 'bar','pie','radar' (removido 'column')
+
 async function renderAssuntosTab(){
   const attempts = await loadJSON('tentativas', []);
   const counts = {};
@@ -1068,19 +1149,18 @@ async function renderAssuntosTab(){
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 
   let html = `
-    <div class="chart-controls">
-      <button class="chart-btn ${chartType==='bar'?'active':''}" onclick="setChartType('bar')">📊 Barras</button>
-      <button class="chart-btn ${chartType==='column'?'active':''}" onclick="setChartType('column')">📊 Colunas</button>
-      <button class="chart-btn ${chartType==='pie'?'active':''}" onclick="setChartType('pie')">🍕 Pizza</button>
-      <button class="chart-btn ${chartType==='radar'?'active':''}" onclick="setChartType('radar')">🕸️ Radar</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+      <button class="btn ${chartType==='bar'?'btn-primary':'btn-outline'}" onclick="setChartType('bar')">📊 Barras</button>
+      <button class="btn ${chartType==='pie'?'btn-primary':'btn-outline'}" onclick="setChartType('pie')">🍕 Pizza</button>
+      <button class="btn ${chartType==='radar'?'btn-primary':'btn-outline'}" onclick="setChartType('radar')">🕸️ Radar</button>
     </div>
-    <div class="chart-container" id="chartContainer">
+    <div class="card" style="padding:20px;min-height:300px;display:flex;align-items:center;justify-content:center;">
       <canvas id="chartCanvas" width="500" height="300"></canvas>
     </div>
     <div style="margin-top:16px;">
       ${sorted.map(([tid,count])=>{
         const pct = Math.round((count/total)*100);
-        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;">
+        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--outline-variant);">
           <span>${TAGS[tid].icon} ${escapeHTML(TAGS[tid].label)}</span>
           <span style="font-weight:700;">${pct}%</span>
         </div>`;
@@ -1102,27 +1182,25 @@ function drawChart(data, total){
 
   if(data.length===0){
     ctx.fillStyle = '#aaa';
-    ctx.font = '16px Inter';
+    ctx.font = '16px Nunito Sans';
     ctx.textAlign = 'center';
     ctx.fillText('Sem dados', w/2, h/2);
     return;
   }
 
-  if(chartType==='bar' || chartType==='column'){
-    const isColumn = chartType==='column';
+  if(chartType==='bar'){
     const max = Math.max(...data.map(d=>d[1]),1);
     const pad = 40, gap = 20;
     const chartW = w - 2*pad, chartH = h - 2*pad;
     const step = chartW / (data.length + 1);
-    ctx.font = '12px Inter';
+    ctx.font = '12px Nunito Sans';
     ctx.textAlign = 'center';
     data.forEach(([tid,count], i)=>{
       const x = pad + step*(i+1);
-      const barH = isColumn ? (count/max)*chartH : (count/max)*chartH;
-      const y = isColumn ? h - pad - barH : h - pad - barH;
-      const barW = isColumn ? 30 : 20;
+      const barH = (count/max)*chartH;
+      const y = h - pad - barH;
       ctx.fillStyle = TAGS[tid]?.colorClass==='coral'?'#ff6b6b': TAGS[tid]?.colorClass==='teal'?'#6bcb9a': TAGS[tid]?.colorClass==='gold'?'#ffd93d':'#4d8cf7';
-      ctx.fillRect(isColumn ? x-barW/2 : pad + 10, y, isColumn ? barW : barW, barH);
+      ctx.fillRect(x-12, y, 24, barH);
       ctx.fillStyle = '#333';
       ctx.fillText(TAGS[tid]?.label?.slice(0,12)||tid, x, h - pad + 20);
       ctx.fillText(count, x, y - 6);
@@ -1144,7 +1222,7 @@ function drawChart(data, total){
     });
     // legend
     let legY = 20;
-    ctx.font = '11px Inter';
+    ctx.font = '11px Nunito Sans';
     ctx.textAlign = 'left';
     data.slice(0,6).forEach(([tid])=>{
       ctx.fillStyle = TAGS[tid]?.colorClass==='coral'?'#ff6b6b': TAGS[tid]?.colorClass==='teal'?'#6bcb9a': TAGS[tid]?.colorClass==='gold'?'#ffd93d':'#4d8cf7';
@@ -1185,7 +1263,7 @@ function drawChart(data, total){
     ctx.lineWidth = 2;
     ctx.stroke();
     // labels
-    ctx.font = '10px Inter';
+    ctx.font = '10px Nunito Sans';
     ctx.textAlign = 'center';
     data.forEach(([tid,count],i)=>{
       const angle = (i/n)*2*Math.PI - Math.PI/2;
@@ -1198,68 +1276,99 @@ function drawChart(data, total){
 }
 
 /* ===== ATIVIDADES ===== */
+let uploadedFiles = [];
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
 async function renderAtividadesTab(){
   const materiais = await loadJSON('materiais', []);
   const pastas = await loadJSON('pastas', []);
+  // Tags personalizadas do professor
+  const tagsPersonalizadas = await loadJSON('tagsPersonalizadas', []);
+
   let html = `
-    <div class="tags-explain">
-      <strong>📌 O que são tags?</strong> As tags são etiquetas que identificam as dificuldades específicas dos alunos (ex: interpretação de gráficos, cálculos de concentração). Ao vincular materiais a tags, você ajuda os alunos a encontrar exatamente o conteúdo que precisam revisar.
-      <div style="margin-top:8px;">
-        Exemplos: <span class="tag-example">📊 Interpretação de gráficos</span>
-        <span class="tag-example">🔥 Classificação ENDO/EXO</span>
-        <span class="tag-example">🧪 Cálculos de título</span>
+    <div style="background:var(--surface-container-low);padding:16px 20px;border-radius:var(--radius);border-left:5px solid var(--tertiary);margin-bottom:20px;">
+      <strong>📌 O que são tags?</strong> As tags são etiquetas que você cria para organizar os materiais e associar às dificuldades dos alunos.
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+        ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)}</span>`).join('') : '<span style="color:var(--on-surface-variant);">Nenhuma tag criada ainda. Crie abaixo!</span>'}
       </div>
     </div>
 
     <div class="card" style="margin-bottom:20px;">
-      <h4 style="margin-bottom:12px;">📁 Pastas</h4>
+      <h4 style="margin-bottom:12px;">📁 Pastas de tags</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);">
+        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);">
         <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
       </div>
-      <div id="folderList" style="display:flex;gap:8px;flex-wrap:wrap;">
-        ${pastas.map(p=>`<span style="background:var(--bg);padding:4px 16px;border-radius:40px;font-size:0.8rem;font-weight:600;border:1px solid #ddd;">📁 ${escapeHTML(p)}</span>`).join('')}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${pastas.map(p=>`<span style="background:var(--surface);padding:4px 16px;border-radius:999px;font-weight:600;border:2px solid var(--outline-variant);">📁 ${escapeHTML(p)}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags personalizadas</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);">
+        <button class="btn btn-tertiary" onclick="addTag()">➕ Adicionar tag</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--error);">✕</button></span>`).join('')}
       </div>
     </div>
 
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Título</label>
-      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:10px;">
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Tipo</label>
-      <select id="matType" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:10px;">
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Título</label>
+      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Tipo</label>
+      <select id="matType" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
         <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
       </select>
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Link (opcional)</label>
-      <input type="text" id="matLink" placeholder="https://..." style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:10px;">
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Descrição</label>
-      <input type="text" id="matDesc" placeholder="Breve descrição" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:10px;">
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Pasta</label>
-      <select id="matFolder" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:10px;">
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Link (opcional)</label>
+      <input type="text" id="matLink" placeholder="https://..." style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Descrição</label>
+      <input type="text" id="matDesc" placeholder="Breve descrição" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Pasta</label>
+      <select id="matFolder" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
         <option value="">Sem pasta</option>
         ${pastas.map(p=>`<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
       </select>
-      <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Tags relacionadas</label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
-        ${Object.entries(TAGS).map(([id,t])=>`<label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><input type="checkbox" value="${id}" class="matTagCheck"> ${t.icon} ${escapeHTML(t.label)}</label>`).join('')}
+      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Tags</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
+        ${tagsPersonalizadas.map(t=>`<label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><input type="checkbox" value="${escapeHTML(t)}" class="matTagCheck"> ${escapeHTML(t)}</label>`).join('')}
+        ${tagsPersonalizadas.length===0 ? '<span style="color:var(--on-surface-variant);">Nenhuma tag criada. Crie acima.</span>' : ''}
       </div>
 
-      <div class="upload-area" id="uploadArea">
-        <div class="label">📤 Arraste ou clique para enviar um arquivo</div>
-        <div class="hint">PDF, Word, Imagem, etc.</div>
-        <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)">
-        <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()" style="margin-top:8px;">Escolher arquivo</button>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
+        <div style="font-size:0.8rem;color:var(--on-surface-variant);">Máx. 10MB · PDF, Imagem, Word, etc.</div>
+        <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
       </div>
-      <div id="fileList"></div>
+      <div id="fileList" style="margin-top:12px;"></div>
 
       <button class="btn btn-primary" style="margin-top:16px;" onclick="addMaterial()">Salvar material</button>
-      <div class="err" id="matErr" style="color:var(--coral);margin-top:8px;"></div>
+      <div class="err" id="matErr" style="color:var(--error);margin-top:8px;"></div>
     </div>
 
     <div id="matList"></div>
   `;
   document.getElementById('managerContent').innerHTML = html;
   renderMaterialsList(materiais);
+}
+
+async function addTag(){
+  const name = document.getElementById('newTagName').value.trim();
+  if(!name) return;
+  const tags = await loadJSON('tagsPersonalizadas', []);
+  if(!tags.includes(name)) tags.push(name);
+  await saveJSON('tagsPersonalizadas', tags);
+  document.getElementById('newTagName').value = '';
+  renderAtividadesTab();
+}
+async function removeTag(name){
+  let tags = await loadJSON('tagsPersonalizadas', []);
+  tags = tags.filter(t=>t!==name);
+  await saveJSON('tagsPersonalizadas', tags);
+  renderAtividadesTab();
 }
 
 async function addFolder(){
@@ -1272,20 +1381,22 @@ async function addFolder(){
   renderAtividadesTab();
 }
 
-let uploadedFiles = [];
 function handleFiles(files){
   for(let f of files){
+    if(f.size > MAX_FILE_SIZE){
+      alert(`O arquivo ${f.name} excede o limite de 10MB.`);
+      continue;
+    }
     const id = 'f_'+Date.now()+Math.random().toString(36).slice(2,6);
     uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0, status: 'uploading' });
-    // Simular progresso
+    // Simular progresso com números inteiros
     let p = 0;
     const interval = setInterval(()=>{
-      p += Math.random()*15;
+      p += Math.floor(Math.random()*15)+5;
       if(p>=100){ p=100; clearInterval(interval); }
       const item = uploadedFiles.find(u=>u.id===id);
-      if(item) item.progress = Math.min(100, p);
-      renderFileList();
-    }, 200);
+      if(item) { item.progress = Math.min(100, p); renderFileList(); }
+    }, 150);
   }
   renderFileList();
 }
@@ -1293,16 +1404,16 @@ function renderFileList(){
   const el = document.getElementById('fileList');
   if(!el) return;
   el.innerHTML = uploadedFiles.map(f=>`
-    <div class="file-item">
-      <div class="info">
-        <span style="font-size:1.2rem;">📄</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface-container-low);border-radius:12px;margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="material-symbols-outlined">description</span>
         <div>
-          <div class="name">${escapeHTML(f.name)}</div>
-          <div class="meta">${(f.size/1024).toFixed(1)} KB · ${new Date().toLocaleString()}</div>
+          <div style="font-weight:600;">${escapeHTML(f.name)}</div>
+          <div style="font-size:0.7rem;color:var(--on-surface-variant);">${(f.size/1024).toFixed(1)} KB</div>
         </div>
       </div>
       <div style="min-width:80px;text-align:right;">
-        <span style="font-weight:700;font-size:0.8rem;">${f.progress}%</span>
+        <span style="font-weight:700;font-size:0.8rem;">${Math.round(f.progress)}%</span>
         <div class="file-progress"><div class="bar" style="width:${f.progress}%;"></div></div>
       </div>
     </div>
@@ -1312,18 +1423,18 @@ function renderFileList(){
 function renderMaterialsList(materiais){
   const wrap = document.getElementById('matList');
   if(!wrap) return;
-  if(materiais.length===0){ wrap.innerHTML = `<div class="card empty">Nenhum material cadastrado ainda.</div>`; return; }
+  if(materiais.length===0){ wrap.innerHTML = `<div class="card card-empty">Nenhum material cadastrado ainda.</div>`; return; }
   wrap.innerHTML = materiais.slice().reverse().map(m=>`
-    <div class="card" style="padding:18px 20px;margin-bottom:10px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start;">
+    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start;">
       <div>
-        <div style="font-weight:700;">${escapeHTML(m.title)} <span style="background:var(--gold-soft);padding:2px 12px;border-radius:30px;font-size:0.7rem;">${escapeHTML(m.type)}</span></div>
-        <div style="font-size:0.85rem;color:var(--ink-soft);margin:4px 0;">${escapeHTML(m.description||'')} ${m.folder ? '📁 '+escapeHTML(m.folder) : ''}</div>
-        ${m.link? `<a href="${escapeHTML(m.link)}" target="_blank" style="font-size:0.82rem;color:var(--blue);">${escapeHTML(m.link)}</a>`:''}
-        ${m.files ? m.files.map(f=>`<div style="font-size:0.75rem;color:var(--ink-soft);">📄 ${escapeHTML(f)}</div>`).join('') : ''}
-        <div style="margin-top:6px;">${m.tagIds.map(t=>TAGS[t]? `<span style="background:var(--teal-soft);padding:2px 10px;border-radius:30px;font-size:0.7rem;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`:'').join('')}</div>
-        <div style="font-size:0.7rem;color:var(--ink-soft);margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
+        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-secondary">${escapeHTML(m.type)}</span></div>
+        <div style="font-size:0.85rem;color:var(--on-surface-variant);margin:4px 0;">${escapeHTML(m.description||'')} ${m.folder ? '📁 '+escapeHTML(m.folder) : ''}</div>
+        ${m.link? `<a href="${escapeHTML(m.link)}" target="_blank" style="color:var(--tertiary);font-weight:700;">${escapeHTML(m.link)}</a>`:''}
+        ${m.files ? m.files.map(f=>`<div style="font-size:0.75rem;color:var(--on-surface-variant);">📄 ${escapeHTML(f)}</div>`).join('') : ''}
+        <div style="margin-top:6px;">${m.tagIds.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)}</span>`).join('')}</div>
+        <div style="font-size:0.7rem;color:var(--on-surface-variant);margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
       </div>
-      <button class="btn btn-ghost" onclick="deleteMaterial('${m.id}')">Remover</button>
+      <button class="btn btn-outline" onclick="deleteMaterial('${m.id}')">Remover</button>
     </div>
   `).join('');
 }
@@ -1361,17 +1472,17 @@ async function deleteMaterial(id){
 async function renderAplicacoesTab(){
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
-  let html = `<div class="dash-grid">`;
+  let html = `<div style="display:grid;grid-template-columns:240px 1fr;gap:24px;">`;
   html += `<div>
     <button class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="createRound()">➕ Nova aplicação</button>
-    ${rounds.length===0 ? `<div class="card empty">Nenhuma aplicação ainda.</div>` : ''}
+    ${rounds.length===0 ? `<div class="card card-empty">Nenhuma aplicação ainda.</div>` : ''}
     ${rounds.map(r=>`
-      <div class="round-item ${r.id===selectedRoundId?'active':''}" onclick="selectRound('${r.id}')">
+      <div class="round-item ${r.id===selectedRoundId?'active':''}" onclick="selectRound('${r.id}')" style="padding:14px 16px;border-radius:16px;border:2px solid ${r.id===selectedRoundId?'var(--primary)':'var(--outline-variant)'};margin-bottom:10px;cursor:pointer;background:var(--surface);box-shadow:var(--shadow-sm);">
         <div style="font-weight:700;">${escapeHTML(r.label)}</div>
-        <div class="code">código: ${r.code}</div>
-        <div class="date">${new Date(r.createdAt).toLocaleString()}</div>
+        <div style="font-family:monospace;font-size:0.8rem;color:var(--on-surface-variant);">código: ${r.code}</div>
+        <div style="font-size:0.7rem;color:var(--on-surface-variant);">${new Date(r.createdAt).toLocaleString()}</div>
         <div style="margin-top:6px;">
-          <button class="btn btn-outline" style="padding:4px 12px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
+          <button class="btn ${r.disabled?'btn-outline':'btn-secondary'}" style="padding:4px 12px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
             ${r.disabled ? '🔴 Desabilitada' : '🟢 Ativa'}
           </button>
         </div>
@@ -1394,23 +1505,23 @@ function renderRoundAttempts(rounds, attempts){
   const round = rounds.find(r=>r.id===selectedRoundId);
   const header = document.getElementById('roundHeader');
   const wrap = document.getElementById('attemptsTableWrap');
-  if(!round){ if(header) header.innerHTML=''; if(wrap) wrap.innerHTML=`<div class="empty">Crie uma aplicação.</div>`; return; }
+  if(!round){ if(header) header.innerHTML=''; if(wrap) wrap.innerHTML=`<div class="card-empty">Crie uma aplicação.</div>`; return; }
   header.innerHTML = `<h4 style="margin:0 0 4px;">${escapeHTML(round.label)}</h4>
-    <span style="font-family:monospace;background:var(--ink);color:#fff;padding:4px 12px;border-radius:10px;">${round.code}</span>
-    <span style="color:var(--ink-soft);font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
-    ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
+    <span style="font-family:monospace;background:var(--primary);color:#fff;padding:4px 12px;border-radius:10px;">${round.code}</span>
+    <span style="color:var(--on-surface-variant);font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
+    ${round.disabled ? ' <span style="color:var(--error);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
   const list = attempts.filter(a=>a.roundId===round.id);
-  if(list.length===0){ wrap.innerHTML = `<div class="empty">Ainda não há respostas.</div>`; return; }
+  if(list.length===0){ wrap.innerHTML = `<div class="card-empty">Ainda não há respostas.</div>`; return; }
   wrap.innerHTML = `
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:1.5px solid #ddd;">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:1.5px solid #ddd;">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:1.5px solid #ddd;">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:1.5px solid #ddd;">Tags</th></tr></thead>
+      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid var(--outline-variant);">Tags</th></tr></thead>
       <tbody>
       ${list.map(a=>`
         <tr>
-          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentName)}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentClass||'—')}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eee;"><span style="padding:2px 12px;border-radius:30px;background:${a.levelIdx===0?'var(--teal)':a.levelIdx===1?'var(--gold)':'var(--coral)'};color:#fff;font-size:0.7rem;">${escapeHTML(a.levelLabel)}</span></td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.tags.length===0 ? '<span style="color:var(--ink-soft);">nenhuma</span>' : a.tags.map(t=>`<span style="background:var(--coral-soft);padding:2px 10px;border-radius:30px;font-size:0.7rem;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${escapeHTML(a.studentName)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${escapeHTML(a.studentClass||'—')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);"><span class="level-badge ${a.levelIdx===0?'lvl-0':a.levelIdx===1?'lvl-1':'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--outline-variant);">${a.tags.length===0 ? '<span style="color:var(--on-surface-variant);">nenhuma</span>' : a.tags.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</td>
         </tr>
       `).join('')}
       </tbody>
@@ -1435,12 +1546,12 @@ async function createRound(){
   const rounds = await loadJSON('rodadas', []);
   showModal(`
     <h3 style="margin-top:0;">Nova aplicação</h3>
-    <p style="color:var(--ink-soft);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
-    <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Nome</label>
-    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length+1}" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-    <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Código</label>
-    <input type="text" id="modalRoundCode" value="${generateCode()}" style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);text-transform:uppercase;margin-bottom:12px;">
-    <div class="err" id="modalRoundErr" style="color:var(--coral);min-height:1.2em;"></div>
+    <p style="color:var(--on-surface-variant);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
+    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length+1}" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Código</label>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);text-transform:uppercase;margin-bottom:12px;">
+    <div class="err" id="modalRoundErr" style="color:var(--error);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary btn-block" onclick="confirmCreateRound()">Criar</button>
@@ -1463,7 +1574,7 @@ async function confirmCreateRound(){
 }
 
 /* ============================================================
-   BANCO DE QUESTÕES
+   BANCO DE QUESTÕES (mesmo de antes)
    ============================================================ */
 const TAGS = {
   graf_interpretacao: { label:'Interpretação de gráficos', icon:'📊', colorClass:'teal',
@@ -1485,13 +1596,13 @@ const SUPPORTIVE_PHRASES = ['Toda dificuldade identificada é tempo economizado.
 function pickEncouragement(levelIdx){ const arr = levelIdx===0 ? POSITIVE_PHRASES : SUPPORTIVE_PHRASES; return arr[Math.floor(Math.random()*arr.length)]; }
 
 const NUTRITION_TABLE = `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;margin:12px 0;">
-  <tr><th style="border:1px solid #ddd;padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid #ddd;padding:6px;">Valor</th></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Valor energético</td><td style="border:1px solid #ddd;padding:6px;">66 kcal</td></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Carboidratos</td><td style="border:1px solid #ddd;padding:6px;">16 g</td></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Açúcares totais</td><td style="border:1px solid #ddd;padding:6px;">15 g</td></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Açúcares adicionados</td><td style="border:1px solid #ddd;padding:6px;">14 g</td></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Sódio</td><td style="border:1px solid #ddd;padding:6px;">64 mg</td></tr>
-  <tr><td style="border:1px solid #ddd;padding:6px;">Vitamina B5</td><td style="border:1px solid #ddd;padding:6px;">3,8 mg</td></tr>
+  <tr><th style="border:1px solid var(--outline-variant);padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid var(--outline-variant);padding:6px;">Valor</th></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Valor energético</td><td style="border:1px solid var(--outline-variant);padding:6px;">66 kcal</td></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Carboidratos</td><td style="border:1px solid var(--outline-variant);padding:6px;">16 g</td></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Açúcares totais</td><td style="border:1px solid var(--outline-variant);padding:6px;">15 g</td></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Açúcares adicionados</td><td style="border:1px solid var(--outline-variant);padding:6px;">14 g</td></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Sódio</td><td style="border:1px solid var(--outline-variant);padding:6px;">64 mg</td></tr>
+  <tr><td style="border:1px solid var(--outline-variant);padding:6px;">Vitamina B5</td><td style="border:1px solid var(--outline-variant);padding:6px;">3,8 mg</td></tr>
 </table>`;
 
 const GRAPH_MAIN = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
@@ -1576,7 +1687,7 @@ function tagsForAnswer(qId, value){
 }
 
 /* ============================================================
-   QUIZ — ALUNO
+   QUIZ — ALUNO (com salvamento e finalização)
    ============================================================ */
 let quizState = null;
 let quizFinished = false;
@@ -1584,12 +1695,12 @@ let quizFinished = false;
 function openStudentEntryModal(){
   showModal(`
     <h3 style="margin-top:0;">🚀 Novo diagnóstico</h3>
-    <p style="color:var(--ink-soft);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
-    <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Sua turma</label>
-    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;">
-    <label style="font-weight:600;font-size:0.8rem;color:var(--ink-soft);">Código da aplicação</label>
-    <input type="text" id="modalCode" style="text-transform:uppercase;width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid #ddd;background:var(--bg);margin-bottom:12px;" placeholder="Ex: ABCD">
-    <div class="err" id="modalEntryErr" style="color:var(--coral);min-height:1.2em;"></div>
+    <p style="color:var(--on-surface-variant);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
+    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Sua turma</label>
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Código da aplicação</label>
+    <input type="text" id="modalCode" style="text-transform:uppercase;width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;" placeholder="Ex: ABCD">
+    <div class="err" id="modalEntryErr" style="color:var(--error);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary btn-block" onclick="confirmStartQuiz()">Começar</button>
@@ -1607,10 +1718,8 @@ async function confirmStartQuiz(){
   if(round.disabled){ errEl.textContent='Esta aplicação está desabilitada pela professora.'; return; }
   hideModal();
 
-  // Verifica se há progresso salvo para este round
   const saved = await loadPersonal('quiz_'+round.id, null);
   if(saved && saved.studentEmail===currentStudent.email){
-    // Retomar
     quizState = saved;
     quizState.studentClass = turma;
     quizState.roundId = round.id;
@@ -1626,7 +1735,7 @@ async function confirmStartQuiz(){
 function renderQuizQuestion(){
   const qId = quizState.path[quizState.idx];
   const q = QUESTIONS[qId];
-  document.getElementById('qTopic').textContent = q.topic;
+  document.querySelector('.q-topic').textContent = q.topic;
   document.getElementById('qExtra').innerHTML = q.extra || '';
   document.getElementById('qText').textContent = q.text;
   const progress = Math.min(96, 12+quizState.idx*18);
@@ -1684,7 +1793,7 @@ async function confirmFinishQuiz(){
   if(quizFinished) return;
   showModal(`
     <h3 style="margin-top:0;">✅ Finalizar diagnóstico?</h3>
-    <p style="color:var(--ink-soft);">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</p>
+    <p style="color:var(--on-surface-variant);">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</p>
     <div style="display:flex;gap:10px;margin-top:16px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Continuar respondendo</button>
       <button class="btn btn-primary btn-block" onclick="hideModal(); finishQuiz()">Sim, finalizar</button>
@@ -1726,10 +1835,11 @@ async function finishQuiz(){
   };
   attempts.push(attempt);
   await saveJSON('tentativas', attempts);
-  // Limpar progresso salvo
   await savePersonal('quiz_'+quizState.roundId, null);
   renderResult(attempt, prevAttempt);
   goTo('result');
+  // Confetti
+  launchConfetti();
 }
 
 function recomputeTags(){
@@ -1745,7 +1855,7 @@ function confirmExitQuiz(){
   if(quizFinished) { goTo('studentPanel'); return; }
   showModal(`
     <h3 style="margin-top:0;">Sair do diagnóstico?</h3>
-    <p style="color:var(--ink-soft);">Suas respostas serão salvas e você poderá continuar depois.</p>
+    <p style="color:var(--on-surface-variant);">Suas respostas serão salvas e você poderá continuar depois.</p>
     <div style="display:flex;gap:10px;margin-top:16px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Continuar</button>
       <button class="btn btn-primary btn-block" onclick="hideModal(); saveQuizProgress(); goTo('studentPanel');">Salvar e sair</button>
@@ -1768,22 +1878,51 @@ function renderResult(attempt, prevAttempt){
     compareEl.innerHTML = `
       <div class="card" style="margin-bottom:16px;">
         <h4>Comparando com sua tentativa anterior</h4>
-        ${superadas.length ? `<div style="font-size:0.9rem;color:var(--teal-deep);"><strong>✅ Superadas:</strong> ${superadas.map(t=>`<span style="background:var(--teal-soft);padding:2px 10px;border-radius:30px;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
-        ${persistentes.length ? `<div style="font-size:0.9rem;color:var(--coral);"><strong>🔄 Ainda reforçar:</strong> ${persistentes.map(t=>`<span style="background:var(--coral-soft);padding:2px 10px;border-radius:30px;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
-        ${novas.length ? `<div style="font-size:0.9rem;color:var(--gold);"><strong>🆕 Novo:</strong> ${novas.map(t=>`<span style="background:var(--gold-soft);padding:2px 10px;border-radius:30px;">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
+        ${superadas.length ? `<div style="font-size:0.9rem;color:var(--tertiary);"><strong>✅ Superadas:</strong> ${superadas.map(t=>`<span class="chip chip-tertiary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
+        ${persistentes.length ? `<div style="font-size:0.9rem;color:var(--error);"><strong>🔄 Ainda reforçar:</strong> ${persistentes.map(t=>`<span class="chip chip-primary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
+        ${novas.length ? `<div style="font-size:0.9rem;color:var(--secondary);"><strong>🆕 Novo:</strong> ${novas.map(t=>`<span class="chip chip-secondary">${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</span>`).join('')}</div>` : ''}
       </div>`;
   } else { compareEl.innerHTML = ''; }
 
   const tagsEl = document.getElementById('resultTags');
   if(attempt.tags.length===0){
-    tagsEl.innerHTML = `<div class="card"><h4>🎉 Nenhuma dificuldade específica identificada</h4><p style="color:var(--ink-soft);">Continue praticando para manter esse domínio.</p></div>`;
+    tagsEl.innerHTML = `<div class="card"><h4>🎉 Nenhuma dificuldade específica identificada</h4><p style="color:var(--on-surface-variant);">Continue praticando para manter esse domínio.</p></div>`;
   } else {
     tagsEl.innerHTML = attempt.tags.map(t=>`
       <div class="card" style="margin-bottom:12px;">
         <h4>${TAGS[t].icon} ${escapeHTML(TAGS[t].label)}</h4>
-        <p style="color:var(--ink-soft);">${escapeHTML(TAGS[t].tip)}</p>
+        <p style="color:var(--on-surface-variant);">${escapeHTML(TAGS[t].tip)}</p>
       </div>
     `).join('');
+  }
+}
+
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+function launchConfetti(){
+  const colors = ['#ff5e5b','#fcc838','#419bdf','#b4272b','#6bcb9a'];
+  for(let i=0;i<80;i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + 'vw';
+    piece.style.top = '-10px';
+    piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.width = Math.random()*8+5 + 'px';
+    piece.style.height = piece.style.width;
+    piece.style.borderRadius = Math.random()>0.5 ? '50%' : '0%';
+    piece.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(piece);
+    const duration = Math.random()*2000+1500;
+    const dx = (Math.random()-0.5)*300;
+    const dy = window.innerHeight + 100;
+    piece.animate([
+      { transform: `translate(0,0) rotate(0deg)`, opacity:1 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(${Math.random()*720}deg)`, opacity:0 }
+    ], {
+      duration: duration,
+      easing: 'cubic-bezier(0, .9, .57, 1)'
+    }).onfinish = ()=> piece.remove();
   }
 }
 
@@ -1793,7 +1932,7 @@ function renderResult(attempt, prevAttempt){
 let studentTab = 'overview';
 
 function renderStudentPanel(){
-  if(!currentStudent){ goTo('studentAuth'); return; }
+  if(!currentStudent){ goTo('login'); return; }
   document.getElementById('panelStudentName').textContent = currentStudent.name.split(' ')[0];
   renderStudentTabContent();
 }
@@ -1810,7 +1949,7 @@ async function renderStudentOverviewTab(){
   const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
   const content = document.getElementById('studentContent');
   if(mine.length===0){
-    content.innerHTML = `<div class="card empty">Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
+    content.innerHTML = `<div class="card card-empty">Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
     return;
   }
   const last = mine[mine.length-1];
@@ -1820,13 +1959,13 @@ async function renderStudentOverviewTab(){
       <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
     </div>`;
   if(last.tags.length===0){
-    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:var(--ink-soft);">Continue praticando para manter esse domínio.</p></div>`;
+    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:var(--on-surface-variant);">Continue praticando para manter esse domínio.</p></div>`;
   } else {
     html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` + last.tags.map(t=>`
-      <div class="card" style="border-left:5px solid ${TAGS[t].colorClass==='coral'?'var(--coral)':TAGS[t].colorClass==='teal'?'var(--teal)':TAGS[t].colorClass==='gold'?'var(--gold)':'var(--blue)'};">
+      <div class="card" style="border-left:5px solid ${TAGS[t].colorClass==='coral'?'var(--primary)':TAGS[t].colorClass==='teal'?'var(--tertiary)':TAGS[t].colorClass==='gold'?'var(--secondary)':'var(--tertiary-container)'};">
         <div style="font-size:1.5rem;">${TAGS[t].icon}</div>
         <h4 style="font-size:0.9rem;">${escapeHTML(TAGS[t].label)}</h4>
-        <p style="font-size:0.8rem;color:var(--ink-soft);">${escapeHTML(TAGS[t].tip)}</p>
+        <p style="font-size:0.8rem;color:var(--on-surface-variant);">${escapeHTML(TAGS[t].tip)}</p>
       </div>
     `).join('') + `</div>`;
   }
@@ -1837,7 +1976,7 @@ async function renderStudentDesempenhoTab(){
   const attempts = await loadJSON('tentativas', []);
   const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
   const content = document.getElementById('studentContent');
-  if(mine.length===0){ content.innerHTML = `<div class="card empty">Sem dados de desempenho ainda.</div>`; return; }
+  if(mine.length===0){ content.innerHTML = `<div class="card card-empty">Sem dados de desempenho ainda.</div>`; return; }
   const last = mine[mine.length-1];
   const correct = last.answersDetail.filter(d=>d.isCorrect).length;
   const total = last.answersDetail.length;
@@ -1846,16 +1985,16 @@ async function renderStudentDesempenhoTab(){
     <div class="card" style="margin-bottom:16px;">
       <h4>Última tentativa</h4>
       <div style="display:flex;align-items:center;gap:20px;">
-        <div style="width:70px;height:70px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;background:conic-gradient(var(--teal) ${pct}%, var(--bg) 0);">
+        <div style="width:70px;height:70px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;background:conic-gradient(var(--tertiary-container) ${pct}%, var(--surface-container) 0);">
           <span style="position:relative;z-index:1;background:var(--surface);padding:0 4px;">${pct}%</span>
           <div style="position:absolute;inset:6px;background:var(--surface);border-radius:50%;"></div>
         </div>
-        <div><div style="font-weight:700;">${correct} de ${total} questões corretas</div><div style="color:var(--ink-soft);font-size:0.8rem;">Comparando com o gabarito</div></div>
+        <div><div style="font-weight:700;">${correct} de ${total} questões corretas</div><div style="color:var(--on-surface-variant);font-size:0.8rem;">Comparando com o gabarito</div></div>
       </div>
     </div>
     <div class="card">
       <h4>Por questão</h4>
-      ${last.answersDetail.map(d=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;">${d.isCorrect?'✅':'❌'} ${escapeHTML(d.topic)}</div>`).join('')}
+      ${last.answersDetail.map(d=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--outline-variant);">${d.isCorrect?'✅':'❌'} ${escapeHTML(d.topic)}</div>`).join('')}
     </div>`;
   if(mine.length>1){
     html += `<div class="card" style="margin-top:16px;">
@@ -1864,7 +2003,7 @@ async function renderStudentDesempenhoTab(){
         const c = a.answersDetail.filter(d=>d.isCorrect).length;
         const t = a.answersDetail.length;
         const p = Math.round((c/t)*100);
-        return `<div style="margin-bottom:8px;"><div style="font-size:0.8rem;">Tentativa ${i+1} — ${p}% acerto</div><div style="height:8px;background:#eaeaea;border-radius:10px;overflow:hidden;"><div style="height:100%;width:${p}%;background:var(--teal);border-radius:10px;"></div></div></div>`;
+        return `<div style="margin-bottom:8px;"><div style="font-size:0.8rem;">Tentativa ${i+1} — ${p}% acerto</div><div style="height:8px;background:var(--surface-container);border-radius:10px;overflow:hidden;"><div style="height:100%;width:${p}%;background:var(--tertiary-container);border-radius:10px;"></div></div></div>`;
       }).join('')}
     </div>`;
   }
@@ -1876,19 +2015,19 @@ async function renderStudentReforcosTab(){
   const materiais = await loadJSON('materiais', []);
   const mine = attempts.filter(a=>a.studentEmail===currentStudent.email).sort((a,b)=>a.finishedAt-b.finishedAt);
   const content = document.getElementById('studentContent');
-  if(mine.length===0){ content.innerHTML = `<div class="card empty">Responda um diagnóstico para receber recomendações.</div>`; return; }
+  if(mine.length===0){ content.innerHTML = `<div class="card card-empty">Responda um diagnóstico para receber recomendações.</div>`; return; }
   const last = mine[mine.length-1];
-  const recommended = materiais.filter(m=>m.tagIds.some(t=>last.tags.includes(t)));
+  const recommended = materiais.filter(m=>m.tagIds.some(t=>last.tags.includes(t) || (TAGS[t] && last.tags.includes(t))));
   let html = '';
   if(last.tags.length===0){
-    html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:var(--ink-soft);">Sem recomendações específicas agora — mas sinta-se livre para revisar a biblioteca geral.</p></div>`;
+    html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:var(--on-surface-variant);">Sem recomendações específicas agora — mas sinta-se livre para revisar a biblioteca geral.</p></div>`;
   } else if(recommended.length===0){
-    html += `<div class="card empty">A professora ainda não cadastrou materiais para essas dificuldades. Volte em breve!</div>`;
+    html += `<div class="card card-empty">A professora ainda não cadastrou materiais para essas dificuldades. Volte em breve!</div>`;
   } else {
     html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` + recommended.map(m=>`
       <div class="card">
-        <div style="font-weight:700;">${escapeHTML(m.title)} <span style="background:var(--gold-soft);padding:2px 12px;border-radius:30px;font-size:0.7rem;">${escapeHTML(m.type)}</span></div>
-        <p style="font-size:0.8rem;color:var(--ink-soft);">${escapeHTML(m.description||'')}</p>
+        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-secondary">${escapeHTML(m.type)}</span></div>
+        <p style="font-size:0.8rem;color:var(--on-surface-variant);">${escapeHTML(m.description||'')}</p>
         ${m.link? `<a href="${escapeHTML(m.link)}" target="_blank" class="btn btn-outline" style="margin-top:8px;padding:6px 14px;font-size:0.8rem;">Abrir material</a>`:''}
       </div>
     `).join('') + `</div>`;
@@ -1899,8 +2038,6 @@ async function renderStudentReforcosTab(){
 /* ============================================================
    INICIALIZAÇÃO
    ============================================================ */
-setAuthTab('login');
-setStudentAuthTab('login');
 initRemembered();
 renderHomeStats();
 
