@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico — Teste Login</title>
+  <title>Diagnóstico de Soluções</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET E CORES ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       background: #f6f8f6;
       color: #1a2a2a;
       min-height: 100vh;
@@ -21,16 +23,78 @@
       --blue: #8FC1D9;
       --blue-light: #E8F4FA;
       --coral: #F5A0A0;
+      --coral-light: #FDE8E8;
       --gold: #F5D76E;
+      --gold-light: #FEF6DD;
       --shadow: 0 8px 28px rgba(0,0,0,0.06);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
       --radius: 24px;
+      --radius-sm: 14px;
+      --radius-full: 9999px;
     }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
     /* ===== SCREENS ===== */
-    .screen { display: none; min-height: 100vh; padding: 20px 0; }
+    .screen { display: none; min-height: 100vh; padding: 20px 0; animation: fadeIn 0.6s ease; }
     .screen.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== BOTÕES ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--radius-full);
+      border: none;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: #fff;
+      color: #1a2a2a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn:active { transform: scale(0.96); }
+
+    .btn-primary { background: var(--green); color: #1a2a2a; }
+    .btn-primary:hover { background: var(--green-dark); color: #fff; }
+
+    .btn-secondary { background: var(--blue); color: #1a2a2a; }
+    .btn-secondary:hover { background: #7AB0C8; color: #fff; }
+
+    .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green-dark); }
+    .btn-outline:hover { background: var(--green-light); }
+
+    .btn-ghost { background: transparent; box-shadow: none; }
+    .btn-ghost:hover { background: #f0f0f0; }
+
+    .btn-block { width: 100%; justify-content: center; }
+    .btn-xl { padding: 16px 40px; font-size: 1.1rem; }
+
+    .btn-back {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #5a7a7a;
+      cursor: pointer;
+      padding: 8px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-back:hover { color: #1a2a2a; transform: translateX(-4px); }
 
     /* ===== NAV ===== */
     .nav {
@@ -54,28 +118,6 @@
       padding: 6px 14px;
       border-radius: 12px;
     }
-    .btn {
-      padding: 10px 24px;
-      border-radius: 999px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.2s;
-      background: #fff;
-      color: #1a2a2a;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-    .btn-primary { background: var(--green); color: #1a2a2a; }
-    .btn-primary:hover { background: var(--green-dark); color: #fff; }
-    .btn-secondary { background: var(--blue); color: #1a2a2a; }
-    .btn-secondary:hover { background: #7AB0C8; color: #fff; }
-    .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green-dark); }
-    .btn-outline:hover { background: var(--green-light); }
-    .btn-block { width: 100%; justify-content: center; }
-    .btn-ghost { background: transparent; box-shadow: none; }
-    .btn-ghost:hover { background: #f0f0f0; }
 
     /* ===== HERO ===== */
     .hero {
@@ -83,15 +125,17 @@
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       align-items: center;
-      padding: 40px 0;
+      padding: 40px 0 20px;
     }
-    .hero h1 { font-size: 2.6rem; margin: 12px 0; }
-    .hero p { color: #4a6a6a; font-size: 1.1rem; max-width: 480px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .hero h1 { font-size: 2.8rem; margin: 12px 0 16px; line-height: 1.15; }
+    .hero p { color: #4a6a6a; font-size: 1.1rem; max-width: 480px; line-height: 1.6; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    .hero-art { text-align: center; font-size: 6rem; }
     @media (max-width: 700px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
       .hero p { margin: 0 auto; }
       .hero-actions { justify-content: center; }
+      .hero h1 { font-size: 2rem; }
     }
 
     /* ===== CARDS ===== */
@@ -101,8 +145,53 @@
       padding: 28px 32px;
       box-shadow: var(--shadow);
       border: 1px solid rgba(0,0,0,0.04);
+      transition: 0.2s;
     }
-    .card-soft { background: #f0f5f0; }
+    .card:hover { box-shadow: var(--shadow-hover); }
+    .card-soft { background: #f0f5f0; border: none; }
+    .card-green { background: var(--green-light); border-color: var(--green); }
+    .card-blue { background: var(--blue-light); border-color: var(--blue); }
+    .card-gold { background: var(--gold-light); border-color: var(--gold); }
+    .card-coral { background: var(--coral-light); border-color: var(--coral); }
+
+    /* ===== GRIDS ===== */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 30px 0;
+    }
+    @media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } }
+
+    .feature {
+      text-align: center;
+      padding: 28px 20px;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: 0.3s;
+    }
+    .feature:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .feature .icon { font-size: 2.8rem; display: block; margin-bottom: 12px; }
+    .feature h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .feature p { color: #4a6a6a; font-size: 0.95rem; }
+
+    /* ===== STATS ===== */
+    .stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+    }
+    .stats .num { font-size: 2.2rem; font-weight: 900; color: var(--green-dark); }
+    .stats .label { color: #5a7a7a; font-size: 0.9rem; }
 
     /* ===== LOGIN ===== */
     .login-grid {
@@ -124,10 +213,11 @@
     .login-card .badge {
       display: inline-block;
       padding: 4px 16px;
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       margin-bottom: 12px;
     }
     .badge.teacher { background: var(--green-light); color: var(--green-dark); }
@@ -138,7 +228,7 @@
 
     .login-card label {
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #4a6a6a;
       display: block;
       margin-bottom: 4px;
@@ -146,18 +236,36 @@
     .login-card input {
       width: 100%;
       padding: 12px 16px;
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       border: 2px solid #e8ece8;
       background: #f8faf8;
       font-size: 0.95rem;
-      margin-bottom: 12px;
+      font-family: 'Nunito Sans', sans-serif;
       transition: 0.2s;
+      margin-bottom: 12px;
     }
     .login-card input:focus {
       outline: none;
       border-color: var(--green);
       box-shadow: 0 0 0 4px rgba(107,203,154,0.15);
     }
+    .login-card .input-group {
+      position: relative;
+    }
+    .login-card .input-group .toggle-pwd {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #8a9a9a;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px;
+    }
+    .login-card .input-group .toggle-pwd:hover { color: #1a2a2a; }
+
     .login-card .remember {
       display: flex;
       align-items: center;
@@ -175,7 +283,7 @@
       margin-top: 16px;
       padding: 12px;
       border: 2px dashed var(--green);
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       font-weight: 700;
       color: var(--green-dark);
       cursor: pointer;
@@ -187,6 +295,23 @@
     .err { color: var(--coral); font-size: 0.85rem; min-height: 1.4em; margin-top: 6px; }
     .success { color: var(--green-dark); font-size: 0.9rem; }
 
+    /* ===== CHECKLIST SENHA ===== */
+    .pwd-checklist {
+      display: grid;
+      gap: 3px;
+      margin: 4px 0 12px;
+      font-size: 0.8rem;
+    }
+    .pwd-checklist .item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #8a9a9a;
+      transition: 0.2s;
+    }
+    .pwd-checklist .item.ok { color: var(--green-dark); font-weight: 600; }
+    .pwd-checklist .item .check { font-weight: 700; }
+
     /* ===== TABS ===== */
     .tab-nav {
       display: flex;
@@ -194,12 +319,12 @@
       flex-wrap: wrap;
       background: #edf2ed;
       padding: 4px;
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       margin-bottom: 28px;
     }
     .tab-btn {
       padding: 10px 22px;
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       font-weight: 700;
       font-size: 0.85rem;
       border: none;
@@ -207,6 +332,7 @@
       color: #5a7a7a;
       cursor: pointer;
       transition: 0.2s;
+      font-family: 'Nunito Sans', sans-serif;
     }
     .tab-btn:hover { background: rgba(255,255,255,0.5); }
     .tab-btn.active {
@@ -247,6 +373,7 @@
       border-radius: var(--radius);
       padding: 32px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease;
     }
     .tutorial-dots {
       display: flex;
@@ -273,20 +400,41 @@
       margin-top: 16px;
     }
 
-    /* ===== SIMPLES STATS ===== */
-    .stats {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      padding: 20px 0;
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .btn { padding: 10px 18px; font-size: 0.85rem; }
+      .card { padding: 20px; }
+      .login-card { padding: 24px; }
+      .hero h1 { font-size: 1.8rem; }
+      .tab-btn { padding: 6px 14px; font-size: 0.75rem; }
+      .dash-header h2 { font-size: 1.2rem; }
     }
-    .stats .num { font-size: 2rem; font-weight: 800; color: var(--green-dark); }
-    .stats .label { color: #5a7a7a; }
 
     .text-center { text-align: center; }
+    .mt-8 { margin-top: 8px; }
     .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
     .mb-16 { margin-bottom: 16px; }
     .flex-center { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .gap-16 { gap: 16px; }
+
+    /* Animação de entrada suave para a home */
+    .fade-item {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .fade-item:nth-child(1) { animation-delay: 0.1s; }
+    .fade-item:nth-child(2) { animation-delay: 0.3s; }
+    .fade-item:nth-child(3) { animation-delay: 0.5s; }
+    .fade-item:nth-child(4) { animation-delay: 0.7s; }
+    .fade-item:nth-child(5) { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -298,20 +446,10 @@
   <div id="tutorialCard">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
       <h3 style="font-size:1.3rem;">📖 Tutorial</h3>
-      <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
+      <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#8a9a9a;">✕</button>
     </div>
-    <div id="tutorialBody">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-        <span style="background:var(--green);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;">1</span>
-        <h4 style="font-size:1.1rem;">Visão Geral</h4>
-      </div>
-      <p style="color:#4a6a6a;line-height:1.6;">Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.</p>
-    </div>
-    <div class="tutorial-dots" id="tutorialDots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
+    <div id="tutorialBody"></div>
+    <div class="tutorial-dots" id="tutorialDots"></div>
     <div class="tutorial-actions">
       <button class="btn btn-ghost" id="tutorialBackBtn" onclick="prevTutorialStep()" style="display:none;">← Voltar</button>
       <button class="btn btn-ghost" onclick="closeTutorial()">Pular</button>
@@ -325,29 +463,89 @@
 <!-- ============================================================ -->
 <section id="screen-home" class="screen active">
   <div class="wrap">
-    <div class="nav">
-      <div class="brand"><span class="logo">S</span> Diagnóstico</div>
+    <div class="nav fade-item">
+      <div class="brand"><span class="logo">S</span> Diagnóstico de Soluções</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-outline" onclick="navigateTo('login-student')">🧪 Sou aluno</button>
         <button class="btn btn-primary" onclick="navigateTo('login-manager')">👩‍🏫 Gestora</button>
       </div>
     </div>
 
-    <div class="hero">
+    <!-- HERO -->
+    <div class="hero fade-item">
       <div>
-        <span style="font-weight:700;color:var(--green-dark);text-transform:uppercase;font-size:0.8rem;letter-spacing:0.05em;">Química · Soluções</span>
-        <h1>Descubra onde reforçar seu aprendizado.</h1>
-        <p>Responda a um diagnóstico curto e adaptativo. No final, um resumo com dicas personalizadas.</p>
+        <span style="font-weight:700;color:var(--green-dark);text-transform:uppercase;font-size:0.8rem;letter-spacing:0.05em;">Química · Soluções · 2ª série</span>
+        <h1>Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
+        <p>Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas para você brilhar.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" onclick="navigateTo('login-student')">🚀 Começar agora</button>
+          <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🚀 Começar agora</button>
         </div>
       </div>
-      <div style="font-size:6rem;text-align:center;">🧪</div>
+      <div class="hero-art">
+        <svg viewBox="0 0 200 180" width="100%" style="max-width:260px;">
+          <circle cx="100" cy="90" r="80" fill="#D4F0E4" opacity="0.4"/>
+          <circle cx="100" cy="90" r="55" fill="#D4F0E4" opacity="0.3"/>
+          <path d="M70 40h60v45l30 80c6 16-6 28-24 28H64c-18 0-30-12-24-28l30-80V40z" fill="#6BCB9A" opacity="0.9"/>
+          <circle cx="92" cy="100" r="6" fill="#fff" opacity="0.9"/>
+          <circle cx="110" cy="88" r="4.5" fill="#F5D76E"/>
+          <circle cx="100" cy="78" r="3.5" fill="#8FC1D9"/>
+          <path d="M30 150 Q60 125 100 140 T170 125" stroke="#F5D76E" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <text x="82" y="65" font-size="12" fill="#fff" font-weight="700" font-family="Nunito Sans">S</text>
+        </svg>
+      </div>
     </div>
 
-    <div class="stats">
-      <div><div class="num" id="statUsers">0</div><div class="label">usuários</div></div>
-      <div><div class="num" id="statAttempts">0</div><div class="label">diagnósticos</div></div>
+    <!-- STATS -->
+    <div class="stats fade-item">
+      <div><div class="num" id="statUsers">0</div><div class="label">usuários cadastrados</div></div>
+      <div><div class="num" id="statAttempts">0</div><div class="label">diagnósticos respondidos</div></div>
+      <div><div class="num" id="statRounds">0</div><div class="label">aplicações criadas</div></div>
+    </div>
+
+    <!-- SEÇÃO 1: O QUE É -->
+    <div class="fade-item" style="margin-top:30px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <h2 style="font-size:2rem;">🔬 O que é o Diagnóstico de Soluções?</h2>
+        <p style="color:#4a6a6a;max-width:600px;margin:8px auto 0;">Uma ferramenta interativa que identifica, em tempo real, quais tópicos de Química você já domina e quais precisam de mais atenção.</p>
+      </div>
+      <div class="grid-3">
+        <div class="feature"><span class="icon">🧪</span><h3>Adaptativo</h3><p>As perguntas se ajustam ao seu desempenho, focando nas áreas que precisam de reforço.</p></div>
+        <div class="feature"><span class="icon">📊</span><h3>Visualização clara</h3><p>Gráficos e resumos mostram seu progresso de forma intuitiva e motivadora.</p></div>
+        <div class="feature"><span class="icon">🎯</span><h3>Dicas personalizadas</h3><p>Cada dificuldade mapeada vem com uma sugestão de estudo direcionada.</p></div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2: POR QUE USAR -->
+    <div class="fade-item">
+      <div style="text-align:center;margin-bottom:24px;">
+        <h2 style="font-size:2rem;">💡 Por que usar?</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card card-green"><span style="font-size:2rem;">⏱️</span><h3 style="margin:8px 0;">Economia de tempo</h3><p style="color:#4a6a6a;">Em menos de 10 minutos, você tem um diagnóstico completo do seu nível em Soluções.</p></div>
+        <div class="card card-blue"><span style="font-size:2rem;">📈</span><h3 style="margin:8px 0;">Acompanhamento contínuo</h3><p style="color:#4a6a6a;">Compare seu desempenho entre tentativas e veja sua evolução ao longo do tempo.</p></div>
+        <div class="card card-gold"><span style="font-size:2rem;">👩‍🏫</span><h3 style="margin:8px 0;">Para professores</h3><p style="color:#4a6a6a;">Visualize o desempenho da turma, identifique dificuldades coletivas e ajuste seu planejamento.</p></div>
+        <div class="card card-coral"><span style="font-size:2rem;">📚</span><h3 style="margin:8px 0;">Materiais de apoio</h3><p style="color:#4a6a6a;">Receba recomendações de exercícios, resumos e vídeos sobre os tópicos que você precisa revisar.</p></div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3: COMO FUNCIONA -->
+    <div class="fade-item" style="margin-top:10px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <h2 style="font-size:2rem;">🚀 Como funciona?</h2>
+      </div>
+      <div class="grid-3">
+        <div class="feature" style="border-top:5px solid var(--green);"><div style="font-size:2.8rem;font-weight:800;color:var(--green);">1</div><h3>Responda à pergunta inicial</h3><p style="color:#4a6a6a;">Comece com uma questão diagnóstica que define o caminho.</p></div>
+        <div class="feature" style="border-top:5px solid var(--blue);"><div style="font-size:2.8rem;font-weight:800;color:var(--blue);">2</div><h3>Caminho adaptativo</h3><p style="color:#4a6a6a;">Cada resposta acumula "tags" de dificuldade — o sistema escolhe a próxima pergunta com base no seu desempenho.</p></div>
+        <div class="feature" style="border-top:5px solid var(--gold);"><div style="font-size:2.8rem;font-weight:800;color:var(--gold);">3</div><h3>Resumo educativo</h3><p style="color:#4a6a6a;">No final, você vê o que já domina, o que precisa revisar e recebe dicas e materiais de apoio.</p></div>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="fade-item text-center" style="padding:40px 0;">
+      <p style="font-size:1.2rem;color:#4a6a6a;margin-bottom:16px;">Pronto para começar sua jornada?</p>
+      <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🧪 Sou aluno(a) — iniciar</button>
+      <span style="display:inline-block;margin:0 12px;color:#4a6a6a;">ou</span>
+      <button class="btn btn-secondary btn-xl" onclick="navigateTo('login-manager')">👩‍🏫 Acessar painel do professor</button>
     </div>
   </div>
 </section>
@@ -358,7 +556,9 @@
 <section id="screen-login-manager" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;">
     <div style="width:100%;max-width:440px;">
-      <div class="login-card">
+      <button class="btn-back" onclick="navigateTo('home')">← Voltar para o início</button>
+
+      <div class="login-card" style="margin-top:12px;">
         <div class="badge teacher">👩‍🏫 Acesso Docente</div>
         <h2>Professora</h2>
         <p class="sub">Acesse seu painel de gestão.</p>
@@ -368,7 +568,10 @@
           <label>E-mail</label>
           <input type="email" id="loginEmailM" placeholder="exemplo@escola.com">
           <label>Senha</label>
-          <input type="password" id="loginPassM" placeholder="••••••••">
+          <div class="input-group">
+            <input type="password" id="loginPassM" placeholder="••••••••">
+            <button type="button" class="toggle-pwd material-symbols-outlined" onclick="togglePassword('loginPassM', this)">visibility</button>
+          </div>
           <div class="remember">
             <input type="checkbox" id="rememberM"> <span>Lembrar e-mail</span>
           </div>
@@ -385,7 +588,11 @@
           <label>E-mail</label>
           <input type="email" id="suEmailM" placeholder="exemplo@escola.com">
           <label>Senha (8-12 caracteres)</label>
-          <input type="password" id="suPassM" placeholder="••••••••">
+          <div class="input-group">
+            <input type="password" id="suPassM" placeholder="••••••••" oninput="updatePasswordChecklist('suPassM', 'checklistM')">
+            <button type="button" class="toggle-pwd material-symbols-outlined" onclick="togglePassword('suPassM', this)">visibility</button>
+          </div>
+          <div id="checklistM" class="pwd-checklist"></div>
           <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
           <div class="err" id="signupErrM"></div>
           <button type="button" class="btn btn-ghost btn-block" style="margin-top:8px;" onclick="toggleForms('manager')">← Voltar para login</button>
@@ -403,7 +610,9 @@
 <section id="screen-login-student" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;">
     <div style="width:100%;max-width:440px;">
-      <div class="login-card">
+      <button class="btn-back" onclick="navigateTo('home')">← Voltar para o início</button>
+
+      <div class="login-card" style="margin-top:12px;">
         <div class="badge student">🧪 Espaço do Aluno</div>
         <h2>Estudante</h2>
         <p class="sub">Entre para realizar seus testes e acompanhar seu progresso.</p>
@@ -413,7 +622,10 @@
           <label>E-mail</label>
           <input type="email" id="loginEmailS" placeholder="seuemail@exemplo.com">
           <label>Senha</label>
-          <input type="password" id="loginPassS" placeholder="••••••••">
+          <div class="input-group">
+            <input type="password" id="loginPassS" placeholder="••••••••">
+            <button type="button" class="toggle-pwd material-symbols-outlined" onclick="togglePassword('loginPassS', this)">visibility</button>
+          </div>
           <div class="remember">
             <input type="checkbox" id="rememberS"> <span>Lembrar e-mail</span>
           </div>
@@ -430,7 +642,11 @@
           <label>E-mail</label>
           <input type="email" id="suEmailS" placeholder="seuemail@exemplo.com">
           <label>Senha (8-12 caracteres)</label>
-          <input type="password" id="suPassS" placeholder="••••••••">
+          <div class="input-group">
+            <input type="password" id="suPassS" placeholder="••••••••" oninput="updatePasswordChecklist('suPassS', 'checklistS')">
+            <button type="button" class="toggle-pwd material-symbols-outlined" onclick="togglePassword('suPassS', this)">visibility</button>
+          </div>
+          <div id="checklistS" class="pwd-checklist"></div>
           <button type="submit" class="btn btn-secondary btn-block">Criar conta e entrar</button>
           <div class="err" id="signupErrS"></div>
           <button type="button" class="btn btn-ghost btn-block" style="margin-top:8px;" onclick="toggleForms('student')">← Voltar para login</button>
@@ -514,7 +730,7 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- JAVASCRIPT COMPLETO E FUNCIONAL -->
+<!-- JAVASCRIPT COMPLETO -->
 <!-- ============================================================ -->
 <script>
 // ============================================================
@@ -540,30 +756,95 @@ function obfuscate(str) {
 }
 
 // ============================================================
-// 2. NAVEGAÇÃO ENTRE TELAS
+// 2. NAVEGAÇÃO
 // ============================================================
 function navigateTo(screenId) {
   document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
   const target = document.getElementById('screen-' + screenId);
   if (target) target.classList.add('active');
   window.scrollTo(0, 0);
-
-  // Atualiza stats na home
   if (screenId === 'home') updateHomeStats();
 }
 
 // ============================================================
-// 3. ESTATÍSTICAS DA HOME
+// 3. STATS DA HOME
 // ============================================================
 function updateHomeStats() {
   const users = loadData('users', []);
   const attempts = loadData('attempts', []);
+  const rounds = loadData('rodadas', []);
   document.getElementById('statUsers').textContent = users.length || 0;
   document.getElementById('statAttempts').textContent = attempts.length || 0;
+  document.getElementById('statRounds').textContent = rounds.length || 0;
 }
 
 // ============================================================
-// 4. ALTERNAR ENTRE LOGIN E CADASTRO
+// 4. EXIBIR/OCULTAR SENHA
+// ============================================================
+function togglePassword(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    btn.textContent = 'visibility';
+  }
+}
+
+// ============================================================
+// 5. CHECKLIST DE SENHA
+// ============================================================
+function updatePasswordChecklist(inputId, containerId) {
+  const input = document.getElementById(inputId);
+  const container = document.getElementById(containerId);
+  if (!input || !container) return;
+
+  const pwd = input.value;
+  const checks = {
+    length: pwd.length >= 8 && pwd.length <= 12,
+    upper: /[A-Z]/.test(pwd),
+    lower: /[a-z]/.test(pwd),
+    number: /[0-9]/.test(pwd),
+    symbol: /[#@$!%*?&^.\-_]/.test(pwd),
+    notWeak: !isWeakPassword(pwd)
+  };
+
+  const items = [
+    { key: 'length', label: '8 a 12 caracteres' },
+    { key: 'upper', label: 'Letras maiúsculas e minúsculas' },
+    { key: 'number', label: 'Pelo menos um número' },
+    { key: 'symbol', label: 'Um símbolo (# @ $ etc.)' },
+    { key: 'notWeak', label: 'Sem sequências óbvias (123456, senha...)' }
+  ];
+
+  container.innerHTML = items.map(item =>
+    `<div class="item ${checks[item.key] ? 'ok' : ''}">
+      <span class="check">${checks[item.key] ? '✓' : '○'}</span>
+      ${item.label}
+    </div>`
+  ).join('');
+}
+
+function isWeakPassword(pwd) {
+  const weakList = ['12345678','123456789','password','senha123','qwerty123','11111111','abc12345','123123123'];
+  const lower = pwd.toLowerCase();
+  if (weakList.includes(lower)) return true;
+  if (/^(.)\1+$/.test(pwd)) return true;
+  if (/0123456789|9876543210|123456|654321/.test(pwd)) return true;
+  return false;
+}
+
+function passwordAllValid(pwd) {
+  return pwd.length >= 8 && pwd.length <= 12 &&
+         /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) &&
+         /[0-9]/.test(pwd) && /[#@$!%*?&^.\-_]/.test(pwd) &&
+         !isWeakPassword(pwd);
+}
+
+// ============================================================
+// 6. ALTERNAR LOGIN/CADASTRO
 // ============================================================
 function toggleForms(role) {
   const prefix = role === 'manager' ? 'M' : 'S';
@@ -572,13 +853,12 @@ function toggleForms(role) {
   const isLoginVisible = loginForm.style.display !== 'none';
   loginForm.style.display = isLoginVisible ? 'none' : 'block';
   signupForm.style.display = isLoginVisible ? 'block' : 'none';
-  // Limpa erros
   document.getElementById('loginErr' + prefix).textContent = '';
   document.getElementById('signupErr' + prefix).textContent = '';
 }
 
 // ============================================================
-// 5. CADASTRO
+// 7. CADASTRO
 // ============================================================
 function handleSignup(role) {
   const prefix = role === 'manager' ? 'M' : 'S';
@@ -593,8 +873,8 @@ function handleSignup(role) {
     errEl.textContent = 'Preencha todos os campos.';
     return;
   }
-  if (pass.length < 8 || pass.length > 12) {
-    errEl.textContent = 'A senha deve ter entre 8 e 12 caracteres.';
+  if (!passwordAllValid(pass)) {
+    errEl.textContent = 'A senha não atende a todos os requisitos.';
     return;
   }
 
@@ -608,18 +888,17 @@ function handleSignup(role) {
     name,
     email,
     pass: obfuscate(pass),
-    role: role, // 'manager' ou 'student'
+    role: role,
     createdAt: Date.now()
   };
   users.push(newUser);
   saveData('users', users);
 
-  // Login automático
   loginUser(newUser);
 }
 
 // ============================================================
-// 6. LOGIN
+// 8. LOGIN
 // ============================================================
 function handleLogin(role) {
   const prefix = role === 'manager' ? 'M' : 'S';
@@ -651,44 +930,38 @@ function handleLogin(role) {
 }
 
 // ============================================================
-// 7. LOGIN AUTOMÁTICO (pós-cadastro ou sucesso)
+// 9. LOGIN AUTOMÁTICO
 // ============================================================
 function loginUser(user) {
-  // Salva o usuário atual na sessão (memória)
   window.currentUser = user;
+  try { sessionStorage.setItem('currentUser', JSON.stringify(user)); } catch(e) {}
 
   if (user.role === 'manager') {
     document.getElementById('managerName').textContent = user.name;
     navigateTo('dashboard-manager');
-    // Verifica se deve mostrar tutorial
     const seen = loadData('tutorial_seen_' + user.email, false);
-    if (!seen) {
-      setTimeout(() => showTutorial('manager'), 300);
-    }
+    if (!seen) setTimeout(() => showTutorial('manager'), 400);
   } else {
     document.getElementById('studentName').textContent = user.name;
     navigateTo('dashboard-student');
     const seen = loadData('tutorial_seen_' + user.email, false);
-    if (!seen) {
-      setTimeout(() => showTutorial('student'), 300);
-    }
+    if (!seen) setTimeout(() => showTutorial('student'), 400);
   }
-
-  // Atualiza stats
   updateHomeStats();
 }
 
 // ============================================================
-// 8. LOGOUT
+// 10. LOGOUT
 // ============================================================
 function logout() {
   window.currentUser = null;
+  try { sessionStorage.removeItem('currentUser'); } catch(e) {}
   navigateTo('home');
   updateHomeStats();
 }
 
 // ============================================================
-// 9. TUTORIAL
+// 11. TUTORIAL
 // ============================================================
 const tutorialStepsManager = [
   { title: 'Visão Geral', text: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.' },
@@ -737,8 +1010,6 @@ function renderTutorialStep() {
 
   const backBtn = document.getElementById('tutorialBackBtn');
   backBtn.style.display = tutorialCurrentStep === 0 ? 'none' : 'inline-flex';
-
-  // Marca como visto (só marca quando conclui ou pula, mas faremos no close)
 }
 
 function nextTutorialStep() {
@@ -748,7 +1019,6 @@ function nextTutorialStep() {
   } else {
     tutorialCurrentStep++;
     renderTutorialStep();
-    // Navega para a aba correspondente (se for manager)
     if (tutorialType === 'manager') {
       const tabMap = ['overview', 'alunos', 'assuntos', 'atividades', 'aplicacoes'];
       setManagerTab(tabMap[tutorialCurrentStep]);
@@ -775,14 +1045,13 @@ function prevTutorialStep() {
 
 function closeTutorial() {
   document.getElementById('tutorialOverlay').classList.remove('open');
-  // Marca como visto
   if (window.currentUser) {
     saveData('tutorial_seen_' + window.currentUser.email, true);
   }
 }
 
 // ============================================================
-// 10. ABAS DO GESTOR
+// 12. ABAS GESTOR
 // ============================================================
 function setManagerTab(tab) {
   document.querySelectorAll('#managerTabs .tab-btn').forEach(b => {
@@ -805,7 +1074,7 @@ function setManagerTab(tab) {
 }
 
 // ============================================================
-// 11. ABAS DO ALUNO
+// 13. ABAS ALUNO
 // ============================================================
 function setStudentTab(tab) {
   document.querySelectorAll('#studentTabs .tab-btn').forEach(b => {
@@ -826,15 +1095,12 @@ function setStudentTab(tab) {
 }
 
 // ============================================================
-// 12. INICIALIZAÇÃO
+// 14. INICIALIZAÇÃO
 // ============================================================
 updateHomeStats();
 
-// Verifica se há usuário na sessão (recarregou a página)
+// Restaura sessão
 window.onload = function() {
-  // Se houver um currentUser salvo em memória, restaura
-  // (não salvamos em localStorage por segurança, apenas na memória)
-  // Mas podemos checar se há algo no sessionStorage
   try {
     const saved = sessionStorage.getItem('currentUser');
     if (saved) {
@@ -851,25 +1117,7 @@ window.onload = function() {
   } catch(e) {}
 };
 
-// Salva o usuário atual no sessionStorage para persistir recarregamento
-const origLogin = loginUser;
-loginUser = function(user) {
-  try {
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
-  } catch(e) {}
-  origLogin(user);
-};
-
-// Limpa sessionStorage no logout
-const origLogout = logout;
-logout = function() {
-  try {
-    sessionStorage.removeItem('currentUser');
-  } catch(e) {}
-  origLogout();
-};
-
-console.log('✅ Sistema de login e tutorial funcionando!');
+console.log('✅ Diagnóstico de Soluções — versão final carregada!');
 </script>
 </body>
 </html>
