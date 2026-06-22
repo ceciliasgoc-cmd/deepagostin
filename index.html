@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Química Interativa — Diagnóstico</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       PALETA DE CORES CALMA E ACOLHEDORA
+       PALETA DE CORES CALMA E ACESSÍVEL
        ============================================================ */
     :root {
-      --bg-primary: #F5F7F5;
+      --bg-primary: #F6F8F6;
       --bg-card: #FFFFFF;
       --bg-soft: #EDF2ED;
       --text-primary: #1A2A2A;
-      --text-secondary: #4A6A6A;
-      --text-soft: #7A9A9A;
+      --text-secondary: #3A5A5A;
+      --text-soft: #6A8A8A;
       --green-main: #6BCB9A;
       --green-dark: #4AAF7A;
       --green-light: #D4F0E4;
@@ -27,7 +27,7 @@
       --gold-soft: #FEF6DD;
       --blue: #8FC1D9;
       --blue-soft: #E8F4FA;
-      --shadow: 0 8px 30px rgba(26, 42, 42, 0.08);
+      --shadow: 0 8px 28px rgba(26, 42, 42, 0.08);
       --shadow-hover: 0 12px 40px rgba(26, 42, 42, 0.14);
       --radius: 28px;
       --radius-sm: 16px;
@@ -51,25 +51,24 @@
       min-height: 100vh;
     }
 
-    /* ===== FUNDO COM PADRÃO SUAVE ===== */
+    /* ===== FUNDO COM PADRÃO DE PONTOS SUAVES ===== */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       z-index: -1;
       background-image:
-        radial-gradient(circle at 20% 80%, rgba(107, 203, 154, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(143, 193, 217, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(107, 203, 154, 0.07) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(143, 193, 217, 0.07) 0%, transparent 60%),
         radial-gradient(circle at 50% 50%, rgba(245, 215, 110, 0.05) 0%, transparent 70%);
       background-attachment: fixed;
     }
 
-    /* ===== PADRÃO DE PONTOS SUAVES ===== */
     .pattern-dots {
       position: fixed;
       inset: 0;
       z-index: -1;
-      opacity: 0.4;
+      opacity: 0.35;
       background-image: radial-gradient(var(--text-soft) 1.5px, transparent 1.5px);
       background-size: 32px 32px;
       pointer-events: none;
@@ -87,13 +86,13 @@
 
     /* ===== TIPOGRAFIA ===== */
     h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 800;
       letter-spacing: -0.02em;
-      line-height: 1.15;
+      line-height: 1.2;
     }
     h1 { font-size: 2.8rem; }
-    h2 { font-size: 2rem; }
+    h2 { font-size: 2.2rem; }
     h3 { font-size: 1.4rem; }
     h4 { font-size: 1.1rem; }
 
@@ -122,31 +121,32 @@
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
     .btn:active { transform: scale(0.96); }
 
+    /* Botões com contraste melhorado */
     .btn-primary {
       background: var(--green-main);
-      color: #fff;
+      color: #1A2A2A; /* texto escuro para melhor legibilidade */
       box-shadow: 0 4px 16px rgba(107, 203, 154, 0.35);
     }
-    .btn-primary:hover { background: var(--green-dark); box-shadow: 0 6px 24px rgba(107, 203, 154, 0.45); }
+    .btn-primary:hover { background: var(--green-dark); color: #fff; }
 
     .btn-secondary {
       background: var(--blue);
-      color: #fff;
+      color: #1A2A2A;
       box-shadow: 0 4px 16px rgba(143, 193, 217, 0.35);
     }
-    .btn-secondary:hover { background: #7AB0C8; }
+    .btn-secondary:hover { background: #7AB0C8; color: #fff; }
 
     .btn-coral {
       background: var(--coral);
-      color: #fff;
+      color: #1A2A2A;
       box-shadow: 0 4px 16px rgba(245, 160, 160, 0.35);
     }
-    .btn-coral:hover { background: #E88A8A; }
+    .btn-coral:hover { background: #E88A8A; color: #fff; }
 
     .btn-outline {
       background: transparent;
       border: 2px solid var(--green-main);
-      color: var(--green-main);
+      color: var(--green-dark);
       box-shadow: none;
     }
     .btn-outline:hover { background: var(--green-light); transform: translateY(-2px); }
@@ -234,7 +234,6 @@
       transition: var(--transition);
     }
     .card:hover { box-shadow: var(--shadow-hover); }
-
     .card-soft {
       background: var(--bg-soft);
       border: none;
@@ -291,14 +290,14 @@
     }
     .stat-item { text-align: center; }
     .stat-item .number {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Nunito Sans', sans-serif;
       font-size: 2.4rem;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--green-main);
     }
     .stat-item .label { color: var(--text-secondary); font-size: 0.85rem; }
 
-    /* ===== LOGIN CARDS ===== */
+    /* ===== LOGIN ===== */
     .login-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -354,7 +353,7 @@
     }
     .login-card label {
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
       display: block;
       margin-bottom: 4px;
@@ -374,6 +373,24 @@
       padding-left: 48px;
     }
 
+    /* Checkbox alinhado à esquerda */
+    .login-card .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin: 4px 0 16px;
+      justify-content: flex-start;
+    }
+    .login-card .remember-me input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      border-radius: 4px;
+    }
+
     .signup-link {
       display: block;
       text-align: center;
@@ -382,10 +399,11 @@
       border: 2px dashed var(--green-main);
       border-radius: var(--radius-full);
       font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--green-main);
+      font-size: 0.95rem;
+      color: var(--green-dark);
       cursor: pointer;
       transition: var(--transition);
+      background: var(--bg-primary);
     }
     .signup-link:hover {
       background: var(--green-light);
@@ -433,7 +451,7 @@
     }
     .tab-btn .icon { font-size: 1.2rem; }
 
-    /* ===== DASHBOARD HEADER ===== */
+    /* ===== DASHBOARD ===== */
     .dash-header {
       display: flex;
       justify-content: space-between;
@@ -449,7 +467,7 @@
     .dash-header .greeting span { color: var(--green-main); }
 
     /* ===== QUIZ ===== */
-    .quiz-wrap { max-width: 680px; margin: 0 auto; padding: 30px 22px 60px; }
+    .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 30px 22px 60px; }
     .progress-bar {
       height: 10px;
       background: var(--bg-soft);
@@ -476,6 +494,13 @@
       margin: 12px 0 20px;
       line-height: 1.6;
     }
+    .q-extra { margin: 12px 0; }
+    .q-extra img, .q-extra svg, .q-extra table {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+      margin: 8px 0;
+    }
+
     .opt {
       display: block;
       width: 100%;
@@ -500,6 +525,22 @@
     }
     .opt:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 22px;
+      gap: 12px;
+    }
+    .quiz-nav .left { margin-right: auto; }
+    .quiz-nav .right { margin-left: auto; }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
     /* ===== RESULT ===== */
     .result-hero {
       border-radius: var(--radius);
@@ -507,12 +548,61 @@
       margin-bottom: 24px;
       background: var(--green-light);
       border: 2px solid var(--green-main);
+      text-align: center;
     }
     .result-hero.warn { background: var(--coral-soft); border-color: var(--coral); }
     .result-hero h2 { font-size: 1.8rem; margin-bottom: 4px; }
     .result-hero p { font-size: 1.05rem; color: var(--text-secondary); }
 
-    /* ===== CHIPS / BADGES ===== */
+    .result-circle {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    .result-circle .circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.4rem;
+      background: conic-gradient(var(--green-main) var(--pct), var(--bg-soft) 0);
+    }
+    .result-circle .circle span {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-card);
+      padding: 4px 8px;
+      border-radius: var(--radius-full);
+    }
+    .result-circle .circle::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      background: var(--bg-card);
+      border-radius: 50%;
+    }
+
+    /* Medalhas */
+    .medal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-soft);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-full);
+      padding: 6px 20px 6px 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .medal-badge .medal-icon { font-size: 1.6rem; }
+
+    /* ===== CHIPS ===== */
     .chip {
       display: inline-block;
       padding: 4px 16px;
@@ -581,7 +671,7 @@
     }
     #modalOverlay.open { display: flex; }
     #modalCard {
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
       padding: 32px;
       background: var(--bg-card);
@@ -600,15 +690,60 @@
       padding: 4px;
     }
     #modalCard .close-btn:hover { color: var(--text-primary); }
+    #modalCard .modal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    #modalCard .modal-sub {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    #modalCard label {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 4px;
+    }
+    #modalCard input, #modalCard select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 2px solid rgba(26,42,42,0.08);
+      background: var(--bg-primary);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    #modalCard input:focus, #modalCard select:focus {
+      outline: none;
+      border-color: var(--green-main);
+      box-shadow: 0 0 0 4px rgba(107,203,154,0.15);
+    }
+    #modalCard .err {
+      color: var(--coral);
+      font-size: 0.85rem;
+      min-height: 1.4em;
+      margin-top: 4px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      justify-content: flex-end;
+    }
 
-    /* ===== TUTORIAL OVERLAY ===== */
+    /* ===== TUTORIAL ===== */
     #tutorialOverlay {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(26,42,42,0.6);
-      backdrop-filter: blur(8px);
+      background: rgba(26,42,42,0.5);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -621,6 +756,7 @@
       background: var(--bg-card);
       border-radius: var(--radius);
       box-shadow: var(--shadow-hover);
+      border: 1px solid rgba(26,42,42,0.04);
     }
     .tutorial-step { margin: 16px 0; }
     .tutorial-step .num {
@@ -653,6 +789,11 @@
       width: 28px;
       border-radius: 20px;
     }
+    .tutorial-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
@@ -663,6 +804,8 @@
       .section-title h2 { font-size: 1.6rem; }
       .tab-btn { padding: 6px 14px; font-size: 0.75rem; }
       .dash-header .greeting { font-size: 1.1rem; }
+      .quiz-wrap { padding: 20px 12px; }
+      .result-circle { flex-direction: column; }
     }
 
     /* ===== CONFETTI ===== */
@@ -685,6 +828,19 @@
     .gap-8 { gap: 8px; }
     .gap-12 { gap: 12px; }
     .gap-16 { gap: 16px; }
+
+    /* ===== INPUTS COM BORDER-RADIUS MAIOR ===== */
+    input, select, textarea {
+      border-radius: var(--radius-sm) !important;
+    }
+
+    /* ===== OVERRIDE PARA BOTÕES COM TEXTO MAIS ESCURO ===== */
+    .btn-primary, .btn-secondary, .btn-coral {
+      color: #1A2A2A;
+    }
+    .btn-primary:hover, .btn-secondary:hover, .btn-coral:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -693,17 +849,18 @@
 <div class="pattern-dots"></div>
 
 <!-- ================================================================== -->
-<!-- TUTORIAL OVERLAY -->
+<!-- TUTORIAL OVERLAY (gestor e aluno) -->
 <!-- ================================================================== -->
 <div id="tutorialOverlay">
   <div id="tutorialCard">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;">📖 Bem-vindo ao painel!</h3>
+      <h3 style="font-size:1.3rem;font-weight:800;">📖 Tutorial</h3>
       <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-soft);">✕</button>
     </div>
     <div id="tutorialBody"></div>
     <div class="tutorial-dots" id="tutorialDots"></div>
-    <div style="display:flex;gap:12px;justify-content:flex-end;">
+    <div class="tutorial-actions">
+      <button class="btn btn-ghost" id="tutorialBackBtn" onclick="prevTutorialStep()" style="display:none;">← Voltar</button>
       <button class="btn btn-ghost" onclick="closeTutorial()">Pular</button>
       <button class="btn btn-primary" id="tutorialNextBtn" onclick="nextTutorialStep()">Próximo</button>
     </div>
@@ -726,7 +883,6 @@
       </div>
     </div>
 
-    <!-- HERO -->
     <div class="hero">
       <div>
         <span style="font-weight:700;color:var(--green-dark);letter-spacing:0.08em;font-size:0.8rem;text-transform:uppercase;">Química · Soluções · 2ª série</span>
@@ -750,14 +906,13 @@
       </div>
     </div>
 
-    <!-- STATS -->
     <div class="stats-row" id="homeStats">
       <div class="stat-item"><div class="number" id="statRounds">0</div><div class="label">aplicações</div></div>
       <div class="stat-item"><div class="number" id="statAttempts">0</div><div class="label">diagnósticos</div></div>
       <div class="stat-item"><div class="number" id="statTags">0</div><div class="label">dificuldades mapeadas</div></div>
     </div>
 
-    <!-- SEÇÃO 1: O QUE É -->
+    <!-- Seções explicativas -->
     <div class="section-border">
       <div class="section-title">
         <h2>🔬 O que é o Diagnóstico de Soluções?</h2>
@@ -782,7 +937,6 @@
       </div>
     </div>
 
-    <!-- SEÇÃO 2: POR QUE USAR -->
     <div class="section-border">
       <div class="section-title">
         <h2>💡 Por que usar?</h2>
@@ -811,7 +965,6 @@
       </div>
     </div>
 
-    <!-- SEÇÃO 3: COMO FUNCIONA -->
     <div class="section-border" style="border-bottom:none;">
       <div class="section-title">
         <h2>🚀 Como funciona?</h2>
@@ -835,7 +988,6 @@
       </div>
     </div>
 
-    <!-- CTA FINAL -->
     <div style="text-align:center;padding:40px 0 60px;">
       <p style="font-size:1.2rem;color:var(--text-secondary);margin-bottom:16px;">Pronto para começar sua jornada?</p>
       <button class="btn btn-primary btn-xl" onclick="goTo('login-student')">🧪 Sou aluno(a) — iniciar</button>
@@ -868,9 +1020,9 @@
               <span class="icon material-symbols-outlined">lock</span>
               <input type="password" id="loginPass" placeholder="••••••••">
             </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin:4px 0 12px;">
-              <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
-            </label>
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMeGestor"> <span>Lembrar e-mail</span>
+            </div>
             <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
             <div class="err" id="loginErr"></div>
           </form>
@@ -938,9 +1090,9 @@
               <span class="icon material-symbols-outlined">lock</span>
               <input type="password" id="stuLoginPass" placeholder="••••••••">
             </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin:4px 0 12px;">
-              <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
-            </label>
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMeAluno"> <span>Lembrar e-mail</span>
+            </div>
             <button type="submit" class="btn btn-secondary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
             <div class="err" id="stuLoginErr"></div>
           </form>
@@ -981,7 +1133,7 @@
         <span style="background:var(--green-light);padding:2px 16px;border-radius:var(--radius-full);font-size:0.7rem;font-weight:700;color:var(--green-dark);">Painel da Professora</span>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-outline" onclick="showTutorial()" style="padding:8px 16px;font-size:0.8rem;">📖 Tutorial</button>
+        <button class="btn btn-outline" onclick="showTutorial('manager')" style="padding:8px 16px;font-size:0.8rem;">📖 Tutorial</button>
         <button class="btn btn-ghost" onclick="doLogout()" style="padding:8px 16px;font-size:0.8rem;">Sair</button>
       </div>
     </header>
@@ -1013,20 +1165,22 @@
   <div class="quiz-wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
       <button class="btn btn-ghost" onclick="confirmExitQuiz()" style="padding-left:0;">← Sair</button>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline" onclick="saveQuizProgress()" style="padding:8px 16px;font-size:0.8rem;">💾 Salvar</button>
-        <button class="btn btn-primary" onclick="confirmFinishQuiz()" style="padding:8px 20px;font-size:0.8rem;">✅ Finalizar</button>
-      </div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%;"></div></div>
     <div class="card" style="padding:32px;">
       <div class="q-topic" id="qTopic"></div>
-      <div id="qExtra"></div>
+      <div id="qExtra" class="q-extra"></div>
       <div class="q-text" id="qText"></div>
       <div id="qOptions"></div>
-      <div style="display:flex;gap:12px;margin-top:22px;">
-        <button class="btn btn-ghost" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
-        <button class="btn btn-primary" id="btnNext" onclick="goNextQuestion()" disabled>Avançar</button>
+
+      <div class="quiz-nav">
+        <button class="btn btn-ghost left" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
+        <button class="btn btn-primary right" id="btnNext" onclick="goNextQuestion()" disabled>Avançar</button>
+      </div>
+
+      <div class="quiz-actions">
+        <button class="btn btn-outline" onclick="saveQuizProgress()" style="min-width:120px;">💾 Salvar</button>
+        <button class="btn btn-primary" onclick="confirmFinishQuiz()" style="min-width:120px;">✅ Finalizar</button>
       </div>
     </div>
   </div>
@@ -1038,6 +1192,8 @@
 <section id="screen-result" class="screen">
   <div style="max-width:760px;margin:0 auto;padding:40px 24px 60px;">
     <div id="resultHero" class="result-hero"></div>
+    <div id="resultCircle" class="result-circle"></div>
+    <div id="resultMedal" class="text-center mb-16"></div>
     <div id="resultCompare"></div>
     <div id="resultTags"></div>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
@@ -1057,6 +1213,7 @@
       <div style="font-weight:800;font-size:1.2rem;">Olá, <span id="panelStudentName">aluno</span> 👋</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn btn-primary" onclick="openStudentEntryModal()" style="padding:10px 20px;font-size:0.85rem;">🚀 Novo diagnóstico</button>
+        <button class="btn btn-outline" onclick="showTutorial('student')" style="padding:10px 18px;font-size:0.85rem;">📖 Tutorial</button>
         <button class="btn btn-ghost" onclick="doLogoutStudent()" style="padding:10px 18px;font-size:0.85rem;">Sair</button>
       </div>
     </header>
@@ -1083,9 +1240,9 @@
 <!-- JAVASCRIPT -->
 <!-- ================================================================== -->
 <script>
-/* ============================================================
-   ARMAZENAMENTO (localStorage + memória)
-   ============================================================ */
+// ============================================================
+// ARMAZENAMENTO
+// ============================================================
 const memoryStore = {};
 
 async function loadJSON(key, fallback) {
@@ -1147,9 +1304,9 @@ function slug(str) {
   return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-');
 }
 
-/* ============================================================
-   NAVEGAÇÃO
-   ============================================================ */
+// ============================================================
+// NAVEGAÇÃO
+// ============================================================
 function goTo(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById('screen-'+screenId);
@@ -1170,9 +1327,9 @@ function goStudentArea() {
   else goTo('login-student');
 }
 
-/* ============================================================
-   HOME STATS
-   ============================================================ */
+// ============================================================
+// HOME STATS
+// ============================================================
 async function updateHomeStats() {
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
@@ -1183,9 +1340,9 @@ async function updateHomeStats() {
   document.getElementById('statTags').textContent = tagsSet.size || 0;
 }
 
-/* ============================================================
-   SENHA — CHECKLIST
-   ============================================================ */
+// ============================================================
+// SENHA — CHECKLIST
+// ============================================================
 function passwordChecks(pwd) {
   return {
     length: pwd.length >= 8 && pwd.length <= 12,
@@ -1223,9 +1380,9 @@ function renderPasswordChecklist(pwd) {
     + item(c.notWeak, 'sem sequências óbvias');
 }
 
-/* ============================================================
-   AUTENTICAÇÃO GESTORA
-   ============================================================ */
+// ============================================================
+// AUTENTICAÇÃO GESTORA
+// ============================================================
 let currentManager = null;
 
 async function doSignup() {
@@ -1251,8 +1408,8 @@ async function doSignup() {
   currentManager = { name, email };
   document.getElementById('dashManagerName').textContent = name;
   goTo('managerDashboard');
-  const tutorialSeen = await loadPersonal('tutorialSeen', false);
-  if (!tutorialSeen) showTutorial();
+  const tutorialSeen = await loadPersonal('tutorialManagerSeen', false);
+  if (!tutorialSeen) showTutorial('manager');
 }
 
 async function doLogin() {
@@ -1274,8 +1431,8 @@ async function doLogin() {
   document.getElementById('dashManagerName').textContent = found.name;
   await savePersonal('lastEmailGestor', document.getElementById('rememberMeGestor').checked ? email : '');
   goTo('managerDashboard');
-  const tutorialSeen = await loadPersonal('tutorialSeen', false);
-  if (!tutorialSeen) showTutorial();
+  const tutorialSeen = await loadPersonal('tutorialManagerSeen', false);
+  if (!tutorialSeen) showTutorial('manager');
 }
 
 function doLogout() {
@@ -1283,9 +1440,9 @@ function doLogout() {
   goTo('home');
 }
 
-/* ============================================================
-   AUTENTICAÇÃO ALUNO
-   ============================================================ */
+// ============================================================
+// AUTENTICAÇÃO ALUNO
+// ============================================================
 let currentStudent = null;
 
 async function doSignupStudent() {
@@ -1310,6 +1467,8 @@ async function doSignupStudent() {
   await saveJSON('alunos', alunos);
   currentStudent = { name, email };
   goTo('studentPanel');
+  const tutorialSeen = await loadPersonal('tutorialStudentSeen', false);
+  if (!tutorialSeen) showTutorial('student');
 }
 
 async function doLoginStudent() {
@@ -1330,6 +1489,8 @@ async function doLoginStudent() {
   currentStudent = { name: found.name, email: found.email };
   await savePersonal('lastEmailAluno', document.getElementById('rememberMeAluno').checked ? email : '');
   goTo('studentPanel');
+  const tutorialSeen = await loadPersonal('tutorialStudentSeen', false);
+  if (!tutorialSeen) showTutorial('student');
 }
 
 function doLogoutStudent() {
@@ -1350,47 +1511,85 @@ async function initRemembered() {
   }
 }
 
-/* ============================================================
-   TUTORIAL
-   ============================================================ */
-let tutorialSteps = [
+// ============================================================
+// TUTORIAL
+// ============================================================
+// Para gestor: abas do painel
+// Para aluno: abas do painel do aluno
+const tutorialStepsManager = [
   { title: 'Visão Geral', text: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.' },
   { title: 'Alunos', text: 'Acompanhe o progresso individual, acertos/erros e detalhes de cada tentativa. Use a busca para encontrar alunos rapidamente.' },
   { title: 'Assuntos', text: 'Explore gráficos interativos (barras, pizza, radar) para identificar quais tópicos estão sendo mais desafiadores para a turma.' },
   { title: 'Atividades', text: 'Crie pastas, faça upload de arquivos (imagens, PDFs), adicione materiais com links e organize por tags personalizadas.' },
   { title: 'Aplicações', text: 'Crie novos diagnósticos com códigos únicos, visualize respostas e desabilite aplicações antigas conforme necessário.' }
 ];
-let tutorialCurrentStep = 0;
 
-async function showTutorial() {
-  await savePersonal('tutorialSeen', true);
+const tutorialStepsStudent = [
+  { title: 'Visão Geral', text: 'Aqui você vê seu último resultado, as dificuldades identificadas e dicas para melhorar.' },
+  { title: 'Desempenho', text: 'Acompanhe sua evolução, veja quantas questões acertou em cada tentativa e compare seu progresso.' },
+  { title: 'Reforços', text: 'Encontre materiais recomendados pela sua professora para revisar os tópicos que você precisa reforçar.' }
+];
+
+let tutorialCurrentStep = 0;
+let tutorialType = 'manager'; // 'manager' ou 'student'
+
+async function showTutorial(type) {
+  tutorialType = type;
   tutorialCurrentStep = 0;
+  if (type === 'manager') await savePersonal('tutorialManagerSeen', true);
+  else await savePersonal('tutorialStudentSeen', true);
   document.getElementById('tutorialOverlay').classList.add('open');
   renderTutorialStep();
 }
 
 function renderTutorialStep() {
-  const step = tutorialSteps[tutorialCurrentStep];
+  const steps = tutorialType === 'manager' ? tutorialStepsManager : tutorialStepsStudent;
+  const step = steps[tutorialCurrentStep];
+  const total = steps.length;
   document.getElementById('tutorialBody').innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
       <span class="num">${tutorialCurrentStep + 1}</span>
-      <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;">${step.title}</h3>
+      <h3 style="font-weight:800;font-size:1.1rem;">${step.title}</h3>
     </div>
     <p style="color:var(--text-secondary);font-size:1rem;line-height:1.6;">${step.text}</p>
   `;
   const dots = document.getElementById('tutorialDots');
-  dots.innerHTML = tutorialSteps.map((_, i) =>
+  dots.innerHTML = steps.map((_, i) =>
     `<span class="dot ${i === tutorialCurrentStep ? 'active' : ''}"></span>`
   ).join('');
-  const btn = document.getElementById('tutorialNextBtn');
-  btn.textContent = tutorialCurrentStep === tutorialSteps.length - 1 ? 'Concluir' : 'Próximo';
+  const nextBtn = document.getElementById('tutorialNextBtn');
+  nextBtn.textContent = tutorialCurrentStep === total - 1 ? 'Concluir' : 'Próximo';
+  const backBtn = document.getElementById('tutorialBackBtn');
+  backBtn.style.display = tutorialCurrentStep === 0 ? 'none' : 'inline-flex';
 }
 
 function nextTutorialStep() {
-  if (tutorialCurrentStep === tutorialSteps.length - 1) {
+  const steps = tutorialType === 'manager' ? tutorialStepsManager : tutorialStepsStudent;
+  if (tutorialCurrentStep === steps.length - 1) {
     closeTutorial();
   } else {
     tutorialCurrentStep++;
+    renderTutorialStep();
+    // scroll para a aba correspondente (se for manager)
+    if (tutorialType === 'manager') {
+      const tab = steps[tutorialCurrentStep].title.toLowerCase();
+      const tabBtn = document.querySelector(`#screen-managerDashboard .tab-btn[data-tab="${tab === 'visão geral' ? 'overview' : tab === 'alunos' ? 'alunos' : tab === 'assuntos' ? 'assuntos' : tab === 'atividades' ? 'atividades' : 'aplicacoes'}"]`);
+      if (tabBtn) {
+        setManagerTab(tabBtn.dataset.tab);
+      }
+    } else {
+      const tab = steps[tutorialCurrentStep].title.toLowerCase();
+      const tabBtn = document.querySelector(`#screen-studentPanel .tab-btn[data-tab="${tab === 'visão geral' ? 'overview' : tab === 'desempenho' ? 'desempenho' : 'reforcos'}"]`);
+      if (tabBtn) {
+        setStudentTab(tabBtn.dataset.tab);
+      }
+    }
+  }
+}
+
+function prevTutorialStep() {
+  if (tutorialCurrentStep > 0) {
+    tutorialCurrentStep--;
     renderTutorialStep();
   }
 }
@@ -1399,9 +1598,9 @@ function closeTutorial() {
   document.getElementById('tutorialOverlay').classList.remove('open');
 }
 
-/* ============================================================
-   PAINEL GESTORA - ABAS (conteúdo simplificado)
-   ============================================================ */
+// ============================================================
+// PAINEL GESTORA - ABAS (conteúdo resumido)
+// ============================================================
 let managerTab = 'overview';
 let selectedRoundId = null;
 let alunosSelectedTurma = null;
@@ -1429,12 +1628,11 @@ function renderManagerTabContent() {
   else if (managerTab === 'aplicacoes') renderAplicacoesTab(content);
 }
 
-/* ===== VISÃO GERAL ===== */
+// ===== VISÃO GERAL =====
 async function renderOverviewTab(container) {
   const attempts = await loadJSON('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
   let html = '';
-
   if (turmas.length === 0) {
     html = `<div class="card card-soft text-center">📭 Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
   } else {
@@ -1444,7 +1642,6 @@ async function renderOverviewTab(container) {
     attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsCount[t] = (tagsCount[t] || 0) + 1); });
     const sorted = Object.entries(tagsCount).sort((a, b) => b[1] - a[1]);
     const top3 = sorted.slice(0, 3).map(([id]) => TAGS[id]?.label || id);
-
     html = `
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
         <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--green-main);">${total}</div><div style="color:var(--text-secondary);">diagnósticos</div></div>
@@ -1458,7 +1655,7 @@ async function renderOverviewTab(container) {
   container.innerHTML = html;
 }
 
-/* ===== ALUNOS ===== */
+// ===== ALUNOS =====
 async function renderAlunosTab(container) {
   const attempts = await loadJSON('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
@@ -1518,7 +1715,7 @@ function toggleAlunoDetail(name) {
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
-/* ===== ASSUNTOS ===== */
+// ===== ASSUNTOS =====
 let chartType = 'bar';
 
 async function renderAssuntosTab(container) {
@@ -1657,9 +1854,9 @@ function drawChart(data, total) {
   }
 }
 
-/* ===== ATIVIDADES ===== */
+// ===== ATIVIDADES =====
 let uploadedFiles = [];
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_FILE_SIZE = 1024 * 1024 * 1024; // 1GB
 
 async function renderAtividadesTab(container) {
   const materiais = await loadJSON('materiais', []);
@@ -1677,7 +1874,7 @@ async function renderAtividadesTab(container) {
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">📁 Pastas</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;">
+        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);">
         <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1688,7 +1885,7 @@ async function renderAtividadesTab(container) {
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;">
+        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);">
         <button class="btn btn-secondary" onclick="addTag()">➕ Adicionar</button>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
@@ -1699,17 +1896,17 @@ async function renderAtividadesTab(container) {
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
       <label>Título</label>
-      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:10px;">
+      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
       <label>Tipo</label>
-      <select id="matType" style="margin-bottom:10px;">
+      <select id="matType" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
         <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
       </select>
       <label>Link (opcional)</label>
-      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:10px;">
+      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
       <label>Descrição</label>
-      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:10px;">
+      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
       <label>Pasta</label>
-      <select id="matFolder" style="margin-bottom:10px;">
+      <select id="matFolder" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
         <option value="">Sem pasta</option>
         ${pastas.map(p => `<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
       </select>
@@ -1721,7 +1918,7 @@ async function renderAtividadesTab(container) {
 
       <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
         <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
-        <div style="font-size:0.8rem;color:var(--text-secondary);">Máx. 10MB · PDF, Imagem, Word, etc.</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">Máx. 1GB · PDF, Imagem, Word, etc.</div>
         <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
       </div>
       <div id="fileList" style="margin-top:12px;"></div>
@@ -1766,7 +1963,7 @@ async function addFolder() {
 function handleFiles(files) {
   for (let f of files) {
     if (f.size > MAX_FILE_SIZE) {
-      alert(`O arquivo ${f.name} excede o limite de 10MB.`);
+      alert(`O arquivo ${f.name} excede o limite de 1GB.`);
       continue;
     }
     const id = 'f_' + Date.now() + Math.random().toString(36).slice(2, 6);
@@ -1791,7 +1988,7 @@ function renderFileList() {
         <span class="material-symbols-outlined" style="color:var(--text-soft);">description</span>
         <div>
           <div style="font-weight:600;">${escapeHTML(f.name)}</div>
-          <div style="font-size:0.7rem;color:var(--text-secondary);">${(f.size / 1024).toFixed(1)} KB</div>
+          <div style="font-size:0.7rem;color:var(--text-secondary);">${(f.size / 1024 / 1024).toFixed(1)} MB</div>
         </div>
       </div>
       <div style="min-width:70px;text-align:right;">
@@ -1853,7 +2050,7 @@ async function deleteMaterial(id) {
   renderManagerTabContent();
 }
 
-/* ===== APLICAÇÕES ===== */
+// ===== APLICAÇÕES =====
 async function renderAplicacoesTab(container) {
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
@@ -1931,16 +2128,16 @@ function hideModal() {
 async function createRound() {
   const rounds = await loadJSON('rodadas', []);
   showModal(`
-    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">Nova aplicação</h3>
-    <p style="color:var(--text-secondary);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
+    <div class="modal-title">Nova aplicação</div>
+    <div class="modal-sub">Dê um nome e defina o código que os alunos vão usar.</div>
     <label>Nome</label>
-    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length + 1}" style="margin-bottom:10px;">
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length + 1}">
     <label>Código</label>
-    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;margin-bottom:10px;">
-    <div class="err" id="modalRoundErr" style="color:var(--coral);min-height:1.2em;"></div>
-    <div style="display:flex;gap:10px;margin-top:12px;">
-      <button class="btn btn-ghost btn-block" onclick="hideModal()">Cancelar</button>
-      <button class="btn btn-primary btn-block" onclick="confirmCreateRound()">Criar</button>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;">
+    <div class="err" id="modalRoundErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmCreateRound()">Criar</button>
     </div>
   `);
 }
@@ -1960,9 +2157,9 @@ async function confirmCreateRound() {
   renderManagerTabContent();
 }
 
-/* ============================================================
-   BANCO DE QUESTÕES
-   ============================================================ */
+// ============================================================
+// BANCO DE QUESTÕES
+// ============================================================
 const TAGS = {
   graf_interpretacao: { label: 'Interpretação de gráficos', icon: '📊', colorClass: 'teal',
     tip: 'Releia o gráfico com calma: identifique quem está mais alto em UMA temperatura, e depois observe a tendência.' },
@@ -1978,130 +2175,64 @@ const TAGS = {
     tip: 'Algumas perguntas ficaram sem resposta. Vale revisar com calma e tentar de novo.' }
 };
 
-const POSITIVE_PHRASES = ['Mandou muito bem! Seu domínio em Soluções está sólido.', 'Show! Continue assim.', 'Parabéns pelo resultado!'];
-const SUPPORTIVE_PHRASES = ['Toda dificuldade identificada é tempo economizado.', 'Ninguém nasce sabendo — você está no caminho.', 'Respira: cada tentativa te aproxima do domínio.'];
+// Frases de apoio por nível
+const ENCOURAGEMENT = {
+  bad: ['Não desanime! Cada erro é uma oportunidade de aprender.', 'Você está no caminho certo, continue praticando.', 'A jornada do conhecimento é feita de tentativas.'],
+  medium: ['Bom trabalho! Você já está progredindo.', 'Continue assim, você vai longe!', 'Seu esforço está valendo a pena.'],
+  good: ['Excelente! Você domina bem o conteúdo.', 'Parabéns pelo desempenho!', 'Você está pronto para desafios maiores.']
+};
 
 function pickEncouragement(levelIdx) {
-  const arr = levelIdx === 0 ? POSITIVE_PHRASES : SUPPORTIVE_PHRASES;
+  let arr;
+  if (levelIdx >= 2) arr = ENCOURAGEMENT.bad;
+  else if (levelIdx === 1) arr = ENCOURAGEMENT.medium;
+  else arr = ENCOURAGEMENT.good;
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const NUTRITION_TABLE = `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;margin:12px 0;">
-  <tr><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor</th></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor energético</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">66 kcal</td></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Carboidratos</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">16 g</td></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares totais</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">15 g</td></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares adicionados</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">14 g</td></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Sódio</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">64 mg</td></tr>
-  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Vitamina B5</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">3,8 mg</td></tr>
-</table>`;
+// Medalhas (10 níveis)
+const MEDALS = [
+  { level: 0, name: 'Calouro', icon: '🥉' },
+  { level: 1, name: 'Recruta', icon: '🥉' },
+  { level: 2, name: 'Aprendiz', icon: '🥉' },
+  { level: 3, name: 'Veterano', icon: '🥈' },
+  { level: 4, name: 'Macaco Velho', icon: '🥈' },
+  { level: 5, name: 'Gato Escaldado', icon: '🥈' },
+  { level: 6, name: 'Especialista', icon: '🥇' },
+  { level: 7, name: 'Mestre', icon: '🥇' },
+  { level: 8, name: 'Lenda', icon: '🏆' },
+  { level: 9, name: 'Mito', icon: '🏆' }
+];
 
-const GRAPH_MAIN = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
-  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
-  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
-  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
-  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade (g/100g H₂O)</text>
-  <polyline points="50,112 108,92 166,75 224,51 282,32 311,20" fill="none" stroke="#2C5FE0" stroke-width="2.5"/>
-  <text x="313" y="18" font-size="10" fill="#2C5FE0">NaNO₃</text>
-  <polyline points="50,183 108,162 166,123 224,73 282,32 311,20" fill="none" stroke="#F1543C" stroke-width="2.5"/>
-  <text x="225" y="68" font-size="10" fill="#F1543C">KNO₃</text>
-  <polyline points="50,176 108,166 166,154 224,145 282,135 340,130" fill="none" stroke="#F5D76E" stroke-width="2.5"/>
-  <text x="342" y="132" font-size="10" fill="#8A6A40">KCl</text>
-  <polyline points="50,158 195,157 340,154" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
-  <text x="342" y="156" font-size="10" fill="#6BCB9A">NaCl</text>
-  <polyline points="50,176 108,186 195,192 340,196" fill="none" stroke="#9A6FB0" stroke-width="2.5"/>
-  <text x="342" y="198" font-size="9" fill="#9A6FB0">Ce₂(SO₄)₃</text>
-</svg>`;
-
-const GRAPH_XYZ = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
-  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
-  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
-  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
-  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade</text>
-  <polyline points="50,140 123,158 195,167 268,173 340,176" fill="none" stroke="#F5A0A0" stroke-width="2.5"/>
-  <text x="342" y="178" font-size="11" fill="#F5A0A0">X</text>
-  <polyline points="50,101 195,95 340,92" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
-  <text x="342" y="94" font-size="11" fill="#6BCB9A">Y</text>
-  <polyline points="50,161 123,146 195,110 268,65 304,26" fill="none" stroke="#8FC1D9" stroke-width="2.5"/>
-  <text x="306" y="22" font-size="11" fill="#8FC1D9">Z</text>
-</svg>`;
-
-const QUESTIONS = {
-  start: { topic: 'Introdução às soluções', extra: GRAPH_MAIN,
-    text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:',
-    options: ['NaNO3', 'KNO3', 'KCl', 'NaCl', 'Ce2(SO4)3', 'Não consegui fazer a questão'] },
-  q1a: { topic: 'Revisão: tipos de solução', extra: GRAPH_MAIN,
-    text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução (insaturada, saturada ou supersaturada) a mistura formada por 10 g de KNO₃ em 20 g de água a 40ºC. Em seguida, escolha um processo que poderia formar um corpo de fundo nesse sistema.',
-    options: ['Insaturada e aquecimento', 'Insaturada e resfriamento', 'Insaturada e agitação', 'Saturada e aquecimento', 'Saturada e resfriamento', 'Saturada e agitação', 'Supersaturada e aquecimento', 'Supersaturada e resfriamento', 'Supersaturada e agitação', 'Não consegui fazer a questão'] },
-  q2a: { topic: 'Gráficos de solubilidade', extra: GRAPH_XYZ,
-    text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z), marque a opção com o sal mais solúvel a 20ºC e o sal cuja solubilidade diminui quando a temperatura aumenta (dissolução exotérmica).',
-    options: ['X e X.', 'X e Y.', 'X e Z.', 'Y e X', 'Y e Y', 'Y e Z', 'Z e X', 'Z e Y', 'Z e Z', 'Não consegui fazer a questão.'] },
-  energetico: { topic: 'Concentração de soluções', extra: NUTRITION_TABLE,
-    text: 'Considere o rótulo nutricional de uma bebida energética. A concentração comum, em g/L, de Vitamina B5 nessa bebida é:',
-    options: ['19.', '1,9.', '1,9 . 10^-2.', '1,9 . 10^-3.', 'Não consegui fazer a questão'] },
-  acucares: { topic: 'Títulos de concentração', extra: NUTRITION_TABLE,
-    text: 'Considere o mesmo rótulo. A concentração em %m/V e em mol/L de açúcares adicionados nessa bebida é, respectivamente e aproximadamente (açúcares adicionados = sacarose, C₁₂H₂₂O₁₁, massa molar 342 g/mol):',
-    options: ['6,8% m/V e 0,02 mol/L', '6,8% m/V e 0,1 mol/L', '6,8% m/V e 0,2 mol/L', '6,8% m/V e 5 mol/L', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L', '3,4% m/V e 5 mol/L', 'Não consegui fazer a questão'] },
-  sodio: { topic: 'Conversão de unidades', extra: NUTRITION_TABLE,
-    text: 'Considere o mesmo rótulo. A concentração molar (mol/L) de sódio nessa bebida é, aproximadamente (MM Na = 23 g/mol):',
-    options: ['32.', '320.', '14.', '1,4 . 10^-2', 'Não consegui fazer a questão'] }
-};
-
-const CORRECT_ANSWERS = {
-  start: 'KNO3', q1a: 'Insaturada e resfriamento', q2a: 'Y e X',
-  energetico: '1,9 . 10^-2.', acucares: '6,8% m/V e 0,2 mol/L', sodio: '1,4 . 10^-2'
-};
-
-function nextQuestionId(currentId, value) {
-  if (currentId === 'start') return value === 'KNO3' ? 'q2a' : 'q1a';
-  if (currentId === 'q1a') return 'q2a';
-  if (currentId === 'q2a') return 'energetico';
-  if (currentId === 'energetico') return 'acucares';
-  if (currentId === 'acucares') return 'sodio';
-  return null;
+function getMedal(totalAttempts) {
+  const level = Math.min(totalAttempts, 9);
+  return MEDALS[level];
 }
 
-function tagsForAnswer(qId, value) {
-  const tags = [];
-  if (qId === 'q2a') {
-    if (value === 'X e X.' || value === 'Z e X') tags.push('graf_interpretacao');
-    if (value === 'Y e Z') tags.push('endo_exo');
-    if (value === 'X e Y.') tags.push('endo_exo_grafico');
-    if (value === 'Não consegui fazer a questão.') tags.push('nao_respondida');
-  }
-  if (qId === 'acucares') {
-    if (['Não consegui fazer a questão', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L'].includes(value)) tags.push('titulos');
-  }
-  if (qId === 'sodio') {
-    if (value !== '1,4 . 10^-2') tags.push('g_l_mol_l');
-  }
-  return tags;
-}
-
-/* ============================================================
-   QUIZ — ALUNO
-   ============================================================ */
+// ============================================================
+// QUIZ — ALUNO
+// ============================================================
 let quizState = null;
 let quizFinished = false;
 
 function openStudentEntryModal() {
   showModal(`
-    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">🚀 Novo diagnóstico</h3>
-    <p style="color:var(--text-secondary);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
+    <div class="modal-title">🚀 Novo diagnóstico</div>
+    <div class="modal-sub">Peça à professora o código da aplicação.</div>
     <label>Sua turma</label>
-    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="margin-bottom:10px;">
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="text-transform:uppercase;">
     <label>Código da aplicação</label>
-    <input type="text" id="modalCode" style="text-transform:uppercase;margin-bottom:10px;" placeholder="Ex: ABCD">
-    <div class="err" id="modalEntryErr" style="color:var(--coral);min-height:1.2em;"></div>
-    <div style="display:flex;gap:10px;margin-top:12px;">
-      <button class="btn btn-ghost btn-block" onclick="hideModal()">Cancelar</button>
-      <button class="btn btn-primary btn-block" onclick="confirmStartQuiz()">Começar</button>
+    <input type="text" id="modalCode" style="text-transform:uppercase;" placeholder="Ex: ABCD">
+    <div class="err" id="modalEntryErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmStartQuiz()">Começar</button>
     </div>
   `);
 }
 
 async function confirmStartQuiz() {
-  const turma = document.getElementById('modalTurma').value.trim();
+  let turma = document.getElementById('modalTurma').value.trim().toUpperCase();
   const code = document.getElementById('modalCode').value.trim().toUpperCase();
   const errEl = document.getElementById('modalEntryErr');
   if (!code) { errEl.textContent = 'Informe o código.'; return; }
@@ -2185,11 +2316,11 @@ async function saveQuizProgress() {
 async function confirmFinishQuiz() {
   if (quizFinished) return;
   showModal(`
-    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">✅ Finalizar diagnóstico?</h3>
-    <p style="color:var(--text-secondary);">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</p>
-    <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn btn-ghost btn-block" onclick="hideModal()">Continuar respondendo</button>
-      <button class="btn btn-primary btn-block" onclick="hideModal(); finishQuiz()">Sim, finalizar</button>
+    <div class="modal-title">✅ Finalizar diagnóstico?</div>
+    <div class="modal-sub">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Continuar respondendo</button>
+      <button class="btn btn-primary" onclick="hideModal(); finishQuiz()">Sim, finalizar</button>
     </div>
   `);
 }
@@ -2246,20 +2377,43 @@ function recomputeTags() {
 function confirmExitQuiz() {
   if (quizFinished) { goTo('studentPanel'); return; }
   showModal(`
-    <h3 style="margin-top:0;font-family:'Playfair Display',serif;">Sair do diagnóstico?</h3>
-    <p style="color:var(--text-secondary);">Suas respostas serão salvas e você poderá continuar depois.</p>
-    <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn btn-ghost btn-block" onclick="hideModal()">Continuar</button>
-      <button class="btn btn-primary btn-block" onclick="hideModal(); saveQuizProgress(); goTo('studentPanel');">Salvar e sair</button>
+    <div class="modal-title">Sair do diagnóstico?</div>
+    <div class="modal-sub">Suas respostas serão salvas e você poderá continuar depois.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Continuar</button>
+      <button class="btn btn-primary" onclick="hideModal(); saveQuizProgress(); goTo('studentPanel');">Salvar e sair</button>
     </div>
   `);
 }
 
 function renderResult(attempt, prevAttempt) {
+  const correct = attempt.answersDetail.filter(d => d.isCorrect).length;
+  const total = attempt.answersDetail.length;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
   const hero = document.getElementById('resultHero');
   hero.className = 'result-hero' + (attempt.levelIdx === 2 ? ' warn' : '');
-  hero.innerHTML = `<h2>${escapeHTML(attempt.levelLabel)}</h2><p>Oi, ${escapeHTML(attempt.studentName.split(' ')[0])}! ${escapeHTML(pickEncouragement(attempt.levelIdx))}</p>`;
+  hero.innerHTML = `<h2>${escapeHTML(attempt.levelLabel)}</h2><p>${escapeHTML(pickEncouragement(attempt.levelIdx))}</p>`;
 
+  // Círculo de acertos
+  const circleEl = document.getElementById('resultCircle');
+  circleEl.innerHTML = `
+    <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
+    <div><strong>${pct}% de acerto</strong><br><span style="color:var(--text-secondary);">Você acertou ${correct} de ${total} questões</span></div>
+  `;
+
+  // Medalha
+  const totalAttempts = await loadJSON('tentativas', []).then(arr => arr.filter(a => a.studentEmail === currentStudent.email).length);
+  const medal = getMedal(totalAttempts);
+  document.getElementById('resultMedal').innerHTML = `
+    <div class="medal-badge">
+      <span class="medal-icon">${medal.icon}</span>
+      <span>${medal.name}</span>
+    </div>
+    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+  `;
+
+  // Comparação com anterior
   const compareEl = document.getElementById('resultCompare');
   if (prevAttempt) {
     const prevTags = new Set(prevAttempt.tags || []);
@@ -2313,9 +2467,9 @@ function launchConfetti() {
   }
 }
 
-/* ============================================================
-   PAINEL DO ALUNO
-   ============================================================ */
+// ============================================================
+// PAINEL DO ALUNO
+// ============================================================
 let studentTab = 'overview';
 
 function renderStudentPanel() {
@@ -2347,11 +2501,33 @@ async function renderStudentOverviewTab() {
     return;
   }
   const last = mine[mine.length - 1];
+  const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
+  const total = last.answersDetail?.length || 0;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
   let html = `
     <div class="result-hero ${last.levelIdx === 2 ? 'warn' : ''}" style="margin-bottom:18px;">
       <h2>${escapeHTML(last.levelLabel)}</h2>
       <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
-    </div>`;
+    </div>
+    <div class="result-circle" style="margin:0 0 16px;">
+      <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
+      <div><strong>${pct}% de acerto</strong><br><span style="color:var(--text-secondary);">Último diagnóstico</span></div>
+    </div>
+  `;
+
+  const totalAttempts = mine.length;
+  const medal = getMedal(totalAttempts);
+  html += `
+    <div class="text-center mb-16">
+      <div class="medal-badge" style="display:inline-flex;">
+        <span class="medal-icon">${medal.icon}</span>
+        <span>${medal.name}</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+    </div>
+  `;
+
   if (!last.tags || last.tags.length === 0) {
     html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:var(--text-secondary);">Continue praticando para manter esse domínio.</p></div>`;
   } else {
@@ -2376,6 +2552,7 @@ async function renderStudentDesempenhoTab() {
   const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
   const total = last.answersDetail?.length || 0;
   const pct = total ? Math.round((correct / total) * 100) : 0;
+
   let html = `
     <div class="card" style="margin-bottom:16px;">
       <h4 style="margin-bottom:12px;">Última tentativa</h4>
@@ -2398,6 +2575,7 @@ async function renderStudentDesempenhoTab() {
         </div>
       `).join('') || '<div style="color:var(--text-secondary);">Nenhuma questão registrada.</div>'}
     </div>`;
+
   if (mine.length > 1) {
     html += `<div class="card" style="margin-top:16px;">
       <h4 style="margin-bottom:12px;">Evolução</h4>
@@ -2446,9 +2624,9 @@ async function renderStudentReforcosTab() {
   content.innerHTML = html;
 }
 
-/* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
 initRemembered();
 updateHomeStats();
 
