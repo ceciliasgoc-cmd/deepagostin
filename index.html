@@ -741,9 +741,108 @@
   </div>
 </section>
 
+<!-- ===== PAINEL GESTORA ===== -->
+<section id="screen-managerDashboard" class="screen">
+  <div class="wrap">
+    <header style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid rgba(26,42,42,0.06);margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="material-symbols-outlined" style="color:var(--green-main);font-size:28px;">science</span>
+        <span style="font-weight:800;">Química Interativa</span>
+        <span style="background:var(--green-light);padding:2px 16px;border-radius:var(--radius-full);font-size:0.7rem;font-weight:700;color:var(--green-dark);">Painel da Professora</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="showTutorial('manager')" style="padding:8px 16px;font-size:0.8rem;">📖 Tutorial</button>
+        <button class="btn btn-ghost" onclick="doLogout()" style="padding:8px 16px;font-size:0.8rem;">Sair</button>
+      </div>
+    </header>
+    <div class="dash-header">
+      <div class="greeting">Olá, <span id="dashManagerName">gestora</span> 👋</div>
+      <div style="display:flex;gap:8px;background:var(--bg-soft);padding:4px;border-radius:var(--radius-full);">
+        <button class="btn btn-primary" style="padding:6px 20px;font-size:0.8rem;" onclick="setManagerTab('overview')">Ativo</button>
+        <button class="btn btn-ghost" style="padding:6px 20px;font-size:0.8rem;" onclick="setManagerTab('historico')">Histórico</button>
+      </div>
+    </div>
+    <div class="tab-nav" id="managerTabs">
+      <button class="tab-btn active" data-tab="overview" onclick="setManagerTab('overview')"><span class="icon">📊</span> Visão geral</button>
+      <button class="tab-btn" data-tab="alunos" onclick="setManagerTab('alunos')"><span class="icon">👥</span> Alunos</button>
+      <button class="tab-btn" data-tab="assuntos" onclick="setManagerTab('assuntos')"><span class="icon">📈</span> Assuntos</button>
+      <button class="tab-btn" data-tab="atividades" onclick="setManagerTab('atividades')"><span class="icon">📁</span> Atividades</button>
+      <button class="tab-btn" data-tab="aplicacoes" onclick="setManagerTab('aplicacoes')"><span class="icon">📋</span> Aplicações</button>
+    </div>
+    <div id="managerContent" style="padding-bottom:60px;"></div>
+  </div>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="screen-quiz" class="screen">
+  <div class="quiz-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
+      <button class="btn btn-ghost" onclick="confirmExitQuiz()" style="padding-left:0;">← Sair</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%;"></div></div>
+    <div class="card" style="padding:32px;">
+      <div class="q-topic" id="qTopic"></div>
+      <div id="qExtra" class="q-extra"></div>
+      <div class="q-text" id="qText"></div>
+      <div id="qOptions"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost left" id="btnBack" onclick="goBackQuestion()">← Voltar</button>
+        <button class="btn btn-primary right" id="btnNext" onclick="goNextQuestion()" disabled>Avançar</button>
+      </div>
+      <div class="quiz-actions">
+        <button class="btn btn-outline" onclick="saveQuizProgress()" style="min-width:120px;">💾 Salvar</button>
+        <button class="btn btn-primary" onclick="confirmFinishQuiz()" style="min-width:120px;">Finalizar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTADO ===== -->
+<section id="screen-result" class="screen">
+  <div style="max-width:760px;margin:0 auto;padding:40px 24px 60px;">
+    <div id="resultHero" class="result-hero"></div>
+    <div id="resultCircle" class="result-circle"></div>
+    <div id="resultMedal" class="text-center mb-16"></div>
+    <div id="resultCompare"></div>
+    <div id="resultTags"></div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+      <button class="btn btn-primary" onclick="goToScreen('studentPanel')">📊 Ver meu painel</button>
+      <button class="btn btn-ghost" onclick="goToScreen('home')">Início</button>
+    </div>
+    <p style="text-align:center;color:var(--text-soft);font-size:0.8rem;margin-top:32px;">Protótipo de teste — o envio de e-mail é simulado.</p>
+  </div>
+</section>
+
+<!-- ===== PAINEL ALUNO ===== -->
+<section id="screen-studentPanel" class="screen">
+  <div class="wrap">
+    <header style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid rgba(26,42,42,0.06);">
+      <div style="font-weight:800;font-size:1.2rem;">Olá, <span id="panelStudentName">aluno</span> 👋</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openStudentEntryModal()" style="padding:10px 20px;font-size:0.85rem;">🚀 Novo diagnóstico</button>
+        <button class="btn btn-outline" onclick="showTutorial('student')" style="padding:10px 18px;font-size:0.85rem;">📖 Tutorial</button>
+        <button class="btn btn-ghost" onclick="doLogoutStudent()" style="padding:10px 18px;font-size:0.85rem;">Sair</button>
+      </div>
+    </header>
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="overview" onclick="setStudentTab('overview')"><span class="icon">📊</span> Visão geral</button>
+      <button class="tab-btn" data-tab="desempenho" onclick="setStudentTab('desempenho')"><span class="icon">📈</span> Desempenho</button>
+      <button class="tab-btn" data-tab="reforcos" onclick="setStudentTab('reforcos')"><span class="icon">📚</span> Reforços</button>
+    </div>
+    <div id="studentContent" style="padding-bottom:60px;"></div>
+  </div>
+</section>
+
+<!-- ===== MODAL ===== -->
+<div id="modalOverlay">
+  <div class="card" id="modalCard">
+    <button class="close-btn" onclick="hideModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
 <!-- ================================================================== -->
-<!-- O RESTANTE DO CÓDIGO (PAINEL GESTOR, QUIZ, RESULTADO, PAINEL ALUNO) -->
-<!-- SERÁ INCLUÍDO NA CONTINUAÇÃO, POIS O CÓDIGO É MUITO GRANDE -->
+<!-- JAVASCRIPT COMPLETO -->
 <!-- ================================================================== -->
 <script>
 // ============================================================
@@ -762,10 +861,1497 @@ function togglePasswordVisibility(inputId, btn) {
 }
 
 // ============================================================
-// DEMAIS FUNÇÕES (ARMAZENAMENTO, NAVEGAÇÃO, AUTENTICAÇÃO, ETC.)
-// SERÃO REATIVADAS NA VERSÃO COMPLETA
+// ARMAZENAMENTO
 // ============================================================
-// [NOTA: O CÓDIGO COMPLETO SERÁ FORNECIDO NA MENSAGEM SEGUINTE, POIS ESTOURARIA O LIMITE]
+const memoryStore = {};
+
+async function loadJSON(key, fallback) {
+  if (Object.prototype.hasOwnProperty.call(memoryStore, key)) return memoryStore[key];
+  try {
+    const raw = localStorage.getItem(key);
+    let value = fallback;
+    if (raw) {
+      try { value = JSON.parse(raw); }
+      catch(e) { console.warn('Erro ao parsear', key, e); value = fallback; }
+    }
+    memoryStore[key] = value;
+    return value;
+  } catch(e) { console.warn('Erro ao carregar', key, e); return fallback; }
+}
+
+async function saveJSON(key, value) {
+  memoryStore[key] = value;
+  try { localStorage.setItem(key, JSON.stringify(value)); }
+  catch(e) { console.warn('Não foi possível salvar', key, e); }
+}
+
+async function loadPersonal(key, fallback) {
+  const mkey = 'personal:'+key;
+  if (Object.prototype.hasOwnProperty.call(memoryStore, mkey)) return memoryStore[mkey];
+  try {
+    const raw = localStorage.getItem('p_'+key);
+    let value = fallback;
+    if (raw) {
+      try { value = JSON.parse(raw); }
+      catch(e) { value = fallback; }
+    }
+    memoryStore[mkey] = value;
+    return value;
+  } catch(e) { return fallback; }
+}
+
+async function savePersonal(key, value) {
+  memoryStore['personal:'+key] = value;
+  try { localStorage.setItem('p_'+key, JSON.stringify(value)); }
+  catch(e) { console.warn('Não foi possível salvar preferência', key, e); }
+}
+
+function obfuscate(str) {
+  try { return btoa(unescape(encodeURIComponent(str))); }
+  catch(e) { return str; }
+}
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function slug(str) {
+  if (!str) return '';
+  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-');
+}
+
+// ============================================================
+// NAVEGAÇÃO
+// ============================================================
+function goToScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-'+screenId);
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+  if (screenId === 'home') updateHomeStats();
+  if (screenId === 'managerDashboard') renderDashboard();
+  if (screenId === 'studentPanel') renderStudentPanel();
+}
+
+// ============================================================
+// HOME STATS
+// ============================================================
+async function updateHomeStats() {
+  const rounds = await loadJSON('rodadas', []);
+  const attempts = await loadJSON('tentativas', []);
+  const tagsSet = new Set();
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsSet.add(t)); });
+  document.getElementById('statRounds').textContent = rounds.length || 0;
+  document.getElementById('statAttempts').textContent = attempts.length || 0;
+  document.getElementById('statTags').textContent = tagsSet.size || 0;
+}
+
+// ============================================================
+// SENHA — CHECKLIST
+// ============================================================
+function passwordChecks(pwd) {
+  return {
+    length: pwd.length >= 8 && pwd.length <= 12,
+    upper: /[A-Z]/.test(pwd),
+    lower: /[a-z]/.test(pwd),
+    number: /[0-9]/.test(pwd),
+    symbol: /[#@$!%*?&^.\-_]/.test(pwd),
+    notWeak: !isWeakPassword(pwd)
+  };
+}
+
+function isWeakPassword(pwd) {
+  const weakList = ['12345678','123456789','password','senha123','qwerty123','11111111','abc12345','123123123'];
+  const lower = pwd.toLowerCase();
+  if (weakList.includes(lower)) return true;
+  if (/^(.)\1+$/.test(pwd)) return true;
+  if (/0123456789|9876543210|123456|654321/.test(pwd)) return true;
+  return false;
+}
+
+function passwordAllValid(pwd) {
+  const c = passwordChecks(pwd);
+  return c.length && c.upper && c.lower && c.number && c.symbol && c.notWeak;
+}
+
+function renderPasswordChecklist(pwd) {
+  if (!pwd) return '';
+  const c = passwordChecks(pwd);
+  const item = (ok, label) =>
+    `<div style="color:${ok ? 'var(--green-main)' : 'var(--text-soft)'};">${ok ? '✓' : '○'} ${label}</div>`;
+  return item(c.length, '8 a 12 caracteres')
+    + item(c.upper && c.lower, 'maiúsculas e minúsculas')
+    + item(c.number, 'pelo menos um número')
+    + item(c.symbol, 'um símbolo (# @ $ etc.)')
+    + item(c.notWeak, 'sem sequências óbvias');
+}
+
+// ============================================================
+// AUTENTICAÇÃO GESTORA
+// ============================================================
+let currentManager = null;
+
+async function doSignup() {
+  const name = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('suPass').value;
+  const errEl = document.getElementById('signupErr');
+  errEl.textContent = '';
+
+  if (!name || !email) { errEl.textContent = 'Preencha nome e e-mail.'; return; }
+  if (!passwordAllValid(pass)) { errEl.textContent = 'A senha não atende aos critérios.'; return; }
+
+  let gestores = await loadJSON('gestores', []);
+  if (!Array.isArray(gestores)) gestores = [];
+
+  if (gestores.find(g => g.email && g.email.toLowerCase() === email)) {
+    errEl.textContent = 'E-mail já cadastrado. Tente entrar.';
+    return;
+  }
+
+  gestores.push({ name, email, pass: obfuscate(pass), createdAt: Date.now() });
+  await saveJSON('gestores', gestores);
+  currentManager = { name, email };
+  document.getElementById('dashManagerName').textContent = name;
+  goToScreen('managerDashboard');
+  const tutorialSeen = await loadPersonal('tutorialManagerSeen', false);
+  if (!tutorialSeen) showTutorial('manager');
+}
+
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.textContent = '';
+
+  let gestores = await loadJSON('gestores', []);
+  if (!Array.isArray(gestores)) gestores = [];
+
+  const found = gestores.find(g => g.email && g.email.toLowerCase() === email);
+  if (!found || found.pass !== obfuscate(pass)) {
+    errEl.textContent = 'E-mail ou senha incorretos.';
+    return;
+  }
+
+  currentManager = { name: found.name, email: found.email };
+  document.getElementById('dashManagerName').textContent = found.name;
+  await savePersonal('lastEmailGestor', document.getElementById('rememberMeGestor').checked ? email : '');
+  goToScreen('managerDashboard');
+  const tutorialSeen = await loadPersonal('tutorialManagerSeen', false);
+  if (!tutorialSeen) showTutorial('manager');
+}
+
+function doLogout() {
+  currentManager = null;
+  goToScreen('home');
+}
+
+// ============================================================
+// AUTENTICAÇÃO ALUNO
+// ============================================================
+let currentStudent = null;
+
+async function doSignupStudent() {
+  const name = document.getElementById('stuSuName').value.trim();
+  const email = document.getElementById('stuSuEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('stuSuPass').value;
+  const errEl = document.getElementById('stuSignupErr');
+  errEl.textContent = '';
+
+  if (!name || !email) { errEl.textContent = 'Preencha nome e e-mail.'; return; }
+  if (!passwordAllValid(pass)) { errEl.textContent = 'A senha não atende aos critérios.'; return; }
+
+  let alunos = await loadJSON('alunos', []);
+  if (!Array.isArray(alunos)) alunos = [];
+
+  if (alunos.find(a => a.email && a.email.toLowerCase() === email)) {
+    errEl.textContent = 'E-mail já cadastrado. Tente entrar.';
+    return;
+  }
+
+  alunos.push({ name, email, pass: obfuscate(pass), createdAt: Date.now() });
+  await saveJSON('alunos', alunos);
+  currentStudent = { name, email };
+  goToScreen('studentPanel');
+  const tutorialSeen = await loadPersonal('tutorialStudentSeen', false);
+  if (!tutorialSeen) showTutorial('student');
+}
+
+async function doLoginStudent() {
+  const email = document.getElementById('stuLoginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('stuLoginPass').value;
+  const errEl = document.getElementById('stuLoginErr');
+  errEl.textContent = '';
+
+  let alunos = await loadJSON('alunos', []);
+  if (!Array.isArray(alunos)) alunos = [];
+
+  const found = alunos.find(a => a.email && a.email.toLowerCase() === email);
+  if (!found || found.pass !== obfuscate(pass)) {
+    errEl.textContent = 'E-mail ou senha incorretos.';
+    return;
+  }
+
+  currentStudent = { name: found.name, email: found.email };
+  await savePersonal('lastEmailAluno', document.getElementById('rememberMeAluno').checked ? email : '');
+  goToScreen('studentPanel');
+  const tutorialSeen = await loadPersonal('tutorialStudentSeen', false);
+  if (!tutorialSeen) showTutorial('student');
+}
+
+function doLogoutStudent() {
+  currentStudent = null;
+  goToScreen('home');
+}
+
+async function initRemembered() {
+  const ge = await loadPersonal('lastEmailGestor', '');
+  if (ge) {
+    const el = document.getElementById('loginEmail');
+    if (el) { el.value = ge; document.getElementById('rememberMeGestor').checked = true; }
+  }
+  const se = await loadPersonal('lastEmailAluno', '');
+  if (se) {
+    const el = document.getElementById('stuLoginEmail');
+    if (el) { el.value = se; document.getElementById('rememberMeAluno').checked = true; }
+  }
+}
+
+// ============================================================
+// TUTORIAL
+// ============================================================
+const tutorialStepsManager = [
+  { title: 'Visão Geral', text: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.' },
+  { title: 'Alunos', text: 'Acompanhe o progresso individual, acertos/erros e detalhes de cada tentativa. Use a busca para encontrar alunos rapidamente.' },
+  { title: 'Assuntos', text: 'Explore gráficos interativos (barras, pizza, radar) para identificar quais tópicos estão sendo mais desafiadores para a turma.' },
+  { title: 'Atividades', text: 'Crie pastas, faça upload de arquivos (imagens, PDFs), adicione materiais com links e organize por tags personalizadas.' },
+  { title: 'Aplicações', text: 'Crie novos diagnósticos com códigos únicos, visualize respostas e desabilite aplicações antigas conforme necessário.' }
+];
+
+const tutorialStepsStudent = [
+  { title: 'Visão Geral', text: 'Aqui você vê seu último resultado, as dificuldades identificadas e dicas para melhorar.' },
+  { title: 'Desempenho', text: 'Acompanhe sua evolução, veja quantas questões acertou em cada tentativa e compare seu progresso.' },
+  { title: 'Reforços', text: 'Encontre materiais recomendados pela sua professora para revisar os tópicos que você precisa reforçar.' }
+];
+
+let tutorialCurrentStep = 0;
+let tutorialType = 'manager';
+
+async function showTutorial(type) {
+  tutorialType = type;
+  tutorialCurrentStep = 0;
+  if (type === 'manager') await savePersonal('tutorialManagerSeen', true);
+  else await savePersonal('tutorialStudentSeen', true);
+  document.getElementById('tutorialOverlay').classList.add('open');
+  renderTutorialStep();
+}
+
+function renderTutorialStep() {
+  const steps = tutorialType === 'manager' ? tutorialStepsManager : tutorialStepsStudent;
+  const step = steps[tutorialCurrentStep];
+  const total = steps.length;
+  document.getElementById('tutorialBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="num">${tutorialCurrentStep + 1}</span>
+      <h3 style="font-weight:800;font-size:1.1rem;">${step.title}</h3>
+    </div>
+    <p style="color:var(--text-secondary);font-size:1rem;line-height:1.6;">${step.text}</p>
+  `;
+  const dots = document.getElementById('tutorialDots');
+  dots.innerHTML = steps.map((_, i) =>
+    `<span class="dot ${i === tutorialCurrentStep ? 'active' : ''}"></span>`
+  ).join('');
+  const nextBtn = document.getElementById('tutorialNextBtn');
+  nextBtn.textContent = tutorialCurrentStep === total - 1 ? 'Concluir' : 'Próximo';
+  const backBtn = document.getElementById('tutorialBackBtn');
+  backBtn.style.display = tutorialCurrentStep === 0 ? 'none' : 'inline-flex';
+}
+
+function nextTutorialStep() {
+  const steps = tutorialType === 'manager' ? tutorialStepsManager : tutorialStepsStudent;
+  if (tutorialCurrentStep === steps.length - 1) {
+    closeTutorial();
+  } else {
+    tutorialCurrentStep++;
+    renderTutorialStep();
+    if (tutorialType === 'manager') {
+      const tab = steps[tutorialCurrentStep].title.toLowerCase();
+      const tabBtn = document.querySelector(`#screen-managerDashboard .tab-btn[data-tab="${tab === 'visão geral' ? 'overview' : tab === 'alunos' ? 'alunos' : tab === 'assuntos' ? 'assuntos' : tab === 'atividades' ? 'atividades' : 'aplicacoes'}"]`);
+      if (tabBtn) setManagerTab(tabBtn.dataset.tab);
+    } else {
+      const tab = steps[tutorialCurrentStep].title.toLowerCase();
+      const tabBtn = document.querySelector(`#screen-studentPanel .tab-btn[data-tab="${tab === 'visão geral' ? 'overview' : tab === 'desempenho' ? 'desempenho' : 'reforcos'}"]`);
+      if (tabBtn) setStudentTab(tabBtn.dataset.tab);
+    }
+  }
+}
+
+function prevTutorialStep() {
+  if (tutorialCurrentStep > 0) {
+    tutorialCurrentStep--;
+    renderTutorialStep();
+  }
+}
+
+function closeTutorial() {
+  document.getElementById('tutorialOverlay').classList.remove('open');
+}
+
+// ============================================================
+// PAINEL GESTORA - ABAS (completas)
+// ============================================================
+let managerTab = 'overview';
+let selectedRoundId = null;
+let alunosSelectedTurma = null;
+let alunosSearch = '';
+
+function renderDashboard() {
+  if (!currentManager) { goToScreen('login-manager'); return; }
+  renderManagerTabContent();
+}
+
+function setManagerTab(tab) {
+  managerTab = tab;
+  renderManagerTabContent();
+}
+
+function renderManagerTabContent() {
+  document.querySelectorAll('#screen-managerDashboard .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === managerTab);
+  });
+  const content = document.getElementById('managerContent');
+  if (managerTab === 'overview' || managerTab === 'historico') renderOverviewTab(content);
+  else if (managerTab === 'alunos') renderAlunosTab(content);
+  else if (managerTab === 'assuntos') renderAssuntosTab(content);
+  else if (managerTab === 'atividades') renderAtividadesTab(content);
+  else if (managerTab === 'aplicacoes') renderAplicacoesTab(content);
+}
+
+// ===== VISÃO GERAL =====
+async function renderOverviewTab(container) {
+  const attempts = await loadJSON('tentativas', []);
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
+  let html = '';
+  if (turmas.length === 0) {
+    html = `<div class="card card-soft text-center">📭 Ainda não há diagnósticos respondidos. Crie uma aplicação e compartilhe o código.</div>`;
+  } else {
+    const total = attempts.length;
+    const avgLevel = attempts.reduce((s, a) => s + (a.levelIdx || 0), 0) / total;
+    const tagsCount = {};
+    attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsCount[t] = (tagsCount[t] || 0) + 1); });
+    const sorted = Object.entries(tagsCount).sort((a, b) => b[1] - a[1]);
+    const top3 = sorted.slice(0, 3).map(([id]) => TAGS[id]?.label || id);
+    html = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--green-main);">${total}</div><div style="color:var(--text-secondary);">diagnósticos</div></div>
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--blue);">${turmas.length}</div><div style="color:var(--text-secondary);">turmas</div></div>
+        <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--gold);">${avgLevel.toFixed(1)}</div><div style="color:var(--text-secondary);">nível médio</div></div>
+        <div class="card text-center"><div style="font-size:1.1rem;font-weight:700;color:var(--coral);">${top3.join(', ') || '—'}</div><div style="color:var(--text-secondary);">mais difíceis</div></div>
+      </div>
+      <div class="card"><div class="text-center" style="color:var(--text-secondary);padding:20px 0;">📊 Gráficos detalhados disponíveis na aba "Assuntos"</div></div>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+// ===== ALUNOS =====
+async function renderAlunosTab(container) {
+  const attempts = await loadJSON('tentativas', []);
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
+  if (!alunosSelectedTurma && turmas.length) alunosSelectedTurma = turmas[0];
+
+  let html = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">`;
+  turmas.forEach(t => {
+    html += `<button class="btn ${t === alunosSelectedTurma ? 'btn-primary' : 'btn-ghost'}" onclick="selectAlunosTurma('${t.replace(/'/g, "\\'")}')" style="padding:6px 18px;">${escapeHTML(t)}</button>`;
+  });
+  html += `</div>`;
+
+  if (turmas.length === 0) {
+    html += `<div class="card card-soft text-center">📭 Ainda não há alunos com diagnósticos respondidos.</div>`;
+    container.innerHTML = html;
+    return;
+  }
+
+  html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:12px 18px;border-radius:var(--radius-sm);border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);font-family:'Nunito Sans',sans-serif;margin-bottom:16px;">`;
+
+  const inTurma = attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosSelectedTurma);
+  const uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))]
+    .filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()))
+    .sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
+  if (uniqueNames.length === 0) {
+    html += `<div class="card card-soft text-center">Nenhum aluno encontrado.</div>`;
+  } else {
+    html += `<div class="card" style="padding:8px 0;">`;
+    uniqueNames.forEach(n => {
+      const studAttempts = inTurma.filter(a => a.studentName.trim() === n).sort((a, b) => a.finishedAt - b.finishedAt);
+      const last = studAttempts[studAttempts.length - 1];
+      const correct = last?.answersDetail?.filter(d => d.isCorrect).length || 0;
+      const totalQ = last?.answersDetail?.length || 0;
+      html += `
+        <div onclick="toggleAlunoDetail('${slug(n)}')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(26,42,42,0.06);cursor:pointer;">
+          <span style="font-weight:700;">${escapeHTML(n)}</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="chip chip-green">✅ ${correct}</span>
+            <span class="chip chip-coral">❌ ${totalQ - correct}</span>
+            <span class="level-badge ${last?.levelIdx === 0 ? 'lvl-0' : last?.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(last?.levelLabel || '—')}</span>
+          </div>
+        </div>
+        <div id="detail-${slug(n)}" style="display:none;padding:8px 16px 16px;background:var(--bg-soft);border-radius:0 0 var(--radius-sm) var(--radius-sm);">
+          ${studAttempts.map(a => `<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid rgba(26,42,42,0.06);">📘 ${escapeHTML(a.roundId || 'Diagnóstico')}: ${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('') : 'nenhuma dificuldade'}</div>`).join('')}
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+  container.innerHTML = html;
+}
+
+function selectAlunosTurma(t) { alunosSelectedTurma = t; renderManagerTabContent(); }
+function onAlunosSearch(v) { alunosSearch = v; renderManagerTabContent(); }
+function toggleAlunoDetail(name) {
+  const el = document.getElementById('detail-'+slug(name));
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// ===== ASSUNTOS =====
+let chartType = 'bar';
+
+async function renderAssuntosTab(container) {
+  const attempts = await loadJSON('tentativas', []);
+  const counts = {};
+  Object.keys(TAGS).forEach(t => counts[t] = 0);
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
+  const total = attempts.length || 1;
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+  let html = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+      <button class="btn ${chartType === 'bar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('bar')">📊 Barras</button>
+      <button class="btn ${chartType === 'pie' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('pie')">🍕 Pizza</button>
+      <button class="btn ${chartType === 'radar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('radar')">🕸️ Radar</button>
+    </div>
+    <div class="card" style="padding:20px;min-height:280px;display:flex;align-items:center;justify-content:center;">
+      <canvas id="chartCanvas" width="500" height="280"></canvas>
+    </div>
+    <div style="margin-top:16px;">
+      ${sorted.map(([tid, count]) => {
+        const pct = Math.round((count / total) * 100);
+        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(26,42,42,0.06);">
+          <span>${TAGS[tid]?.icon || '📌'} ${escapeHTML(TAGS[tid]?.label || tid)}</span>
+          <span style="font-weight:700;">${pct}%</span>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  container.innerHTML = html;
+  drawChart(sorted, total);
+}
+
+function setChartType(type) { chartType = type; renderManagerTabContent(); }
+
+function drawChart(data, total) {
+  const canvas = document.getElementById('chartCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  if (data.length === 0 || data.every(d => d[1] === 0)) {
+    ctx.fillStyle = 'var(--text-soft)';
+    ctx.font = '16px Nunito Sans';
+    ctx.textAlign = 'center';
+    ctx.fillText('Sem dados para exibir', w/2, h/2);
+    return;
+  }
+
+  if (chartType === 'bar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const pad = 40, chartW = w - 2*pad, chartH = h - 2*pad;
+    const step = chartW / (data.length + 1);
+    ctx.font = '11px Nunito Sans';
+    ctx.textAlign = 'center';
+    data.forEach(([tid, count], i) => {
+      const x = pad + step * (i + 1);
+      const barH = (count / max) * chartH;
+      const y = h - pad - barH;
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
+      ctx.fillRect(x - 14, y, 28, barH);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 10) || tid, x, h - pad + 18);
+      ctx.fillText(count, x, y - 6);
+    });
+  } else if (chartType === 'pie') {
+    const totalSum = data.reduce((s, d) => s + d[1], 0);
+    if (totalSum === 0) return;
+    const cx = w/2, cy = h/2, r = Math.min(w, h)/2 - 30;
+    let start = -Math.PI / 2;
+    data.forEach(([tid, count]) => {
+      const angle = (count / totalSum) * 2 * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, start + angle);
+      ctx.closePath();
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
+      ctx.fill();
+      start += angle;
+    });
+    let legY = 20;
+    ctx.font = '10px Nunito Sans';
+    ctx.textAlign = 'left';
+    data.slice(0, 6).forEach(([tid]) => {
+      ctx.fillStyle = TAGS[tid]?.colorClass === 'coral' ? '#F5A0A0' :
+                      TAGS[tid]?.colorClass === 'teal' ? '#6BCB9A' :
+                      TAGS[tid]?.colorClass === 'gold' ? '#F5D76E' : '#8FC1D9';
+      ctx.fillRect(w - 130, legY, 12, 12);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 14) || tid, w - 112, legY + 10);
+      legY += 20;
+    });
+  } else if (chartType === 'radar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const cx = w/2, cy = h/2, r = Math.min(w, h)/2 - 40;
+    const n = data.length;
+    if (n === 0) return;
+    for (let i = 0; i < n; i++) {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'rgba(26,42,42,0.1)';
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    data.forEach(([tid, count], i) => {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const val = count / max;
+      const x = cx + r * val * Math.cos(angle);
+      const y = cy + r * val * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(107, 203, 154, 0.25)';
+    ctx.fill();
+    ctx.strokeStyle = 'var(--green-main)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.font = '10px Nunito Sans';
+    ctx.textAlign = 'center';
+    data.forEach(([tid], i) => {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const x = cx + (r + 18) * Math.cos(angle);
+      const y = cy + (r + 18) * Math.sin(angle);
+      ctx.fillStyle = 'var(--text-primary)';
+      ctx.fillText(TAGS[tid]?.label?.slice(0, 8) || tid, x, y + 4);
+    });
+  }
+}
+
+// ===== ATIVIDADES =====
+let uploadedFiles = [];
+const MAX_FILE_SIZE = 1024 * 1024 * 1024; // 1GB
+
+async function renderAtividadesTab(container) {
+  const materiais = await loadJSON('materiais', []);
+  const pastas = await loadJSON('pastas', []);
+  const tagsPersonalizadas = await loadJSON('tagsPersonalizadas', []);
+
+  let html = `
+    <div style="background:var(--green-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--green-main);margin-bottom:20px;">
+      <strong>📌 O que são tags?</strong> As tags são etiquetas que você cria para organizar os materiais e associar às dificuldades dos alunos.
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+        ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('') : '<span style="color:var(--text-secondary);">Nenhuma tag criada ainda.</span>'}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">📁 Pastas</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);">
+        <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${pastas.map(p => `<span class="chip">📁 ${escapeHTML(p)}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);">
+        <button class="btn btn-secondary" onclick="addTag()">➕ Adicionar</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--coral);font-weight:700;">✕</button></span>`).join('')}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
+      <label>Título</label>
+      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
+      <label>Tipo</label>
+      <select id="matType" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
+        <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
+      </select>
+      <label>Link (opcional)</label>
+      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
+      <label>Descrição</label>
+      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
+      <label>Pasta</label>
+      <select id="matFolder" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:14px 18px;border:2px solid rgba(26,42,42,0.08);background:var(--bg-primary);width:100%;">
+        <option value="">Sem pasta</option>
+        ${pastas.map(p => `<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
+      </select>
+      <label>Tags</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+        ${tagsPersonalizadas.map(t => `<label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;"><input type="checkbox" value="${escapeHTML(t)}" class="matTagCheck"> ${escapeHTML(t)}</label>`).join('')}
+        ${tagsPersonalizadas.length === 0 ? '<span style="color:var(--text-secondary);">Nenhuma tag criada.</span>' : ''}
+      </div>
+
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">Máx. 1GB · PDF, Imagem, Word, etc.</div>
+        <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
+      </div>
+      <div id="fileList" style="margin-top:12px;"></div>
+
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="addMaterial()">Salvar material</button>
+      <div class="err" id="matErr" style="color:var(--coral);margin-top:8px;"></div>
+    </div>
+
+    <div id="matList"></div>
+  `;
+  container.innerHTML = html;
+  renderMaterialsList(materiais);
+}
+
+async function addTag() {
+  const name = document.getElementById('newTagName').value.trim();
+  if (!name) return;
+  const tags = await loadJSON('tagsPersonalizadas', []);
+  if (!tags.includes(name)) tags.push(name);
+  await saveJSON('tagsPersonalizadas', tags);
+  document.getElementById('newTagName').value = '';
+  renderManagerTabContent();
+}
+
+async function removeTag(name) {
+  let tags = await loadJSON('tagsPersonalizadas', []);
+  tags = tags.filter(t => t !== name);
+  await saveJSON('tagsPersonalizadas', tags);
+  renderManagerTabContent();
+}
+
+async function addFolder() {
+  const name = document.getElementById('newFolderName').value.trim();
+  if (!name) return;
+  const pastas = await loadJSON('pastas', []);
+  if (!pastas.includes(name)) pastas.push(name);
+  await saveJSON('pastas', pastas);
+  document.getElementById('newFolderName').value = '';
+  renderManagerTabContent();
+}
+
+function handleFiles(files) {
+  for (let f of files) {
+    if (f.size > MAX_FILE_SIZE) {
+      alert(`O arquivo ${f.name} excede o limite de 1GB.`);
+      continue;
+    }
+    const id = 'f_' + Date.now() + Math.random().toString(36).slice(2, 6);
+    uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0 });
+    let p = 0;
+    const interval = setInterval(() => {
+      p += Math.floor(Math.random() * 12) + 3;
+      if (p >= 100) { p = 100; clearInterval(interval); }
+      const item = uploadedFiles.find(u => u.id === id);
+      if (item) { item.progress = Math.min(100, p); renderFileList(); }
+    }, 150);
+  }
+  renderFileList();
+}
+
+function renderFileList() {
+  const el = document.getElementById('fileList');
+  if (!el) return;
+  el.innerHTML = uploadedFiles.map(f => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg-soft);border-radius:var(--radius-sm);margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="material-symbols-outlined" style="color:var(--text-soft);">description</span>
+        <div>
+          <div style="font-weight:600;">${escapeHTML(f.name)}</div>
+          <div style="font-size:0.7rem;color:var(--text-secondary);">${(f.size / 1024 / 1024).toFixed(1)} MB</div>
+        </div>
+      </div>
+      <div style="min-width:70px;text-align:right;">
+        <span style="font-weight:700;font-size:0.8rem;">${Math.round(f.progress)}%</span>
+        <div class="file-progress"><div class="bar" style="width:${f.progress}%;"></div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMaterialsList(materiais) {
+  const wrap = document.getElementById('matList');
+  if (!wrap) return;
+  if (materiais.length === 0) {
+    wrap.innerHTML = `<div class="card card-soft text-center">📭 Nenhum material cadastrado ainda.</div>`;
+    return;
+  }
+  wrap.innerHTML = materiais.slice().reverse().map(m => `
+    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
+      <div>
+        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-blue">${escapeHTML(m.type)}</span></div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);margin:4px 0;">${escapeHTML(m.description || '')} ${m.folder ? '📁 ' + escapeHTML(m.folder) : ''}</div>
+        ${m.link ? `<a href="${escapeHTML(m.link)}" target="_blank" style="color:var(--green-main);font-weight:700;">${escapeHTML(m.link)}</a>` : ''}
+        ${m.files ? m.files.map(f => `<div style="font-size:0.75rem;color:var(--text-secondary);">📄 ${escapeHTML(f)}</div>`).join('') : ''}
+        <div style="margin-top:6px;">${m.tagIds.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('')}</div>
+        <div style="font-size:0.7rem;color:var(--text-soft);margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
+      </div>
+      <button class="btn btn-ghost" onclick="deleteMaterial('${m.id}')" style="padding:4px 12px;font-size:0.8rem;">Remover</button>
+    </div>
+  `).join('');
+}
+
+async function addMaterial() {
+  const title = document.getElementById('matTitle').value.trim();
+  const type = document.getElementById('matType').value;
+  const link = document.getElementById('matLink').value.trim();
+  const description = document.getElementById('matDesc').value.trim();
+  const folder = document.getElementById('matFolder').value;
+  const tagIds = Array.from(document.querySelectorAll('.matTagCheck:checked')).map(i => i.value);
+  const errEl = document.getElementById('matErr');
+  if (!title) { errEl.textContent = 'Dê um título ao material.'; return; }
+  const materiais = await loadJSON('materiais', []);
+  const fileNames = uploadedFiles.map(f => f.name);
+  materiais.push({
+    id: 'm_' + Date.now(),
+    title, type, link, description, folder,
+    tagIds, files: fileNames,
+    createdAt: Date.now()
+  });
+  await saveJSON('materiais', materiais);
+  uploadedFiles = [];
+  renderManagerTabContent();
+}
+
+async function deleteMaterial(id) {
+  let materiais = await loadJSON('materiais', []);
+  materiais = materiais.filter(m => m.id !== id);
+  await saveJSON('materiais', materiais);
+  renderManagerTabContent();
+}
+
+// ===== APLICAÇÕES =====
+async function renderAplicacoesTab(container) {
+  const rounds = await loadJSON('rodadas', []);
+  const attempts = await loadJSON('tentativas', []);
+  let html = `<div style="display:grid;grid-template-columns:240px 1fr;gap:24px;">`;
+  html += `<div>
+    <button class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="createRound()">➕ Nova aplicação</button>
+    ${rounds.length === 0 ? `<div class="card card-soft text-center">Nenhuma aplicação ainda.</div>` : ''}
+    ${rounds.map(r => `
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;cursor:pointer;border:2px solid ${r.id === selectedRoundId ? 'var(--green-main)' : 'transparent'};" onclick="selectRound('${r.id}')">
+        <div style="font-weight:700;">${escapeHTML(r.label)}</div>
+        <div style="font-family:monospace;font-size:0.8rem;color:var(--text-secondary);">código: ${r.code}</div>
+        <div style="font-size:0.7rem;color:var(--text-soft);">${new Date(r.createdAt).toLocaleString()}</div>
+        <div style="margin-top:6px;">
+          <button class="btn ${r.disabled ? 'btn-ghost' : 'btn-primary'}" style="padding:4px 14px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
+            ${r.disabled ? '🔴 Desabilitada' : '🟢 Ativa'}
+          </button>
+        </div>
+      </div>
+    `).join('')}
+  </div><div><div class="card"><div id="roundHeader"></div><div id="attemptsTableWrap"></div></div></div></div>`;
+  container.innerHTML = html;
+  renderRoundAttempts(rounds, attempts);
+}
+
+function selectRound(id) { selectedRoundId = id; renderManagerTabContent(); }
+
+async function toggleRoundEnabled(id) {
+  const rounds = await loadJSON('rodadas', []);
+  const round = rounds.find(r => r.id === id);
+  if (round) { round.disabled = !round.disabled; await saveJSON('rodadas', rounds); renderManagerTabContent(); }
+}
+
+function renderRoundAttempts(rounds, attempts) {
+  const round = rounds.find(r => r.id === selectedRoundId);
+  const header = document.getElementById('roundHeader');
+  const wrap = document.getElementById('attemptsTableWrap');
+  if (!round) { if (header) header.innerHTML = ''; if (wrap) wrap.innerHTML = '<div class="text-center text-soft">Crie uma aplicação.</div>'; return; }
+  header.innerHTML = `<h4 style="margin:0 0 4px;">${escapeHTML(round.label)}</h4>
+    <span style="font-family:monospace;background:var(--green-main);color:#fff;padding:4px 12px;border-radius:var(--radius-full);">${round.code}</span>
+    <span style="color:var(--text-secondary);font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
+    ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
+  const list = attempts.filter(a => a.roundId === round.id);
+  if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
+  wrap.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid rgba(26,42,42,0.08);">Tags</th></tr></thead>
+      <tbody>
+      ${list.map(a => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${escapeHTML(a.studentName)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${escapeHTML(a.studentClass || '—')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);"><span class="level-badge ${a.levelIdx === 0 ? 'lvl-0' : a.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
+          <td style="padding:8px 12px;border-bottom:1px solid rgba(26,42,42,0.04);">${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('') : '<span style="color:var(--text-soft);">nenhuma</span>'}</td>
+        </tr>
+      `).join('')}
+      </tbody>
+    </table>`;
+}
+
+function generateCode() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+  return c;
+}
+
+function showModal(html) {
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function hideModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+async function createRound() {
+  const rounds = await loadJSON('rodadas', []);
+  showModal(`
+    <div class="modal-title">Nova aplicação</div>
+    <div class="modal-sub">Dê um nome e defina o código que os alunos vão usar.</div>
+    <label>Nome</label>
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length + 1}">
+    <label>Código</label>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;">
+    <div class="err" id="modalRoundErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmCreateRound()">Criar</button>
+    </div>
+  `);
+}
+
+async function confirmCreateRound() {
+  const label = document.getElementById('modalRoundLabel').value.trim();
+  let code = document.getElementById('modalRoundCode').value.trim().toUpperCase();
+  const errEl = document.getElementById('modalRoundErr');
+  if (!code) code = generateCode();
+  const rounds = await loadJSON('rodadas', []);
+  if (rounds.some(r => r.code === code)) { errEl.textContent = 'Código já em uso. Escolha outro.'; return; }
+  const round = { id: 'r_' + Date.now(), label: label || ('Aplicação ' + (rounds.length + 1)), code, createdAt: Date.now(), disabled: false };
+  rounds.push(round);
+  await saveJSON('rodadas', rounds);
+  selectedRoundId = round.id;
+  hideModal();
+  renderManagerTabContent();
+}
+
+// ============================================================
+// BANCO DE QUESTÕES
+// ============================================================
+const TAGS = {
+  graf_interpretacao: { label: 'Interpretação de gráficos', icon: '📊', colorClass: 'teal',
+    tip: 'Releia o gráfico com calma: identifique quem está mais alto em UMA temperatura, e depois observe a tendência.' },
+  endo_exo: { label: 'Classificação ENDO/EXO', icon: '🔥', colorClass: 'coral',
+    tip: 'Se a solubilidade AUMENTA com a temperatura → endotérmica; se DIMINUI → exotérmica.' },
+  endo_exo_grafico: { label: 'ENDO/EXO + gráfico', icon: '📈', colorClass: 'gold',
+    tip: 'Pratique unir as duas habilidades: leia o gráfico e classifique o tipo de dissolução.' },
+  titulos: { label: 'Cálculos de títulos', icon: '🧪', colorClass: 'blue',
+    tip: 'No %m/V: massa (g) / volume (mL) × 100. Para mol/L, converta massa para mols.' },
+  g_l_mol_l: { label: 'Conversão g/L → mol/L', icon: '🧮', colorClass: 'teal',
+    tip: 'Converta mg/L para g/L, depois divida pela massa molar — atenção às potências de 10.' },
+  nao_respondida: { label: 'Questões em branco', icon: '✏️', colorClass: 'coral',
+    tip: 'Algumas perguntas ficaram sem resposta. Vale revisar com calma e tentar de novo.' }
+};
+
+// Frases de apoio por nível
+const ENCOURAGEMENT = {
+  bad: ['Não desanime! Cada erro é uma oportunidade de aprender.', 'Você está no caminho certo, continue praticando.', 'A jornada do conhecimento é feita de tentativas.'],
+  medium: ['Bom trabalho! Você já está progredindo.', 'Continue assim, você vai longe!', 'Seu esforço está valendo a pena.'],
+  good: ['Excelente! Você domina bem o conteúdo.', 'Parabéns pelo desempenho!', 'Você está pronto para desafios maiores.']
+};
+
+function pickEncouragement(levelIdx) {
+  let arr;
+  if (levelIdx >= 2) arr = ENCOURAGEMENT.bad;
+  else if (levelIdx === 1) arr = ENCOURAGEMENT.medium;
+  else arr = ENCOURAGEMENT.good;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Medalhas (10 níveis)
+const MEDALS = [
+  { level: 0, name: 'Calouro', icon: '🥉' },
+  { level: 1, name: 'Recruta', icon: '🥉' },
+  { level: 2, name: 'Aprendiz', icon: '🥉' },
+  { level: 3, name: 'Veterano', icon: '🥈' },
+  { level: 4, name: 'Macaco Velho', icon: '🥈' },
+  { level: 5, name: 'Gato Escaldado', icon: '🥈' },
+  { level: 6, name: 'Especialista', icon: '🥇' },
+  { level: 7, name: 'Mestre', icon: '🥇' },
+  { level: 8, name: 'Lenda', icon: '🏆' },
+  { level: 9, name: 'Mito', icon: '🏆' }
+];
+
+function getMedal(totalAttempts) {
+  const level = Math.min(totalAttempts, 9);
+  return MEDALS[level];
+}
+
+// ============================================================
+// QUIZ — ALUNO
+// ============================================================
+let quizState = null;
+let quizFinished = false;
+
+function openStudentEntryModal() {
+  showModal(`
+    <div class="modal-title">🚀 Novo diagnóstico</div>
+    <div class="modal-sub">Peça à professora o código da aplicação.</div>
+    <label>Sua turma</label>
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="text-transform:uppercase;">
+    <label>Código da aplicação</label>
+    <input type="text" id="modalCode" style="text-transform:uppercase;" placeholder="Ex: ABCD">
+    <div class="err" id="modalEntryErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmStartQuiz()">Começar</button>
+    </div>
+  `);
+}
+
+async function confirmStartQuiz() {
+  let turma = document.getElementById('modalTurma').value.trim().toUpperCase();
+  const code = document.getElementById('modalCode').value.trim().toUpperCase();
+  const errEl = document.getElementById('modalEntryErr');
+  if (!code) { errEl.textContent = 'Informe o código.'; return; }
+  const rounds = await loadJSON('rodadas', []);
+  const round = rounds.find(r => r.code === code);
+  if (!round) { errEl.textContent = 'Código não encontrado.'; return; }
+  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela professora.'; return; }
+  hideModal();
+
+  const saved = await loadPersonal('quiz_' + round.id, null);
+  if (saved && saved.studentEmail === currentStudent.email) {
+    quizState = saved;
+    quizState.studentClass = turma;
+    quizState.roundId = round.id;
+    quizFinished = false;
+  } else {
+    quizState = { roundId: round.id, studentClass: turma, path: ['start'], answersByQ: {}, idx: 0 };
+    quizFinished = false;
+  }
+  goToScreen('quiz');
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const qId = quizState.path[quizState.idx];
+  const q = QUESTIONS[qId];
+  document.getElementById('qTopic').textContent = q.topic;
+  document.getElementById('qExtra').innerHTML = q.extra || '';
+  document.getElementById('qText').textContent = q.text;
+  const progress = Math.min(96, 12 + quizState.idx * 18);
+  document.getElementById('progressFill').style.width = progress + '%';
+  const selectedVal = quizState.answersByQ[qId];
+  const container = document.getElementById('qOptions');
+  container.innerHTML = q.options.map(opt =>
+    `<button class="opt ${opt === selectedVal ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOption(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
+  ).join('');
+  document.getElementById('btnBack').disabled = quizState.idx === 0 || quizFinished;
+  document.getElementById('btnNext').textContent = (qId === 'sodio') ? 'Finalizar' : 'Avançar';
+  document.getElementById('btnNext').disabled = !selectedVal || quizFinished;
+}
+
+function selectOption(btnEl) {
+  if (quizFinished) return;
+  document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
+  btnEl.classList.add('selected');
+  const qId = quizState.path[quizState.idx];
+  quizState.answersByQ[qId] = btnEl.getAttribute('data-val');
+  document.getElementById('btnNext').disabled = false;
+  saveQuizProgress();
+}
+
+function goBackQuestion() {
+  if (quizState.idx === 0 || quizFinished) return;
+  quizState.idx--;
+  renderQuizQuestion();
+}
+
+function goNextQuestion() {
+  if (quizFinished) return;
+  const qId = quizState.path[quizState.idx];
+  const val = quizState.answersByQ[qId];
+  if (!val) return;
+  if (qId === 'sodio') { confirmFinishQuiz(); return; }
+  quizState.path = quizState.path.slice(0, quizState.idx + 1);
+  const next = nextQuestionId(qId, val);
+  quizState.path.push(next);
+  quizState.idx++;
+  renderQuizQuestion();
+  saveQuizProgress();
+}
+
+async function saveQuizProgress() {
+  if (!currentStudent) return;
+  await savePersonal('quiz_' + quizState.roundId, {
+    ...quizState,
+    studentEmail: currentStudent.email,
+    studentName: currentStudent.name
+  });
+}
+
+async function confirmFinishQuiz() {
+  if (quizFinished) return;
+  showModal(`
+    <div class="modal-title">✅ Finalizar diagnóstico?</div>
+    <div class="modal-sub">Após finalizar, você não poderá mais editar suas respostas. Tem certeza?</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Continuar respondendo</button>
+      <button class="btn btn-primary" onclick="hideModal(); finishQuiz()">Sim, finalizar</button>
+    </div>
+  `);
+}
+
+async function finishQuiz() {
+  quizFinished = true;
+  document.getElementById('progressFill').style.width = '100%';
+  const tagsArr = Array.from(recomputeTags());
+  let levelIdx, levelLabel;
+  if (tagsArr.length === 0) { levelIdx = 0; levelLabel = 'Domínio sólido'; }
+  else if (tagsArr.length <= 2) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
+  else { levelIdx = 2; levelLabel = 'Vamos reforçar juntos'; }
+
+  const answersDetail = quizState.path.map(qId => ({
+    questionId: qId,
+    topic: QUESTIONS[qId].topic,
+    value: quizState.answersByQ[qId],
+    isCorrect: quizState.answersByQ[qId] === CORRECT_ANSWERS[qId]
+  }));
+
+  const attempts = await loadJSON('tentativas', []);
+  const prevAttempt = attempts
+    .filter(a => a.studentEmail === currentStudent.email && a.roundId !== quizState.roundId)
+    .sort((a, b) => b.finishedAt - a.finishedAt)[0];
+
+  const attempt = {
+    id: 'a_' + Date.now(),
+    roundId: quizState.roundId,
+    studentEmail: currentStudent.email,
+    studentName: currentStudent.name,
+    studentClass: quizState.studentClass,
+    tags: tagsArr,
+    levelIdx, levelLabel,
+    answersDetail,
+    finishedAt: Date.now()
+  };
+  attempts.push(attempt);
+  await saveJSON('tentativas', attempts);
+  await savePersonal('quiz_' + quizState.roundId, null);
+  renderResult(attempt, prevAttempt);
+  goToScreen('result');
+  launchConfetti();
+}
+
+function recomputeTags() {
+  const tags = new Set();
+  quizState.path.forEach(qId => {
+    const val = quizState.answersByQ[qId];
+    if (val !== undefined) tagsForAnswer(qId, val).forEach(t => tags.add(t));
+  });
+  return tags;
+}
+
+function confirmExitQuiz() {
+  if (quizFinished) { goToScreen('studentPanel'); return; }
+  showModal(`
+    <div class="modal-title">Sair do diagnóstico?</div>
+    <div class="modal-sub">Suas respostas serão salvas e você poderá continuar depois.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Continuar</button>
+      <button class="btn btn-primary" onclick="hideModal(); saveQuizProgress(); goToScreen('studentPanel');">Salvar e sair</button>
+    </div>
+  `);
+}
+
+function renderResult(attempt, prevAttempt) {
+  const correct = attempt.answersDetail.filter(d => d.isCorrect).length;
+  const total = attempt.answersDetail.length;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
+  const hero = document.getElementById('resultHero');
+  hero.className = 'result-hero' + (attempt.levelIdx === 2 ? ' warn' : '');
+  hero.innerHTML = `<h2>${escapeHTML(attempt.levelLabel)}</h2><p>${escapeHTML(pickEncouragement(attempt.levelIdx))}</p>`;
+
+  const circleEl = document.getElementById('resultCircle');
+  circleEl.innerHTML = `
+    <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
+    <div><strong>${pct}% de acerto</strong><br><span style="color:var(--text-secondary);">Você acertou ${correct} de ${total} questões</span></div>
+  `;
+
+  const totalAttempts = (await loadJSON('tentativas', [])).filter(a => a.studentEmail === currentStudent.email).length;
+  const medal = getMedal(totalAttempts);
+  document.getElementById('resultMedal').innerHTML = `
+    <div class="medal-badge">
+      <span class="medal-icon">${medal.icon}</span>
+      <span>${medal.name}</span>
+    </div>
+    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+  `;
+
+  const compareEl = document.getElementById('resultCompare');
+  if (prevAttempt) {
+    const prevTags = new Set(prevAttempt.tags || []);
+    const curTags = new Set(attempt.tags || []);
+    const superadas = [...prevTags].filter(t => !curTags.has(t));
+    const persistentes = [...prevTags].filter(t => curTags.has(t));
+    const novas = [...curTags].filter(t => !prevTags.has(t));
+    compareEl.innerHTML = `
+      <div class="card" style="margin-bottom:16px;">
+        <h4 style="margin-bottom:8px;">Comparando com sua tentativa anterior</h4>
+        ${superadas.length ? `<div style="font-size:0.9rem;color:var(--green-main);"><strong>✅ Superadas:</strong> ${superadas.map(t => `<span class="chip chip-green">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${persistentes.length ? `<div style="font-size:0.9rem;color:var(--coral);"><strong>🔄 Ainda reforçar:</strong> ${persistentes.map(t => `<span class="chip chip-coral">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${novas.length ? `<div style="font-size:0.9rem;color:var(--gold);"><strong>🆕 Novo:</strong> ${novas.map(t => `<span class="chip chip-gold">${TAGS[t]?.icon || ''} ${escapeHTML(TAGS[t]?.label || t)}</span>`).join('')}</div>` : ''}
+        ${(!superadas.length && !persistentes.length && !novas.length) ? '<div style="color:var(--text-secondary);">Sem diferenças em relação à tentativa anterior.</div>' : ''}
+      </div>`;
+  } else { compareEl.innerHTML = ''; }
+
+  const tagsEl = document.getElementById('resultTags');
+  if (!attempt.tags || attempt.tags.length === 0) {
+    tagsEl.innerHTML = `<div class="card"><h4>🎉 Nenhuma dificuldade específica identificada</h4><p style="color:var(--text-secondary);">Continue praticando para manter esse domínio.</p></div>`;
+  } else {
+    tagsEl.innerHTML = attempt.tags.map(t => `
+      <div class="card" style="margin-bottom:12px;">
+        <h4>${TAGS[t]?.icon || '📌'} ${escapeHTML(TAGS[t]?.label || t)}</h4>
+        <p style="color:var(--text-secondary);">${escapeHTML(TAGS[t]?.tip || 'Dica disponível em breve.')}</p>
+      </div>
+    `).join('');
+  }
+}
+
+function launchConfetti() {
+  const colors = ['#6BCB9A', '#8FC1D9', '#F5D76E', '#F5A0A0', '#D4F0E4'];
+  for (let i = 0; i < 70; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.top = '-10px';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = Math.random() * 8 + 5 + 'px';
+    piece.style.height = piece.style.width;
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+    piece.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+    document.body.appendChild(piece);
+    const duration = Math.random() * 2000 + 1500;
+    const dx = (Math.random() - 0.5) * 300;
+    const dy = window.innerHeight + 100;
+    piece.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+    ], { duration, easing: 'cubic-bezier(0, .9, .57, 1)' }).onfinish = () => piece.remove();
+  }
+}
+
+// ============================================================
+// PAINEL DO ALUNO
+// ============================================================
+let studentTab = 'overview';
+
+function renderStudentPanel() {
+  if (!currentStudent) { goToScreen('login-student'); return; }
+  document.getElementById('panelStudentName').textContent = currentStudent.name.split(' ')[0];
+  renderStudentTabContent();
+}
+
+function setStudentTab(tab) {
+  studentTab = tab;
+  renderStudentTabContent();
+}
+
+function renderStudentTabContent() {
+  document.querySelectorAll('#screen-studentPanel .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === studentTab);
+  });
+  if (studentTab === 'overview') renderStudentOverviewTab();
+  else if (studentTab === 'desempenho') renderStudentDesempenhoTab();
+  else if (studentTab === 'reforcos') renderStudentReforcosTab();
+}
+
+async function renderStudentOverviewTab() {
+  const attempts = await loadJSON('tentativas', []);
+  const mine = attempts.filter(a => a.studentEmail === currentStudent.email).sort((a, b) => a.finishedAt - b.finishedAt);
+  const content = document.getElementById('studentContent');
+  if (mine.length === 0) {
+    content.innerHTML = `<div class="card card-soft text-center">📭 Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
+    return;
+  }
+  const last = mine[mine.length - 1];
+  const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
+  const total = last.answersDetail?.length || 0;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
+  let html = `
+    <div class="result-hero ${last.levelIdx === 2 ? 'warn' : ''}" style="margin-bottom:18px;">
+      <h2>${escapeHTML(last.levelLabel)}</h2>
+      <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
+    </div>
+    <div class="result-circle" style="margin:0 0 16px;">
+      <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
+      <div><strong>${pct}% de acerto</strong><br><span style="color:var(--text-secondary);">Último diagnóstico</span></div>
+    </div>
+  `;
+
+  const totalAttempts = mine.length;
+  const medal = getMedal(totalAttempts);
+  html += `
+    <div class="text-center mb-16">
+      <div class="medal-badge" style="display:inline-flex;">
+        <span class="medal-icon">${medal.icon}</span>
+        <span>${medal.name}</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+    </div>
+  `;
+
+  if (!last.tags || last.tags.length === 0) {
+    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:var(--text-secondary);">Continue praticando para manter esse domínio.</p></div>`;
+  } else {
+    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
+      last.tags.map(t => `
+        <div class="card" style="border-left:5px solid ${TAGS[t]?.colorClass === 'coral' ? 'var(--coral)' : TAGS[t]?.colorClass === 'teal' ? 'var(--green-main)' : TAGS[t]?.colorClass === 'gold' ? 'var(--gold)' : 'var(--blue)'};">
+          <div style="font-size:1.5rem;">${TAGS[t]?.icon || '📌'}</div>
+          <h4 style="font-size:0.95rem;">${escapeHTML(TAGS[t]?.label || t)}</h4>
+          <p style="font-size:0.85rem;color:var(--text-secondary);">${escapeHTML(TAGS[t]?.tip || '')}</p>
+        </div>
+      `).join('') + `</div>`;
+  }
+  content.innerHTML = html;
+}
+
+async function renderStudentDesempenhoTab() {
+  const attempts = await loadJSON('tentativas', []);
+  const mine = attempts.filter(a => a.studentEmail === currentStudent.email).sort((a, b) => a.finishedAt - b.finishedAt);
+  const content = document.getElementById('studentContent');
+  if (mine.length === 0) { content.innerHTML = `<div class="card card-soft text-center">📭 Sem dados de desempenho ainda.</div>`; return; }
+  const last = mine[mine.length - 1];
+  const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
+  const total = last.answersDetail?.length || 0;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
+  let html = `
+    <div class="card" style="margin-bottom:16px;">
+      <h4 style="margin-bottom:12px;">Última tentativa</h4>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div style="width:72px;height:72px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;background:conic-gradient(var(--green-main) ${pct}%, var(--bg-soft) 0);">
+          <span style="position:relative;z-index:1;background:var(--bg-card);padding:0 4px;">${pct}%</span>
+          <div style="position:absolute;inset:6px;background:var(--bg-card);border-radius:50%;"></div>
+        </div>
+        <div>
+          <div style="font-weight:700;">${correct} de ${total} questões corretas</div>
+          <div style="color:var(--text-secondary);font-size:0.85rem;">Comparando com o gabarito</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h4 style="margin-bottom:12px;">Por questão</h4>
+      ${last.answersDetail?.map(d => `
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,42,42,0.06);">
+          ${d.isCorrect ? '✅' : '❌'} ${escapeHTML(d.topic)}
+        </div>
+      `).join('') || '<div style="color:var(--text-secondary);">Nenhuma questão registrada.</div>'}
+    </div>`;
+
+  if (mine.length > 1) {
+    html += `<div class="card" style="margin-top:16px;">
+      <h4 style="margin-bottom:12px;">Evolução</h4>
+      ${mine.map((a, i) => {
+        const c = a.answersDetail?.filter(d => d.isCorrect).length || 0;
+        const t = a.answersDetail?.length || 0;
+        const p = t ? Math.round((c / t) * 100) : 0;
+        return `<div style="margin-bottom:8px;">
+          <div style="font-size:0.85rem;">Tentativa ${i+1} — ${p}% acerto</div>
+          <div style="height:8px;background:var(--bg-soft);border-radius:var(--radius-full);overflow:hidden;">
+            <div style="height:100%;width:${p}%;background:var(--green-main);border-radius:var(--radius-full);"></div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+  content.innerHTML = html;
+}
+
+async function renderStudentReforcosTab() {
+  const attempts = await loadJSON('tentativas', []);
+  const materiais = await loadJSON('materiais', []);
+  const mine = attempts.filter(a => a.studentEmail === currentStudent.email).sort((a, b) => a.finishedAt - b.finishedAt);
+  const content = document.getElementById('studentContent');
+  if (mine.length === 0) {
+    content.innerHTML = `<div class="card card-soft text-center">📭 Responda um diagnóstico para receber recomendações.</div>`;
+    return;
+  }
+  const last = mine[mine.length - 1];
+  const recommended = materiais.filter(m => m.tagIds?.some(t => last.tags?.includes(t) || (TAGS[t] && last.tags?.includes(t))));
+  let html = '';
+  if (!last.tags || last.tags.length === 0) {
+    html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:var(--text-secondary);">Sem recomendações específicas agora — mas sinta-se livre para revisar a biblioteca geral.</p></div>`;
+  } else if (recommended.length === 0) {
+    html += `<div class="card card-soft text-center">📭 A professora ainda não cadastrou materiais para essas dificuldades. Volte em breve!</div>`;
+  } else {
+    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
+      recommended.map(m => `
+        <div class="card">
+          <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-blue">${escapeHTML(m.type)}</span></div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);">${escapeHTML(m.description || '')}</p>
+          ${m.link ? `<a href="${escapeHTML(m.link)}" target="_blank" class="btn btn-outline" style="margin-top:8px;padding:6px 16px;font-size:0.8rem;">Abrir material</a>` : ''}
+        </div>
+      `).join('') + `</div>`;
+  }
+  content.innerHTML = html;
+}
+
+// ============================================================
+// QUESTÕES E RESPOSTAS
+// ============================================================
+const NUTRITION_TABLE = `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;margin:12px 0;">
+  <tr><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;text-align:left;">Por porção (200 mL)</th><th style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor</th></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Valor energético</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">66 kcal</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Carboidratos</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">16 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares totais</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">15 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Açúcares adicionados</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">14 g</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Sódio</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">64 mg</td></tr>
+  <tr><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">Vitamina B5</td><td style="border:1px solid rgba(26,42,42,0.08);padding:6px;">3,8 mg</td></tr>
+</table>`;
+
+const GRAPH_MAIN = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
+  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
+  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade (g/100g H₂O)</text>
+  <polyline points="50,112 108,92 166,75 224,51 282,32 311,20" fill="none" stroke="#2C5FE0" stroke-width="2.5"/>
+  <text x="313" y="18" font-size="10" fill="#2C5FE0">NaNO₃</text>
+  <polyline points="50,183 108,162 166,123 224,73 282,32 311,20" fill="none" stroke="#F1543C" stroke-width="2.5"/>
+  <text x="225" y="68" font-size="10" fill="#F1543C">KNO₃</text>
+  <polyline points="50,176 108,166 166,154 224,145 282,135 340,130" fill="none" stroke="#F5D76E" stroke-width="2.5"/>
+  <text x="342" y="132" font-size="10" fill="#8A6A40">KCl</text>
+  <polyline points="50,158 195,157 340,154" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
+  <text x="342" y="156" font-size="10" fill="#6BCB9A">NaCl</text>
+  <polyline points="50,176 108,186 195,192 340,196" fill="none" stroke="#9A6FB0" stroke-width="2.5"/>
+  <text x="342" y="198" font-size="9" fill="#9A6FB0">Ce₂(SO₄)₃</text>
+</svg>`;
+
+const GRAPH_XYZ = `<svg viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto 12px;">
+  <line x1="50" y1="200" x2="340" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="200" stroke="#1A2A2A" stroke-width="1.5"/>
+  <text x="195" y="222" font-size="10" text-anchor="middle" fill="#4A6A6A">Temperatura (°C)</text>
+  <text x="14" y="110" font-size="10" fill="#4A6A6A" transform="rotate(-90,14,110)">Solubilidade</text>
+  <polyline points="50,140 123,158 195,167 268,173 340,176" fill="none" stroke="#F5A0A0" stroke-width="2.5"/>
+  <text x="342" y="178" font-size="11" fill="#F5A0A0">X</text>
+  <polyline points="50,101 195,95 340,92" fill="none" stroke="#6BCB9A" stroke-width="2.5"/>
+  <text x="342" y="94" font-size="11" fill="#6BCB9A">Y</text>
+  <polyline points="50,161 123,146 195,110 268,65 304,26" fill="none" stroke="#8FC1D9" stroke-width="2.5"/>
+  <text x="306" y="22" font-size="11" fill="#8FC1D9">Z</text>
+</svg>`;
+
+const QUESTIONS = {
+  start: { topic: 'Introdução às soluções', extra: GRAPH_MAIN,
+    text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:',
+    options: ['NaNO3', 'KNO3', 'KCl', 'NaCl', 'Ce2(SO4)3', 'Não consegui fazer a questão'] },
+  q1a: { topic: 'Revisão: tipos de solução', extra: GRAPH_MAIN,
+    text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução (insaturada, saturada ou supersaturada) a mistura formada por 10 g de KNO₃ em 20 g de água a 40ºC. Em seguida, escolha um processo que poderia formar um corpo de fundo nesse sistema.',
+    options: ['Insaturada e aquecimento', 'Insaturada e resfriamento', 'Insaturada e agitação', 'Saturada e aquecimento', 'Saturada e resfriamento', 'Saturada e agitação', 'Supersaturada e aquecimento', 'Supersaturada e resfriamento', 'Supersaturada e agitação', 'Não consegui fazer a questão'] },
+  q2a: { topic: 'Gráficos de solubilidade', extra: GRAPH_XYZ,
+    text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z), marque a opção com o sal mais solúvel a 20ºC e o sal cuja solubilidade diminui quando a temperatura aumenta (dissolução exotérmica).',
+    options: ['X e X.', 'X e Y.', 'X e Z.', 'Y e X', 'Y e Y', 'Y e Z', 'Z e X', 'Z e Y', 'Z e Z', 'Não consegui fazer a questão.'] },
+  energetico: { topic: 'Concentração de soluções', extra: NUTRITION_TABLE,
+    text: 'Considere o rótulo nutricional de uma bebida energética. A concentração comum, em g/L, de Vitamina B5 nessa bebida é:',
+    options: ['19.', '1,9.', '1,9 . 10^-2.', '1,9 . 10^-3.', 'Não consegui fazer a questão'] },
+  acucares: { topic: 'Títulos de concentração', extra: NUTRITION_TABLE,
+    text: 'Considere o mesmo rótulo. A concentração em %m/V e em mol/L de açúcares adicionados nessa bebida é, respectivamente e aproximadamente (açúcares adicionados = sacarose, C₁₂H₂₂O₁₁, massa molar 342 g/mol):',
+    options: ['6,8% m/V e 0,02 mol/L', '6,8% m/V e 0,1 mol/L', '6,8% m/V e 0,2 mol/L', '6,8% m/V e 5 mol/L', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L', '3,4% m/V e 5 mol/L', 'Não consegui fazer a questão'] },
+  sodio: { topic: 'Conversão de unidades', extra: NUTRITION_TABLE,
+    text: 'Considere o mesmo rótulo. A concentração molar (mol/L) de sódio nessa bebida é, aproximadamente (MM Na = 23 g/mol):',
+    options: ['32.', '320.', '14.', '1,4 . 10^-2', 'Não consegui fazer a questão'] }
+};
+
+const CORRECT_ANSWERS = {
+  start: 'KNO3', q1a: 'Insaturada e resfriamento', q2a: 'Y e X',
+  energetico: '1,9 . 10^-2.', acucares: '6,8% m/V e 0,2 mol/L', sodio: '1,4 . 10^-2'
+};
+
+function nextQuestionId(currentId, value) {
+  if (currentId === 'start') return value === 'KNO3' ? 'q2a' : 'q1a';
+  if (currentId === 'q1a') return 'q2a';
+  if (currentId === 'q2a') return 'energetico';
+  if (currentId === 'energetico') return 'acucares';
+  if (currentId === 'acucares') return 'sodio';
+  return null;
+}
+
+function tagsForAnswer(qId, value) {
+  const tags = [];
+  if (qId === 'q2a') {
+    if (value === 'X e X.' || value === 'Z e X') tags.push('graf_interpretacao');
+    if (value === 'Y e Z') tags.push('endo_exo');
+    if (value === 'X e Y.') tags.push('endo_exo_grafico');
+    if (value === 'Não consegui fazer a questão.') tags.push('nao_respondida');
+  }
+  if (qId === 'acucares') {
+    if (['Não consegui fazer a questão', '3,4% m/V e 0,02 mol/L', '3,4% m/V e 0,1 mol/L', '3,4% m/V e 0,2 mol/L'].includes(value)) tags.push('titulos');
+  }
+  if (qId === 'sodio') {
+    if (value !== '1,4 . 10^-2') tags.push('g_l_mol_l');
+  }
+  return tags;
+}
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+initRemembered();
+updateHomeStats();
+
+// Recuperar quiz salvo se houver
+(async () => {
+  if (currentStudent) {
+    const rounds = await loadJSON('rodadas', []);
+    for (let r of rounds) {
+      const saved = await loadPersonal('quiz_' + r.id, null);
+      if (saved && saved.studentEmail === currentStudent.email) {
+        quizState = saved;
+        quizFinished = false;
+        break;
+      }
+    }
+  }
+})();
+
+// Drag and drop para upload
+document.addEventListener('DOMContentLoaded', () => {
+  const area = document.getElementById('uploadArea');
+  if (area) {
+    area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
+    area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+    area.addEventListener('drop', e => {
+      e.preventDefault();
+      area.classList.remove('dragover');
+      if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+    });
+  }
+});
+
+console.log('✅ Diagnóstico de Soluções v2.0 - Completo e funcional!');
 </script>
 </body>
 </html>
