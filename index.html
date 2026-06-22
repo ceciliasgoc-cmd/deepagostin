@@ -183,6 +183,67 @@
       font-size: 1rem;
     }
 
+    /* ===== HOME - SEÇÕES ===== */
+    .section-highlight {
+      margin: 60px 0;
+      padding: 40px 0;
+      border-top: 2px solid var(--outline-variant);
+    }
+    .section-highlight:last-of-type { border-bottom: 2px solid var(--outline-variant); }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .feature-item {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 2px solid var(--outline-variant);
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    .feature-item:hover { transform: translateY(-4px); box-shadow: 8px 8px 0px 0px rgba(26,26,46,0.2); }
+    .feature-item .icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+    /* ===== LOGIN CARDS ===== */
+    .login-card {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 32px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 2px solid var(--outline-variant);
+      box-shadow: var(--shadow);
+    }
+    .login-card .header-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .login-card .header-badge.teacher { background: var(--primary-fixed); color: var(--on-primary-fixed); }
+    .login-card .header-badge.student { background: var(--tertiary-fixed); color: var(--on-tertiary-fixed); }
+    .login-card .signup-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      padding: 12px;
+      border: 2px dashed var(--primary);
+      border-radius: 999px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .login-card .signup-link:hover { background: var(--primary-fixed); border-color: var(--primary); }
+
     /* ===== TABS ===== */
     .tab-nav {
       display: flex;
@@ -212,7 +273,6 @@
       border-color: var(--primary);
       box-shadow: var(--shadow);
     }
-    .tab-btn .icon { font-size: 1.2rem; }
 
     /* ===== CARDS GENÉRICOS ===== */
     .card {
@@ -232,16 +292,6 @@
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 16px;
     }
-
-    /* ===== LOGIN ===== */
-    .login-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    @media (max-width: 760px) { .login-grid { grid-template-columns: 1fr; } }
 
     /* ===== TUTORIAL OVERLAY ===== */
     #tutorialOverlay {
@@ -438,7 +488,8 @@
       .tab-btn { padding: 6px 12px; font-size: 0.75rem; }
       .btn { padding: 8px 16px; font-size: 0.8rem; }
       .card { padding: 16px; }
-      .login-grid { grid-template-columns: 1fr; }
+      .login-card { padding: 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
     }
 
     /* ===== CONFETTI ===== */
@@ -449,6 +500,29 @@
       pointer-events: none;
       z-index: 999;
       border-radius: 2px;
+    }
+    /* ===== INPUTS ===== */
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 2px solid var(--outline-variant);
+      background: var(--surface);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-fixed);
+    }
+    label {
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: 4px;
     }
   </style>
 </head>
@@ -463,9 +537,7 @@
       <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;">📖 Bem-vindo ao Painel!</h3>
       <button onclick="closeTutorial()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
     </div>
-    <div id="tutorialBody">
-      <!-- conteúdo dinâmico via JS -->
-    </div>
+    <div id="tutorialBody"></div>
     <div class="tutorial-dots" id="tutorialDots"></div>
     <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
       <button class="btn btn-outline" onclick="closeTutorial()">Pular</button>
@@ -483,15 +555,19 @@
   <div class="wrap">
     <div class="nav">
       <div class="brand"><span class="logo">Sₓ</span> Diagnóstico de Soluções</div>
-      <button class="btn btn-primary" onclick="goManagerArea()">👩‍🏫 Entrar como gestora</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="goTo('login-manager')">👩‍🏫 Entrar como gestora</button>
+        <button class="btn btn-tertiary" onclick="goTo('login-student')">🧪 Sou aluno(a)</button>
+      </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0;align-items:center;">
+    <!-- Hero -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0 60px;align-items:center;">
       <div>
         <span style="font-weight:700;color:var(--primary);letter-spacing:0.1em;">Química · Soluções · 2ª série</span>
         <h1 style="font-size:2.8rem;margin:12px 0;">Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
         <p style="font-size:1.05rem;color:var(--on-surface-variant);margin-bottom:24px;">Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas.</p>
-        <button class="btn btn-primary btn-xl" onclick="goStudentArea()">🚀 Sou aluno(a) — começar</button>
+        <button class="btn btn-tertiary btn-xl" onclick="goTo('login-student')">🚀 Sou aluno(a) — começar</button>
       </div>
       <div style="display:flex;justify-content:center;">
         <svg viewBox="0 0 200 200" width="100%" style="max-width:280px;">
@@ -504,127 +580,188 @@
       </div>
     </div>
 
-    <div class="card" style="display:flex;gap:40px;flex-wrap:wrap;padding:26px 32px;" id="homeStats"></div>
+    <!-- Seção 1: O que é -->
+    <div class="section-highlight">
+      <h2 style="font-size:2rem;text-align:center;">🔬 O que é o Diagnóstico de Soluções?</h2>
+      <p style="font-size:1.1rem;color:var(--on-surface-variant);text-align:center;max-width:700px;margin:12px auto 0;">
+        Uma ferramenta interativa que identifica, em tempo real, quais tópicos de Química você já domina e quais precisam de mais atenção.
+      </p>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="icon">🧪</div>
+          <h3>Adaptativo</h3>
+          <p style="color:var(--on-surface-variant);">As perguntas se ajustam ao seu desempenho, focando nas áreas que precisam de reforço.</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">📊</div>
+          <h3>Visualização clara</h3>
+          <p style="color:var(--on-surface-variant);">Gráficos e resumos mostram seu progresso de forma intuitiva.</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">🎯</div>
+          <h3>Dicas personalizadas</h3>
+          <p style="color:var(--on-surface-variant);">Cada dificuldade mapeada vem com uma sugestão de estudo direcionada.</p>
+        </div>
+      </div>
+    </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:32px 0;">
-      <div class="card" style="background:var(--primary-fixed);border-color:var(--primary);">
-        <div style="font-size:2rem;">01</div>
-        <h3>Uma pergunta ampla</h3>
-        <p style="color:var(--on-surface-variant);">A prova começa com uma questão diagnóstica. Sua resposta decide o caminho.</p>
+    <!-- Seção 2: Por que usar -->
+    <div class="section-highlight">
+      <h2 style="font-size:2rem;text-align:center;">💡 Por que usar?</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;">
+        <div class="card" style="background:var(--primary-fixed);border-color:var(--primary);">
+          <span style="font-size:2rem;">⏱️</span>
+          <h3 style="margin:8px 0;">Economia de tempo</h3>
+          <p style="color:var(--on-surface-variant);">Em menos de 10 minutos, você tem um diagnóstico completo do seu nível em Soluções.</p>
+        </div>
+        <div class="card" style="background:var(--tertiary-fixed);border-color:var(--tertiary);">
+          <span style="font-size:2rem;">📈</span>
+          <h3 style="margin:8px 0;">Acompanhamento contínuo</h3>
+          <p style="color:var(--on-surface-variant);">Compare seu desempenho entre tentativas e veja sua evolução ao longo do tempo.</p>
+        </div>
+        <div class="card" style="background:var(--secondary-fixed);border-color:var(--secondary);">
+          <span style="font-size:2rem;">👩‍🏫</span>
+          <h3 style="margin:8px 0;">Para professores</h3>
+          <p style="color:var(--on-surface-variant);">Visualize o desempenho da turma, identifique dificuldades coletivas e ajuste seu planejamento.</p>
+        </div>
+        <div class="card" style="background:var(--surface-container-high);border-color:var(--outline);">
+          <span style="font-size:2rem;">📚</span>
+          <h3 style="margin:8px 0;">Materiais de apoio</h3>
+          <p style="color:var(--on-surface-variant);">Receba recomendações de exercícios, resumos e vídeos exatamente sobre os tópicos que você precisa revisar.</p>
+        </div>
       </div>
-      <div class="card" style="background:var(--tertiary-fixed);border-color:var(--tertiary);">
-        <div style="font-size:2rem;">02</div>
-        <h3>Caminho adaptativo</h3>
-        <p style="color:var(--on-surface-variant);">Cada resposta acumula "tags" de dificuldade — exatamente como nas suas planilhas.</p>
+    </div>
+
+    <!-- Seção 3: Como funciona -->
+    <div class="section-highlight">
+      <h2 style="font-size:2rem;text-align:center;">🚀 Como funciona?</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;">
+        <div class="feature-item" style="text-align:center;">
+          <div style="font-size:3rem;font-weight:800;color:var(--primary);">1</div>
+          <h3>Responda à pergunta inicial</h3>
+          <p style="color:var(--on-surface-variant);">Comece com uma questão diagnóstica que define o caminho.</p>
+        </div>
+        <div class="feature-item" style="text-align:center;">
+          <div style="font-size:3rem;font-weight:800;color:var(--tertiary);">2</div>
+          <h3>Caminho adaptativo</h3>
+          <p style="color:var(--on-surface-variant);">Cada resposta acumula "tags" de dificuldade — o sistema escolhe a próxima pergunta com base no seu desempenho.</p>
+        </div>
+        <div class="feature-item" style="text-align:center;">
+          <div style="font-size:3rem;font-weight:800;color:var(--secondary);">3</div>
+          <h3>Resumo educativo</h3>
+          <p style="color:var(--on-surface-variant);">No final, você vê o que já domina, o que precisa revisar e recebe dicas e materiais de apoio.</p>
+        </div>
       </div>
-      <div class="card" style="background:var(--secondary-fixed);border-color:var(--secondary);">
-        <div style="font-size:2rem;">03</div>
-        <h3>Resumo educativo</h3>
-        <p style="color:var(--on-surface-variant);">No final, você vê o que já domina e o que vale reforçar — com dicas e materiais.</p>
-      </div>
+    </div>
+
+    <!-- CTA final -->
+    <div style="text-align:center;padding:40px 0;margin-top:20px;">
+      <p style="font-size:1.2rem;color:var(--on-surface-variant);margin-bottom:16px;">Pronto para começar?</p>
+      <button class="btn btn-primary btn-xl" onclick="goTo('login-student')">🧪 Sou aluno(a) — iniciar diagnóstico</button>
+      <span style="display:inline-block;margin:0 12px;color:var(--on-surface-variant);">ou</span>
+      <button class="btn btn-secondary btn-xl" onclick="goTo('login-manager')">👩‍🏫 Acessar painel do professor</button>
     </div>
   </div>
 </section>
 
-<!-- ============ LOGIN UNIFICADO (Professor + Aluno) ============ -->
-<section id="screen-login" class="screen">
+<!-- ============ LOGIN PROFESSOR ============ -->
+<section id="screen-login-manager" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
-    <div style="width:100%;max-width:1100px;">
-      <div style="text-align:center;margin-bottom:40px;">
-        <span class="material-symbols-outlined" style="font-size:48px;color:var(--primary);">science</span>
-        <h1 style="font-size:2.4rem;">Química Interativa</h1>
-        <p style="color:var(--on-surface-variant);">Acesse como professor ou aluno</p>
-      </div>
-      <div class="login-grid">
-        <!-- Card Professor -->
-        <div class="card neobrutalist" style="position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;right:0;padding:16px;opacity:0.1;">
-            <span class="material-symbols-outlined" style="font-size:80px;">school</span>
-          </div>
-          <div style="background:var(--primary-fixed);padding:4px 16px;border-radius:999px;display:inline-block;font-weight:700;font-size:0.75rem;color:var(--on-primary-fixed);text-transform:uppercase;letter-spacing:0.05em;">Acesso Docente</div>
-          <h2 style="font-size:1.8rem;margin:12px 0 4px;">Professor</h2>
-          <p style="color:var(--on-surface-variant);margin-bottom:20px;">Acompanhe o desempenho das suas turmas e gerencie diagnósticos personalizados.</p>
-          <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
-            <div style="position:relative;margin-bottom:12px;">
-              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">mail</span>
-              <input type="email" id="loginEmail" placeholder="exemplo@escola.com" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
-            </div>
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha</label>
-            <div style="position:relative;margin-bottom:12px;">
-              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
-              <input type="password" id="loginPass" placeholder="••••••••" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
-            </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
-              <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
-            </label>
-            <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
-            <div class="err" id="loginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-          </form>
-          <div style="margin-top:16px;display:flex;justify-content:space-between;font-size:0.8rem;">
-            <a href="#" style="color:var(--primary);font-weight:700;">Esqueceu a senha?</a>
-            <a href="#" onclick="document.getElementById('loginFormEl').style.display='none';document.getElementById('signupFormEl').style.display='block';" style="color:var(--on-surface-variant);font-weight:700;">Criar conta</a>
-          </div>
-          <!-- Formulário de cadastro (inicialmente escondido) -->
-          <form id="signupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignup();">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
-            <input type="text" id="suName" placeholder="Seu nome" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
-            <input type="email" id="suEmail" placeholder="exemplo@escola.com" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha (8-12 caracteres)</label>
-            <input type="password" id="suPass" placeholder="••••••••" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:6px;">
-            <div id="suPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
-            <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
-            <div class="err" id="signupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-            <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('loginFormEl').style.display='block';document.getElementById('signupFormEl').style.display='none';">← Voltar para login</button>
-          </form>
-        </div>
+    <div class="login-card">
+      <div class="header-badge teacher">👩‍🏫 Acesso Docente</div>
+      <h2 style="font-size:2rem;">Professor</h2>
+      <p style="color:var(--on-surface-variant);margin-bottom:24px;">Acompanhe o desempenho das suas turmas e gerencie diagnósticos personalizados.</p>
 
-        <!-- Card Aluno -->
-        <div class="card neobrutalist" style="position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;right:0;padding:16px;opacity:0.1;">
-            <span class="material-symbols-outlined" style="font-size:80px;">biotech</span>
-          </div>
-          <div style="background:var(--tertiary-fixed);padding:4px 16px;border-radius:999px;display:inline-block;font-weight:700;font-size:0.75rem;color:var(--on-tertiary-fixed);text-transform:uppercase;letter-spacing:0.05em;">Espaço do Aluno</div>
-          <h2 style="font-size:1.8rem;margin:12px 0 4px;">Estudante</h2>
-          <p style="color:var(--on-surface-variant);margin-bottom:20px;">Entre para realizar seus testes, ver seus selos e progredir na sua jornada química.</p>
-          <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
-            <div style="position:relative;margin-bottom:12px;">
-              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">person</span>
-              <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
-            </div>
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha</label>
-            <div style="position:relative;margin-bottom:12px;">
-              <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
-              <input type="password" id="stuLoginPass" placeholder="••••••••" style="width:100%;padding:14px 14px 14px 46px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;">
-            </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
-              <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
-            </label>
-            <button type="submit" class="btn btn-tertiary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
-            <div class="err" id="stuLoginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-          </form>
-          <form id="stuSignupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignupStudent();">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
-            <input type="text" id="stuSuName" placeholder="Nome e sobrenome" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">E-mail</label>
-            <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:12px;">
-            <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Senha (8-12 caracteres)</label>
-            <input type="password" id="stuSuPass" placeholder="••••••••" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="width:100%;padding:14px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);font-family:inherit;font-size:0.9rem;margin-bottom:6px;">
-            <div id="stuPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
-            <button type="submit" class="btn btn-tertiary btn-block">Criar conta e entrar</button>
-            <div class="err" id="stuSignupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
-            <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('stuLoginFormEl').style.display='block';document.getElementById('stuSignupFormEl').style.display='none';">← Voltar para login</button>
-          </form>
-          <div style="margin-top:16px;display:flex;justify-content:flex-end;font-size:0.8rem;">
-            <a href="#" onclick="document.getElementById('stuLoginFormEl').style.display='none';document.getElementById('stuSignupFormEl').style.display='block';" style="color:var(--on-surface-variant);font-weight:700;">Criar conta</a>
-          </div>
+      <!-- Formulário de login -->
+      <form id="loginFormEl" onsubmit="event.preventDefault(); doLogin();">
+        <label>E-mail</label>
+        <div style="position:relative;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">mail</span>
+          <input type="email" id="loginEmail" placeholder="exemplo@escola.com" style="padding-left:46px;">
         </div>
+        <label>Senha</label>
+        <div style="position:relative;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
+          <input type="password" id="loginPass" placeholder="••••••••" style="padding-left:46px;">
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
+          <input type="checkbox" id="rememberMeGestor"> Lembrar e-mail
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Entrar no Painel <span class="material-symbols-outlined">arrow_forward</span></button>
+        <div class="err" id="loginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+      </form>
+
+      <!-- Link para criar conta (destacado) -->
+      <div class="signup-link" onclick="document.getElementById('loginFormEl').style.display='none';document.getElementById('signupFormEl').style.display='block';"> 
+        ✨ Não tem uma conta? <strong>Criar conta agora</strong>
       </div>
-      <div style="text-align:center;margin-top:32px;color:var(--on-surface-variant);font-size:0.8rem;">
-        ⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.
+
+      <!-- Formulário de cadastro (inicialmente escondido) -->
+      <form id="signupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignup();">
+        <label>Nome</label>
+        <input type="text" id="suName" placeholder="Seu nome" style="margin-bottom:12px;">
+        <label>E-mail</label>
+        <input type="email" id="suEmail" placeholder="exemplo@escola.com" style="margin-bottom:12px;">
+        <label>Senha (8-12 caracteres)</label>
+        <input type="password" id="suPass" placeholder="••••••••" oninput="document.getElementById('suPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="margin-bottom:6px;">
+        <div id="suPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
+        <button type="submit" class="btn btn-primary btn-block">Criar conta e entrar</button>
+        <div class="err" id="signupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+        <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('loginFormEl').style.display='block';document.getElementById('signupFormEl').style.display='none';">← Voltar para login</button>
+      </form>
+
+      <p style="text-align:center;color:var(--on-surface-variant);font-size:0.75rem;margin-top:20px;">⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGIN ALUNO ============ -->
+<section id="screen-login-student" class="screen">
+  <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
+    <div class="login-card">
+      <div class="header-badge student">🧪 Espaço do Aluno</div>
+      <h2 style="font-size:2rem;">Estudante</h2>
+      <p style="color:var(--on-surface-variant);margin-bottom:24px;">Entre para realizar seus testes, ver seus selos e progredir na sua jornada química.</p>
+
+      <!-- Formulário de login -->
+      <form id="stuLoginFormEl" onsubmit="event.preventDefault(); doLoginStudent();">
+        <label>E-mail</label>
+        <div style="position:relative;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">person</span>
+          <input type="email" id="stuLoginEmail" placeholder="seuemail@exemplo.com" style="padding-left:46px;">
+        </div>
+        <label>Senha</label>
+        <div style="position:relative;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--outline);">lock</span>
+          <input type="password" id="stuLoginPass" placeholder="••••••••" style="padding-left:46px;">
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:16px;">
+          <input type="checkbox" id="rememberMeAluno"> Lembrar e-mail
+        </label>
+        <button type="submit" class="btn btn-tertiary btn-block">Iniciar Prática <span class="material-symbols-outlined">science</span></button>
+        <div class="err" id="stuLoginErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+      </form>
+
+      <!-- Link para criar conta (destacado) -->
+      <div class="signup-link" onclick="document.getElementById('stuLoginFormEl').style.display='none';document.getElementById('stuSignupFormEl').style.display='block';"> 
+        ✨ Não tem uma conta? <strong>Criar conta agora</strong>
       </div>
+
+      <!-- Formulário de cadastro (inicialmente escondido) -->
+      <form id="stuSignupFormEl" style="display:none;margin-top:16px;" onsubmit="event.preventDefault(); doSignupStudent();">
+        <label>Nome</label>
+        <input type="text" id="stuSuName" placeholder="Nome e sobrenome" style="margin-bottom:12px;">
+        <label>E-mail</label>
+        <input type="email" id="stuSuEmail" placeholder="seuemail@exemplo.com" style="margin-bottom:12px;">
+        <label>Senha (8-12 caracteres)</label>
+        <input type="password" id="stuSuPass" placeholder="••••••••" oninput="document.getElementById('stuPassCheck').innerHTML = renderPasswordChecklist(this.value)" style="margin-bottom:6px;">
+        <div id="stuPassCheck" style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:12px;"></div>
+        <button type="submit" class="btn btn-tertiary btn-block">Criar conta e entrar</button>
+        <div class="err" id="stuSignupErr" style="color:var(--error);margin-top:10px;min-height:1.2em;"></div>
+        <button type="button" class="btn btn-outline btn-block" style="margin-top:8px;" onclick="document.getElementById('stuLoginFormEl').style.display='block';document.getElementById('stuSignupFormEl').style.display='none';">← Voltar para login</button>
+      </form>
+
+      <p style="text-align:center;color:var(--on-surface-variant);font-size:0.75rem;margin-top:20px;">⚠️ Protótipo de teste — dados salvos localmente. Não use senhas reais.</p>
     </div>
   </div>
 </section>
@@ -788,8 +925,14 @@ function goTo(screenId){
   if(screenId==='studentPanel') renderStudentPanel();
   if(screenId==='home') renderHomeStats();
 }
-function goManagerArea(){ currentManager ? goTo('managerDashboard') : goTo('login'); }
-function goStudentArea(){ currentStudent ? goTo('studentPanel') : goTo('login'); }
+function goManagerArea(){ 
+  if(currentManager) goTo('managerDashboard');
+  else goTo('login-manager');
+}
+function goStudentArea(){ 
+  if(currentStudent) goTo('studentPanel');
+  else goTo('login-student');
+}
 
 async function renderHomeStats(){
   const el = document.getElementById('homeStats');
@@ -950,15 +1093,12 @@ function renderTutorialStep(){
     </div>
     <p style="color:var(--on-surface-variant);font-size:1rem;line-height:1.6;">${step.text}</p>
   `;
-  // Dots
   const dotsContainer = document.getElementById('tutorialDots');
   dotsContainer.innerHTML = tutorialSteps.map((_,i) =>
     `<span class="dot ${i===tutorialCurrentStep?'active':''}"></span>`
   ).join('');
-  // Botão
   const btn = document.getElementById('tutorialNextBtn');
   btn.textContent = tutorialCurrentStep === tutorialSteps.length-1 ? 'Concluir' : 'Próximo';
-  // Blur no fundo já está no overlay
 }
 
 function nextTutorialStep(){
@@ -974,7 +1114,7 @@ function closeTutorial(){
 }
 
 /* ============================================================
-   PAINEL GESTOR - ABAS
+   PAINEL GESTOR - ABAS (conteúdo idêntico ao anterior)
    ============================================================ */
 let managerTab = 'overview';
 let selectedRoundId = null;
@@ -982,7 +1122,7 @@ let alunosSelectedTurma = null;
 let alunosSearch = '';
 
 function renderDashboard(){
-  if(!currentManager){ goTo('login'); return; }
+  if(!currentManager){ goTo('login-manager'); return; }
   renderManagerTabContent();
 }
 function setManagerTab(tab){ managerTab = tab; renderManagerTabContent(); }
@@ -995,7 +1135,7 @@ function renderManagerTabContent(){
   else if(managerTab==='aplicacoes') renderAplicacoesTab();
 }
 
-/* ===== VISÃO GERAL ===== */
+/* ===== VISÃO GERAL (idêntica) ===== */
 async function renderOverviewTab(){
   const attempts = await loadJSON('tentativas', []);
   const byTurma = {};
@@ -1014,15 +1154,12 @@ async function renderOverviewTab(){
     attempts.forEach(a=>a.tags.forEach(t=>tagsCount[t]=(tagsCount[t]||0)+1));
     const sortedTags = Object.entries(tagsCount).sort((a,b)=>b[1]-a[1]);
     const top3 = sortedTags.slice(0,3).map(([id])=>TAGS[id]?.label||id);
-
     html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;">`;
     html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${total}</div><div style="color:var(--on-surface-variant);">diagnósticos</div></div>`;
     html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${turmas.length}</div><div style="color:var(--on-surface-variant);">turmas</div></div>`;
     html += `<div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;">${avgLevel.toFixed(1)}</div><div style="color:var(--on-surface-variant);">nível médio</div></div>`;
     html += `<div class="card" style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;">${top3.join(', ') || '—'}</div><div style="color:var(--on-surface-variant);">mais difíceis</div></div>`;
     html += `</div>`;
-
-    // Gráfico de acertos
     const allQuestions = ['start','q1a','q2a','energetico','acucares','sodio'];
     const correctCount = {};
     allQuestions.forEach(q=>correctCount[q]=0);
@@ -1036,7 +1173,6 @@ async function renderOverviewTab(){
       label: QUESTIONS[q]?.topic || q,
       correct: Math.round((correctCount[q]||0)/totalQ*100)
     }));
-
     html += `<div class="card" style="padding:20px;margin-bottom:24px;">
       <h4 style="margin-bottom:16px;">📊 Percentual de acertos por questão</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
@@ -1053,8 +1189,6 @@ async function renderOverviewTab(){
         `).join('')}
       </div>
     </div>`;
-
-    // Turmas
     html += `<div class="grid-cards">`;
     turmas.forEach(t=>{
       const list = byTurma[t];
@@ -1078,31 +1212,26 @@ async function renderOverviewTab(){
   document.getElementById('managerContent').innerHTML = html;
 }
 
-/* ===== ALUNOS ===== */
+/* ===== ALUNOS (idêntica) ===== */
 async function renderAlunosTab(){
   const attempts = await loadJSON('tentativas', []);
   const rounds = await loadJSON('rodadas', []);
   const getRoundLabel = (id)=> { const r = rounds.find(x=>x.id===id); return r ? r.label : 'Aplicação'; };
   const turmas = [...new Set(attempts.map(a=>(a.studentClass||'Sem turma').trim()||'Sem turma'))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   if(!alunosSelectedTurma && turmas.length) alunosSelectedTurma = turmas[0];
-
   let html = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">` + turmas.map(t=>
     `<button class="btn ${t===alunosSelectedTurma?'btn-primary':'btn-outline'}" onclick="selectAlunosTurma('${escapeHTML(t).replace(/'/g,"\\'")}')" style="padding:6px 16px;">${escapeHTML(t)}</button>`
   ).join('') + `</div>`;
-
   if(turmas.length===0){
     html += `<div class="card card-empty">Ainda não há alunos com diagnósticos respondidos.</div>`;
     document.getElementById('managerContent').innerHTML = html;
     return;
   }
-
   html += `<input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="onAlunosSearch(this.value)" style="width:100%;max-width:280px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:16px;">`;
-
   const inTurma = attempts.filter(a=> ((a.studentClass||'Sem turma').trim()||'Sem turma')===alunosSelectedTurma );
   const uniqueNames = [...new Set(inTurma.map(a=>a.studentName.trim()))]
     .filter(n=> n.toLowerCase().includes(alunosSearch.toLowerCase()))
     .sort((a,b)=>a.localeCompare(b,'pt-BR'));
-
   if(uniqueNames.length===0){
     html += `<div class="card card-empty">Nenhum aluno encontrado.</div>`;
   } else {
@@ -1129,7 +1258,6 @@ async function renderAlunosTab(){
   }
   document.getElementById('managerContent').innerHTML = html;
 }
-
 function selectAlunosTurma(t){ alunosSelectedTurma = t; renderAlunosTab(); }
 function onAlunosSearch(v){ alunosSearch = v; renderAlunosTab(); }
 function toggleAlunoDetail(name){
@@ -1137,9 +1265,8 @@ function toggleAlunoDetail(name){
   if(el) el.style.display = el.style.display==='none' ? 'block' : 'none';
 }
 
-/* ===== ASSUNTOS ===== */
-let chartType = 'bar'; // 'bar','pie','radar' (removido 'column')
-
+/* ===== ASSUNTOS (idêntica, removido colunas) ===== */
+let chartType = 'bar';
 async function renderAssuntosTab(){
   const attempts = await loadJSON('tentativas', []);
   const counts = {};
@@ -1147,7 +1274,6 @@ async function renderAssuntosTab(){
   attempts.forEach(a=>a.tags.forEach(t=>counts[t]=(counts[t]||0)+1));
   const total = attempts.length || 1;
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-
   let html = `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
       <button class="btn ${chartType==='bar'?'btn-primary':'btn-outline'}" onclick="setChartType('bar')">📊 Barras</button>
@@ -1170,16 +1296,13 @@ async function renderAssuntosTab(){
   document.getElementById('managerContent').innerHTML = html;
   drawChart(sorted, total);
 }
-
 function setChartType(type){ chartType = type; renderAssuntosTab(); }
-
 function drawChart(data, total){
   const canvas = document.getElementById('chartCanvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
   ctx.clearRect(0,0,w,h);
-
   if(data.length===0){
     ctx.fillStyle = '#aaa';
     ctx.font = '16px Nunito Sans';
@@ -1187,7 +1310,6 @@ function drawChart(data, total){
     ctx.fillText('Sem dados', w/2, h/2);
     return;
   }
-
   if(chartType==='bar'){
     const max = Math.max(...data.map(d=>d[1]),1);
     const pad = 40, gap = 20;
@@ -1220,7 +1342,6 @@ function drawChart(data, total){
       ctx.fill();
       start += angle;
     });
-    // legend
     let legY = 20;
     ctx.font = '11px Nunito Sans';
     ctx.textAlign = 'left';
@@ -1236,7 +1357,6 @@ function drawChart(data, total){
     const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 40;
     const n = data.length;
     if(n===0) return;
-    // eixos
     for(let i=0;i<n;i++){
       const angle = (i/n)*2*Math.PI - Math.PI/2;
       const x = cx + r*Math.cos(angle);
@@ -1247,7 +1367,6 @@ function drawChart(data, total){
       ctx.strokeStyle = '#ddd';
       ctx.stroke();
     }
-    // polígono
     ctx.beginPath();
     data.forEach(([tid,count],i)=>{
       const angle = (i/n)*2*Math.PI - Math.PI/2;
@@ -1262,7 +1381,6 @@ function drawChart(data, total){
     ctx.strokeStyle = '#4d8cf7';
     ctx.lineWidth = 2;
     ctx.stroke();
-    // labels
     ctx.font = '10px Nunito Sans';
     ctx.textAlign = 'center';
     data.forEach(([tid,count],i)=>{
@@ -1275,16 +1393,14 @@ function drawChart(data, total){
   }
 }
 
-/* ===== ATIVIDADES ===== */
+/* ===== ATIVIDADES (idêntica) ===== */
 let uploadedFiles = [];
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 async function renderAtividadesTab(){
   const materiais = await loadJSON('materiais', []);
   const pastas = await loadJSON('pastas', []);
-  // Tags personalizadas do professor
   const tagsPersonalizadas = await loadJSON('tagsPersonalizadas', []);
-
   let html = `
     <div style="background:var(--surface-container-low);padding:16px 20px;border-radius:var(--radius);border-left:5px solid var(--tertiary);margin-bottom:20px;">
       <strong>📌 O que são tags?</strong> As tags são etiquetas que você cria para organizar os materiais e associar às dificuldades dos alunos.
@@ -1292,69 +1408,62 @@ async function renderAtividadesTab(){
         ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)}</span>`).join('') : '<span style="color:var(--on-surface-variant);">Nenhuma tag criada ainda. Crie abaixo!</span>'}
       </div>
     </div>
-
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">📁 Pastas de tags</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);">
+        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;">
         <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         ${pastas.map(p=>`<span style="background:var(--surface);padding:4px 16px;border-radius:999px;font-weight:600;border:2px solid var(--outline-variant);">📁 ${escapeHTML(p)}</span>`).join('')}
       </div>
     </div>
-
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags personalizadas</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);">
+        <input type="text" id="newTagName" placeholder="Nome da tag (ex: 'Estequiometria')" style="flex:1;min-width:150px;">
         <button class="btn btn-tertiary" onclick="addTag()">➕ Adicionar tag</button>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
         ${tagsPersonalizadas.map(t=>`<span class="chip chip-tertiary">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--error);">✕</button></span>`).join('')}
       </div>
     </div>
-
     <div class="card" style="margin-bottom:20px;">
       <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Título</label>
-      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Tipo</label>
-      <select id="matType" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+      <label>Título</label>
+      <input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:12px;">
+      <label>Tipo</label>
+      <select id="matType" style="margin-bottom:12px;">
         <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
       </select>
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Link (opcional)</label>
-      <input type="text" id="matLink" placeholder="https://..." style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Descrição</label>
-      <input type="text" id="matDesc" placeholder="Breve descrição" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Pasta</label>
-      <select id="matFolder" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
+      <label>Link (opcional)</label>
+      <input type="text" id="matLink" placeholder="https://..." style="margin-bottom:12px;">
+      <label>Descrição</label>
+      <input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:12px;">
+      <label>Pasta</label>
+      <select id="matFolder" style="margin-bottom:12px;">
         <option value="">Sem pasta</option>
         ${pastas.map(p=>`<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
       </select>
-      <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Tags</label>
+      <label>Tags</label>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
         ${tagsPersonalizadas.map(t=>`<label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><input type="checkbox" value="${escapeHTML(t)}" class="matTagCheck"> ${escapeHTML(t)}</label>`).join('')}
         ${tagsPersonalizadas.length===0 ? '<span style="color:var(--on-surface-variant);">Nenhuma tag criada. Crie acima.</span>' : ''}
       </div>
-
       <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
         <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
         <div style="font-size:0.8rem;color:var(--on-surface-variant);">Máx. 10MB · PDF, Imagem, Word, etc.</div>
         <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
       </div>
       <div id="fileList" style="margin-top:12px;"></div>
-
       <button class="btn btn-primary" style="margin-top:16px;" onclick="addMaterial()">Salvar material</button>
       <div class="err" id="matErr" style="color:var(--error);margin-top:8px;"></div>
     </div>
-
     <div id="matList"></div>
   `;
   document.getElementById('managerContent').innerHTML = html;
   renderMaterialsList(materiais);
 }
-
 async function addTag(){
   const name = document.getElementById('newTagName').value.trim();
   if(!name) return;
@@ -1370,7 +1479,6 @@ async function removeTag(name){
   await saveJSON('tagsPersonalizadas', tags);
   renderAtividadesTab();
 }
-
 async function addFolder(){
   const name = document.getElementById('newFolderName').value.trim();
   if(!name) return;
@@ -1380,7 +1488,6 @@ async function addFolder(){
   document.getElementById('newFolderName').value = '';
   renderAtividadesTab();
 }
-
 function handleFiles(files){
   for(let f of files){
     if(f.size > MAX_FILE_SIZE){
@@ -1389,7 +1496,6 @@ function handleFiles(files){
     }
     const id = 'f_'+Date.now()+Math.random().toString(36).slice(2,6);
     uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0, status: 'uploading' });
-    // Simular progresso com números inteiros
     let p = 0;
     const interval = setInterval(()=>{
       p += Math.floor(Math.random()*15)+5;
@@ -1419,7 +1525,6 @@ function renderFileList(){
     </div>
   `).join('');
 }
-
 function renderMaterialsList(materiais){
   const wrap = document.getElementById('matList');
   if(!wrap) return;
@@ -1438,7 +1543,6 @@ function renderMaterialsList(materiais){
     </div>
   `).join('');
 }
-
 async function addMaterial(){
   const title = document.getElementById('matTitle').value.trim();
   const type = document.getElementById('matType').value;
@@ -1468,7 +1572,7 @@ async function deleteMaterial(id){
   renderAtividadesTab();
 }
 
-/* ===== APLICAÇÕES ===== */
+/* ===== APLICAÇÕES (idêntica) ===== */
 async function renderAplicacoesTab(){
   const rounds = await loadJSON('rodadas', []);
   const attempts = await loadJSON('tentativas', []);
@@ -1492,15 +1596,12 @@ async function renderAplicacoesTab(){
   document.getElementById('managerContent').innerHTML = html;
   renderRoundAttempts(rounds, attempts);
 }
-
 function selectRound(id){ selectedRoundId = id; renderAplicacoesTab(); }
-
 async function toggleRoundEnabled(id){
   const rounds = await loadJSON('rodadas', []);
   const round = rounds.find(r=>r.id===id);
   if(round){ round.disabled = !round.disabled; await saveJSON('rodadas', rounds); renderAplicacoesTab(); }
 }
-
 function renderRoundAttempts(rounds, attempts){
   const round = rounds.find(r=>r.id===selectedRoundId);
   const header = document.getElementById('roundHeader');
@@ -1527,13 +1628,11 @@ function renderRoundAttempts(rounds, attempts){
       </tbody>
     </table>`;
 }
-
 function generateCode(){
   const chars='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
   let c=''; for(let i=0;i<4;i++) c+=chars[Math.floor(Math.random()*chars.length)];
   return c;
 }
-
 function showModal(html){
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
@@ -1541,16 +1640,15 @@ function showModal(html){
 function hideModal(){
   document.getElementById('modalOverlay').classList.remove('open');
 }
-
 async function createRound(){
   const rounds = await loadJSON('rodadas', []);
   showModal(`
     <h3 style="margin-top:0;">Nova aplicação</h3>
     <p style="color:var(--on-surface-variant);margin-bottom:16px;">Dê um nome e defina o código que os alunos vão usar.</p>
-    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Nome</label>
-    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length+1}" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
-    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Código</label>
-    <input type="text" id="modalRoundCode" value="${generateCode()}" style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);text-transform:uppercase;margin-bottom:12px;">
+    <label>Nome</label>
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length+1}" style="margin-bottom:12px;">
+    <label>Código</label>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;margin-bottom:12px;">
     <div class="err" id="modalRoundErr" style="color:var(--error);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
@@ -1574,7 +1672,7 @@ async function confirmCreateRound(){
 }
 
 /* ============================================================
-   BANCO DE QUESTÕES (mesmo de antes)
+   BANCO DE QUESTÕES (idêntico)
    ============================================================ */
 const TAGS = {
   graf_interpretacao: { label:'Interpretação de gráficos', icon:'📊', colorClass:'teal',
@@ -1696,10 +1794,10 @@ function openStudentEntryModal(){
   showModal(`
     <h3 style="margin-top:0;">🚀 Novo diagnóstico</h3>
     <p style="color:var(--on-surface-variant);margin-bottom:16px;">Peça à professora o código da aplicação.</p>
-    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Sua turma</label>
-    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;">
-    <label style="font-weight:700;font-size:0.8rem;color:var(--on-surface-variant);display:block;margin-bottom:4px;">Código da aplicação</label>
-    <input type="text" id="modalCode" style="text-transform:uppercase;width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--outline-variant);background:var(--surface);margin-bottom:12px;" placeholder="Ex: ABCD">
+    <label>Sua turma</label>
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="margin-bottom:12px;">
+    <label>Código da aplicação</label>
+    <input type="text" id="modalCode" style="text-transform:uppercase;margin-bottom:12px;" placeholder="Ex: ABCD">
     <div class="err" id="modalEntryErr" style="color:var(--error);min-height:1.2em;"></div>
     <div style="display:flex;gap:10px;margin-top:12px;">
       <button class="btn btn-outline btn-block" onclick="hideModal()">Cancelar</button>
@@ -1838,7 +1936,6 @@ async function finishQuiz(){
   await savePersonal('quiz_'+quizState.roundId, null);
   renderResult(attempt, prevAttempt);
   goTo('result');
-  // Confetti
   launchConfetti();
 }
 
@@ -1897,9 +1994,6 @@ function renderResult(attempt, prevAttempt){
   }
 }
 
-/* ============================================================
-   CONFETTI
-   ============================================================ */
 function launchConfetti(){
   const colors = ['#ff5e5b','#fcc838','#419bdf','#b4272b','#6bcb9a'];
   for(let i=0;i<80;i++){
@@ -1932,7 +2026,7 @@ function launchConfetti(){
 let studentTab = 'overview';
 
 function renderStudentPanel(){
-  if(!currentStudent){ goTo('login'); return; }
+  if(!currentStudent){ goTo('login-student'); return; }
   document.getElementById('panelStudentName').textContent = currentStudent.name.split(' ')[0];
   renderStudentTabContent();
 }
