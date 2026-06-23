@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico de Soluções</title>
+  <title>Diagnóstico de Soluções — v3.0</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    /* ===== RESET E CORES ===== */
+    /* ===== VARIÁVEIS E RESET ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito Sans', sans-serif; background: #f6f8f6; color: #1a2a2a; min-height: 100vh; }
     :root {
@@ -23,6 +24,13 @@
     .screen { display: none; min-height: 100vh; padding: 20px 0; animation: fadeIn 0.6s ease; }
     .screen.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-item { opacity: 0; animation: fadeUp 0.8s ease forwards; }
+    .fade-item:nth-child(1) { animation-delay: 0.1s; }
+    .fade-item:nth-child(2) { animation-delay: 0.3s; }
+    .fade-item:nth-child(3) { animation-delay: 0.5s; }
+    .fade-item:nth-child(4) { animation-delay: 0.7s; }
+    .fade-item:nth-child(5) { animation-delay: 0.9s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ===== BOTÕES ===== */
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 28px; border-radius: var(--radius-full); border: none; font-family: 'Nunito Sans', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.25s ease; background: #fff; color: #1a2a2a; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
@@ -38,49 +46,20 @@
     .btn-ghost:hover { background: #f0f0f0; }
     .btn-block { width: 100%; justify-content: center; }
     .btn-xl { padding: 16px 40px; font-size: 1.1rem; }
+    .btn-sm { padding: 6px 16px; font-size: 0.8rem; }
     .btn-back { background: none; border: none; font-size: 1rem; font-weight: 700; color: #5a7a7a; cursor: pointer; padding: 8px 0; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; }
     .btn-back:hover { color: #1a2a2a; transform: translateX(-4px); }
-
-    /* ===== NAV ===== */
-    .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; flex-wrap: wrap; gap: 12px; }
-    .brand { font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
-    .brand .logo { background: var(--green); color: #fff; padding: 6px 14px; border-radius: 12px; }
-
-    /* ===== HERO ===== */
-    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 40px 0 20px; }
-    .hero h1 { font-size: 2.8rem; margin: 12px 0 16px; line-height: 1.15; }
-    .hero p { color: #4a6a6a; font-size: 1.1rem; max-width: 480px; line-height: 1.6; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
-    .hero-art { text-align: center; font-size: 6rem; }
-    @media (max-width: 700px) { .hero { grid-template-columns: 1fr; text-align: center; } .hero p { margin: 0 auto; } .hero-actions { justify-content: center; } .hero h1 { font-size: 2rem; } }
+    .btn-danger { background: var(--coral); color: #1a2a2a; }
+    .btn-danger:hover { background: #e08a8a; color: #fff; }
 
     /* ===== CARDS ===== */
     .card { background: #fff; border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); transition: 0.2s; }
     .card:hover { box-shadow: var(--shadow-hover); }
     .card-soft { background: #f0f5f0; border: none; }
-
-    /* ===== LOGIN ===== */
-    .login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 0 auto; }
-    @media (max-width: 800px) { .login-grid { grid-template-columns: 1fr; } }
-    .login-card { background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); }
-    .login-card .badge { display: inline-block; padding: 4px 16px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
-    .badge.teacher { background: var(--green-light); color: var(--green-dark); }
-    .badge.student { background: var(--blue-light); color: #3a7a8a; }
-    .login-card h2 { font-size: 1.6rem; margin-bottom: 4px; }
-    .login-card .sub { color: #5a7a7a; margin-bottom: 20px; }
-    .login-card label { font-weight: 700; font-size: 0.82rem; color: #4a6a6a; display: block; margin-bottom: 4px; }
-    .login-card input { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 2px solid #e8ece8; background: #f8faf8; font-size: 0.95rem; font-family: 'Nunito Sans', sans-serif; transition: 0.2s; margin-bottom: 12px; }
-    .login-card input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgba(107,203,154,0.15); }
-    .login-card .input-group { position: relative; }
-    .login-card .input-group .toggle-pwd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #8a9a9a; cursor: pointer; font-size: 1.2rem; padding: 4px; }
-    .login-card .remember { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #4a6a6a; margin: 4px 0 16px; }
-    .login-card .remember input { width: auto; margin: 0; }
-    .signup-link { display: block; text-align: center; margin-top: 16px; padding: 12px; border: 2px dashed var(--green); border-radius: var(--radius-full); font-weight: 700; color: var(--green-dark); cursor: pointer; transition: 0.2s; background: #f8faf8; }
-    .signup-link:hover { background: var(--green-light); transform: translateY(-2px); }
-    .err { color: var(--coral); font-size: 0.85rem; min-height: 1.4em; margin-top: 6px; }
-    .pwd-checklist { display: grid; gap: 3px; margin: 4px 0 12px; font-size: 0.8rem; }
-    .pwd-checklist .item { display: flex; align-items: center; gap: 6px; color: #8a9a9a; transition: 0.2s; }
-    .pwd-checklist .item.ok { color: var(--green-dark); font-weight: 600; }
+    .card-green { background: var(--green-light); border-color: var(--green); }
+    .card-blue { background: var(--blue-light); border-color: var(--blue); }
+    .card-gold { background: var(--gold-light); border-color: var(--gold); }
+    .card-coral { background: var(--coral-light); border-color: var(--coral); }
 
     /* ===== TABS ===== */
     .tab-nav { display: flex; gap: 8px; flex-wrap: wrap; background: #edf2ed; padding: 4px; border-radius: var(--radius-full); margin-bottom: 28px; }
@@ -97,6 +76,62 @@
     .stats .num { font-size: 2.2rem; font-weight: 900; color: var(--green-dark); }
     .stats .label { color: #5a7a7a; font-size: 0.9rem; }
 
+    /* ===== LOGIN ===== */
+    .login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 800px) { .login-grid { grid-template-columns: 1fr; } }
+    .login-card { background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); }
+    .login-card .badge { display: inline-block; padding: 4px 16px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .badge.teacher { background: var(--green-light); color: var(--green-dark); }
+    .badge.student { background: var(--blue-light); color: #3a7a8a; }
+    .login-card h2 { font-size: 1.6rem; margin-bottom: 4px; }
+    .login-card .sub { color: #5a7a7a; margin-bottom: 20px; }
+    .login-card label { font-weight: 700; font-size: 0.82rem; color: #4a6a6a; display: block; margin-bottom: 4px; }
+    .login-card input, .login-card select, .login-card textarea { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 2px solid #e8ece8; background: #f8faf8; font-size: 0.95rem; font-family: 'Nunito Sans', sans-serif; transition: 0.2s; margin-bottom: 12px; }
+    .login-card input:focus, .login-card select:focus, .login-card textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgba(107,203,154,0.15); }
+    .login-card .input-group { position: relative; }
+    .login-card .input-group .toggle-pwd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #8a9a9a; cursor: pointer; font-size: 1.2rem; padding: 4px; }
+    .login-card .input-group .toggle-pwd:hover { color: #1a2a2a; }
+    .login-card .remember { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #4a6a6a; margin: 4px 0 16px; }
+    .login-card .remember input { width: auto; margin: 0; }
+    .signup-link { display: block; text-align: center; margin-top: 16px; padding: 12px; border: 2px dashed var(--green); border-radius: var(--radius-full); font-weight: 700; color: var(--green-dark); cursor: pointer; transition: 0.2s; background: #f8faf8; }
+    .signup-link:hover { background: var(--green-light); transform: translateY(-2px); }
+    .err { color: var(--coral); font-size: 0.85rem; min-height: 1.4em; margin-top: 6px; }
+    .pwd-checklist { display: grid; gap: 3px; margin: 4px 0 12px; font-size: 0.8rem; }
+    .pwd-checklist .item { display: flex; align-items: center; gap: 6px; color: #8a9a9a; transition: 0.2s; }
+    .pwd-checklist .item.ok { color: var(--green-dark); font-weight: 600; }
+
+    /* ===== CHIPS ===== */
+    .chip { display: inline-block; padding: 4px 16px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; background: #edf2ed; color: #5a7a7a; margin: 2px 4px 2px 0; border: 1px solid rgba(0,0,0,0.06); }
+    .chip-green { background: var(--green-light); color: var(--green-dark); border-color: var(--green); }
+    .chip-coral { background: var(--coral-light); color: #c07070; border-color: var(--coral); }
+    .chip-gold { background: var(--gold-light); color: #a08040; border-color: var(--gold); }
+    .chip-blue { background: var(--blue-light); color: #5a8fa8; border-color: var(--blue); }
+    .level-badge { padding: 4px 16px; border-radius: var(--radius-full); font-weight: 700; font-size: 0.75rem; color: #fff; }
+    .lvl-0 { background: var(--green); }
+    .lvl-1 { background: var(--gold); color: #1a2a2a; }
+    .lvl-2 { background: var(--coral); }
+
+    /* ===== UPLOAD ===== */
+    .upload-area { border: 2px dashed rgba(0,0,0,0.12); border-radius: var(--radius); padding: 32px 20px; text-align: center; background: #f0f5f0; transition: 0.2s; cursor: pointer; }
+    .upload-area:hover { border-color: var(--green); background: var(--green-light); }
+    .upload-area.dragover { border-color: var(--green); background: var(--green-light); }
+    .file-progress { height: 6px; background: #edf2ed; border-radius: var(--radius-full); overflow: hidden; margin-top: 6px; }
+    .file-progress .bar { height: 100%; background: var(--green); border-radius: var(--radius-full); transition: width 0.3s ease; }
+
+    /* ===== MODAL ===== */
+    #modalOverlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(26,42,42,0.5); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
+    #modalOverlay.open { display: flex; }
+    #modalCard { max-width: 620px; width: 100%; background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-hover); max-height: 90vh; overflow-y: auto; }
+    #modalCard .close-btn { float: right; background: none; border: none; font-size: 1.5rem; color: #8a9a9a; cursor: pointer; padding: 4px; }
+    #modalCard .close-btn:hover { color: #1a2a2a; }
+    #modalCard .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    #modalCard .modal-sub { color: #5a7a7a; margin-bottom: 20px; line-height: 1.6; }
+    #modalCard label { font-weight: 700; font-size: 0.85rem; color: #4a6a6a; display: block; margin-bottom: 4px; }
+    #modalCard input, #modalCard select, #modalCard textarea { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 2px solid #e8ece8; background: #f8faf8; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; margin-bottom: 12px; transition: 0.2s; }
+    #modalCard input:focus, #modalCard select:focus, #modalCard textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgba(107,203,154,0.15); }
+    #modalCard .err { color: var(--coral); font-size: 0.85rem; min-height: 1.4em; margin-top: 4px; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end; }
+
     /* ===== RANKING ===== */
     .ranking-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
     .ranking-item { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: #f8faf8; border-radius: var(--radius-sm); border-left: 4px solid var(--green); }
@@ -108,23 +143,7 @@
     .ranking-item.top3 { border-left-color: #cd7f32; background: #f5ede4; }
 
     /* ===== COOKIE BANNER ===== */
-    #cookieBanner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #1a2a2a;
-      color: #fff;
-      padding: 16px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      z-index: 10000;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-      border-top: 4px solid var(--green);
-    }
+    #cookieBanner { position: fixed; bottom: 0; left: 0; right: 0; background: #1a2a2a; color: #fff; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; z-index: 10000; box-shadow: 0 -4px 20px rgba(0,0,0,0.2); border-top: 4px solid var(--green); }
     #cookieBanner p { margin: 0; font-size: 0.9rem; line-height: 1.5; flex: 1; min-width: 200px; }
     #cookieBanner .actions { display: flex; gap: 8px; flex-wrap: wrap; }
     #cookieBanner .btn-cookie { padding: 8px 20px; border-radius: var(--radius-full); border: none; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
@@ -134,125 +153,58 @@
     #cookieBanner .btn-decline:hover { border-color: #fff; }
     #cookieBanner.hidden { display: none; }
 
-    /* ===== TUTORIAL INTERATIVO (GENIALLY STYLE) ===== */
-    #tutorialOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(26,42,42,0.7);
-      backdrop-filter: blur(8px);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    #tutorialOverlay.open { display: flex; }
-    #tutorialCard {
-      max-width: 800px;
-      width: 100%;
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      animation: fadeIn 0.4s ease;
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .tutorial-slide { display: none; }
-    .tutorial-slide.active { display: block; }
-    .tutorial-slide .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .tutorial-slide .slide-title { font-size: 1.4rem; font-weight: 800; }
-    .tutorial-slide .slide-desc { color: #4a6a6a; line-height: 1.6; margin-bottom: 16px; }
-    .tutorial-slide .mockup {
-      position: relative;
-      background: #edf2ed;
-      border-radius: var(--radius-sm);
-      padding: 20px;
-      min-height: 200px;
-      border: 2px dashed #c0c8c0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: #5a7a7a;
-      margin-bottom: 16px;
-    }
-    .hotspot {
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--green);
-      color: #fff;
-      border: 3px solid #fff;
-      box-shadow: 0 4px 16px rgba(107,203,154,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.2s;
-      z-index: 2;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .hotspot:hover { transform: scale(1.15); }
-    @keyframes pulse { 0%, 100% { box-shadow: 0 4px 16px rgba(107,203,154,0.4); } 50% { box-shadow: 0 4px 30px rgba(107,203,154,0.7); } }
-    .hotspot .label { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); background: #1a2a2a; color: #fff; padding: 2px 10px; border-radius: 8px; font-size: 0.65rem; white-space: nowrap; }
+    /* ===== QUIZ ===== */
+    .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 20px 0 40px; }
+    .progress-bar { height: 10px; background: #edf2ed; border-radius: var(--radius-full); overflow: hidden; margin-bottom: 24px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--blue)); border-radius: var(--radius-full); transition: width 0.4s ease; }
+    .q-topic { font-weight: 700; color: var(--green-dark); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .q-text { font-size: 1.2rem; font-weight: 600; margin: 12px 0 20px; line-height: 1.6; }
+    .q-extra { margin: 12px 0; }
+    .q-extra img, .q-extra svg, .q-extra table { max-width: 100%; border-radius: var(--radius-sm); margin: 8px 0; }
+    .opt { display: block; width: 100%; text-align: left; padding: 14px 20px; border-radius: var(--radius-sm); border: 2px solid #e8ece8; background: #fff; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; color: #1a2a2a; transition: 0.2s; cursor: pointer; font-family: 'Nunito Sans', sans-serif; }
+    .opt:hover { border-color: var(--green); background: var(--green-light); }
+    .opt.selected { border-color: var(--green); background: var(--green-light); box-shadow: 0 0 0 4px rgba(107,203,154,0.15); }
+    .opt:disabled { opacity: 0.5; cursor: not-allowed; }
+    .opt.correct { border-color: var(--green); background: var(--green-light); }
+    .opt.wrong { border-color: var(--coral); background: var(--coral-light); }
+    .quiz-nav { display: flex; justify-content: space-between; margin-top: 22px; gap: 12px; }
+    .quiz-actions { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
 
-    .tutorial-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid #e8ece8;
-    }
-    .tutorial-dots { display: flex; gap: 8px; }
-    .tutorial-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.3s; }
-    .tutorial-dots .dot.active { background: var(--green); width: 28px; border-radius: 20px; }
-    .tutorial-dots .dot:hover { background: var(--green-dark); }
+    /* ===== RESULTADO ===== */
+    .result-hero { border-radius: var(--radius); padding: 32px 36px; margin-bottom: 24px; background: var(--green-light); border: 2px solid var(--green); text-align: center; }
+    .result-hero.warn { background: var(--coral-light); border-color: var(--coral); }
+    .result-hero h2 { font-size: 1.8rem; margin-bottom: 4px; }
+    .result-hero p { font-size: 1.05rem; color: #4a6a6a; }
+    .result-circle { display: flex; align-items: center; gap: 24px; justify-content: center; margin: 16px 0; }
+    .result-circle .circle { width: 100px; height: 100px; border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.6rem; background: conic-gradient(var(--green) var(--pct), #edf2ed 0); }
+    .result-circle .circle span { position: relative; z-index: 1; background: #fff; padding: 4px 8px; border-radius: var(--radius-full); }
+    .result-circle .circle::before { content: ''; position: absolute; inset: 8px; background: #fff; border-radius: 50%; }
+    .medal-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-light); border: 2px solid var(--gold); border-radius: var(--radius-full); padding: 6px 20px 6px 12px; font-weight: 700; font-size: 0.9rem; }
+    .medal-badge .medal-icon { font-size: 1.6rem; }
 
-    /* Pop-up do hotspot */
-    .hotspot-popup {
-      display: none;
-      position: absolute;
-      background: #fff;
-      border-radius: var(--radius-sm);
-      padding: 20px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-      border: 2px solid var(--green);
-      min-width: 200px;
-      max-width: 300px;
-      z-index: 10;
-    }
-    .hotspot-popup.open { display: block; animation: fadeIn 0.3s ease; }
-    .hotspot-popup .popup-title { font-weight: 700; margin-bottom: 4px; }
-    .hotspot-popup .popup-text { font-size: 0.9rem; color: #4a6a6a; line-height: 1.5; }
-    .hotspot-popup .popup-close { float: right; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #8a9a9a; }
-    .hotspot-popup .popup-close:hover { color: #1a2a2a; }
+    /* ===== SLIDER ===== */
+    .slider-container { margin: 20px 0; padding: 20px 0; border-bottom: 1px solid #eee; }
+    .slider-container label { font-weight: 700; font-size: 1rem; display: block; margin-bottom: 8px; }
+    .slider-track { position: relative; height: 12px; background: linear-gradient(to right, #f5a0a0, #f5d76e, #6bcb9a); border-radius: var(--radius-full); cursor: pointer; touch-action: none; }
+    .slider-track .slider-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; background: #fff; border: 3px solid var(--green); border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: grab; transition: 0.1s; z-index: 2; }
+    .slider-track .slider-thumb:active { cursor: grabbing; }
+    .slider-track .slider-labels { display: flex; justify-content: space-between; position: relative; top: 16px; font-size: 0.8rem; font-weight: 600; color: #4a6a6a; }
+    .slider-track .slider-labels span { cursor: pointer; padding: 2px 6px; border-radius: 12px; transition: 0.2s; }
+    .slider-track .slider-labels span.active { background: var(--green); color: #fff; }
+    .slider-bubble { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); background: #1a2a2a; color: #fff; padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; white-space: nowrap; opacity: 0; transition: 0.2s; pointer-events: none; z-index: 3; }
+    .slider-bubble.visible { opacity: 1; }
+    .slider-value { text-align: center; font-weight: 700; font-size: 1.2rem; margin-top: 4px; color: var(--green-dark); }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       .btn { padding: 10px 18px; font-size: 0.85rem; }
       .card { padding: 20px; }
       .login-card { padding: 24px; }
-      .hero h1 { font-size: 1.8rem; }
       .tab-btn { padding: 6px 14px; font-size: 0.75rem; }
       .dash-header h2 { font-size: 1.2rem; }
       #cookieBanner { flex-direction: column; text-align: center; }
-      #tutorialCard { padding: 20px; }
-      .hotspot { width: 36px; height: 36px; font-size: 0.75rem; }
+      .result-circle .circle { width: 80px; height: 80px; font-size: 1.2rem; }
     }
-    .fade-item { opacity: 0; animation: fadeUp 0.8s ease forwards; }
-    .fade-item:nth-child(1) { animation-delay: 0.1s; }
-    .fade-item:nth-child(2) { animation-delay: 0.3s; }
-    .fade-item:nth-child(3) { animation-delay: 0.5s; }
-    .fade-item:nth-child(4) { animation-delay: 0.7s; }
-    .fade-item:nth-child(5) { animation-delay: 0.9s; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
     .text-center { text-align: center; }
     .mt-8 { margin-top: 8px; }
     .mt-16 { margin-top: 16px; }
@@ -262,27 +214,27 @@
     .gap-8 { gap: 8px; }
     .gap-12 { gap: 12px; }
     .gap-16 { gap: 16px; }
+    .confetti-piece { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 999; border-radius: 3px; }
   </style>
 </head>
 <body>
 
 <!-- ===== COOKIE BANNER ===== -->
 <div id="cookieBanner">
-  <p>🍪 Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="#" style="color:var(--green);">Política de Privacidade</a>.</p>
+  <p>🍪 Este site utiliza cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="#" style="color:var(--green);">Política de Privacidade</a>.</p>
   <div class="actions">
     <button class="btn-cookie btn-decline" onclick="handleCookieChoice(false)">Recusar</button>
     <button class="btn-cookie btn-accept" onclick="handleCookieChoice(true)">Aceitar todos</button>
   </div>
 </div>
 
-<!-- ===== TUTORIAL OVERLAY (GENIALLY STYLE) ===== -->
+<!-- ===== TUTORIAL OVERLAY ===== -->
 <div id="tutorialOverlay">
   <div id="tutorialCard">
-    <!-- Slides serão injetados via JS -->
     <div id="tutorialSlidesContainer"></div>
-    <div class="tutorial-nav">
+    <div class="tutorial-nav" style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:16px;border-top:1px solid #e8ece8;">
       <button class="btn btn-ghost" id="tutorialPrevBtn" onclick="tutorialPrev()">← Voltar</button>
-      <div class="tutorial-dots" id="tutorialDotsContainer"></div>
+      <div class="tutorial-dots" id="tutorialDotsContainer" style="display:flex;gap:8px;"></div>
       <button class="btn btn-primary" id="tutorialNextBtn" onclick="tutorialNext()">Próximo →</button>
     </div>
     <div style="text-align:right;margin-top:8px;">
@@ -295,22 +247,22 @@
 <section id="screen-home" class="screen active">
   <div class="wrap">
     <div class="nav fade-item">
-      <div class="brand"><span class="logo">S</span> Diagnóstico de Soluções</div>
+      <div class="brand"><span class="logo" style="background:var(--green);color:#fff;padding:6px 14px;border-radius:12px;">S</span> Diagnóstico de Soluções</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-outline" onclick="navigateTo('login-student')">🧪 Sou aluno</button>
         <button class="btn btn-primary" onclick="navigateTo('login-manager')">👩‍🏫 Gestora</button>
       </div>
     </div>
-    <div class="hero fade-item">
+    <div class="hero fade-item" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:40px 0 20px;">
       <div>
         <span style="font-weight:700;color:var(--green-dark);text-transform:uppercase;font-size:0.8rem;letter-spacing:0.05em;">Química · Soluções · 2ª série</span>
-        <h1>Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
-        <p>Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas para você brilhar.</p>
-        <div class="hero-actions">
+        <h1 style="font-size:2.8rem;margin:12px 0 16px;line-height:1.15;">Você entende mais do que imagina — vamos descobrir onde reforçar.</h1>
+        <p style="color:#4a6a6a;font-size:1.1rem;max-width:480px;line-height:1.6;">Responda a um diagnóstico curto e adaptativo. No final, um resumo educativo com dicas personalizadas para você brilhar.</p>
+        <div class="hero-actions" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
           <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🚀 Começar agora</button>
         </div>
       </div>
-      <div class="hero-art">
+      <div class="hero-art" style="text-align:center;font-size:6rem;">
         <svg viewBox="0 0 200 180" width="100%" style="max-width:260px;">
           <circle cx="100" cy="90" r="80" fill="#D4F0E4" opacity="0.4"/>
           <circle cx="100" cy="90" r="55" fill="#D4F0E4" opacity="0.3"/>
@@ -328,7 +280,24 @@
       <div><div class="num" id="statAttempts">0</div><div class="label">diagnósticos</div></div>
       <div><div class="num" id="statRounds">0</div><div class="label">aplicações</div></div>
     </div>
-    <!-- Restante da home (seções) omitido para brevidade, mas mantido no código final -->
+    <!-- Seções explicativas (resumidas para brevidade) -->
+    <div class="fade-item" style="margin-top:30px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <h2 style="font-size:2rem;">🔬 O que é o Diagnóstico de Soluções?</h2>
+        <p style="color:#4a6a6a;max-width:600px;margin:8px auto 0;">Uma ferramenta interativa que identifica, em tempo real, quais tópicos de Química você já domina e quais precisam de mais atenção.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:30px 0;">
+        <div class="feature" style="text-align:center;padding:28px 20px;border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);"><span class="icon" style="font-size:2.8rem;display:block;margin-bottom:12px;">🧪</span><h3 style="font-size:1.2rem;margin-bottom:8px;">Adaptativo</h3><p style="color:#4a6a6a;font-size:0.95rem;">As perguntas se ajustam ao seu desempenho, focando nas áreas que precisam de reforço.</p></div>
+        <div class="feature" style="text-align:center;padding:28px 20px;border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);"><span class="icon" style="font-size:2.8rem;display:block;margin-bottom:12px;">📊</span><h3 style="font-size:1.2rem;margin-bottom:8px;">Visualização clara</h3><p style="color:#4a6a6a;font-size:0.95rem;">Gráficos e resumos mostram seu progresso de forma intuitiva e motivadora.</p></div>
+        <div class="feature" style="text-align:center;padding:28px 20px;border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);"><span class="icon" style="font-size:2.8rem;display:block;margin-bottom:12px;">🎯</span><h3 style="font-size:1.2rem;margin-bottom:8px;">Dicas personalizadas</h3><p style="color:#4a6a6a;font-size:0.95rem;">Cada dificuldade mapeada vem com uma sugestão de estudo direcionada.</p></div>
+      </div>
+    </div>
+    <div class="fade-item text-center" style="padding:40px 0;">
+      <p style="font-size:1.2rem;color:#4a6a6a;margin-bottom:16px;">Pronto para começar sua jornada?</p>
+      <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🧪 Sou aluno(a) — iniciar</button>
+      <span style="display:inline-block;margin:0 12px;color:#4a6a6a;">ou</span>
+      <button class="btn btn-secondary btn-xl" onclick="navigateTo('login-manager')">👩‍🏫 Acessar painel do professor</button>
+    </div>
   </div>
 </section>
 
@@ -448,7 +417,6 @@
       <div class="card" style="margin-bottom:20px;">
         <h3 style="margin-bottom:8px;">📝 Percepção inicial</h3>
         <p style="color:#5a7a7a;margin-bottom:16px;">Responda às perguntas abaixo para ajudar a entender seu nível de conhecimento.</p>
-        <!-- Sliders serão injetados via JS -->
         <div id="slidersContainer"></div>
         <button class="btn btn-primary" onclick="startQuizAfterSliders()" style="margin-top:8px;">Continuar →</button>
       </div>
@@ -530,12 +498,9 @@ function handleCookieChoice(accepted) {
   saveData('cookieChoice', { accepted, timestamp: Date.now() });
   document.getElementById('cookieBanner').classList.add('hidden');
 }
-
 function initCookieBanner() {
   const choice = loadData('cookieChoice', null);
-  if (choice) {
-    document.getElementById('cookieBanner').classList.add('hidden');
-  }
+  if (choice) document.getElementById('cookieBanner').classList.add('hidden');
 }
 
 // ============================================================
@@ -547,6 +512,8 @@ function loadData(key, fallback) {
 }
 function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 function obfuscate(str) { try { return btoa(unescape(encodeURIComponent(str))); } catch(e) { return str; } }
+function escapeHTML(str) { if (!str) return ''; return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function slug(str) { if (!str) return ''; return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-'); }
 
 // ============================================================
 // 3. NAVEGAÇÃO
@@ -600,12 +567,10 @@ function updatePasswordChecklist(inputId, containerId) {
     { key: 'upper', label: 'Letras maiúsculas e minúsculas' },
     { key: 'number', label: 'Pelo menos um número' },
     { key: 'symbol', label: 'Um símbolo (# @ $ etc.)' },
-    { key: 'notWeak', label: 'Sem sequências óbvias (123456, senha...)' }
+    { key: 'notWeak', label: 'Sem sequências óbvias' }
   ];
   container.innerHTML = items.map(item =>
-    `<div class="item ${checks[item.key] ? 'ok' : ''}">
-      <span>${checks[item.key] ? '✓' : '○'}</span> ${item.label}
-    </div>`
+    `<div class="item ${checks[item.key] ? 'ok' : ''}"><span>${checks[item.key] ? '✓' : '○'}</span> ${item.label}</div>`
   ).join('');
 }
 function isWeakPassword(pwd) {
@@ -696,7 +661,7 @@ function logout() {
 }
 
 // ============================================================
-// 8. TUTORIAL INTERATIVO (GENIALLY STYLE)
+// 8. TUTORIAL (Genially Style)
 // ============================================================
 let tutorialCurrentSlide = 0;
 let tutorialType = 'manager';
@@ -705,84 +670,19 @@ let tutorialData = [];
 function buildTutorialData(type) {
   if (type === 'manager') {
     return [
-      {
-        title: 'Visão Geral',
-        desc: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.',
-        hotspots: [
-          { x: '20%', y: '30%', label: 'Métricas', popup: { title: 'Métricas gerais', text: 'Total de diagnósticos, turmas e nível médio.' } },
-          { x: '60%', y: '60%', label: 'Gráficos', popup: { title: 'Gráficos', text: 'Visualize as dificuldades mais comuns.' } }
-        ]
-      },
-      {
-        title: 'Aplicações',
-        desc: 'Crie novas aplicações escolhendo um questionário. Cada aplicação gera um código único para os alunos acessarem.',
-        hotspots: [
-          { x: '30%', y: '40%', label: 'Criar', popup: { title: 'Criar aplicação', text: 'Clique em "Nova aplicação" e escolha o questionário.' } },
-          { x: '70%', y: '50%', label: 'Código', popup: { title: 'Código único', text: 'Cada aplicação gera um código para os alunos.' } }
-        ]
-      },
-      {
-        title: 'Alunos',
-        desc: 'Acompanhe o progresso individual. Use os filtros para ordenar por nome, acertos/erros ou dificuldade.',
-        hotspots: [
-          { x: '25%', y: '35%', label: 'Filtros', popup: { title: 'Filtros', text: 'Selecione a turma e ordene por nome, acertos ou dificuldade.' } },
-          { x: '65%', y: '70%', label: 'Detalhes', popup: { title: 'Detalhes do aluno', text: 'Veja acertos/erros e tags de dificuldade.' } }
-        ]
-      },
-      {
-        title: 'Assuntos',
-        desc: 'Visualize gráficos (barras, pizza, radar) das dificuldades mais comuns entre os alunos.',
-        hotspots: [
-          { x: '40%', y: '45%', label: 'Gráficos', popup: { title: 'Tipos de gráfico', text: 'Escolha entre barras, pizza ou radar.' } }
-        ]
-      },
-      {
-        title: 'Materiais',
-        desc: 'Gerencie recursos de estudo. Crie pastas para organizar e faça upload de arquivos (PDF, imagens, etc.).',
-        hotspots: [
-          { x: '35%', y: '40%', label: 'Pastas', popup: { title: 'Pastas', text: 'Crie pastas para organizar seus materiais.' } },
-          { x: '70%', y: '55%', label: 'Upload', popup: { title: 'Upload', text: 'Envie arquivos de até 1GB (PDF, imagens, etc.).' } }
-        ]
-      },
-      {
-        title: 'Questionários',
-        desc: 'Crie seus próprios questionários com perguntas, alternativas e respostas corretas.',
-        hotspots: [
-          { x: '30%', y: '40%', label: 'Criar', popup: { title: 'Criar questionário', text: 'Adicione perguntas, alternativas e defina a correta.' } },
-          { x: '60%', y: '60%', label: 'Fluxo', popup: { title: 'Fluxo adaptativo', text: 'Defina a pergunta inicial e blocos de níveis.' } }
-        ]
-      }
+      { title: 'Visão Geral', desc: 'Aqui você vê o desempenho consolidado de todas as turmas, métricas gerais e os assuntos que mais precisam de atenção.', hotspots: [{ x:'20%', y:'30%', label:'Métricas', popup:{ title:'Métricas gerais', text:'Total de diagnósticos, turmas e nível médio.' } }, { x:'60%', y:'60%', label:'Gráficos', popup:{ title:'Gráficos', text:'Visualize as dificuldades mais comuns.' } }] },
+      { title: 'Aplicações', desc: 'Crie novas aplicações escolhendo um questionário. Cada aplicação gera um código único para os alunos acessarem.', hotspots: [{ x:'30%', y:'40%', label:'Criar', popup:{ title:'Criar aplicação', text:'Clique em "Nova aplicação" e escolha o questionário.' } }, { x:'70%', y:'50%', label:'Código', popup:{ title:'Código único', text:'Cada aplicação gera um código para os alunos.' } }] },
+      { title: 'Alunos', desc: 'Acompanhe o progresso individual. Use os filtros para ordenar por nome, acertos/erros ou dificuldade.', hotspots: [{ x:'25%', y:'35%', label:'Filtros', popup:{ title:'Filtros', text:'Selecione a turma e ordene por nome, acertos ou dificuldade.' } }, { x:'65%', y:'70%', label:'Detalhes', popup:{ title:'Detalhes do aluno', text:'Veja acertos/erros e tags de dificuldade.' } }] },
+      { title: 'Assuntos', desc: 'Visualize gráficos (barras, pizza, radar) das dificuldades mais comuns entre os alunos.', hotspots: [{ x:'40%', y:'45%', label:'Gráficos', popup:{ title:'Tipos de gráfico', text:'Escolha entre barras, pizza ou radar.' } }] },
+      { title: 'Materiais', desc: 'Gerencie recursos de estudo. Crie pastas para organizar e faça upload de arquivos (PDF, imagens, etc.).', hotspots: [{ x:'35%', y:'40%', label:'Pastas', popup:{ title:'Pastas', text:'Crie pastas para organizar seus materiais.' } }, { x:'70%', y:'55%', label:'Upload', popup:{ title:'Upload', text:'Envie arquivos de até 1GB (PDF, imagens, etc.).' } }] },
+      { title: 'Questionários', desc: 'Crie seus próprios questionários com perguntas, alternativas e respostas corretas.', hotspots: [{ x:'30%', y:'40%', label:'Criar', popup:{ title:'Criar questionário', text:'Adicione perguntas, alternativas e defina a correta.' } }, { x:'60%', y:'60%', label:'Fluxo', popup:{ title:'Fluxo adaptativo', text:'Defina a pergunta inicial e blocos de níveis.' } }] }
     ];
   } else {
     return [
-      {
-        title: 'Visão Geral',
-        desc: 'Aqui você vê seu último resultado, as dificuldades identificadas e dicas para melhorar.',
-        hotspots: [
-          { x: '40%', y: '40%', label: 'Resultado', popup: { title: 'Último resultado', text: 'Veja seu nível e as tags de dificuldade.' } }
-        ]
-      },
-      {
-        title: 'Desempenho',
-        desc: 'Selecione uma aplicação que você já fez para ver suas respostas: verde = certa, vermelho = errada, com gabarito.',
-        hotspots: [
-          { x: '50%', y: '50%', label: 'Revisão', popup: { title: 'Revisão de respostas', text: 'Veja suas respostas com gabarito (verde/vermelho).' } }
-        ]
-      },
-      {
-        title: 'Reforços',
-        desc: 'Encontre materiais recomendados pela sua professora baseados nas suas dificuldades.',
-        hotspots: [
-          { x: '40%', y: '45%', label: 'Recomendações', popup: { title: 'Materiais recomendados', text: 'Baseados nas suas tags de dificuldade.' } }
-        ]
-      },
-      {
-        title: 'Ranking',
-        desc: 'Veja os 3 melhores alunos da aplicação atual e os 3 melhores do ranking geral (todas as aplicações).',
-        hotspots: [
-          { x: '50%', y: '50%', label: 'Ranking', popup: { title: 'Ranking por aplicação', text: 'Top 3 da aplicação atual e top 3 geral.' } }
-        ]
-      }
+      { title: 'Visão Geral', desc: 'Aqui você vê seu último resultado, as dificuldades identificadas e dicas para melhorar.', hotspots: [{ x:'40%', y:'40%', label:'Resultado', popup:{ title:'Último resultado', text:'Veja seu nível e as tags de dificuldade.' } }] },
+      { title: 'Desempenho', desc: 'Selecione uma aplicação que você já fez para ver suas respostas: verde = certa, vermelho = errada, com gabarito.', hotspots: [{ x:'50%', y:'50%', label:'Revisão', popup:{ title:'Revisão de respostas', text:'Veja suas respostas com gabarito (verde/vermelho).' } }] },
+      { title: 'Reforços', desc: 'Encontre materiais recomendados pela sua professora baseados nas suas dificuldades.', hotspots: [{ x:'40%', y:'45%', label:'Recomendações', popup:{ title:'Materiais recomendados', text:'Baseados nas suas tags de dificuldade.' } }] },
+      { title: 'Ranking', desc: 'Veja os 3 melhores alunos da aplicação atual e os 3 melhores do ranking geral (todas as aplicações).', hotspots: [{ x:'50%', y:'50%', label:'Ranking', popup:{ title:'Ranking por aplicação', text:'Top 3 da aplicação atual e top 3 geral.' } }] }
     ];
   }
 }
@@ -791,9 +691,8 @@ function showTutorial(type) {
   tutorialType = type;
   tutorialCurrentSlide = 0;
   tutorialData = buildTutorialData(type);
-  document.getElementById('tutorialOverlay').classList.add('open');
+  document.getElementById('tutorialOverlay').style.display = 'block';
   renderTutorialSlide();
-  // Marca como visto
   if (window.currentUser) saveData('tutorial_seen_' + window.currentUser.email, true);
 }
 
@@ -803,35 +702,34 @@ function renderTutorialSlide() {
   const total = tutorialData.length;
 
   let hotspotsHTML = slide.hotspots.map(h => `
-    <div class="hotspot" style="left:${h.x}; top:${h.y};" onclick="toggleHotspotPopup(this, '${escapeHTML(h.popup.title)}', '${escapeHTML(h.popup.text)}')">
-      <span class="label">${escapeHTML(h.label)}</span>
+    <div class="hotspot" style="position:absolute;left:${h.x}; top:${h.y}; width:44px; height:44px; border-radius:50%; background:var(--green); color:#fff; border:3px solid #fff; box-shadow:0 4px 16px rgba(107,203,154,0.4); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9rem; cursor:pointer; transition:0.2s; z-index:2; animation:pulse 2s ease-in-out infinite;" onclick="toggleHotspotPopup(this, '${escapeHTML(h.popup.title)}', '${escapeHTML(h.popup.text)}')">
+      <span class="label" style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:#1a2a2a;color:#fff;padding:2px 10px;border-radius:8px;font-size:0.65rem;white-space:nowrap;">${escapeHTML(h.label)}</span>
       <span class="material-symbols-outlined" style="font-size:1.2rem;">add</span>
-      <div class="hotspot-popup" style="left:50%; top:calc(100% + 12px); transform:translateX(-50%);">
-        <button class="popup-close" onclick="event.stopPropagation(); this.parentElement.classList.remove('open');">✕</button>
-        <div class="popup-title">${escapeHTML(h.popup.title)}</div>
-        <div class="popup-text">${escapeHTML(h.popup.text)}</div>
+      <div class="hotspot-popup" style="display:none;position:absolute;left:50%;top:calc(100% + 12px);transform:translateX(-50%);background:#fff;border-radius:var(--radius-sm);padding:16px 20px;box-shadow:0 8px 40px rgba(0,0,0,0.2);border:2px solid var(--green);min-width:200px;max-width:280px;z-index:10;">
+        <button class="popup-close" onclick="event.stopPropagation(); this.parentElement.style.display='none';" style="float:right;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#8a9a9a;">✕</button>
+        <div class="popup-title" style="font-weight:700;margin-bottom:4px;">${escapeHTML(h.popup.title)}</div>
+        <div class="popup-text" style="font-size:0.9rem;color:#4a6a6a;line-height:1.5;">${escapeHTML(h.popup.text)}</div>
       </div>
     </div>
   `).join('');
 
   container.innerHTML = `
-    <div class="tutorial-slide active">
-      <div class="slide-header">
-        <span class="slide-title">${tutorialCurrentSlide+1}. ${slide.title}</span>
+    <div style="display:block;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <span style="font-size:1.4rem;font-weight:800;">${tutorialCurrentSlide+1}. ${slide.title}</span>
         <span style="font-size:0.85rem;color:#8a9a9a;">${tutorialCurrentSlide+1}/${total}</span>
       </div>
-      <p class="slide-desc">${slide.desc}</p>
-      <div class="mockup">
+      <p style="color:#4a6a6a;line-height:1.6;margin-bottom:16px;">${slide.desc}</p>
+      <div style="position:relative;background:#edf2ed;border-radius:var(--radius-sm);padding:20px;min-height:200px;border:2px dashed #c0c8c0;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#5a7a7a;margin-bottom:16px;">
         <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#8a9a9a;font-size:0.9rem;">📱 Interface (mockup)</span>
         ${hotspotsHTML}
       </div>
     </div>
   `;
 
-  // Dots
   const dotsContainer = document.getElementById('tutorialDotsContainer');
   dotsContainer.innerHTML = tutorialData.map((_, i) =>
-    `<span class="dot ${i === tutorialCurrentSlide ? 'active' : ''}" onclick="goToTutorialSlide(${i})"></span>`
+    `<span class="dot" style="width:10px;height:10px;border-radius:50%;background:${i === tutorialCurrentSlide ? 'var(--green)' : '#ccc'};cursor:pointer;transition:0.3s;${i === tutorialCurrentSlide ? 'width:28px;border-radius:20px;' : ''}" onclick="goToTutorialSlide(${i})"></span>`
   ).join('');
 
   document.getElementById('tutorialPrevBtn').style.display = tutorialCurrentSlide === 0 ? 'none' : 'inline-flex';
@@ -841,10 +739,9 @@ function renderTutorialSlide() {
 function toggleHotspotPopup(el, title, text) {
   const popup = el.querySelector('.hotspot-popup');
   if (popup) {
-    const isOpen = popup.classList.contains('open');
-    // Fecha todos os outros
-    document.querySelectorAll('.hotspot-popup').forEach(p => p.classList.remove('open'));
-    if (!isOpen) popup.classList.add('open');
+    const isOpen = popup.style.display === 'block';
+    document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
+    popup.style.display = isOpen ? 'none' : 'block';
   }
 }
 
@@ -853,136 +750,21 @@ function tutorialNext() {
     tutorialCurrentSlide++;
     renderTutorialSlide();
   } else {
-    closeTutorial();
+    document.getElementById('tutorialOverlay').style.display = 'none';
   }
 }
-
 function tutorialPrev() {
-  if (tutorialCurrentSlide > 0) {
-    tutorialCurrentSlide--;
-    renderTutorialSlide();
-  }
+  if (tutorialCurrentSlide > 0) { tutorialCurrentSlide--; renderTutorialSlide(); }
 }
-
 function goToTutorialSlide(index) {
-  if (index >= 0 && index < tutorialData.length) {
-    tutorialCurrentSlide = index;
-    renderTutorialSlide();
-  }
+  if (index >= 0 && index < tutorialData.length) { tutorialCurrentSlide = index; renderTutorialSlide(); }
 }
-
 function closeTutorial() {
-  document.getElementById('tutorialOverlay').classList.remove('open');
-}
-
-function escapeHTML(str) {
-  if (!str) return '';
-  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  document.getElementById('tutorialOverlay').style.display = 'none';
 }
 
 // ============================================================
-// 9. PAINEL GESTOR - TODAS AS ABAS (estrutura com placeholder)
-// ============================================================
-function renderManagerContent() {
-  const tab = document.querySelector('#managerTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
-  setManagerTab(tab);
-}
-
-let managerTab = 'visao-geral';
-function setManagerTab(tab) {
-  managerTab = tab;
-  document.querySelectorAll('#managerTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  const container = document.getElementById('managerContent');
-  // Placeholder para cada aba
-  const titles = {
-    'visao-geral': '📊 Visão geral — métricas e desempenho consolidado.',
-    'aplicacoes': '📋 Aplicações — crie e gerencie suas aplicações. Ranking por aplicação disponível.',
-    'alunos': '👥 Alunos — acompanhe o progresso individual.',
-    'assuntos': '📈 Assuntos — gráficos de dificuldade.',
-    'materiais': '📁 Materiais — recursos de estudo.',
-    'questionarios': '📝 Questionários — crie e gerencie questionários.'
-  };
-  container.innerHTML = `
-    <div class="card card-soft text-center" style="padding:40px;">
-      <p style="color:#5a7a7a;font-size:1.1rem;">${titles[tab] || 'Conteúdo'}</p>
-      <p style="color:#8a9a9a;font-size:0.9rem;margin-top:8px;">(Funcionalidades completas disponíveis na versão final)</p>
-    </div>
-  `;
-}
-
-// ============================================================
-// 10. PAINEL ALUNO
-// ============================================================
-function renderStudentContent() {
-  const tab = document.querySelector('#studentTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
-  setStudentTab(tab);
-}
-
-let studentTab = 'visao-geral';
-function setStudentTab(tab) {
-  studentTab = tab;
-  document.querySelectorAll('#studentTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  const container = document.getElementById('studentContent');
-  const titles = {
-    'visao-geral': '📊 Visão geral — seu último resultado e recomendações.',
-    'desempenho': '📈 Desempenho — veja suas respostas detalhadas.',
-    'reforcos': '📚 Reforços — materiais recomendados.',
-    'ranking': '🏆 Ranking — top 3 da aplicação atual e top 3 geral.'
-  };
-  container.innerHTML = `
-    <div class="card card-soft text-center" style="padding:40px;">
-      <p style="color:#5a7a7a;font-size:1.1rem;">${titles[tab] || 'Conteúdo'}</p>
-      <p style="color:#8a9a9a;font-size:0.9rem;margin-top:8px;">(Funcionalidades completas disponíveis na versão final)</p>
-    </div>
-  `;
-}
-
-// ============================================================
-// 11. MODAL E ENTRY DO ALUNO
-// ============================================================
-function showModal(html) {
-  document.getElementById('modalBody').innerHTML = html;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function hideModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-function openStudentEntryModal() {
-  showModal(`
-    <div class="modal-title">🚀 Novo diagnóstico</div>
-    <div class="modal-sub">Peça à professora o código da aplicação.</div>
-    <label>Sua turma</label>
-    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="text-transform:uppercase;">
-    <label>Código da aplicação</label>
-    <input type="text" id="modalCode" style="text-transform:uppercase;" placeholder="Ex: ABCD">
-    <div class="err" id="modalEntryErr"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmStartQuiz()">Começar</button>
-    </div>
-  `);
-}
-
-function confirmStartQuiz() {
-  const turma = document.getElementById('modalTurma').value.trim().toUpperCase();
-  const code = document.getElementById('modalCode').value.trim().toUpperCase();
-  const errEl = document.getElementById('modalEntryErr');
-  if (!code) { errEl.textContent = 'Informe o código.'; return; }
-  const rounds = loadData('rodadas', []);
-  const round = rounds.find(r => r.code === code);
-  if (!round) { errEl.textContent = 'Código não encontrado.'; return; }
-  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela professora.'; return; }
-  hideModal();
-  quizState = { roundId: round.id, studentClass: turma, path: ['start'], answersByQ: {}, idx: 0 };
-  quizFinished = false;
-  navigateTo('quiz');
-  // Inicializa sliders
-  initSliders();
-}
-
-// ============================================================
-// 12. SLIDERS (3 perguntas iniciais)
+// 9. SLIDERS (3 perguntas iniciais)
 // ============================================================
 function initSliders() {
   const container = document.getElementById('slidersContainer');
@@ -993,10 +775,7 @@ function initSliders() {
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
         <div class="slider-bubble">Intermediário</div>
-        <div class="slider-labels">
-          <span data-value="1">1</span><span data-value="2">2</span>
-          <span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span>
-        </div>
+        <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-engajamento">3</div>
       <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-engajamento">Estudei moderadamente e preciso fazer mais exercícios</div>
@@ -1006,10 +785,7 @@ function initSliders() {
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
         <div class="slider-bubble">Entendi o básico</div>
-        <div class="slider-labels">
-          <span data-value="1">1</span><span data-value="2">2</span>
-          <span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span>
-        </div>
+        <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-compreensao">3</div>
       <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-compreensao">Entendi o básico (algumas dúvidas)</div>
@@ -1019,18 +795,17 @@ function initSliders() {
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
         <div class="slider-bubble">Equilibrada</div>
-        <div class="slider-labels">
-          <span data-value="1">1</span><span data-value="2">2</span>
-          <span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span>
-        </div>
+        <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-exercicios">3</div>
       <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-exercicios">Estou com a dificuldade e facilidade equilibradas</div>
     </div>
   `;
   container.innerHTML = slidersHTML;
+  setupSliders();
+}
 
-  // Inicializa eventos dos sliders
+function setupSliders() {
   document.querySelectorAll('.slider-track').forEach(track => {
     const thumb = track.querySelector('.slider-thumb');
     const bubble = track.querySelector('.slider-bubble');
@@ -1110,7 +885,6 @@ function startQuizAfterSliders() {
   window.sliderResponses = responses;
   document.getElementById('preQuizSliders').style.display = 'none';
   document.getElementById('quizQuestionsArea').style.display = 'block';
-  // Inicia timer
   if (quizTimerInterval) clearInterval(quizTimerInterval);
   quizSeconds = 0;
   quizTimerInterval = setInterval(() => {
@@ -1123,7 +897,7 @@ function startQuizAfterSliders() {
 }
 
 // ============================================================
-// 13. QUIZ (questões adaptativas - versão simplificada)
+// 10. QUIZ (adaptativo)
 // ============================================================
 let quizState = null;
 let quizFinished = false;
@@ -1131,45 +905,36 @@ let quizTimerInterval = null;
 let quizSeconds = 0;
 let sliderResponses = {};
 
-const TAGS = {
-  'GRAF_INTERPRETACAO': { label: 'INTERPRETACAO_DE_GRAFICOS', icon: '📊' },
-  'ENDO_EXO': { label: 'CLASSIFICACAO_ENDO_EXO', icon: '🔥' },
-  'ENDO_EXO_GRAFICO': { label: 'ENDO_EXO_GRAFICO', icon: '📈' },
-  'TITULOS': { label: 'CALCULOS_DE_TITULOS', icon: '🧪' },
-  'G_L_MOL_L': { label: 'CONVERSAO_G_L_MOL_L', icon: '🧮' },
-  'NAO_RESPONDIDA': { label: 'QUESTAO_EM_BRANCO', icon: '✏️' }
+const TAGS_SYSTEM = {
+  'GRAF_INTERPRETACAO': { label: 'INTERPRETACAO_DE_GRAFICOS' },
+  'ENDO_EXO': { label: 'CLASSIFICACAO_ENDO_EXO' },
+  'ENDO_EXO_GRAFICO': { label: 'ENDO_EXO_GRAFICO' },
+  'TITULOS': { label: 'CALCULOS_DE_TITULOS' },
+  'G_L_MOL_L': { label: 'CONVERSAO_G_L_MOL_L' },
+  'NAO_RESPONDIDA': { label: 'QUESTAO_EM_BRANCO' }
 };
 
-const QUESTIONS = {
-  start: {
-    topic: 'Introdução às soluções',
-    extra: '<p>Gráfico de solubilidade (mockup)</p>',
-    text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:',
-    options: ['NaNO3', 'KNO3', 'KCl', 'NaCl', 'Ce2(SO4)3', 'Não consegui fazer a questão'],
-    correct: 'KNO3',
-    tags: ['GRAF_INTERPRETACAO', 'ENDO_EXO']
-  },
-  q1a: {
-    topic: 'Revisão: tipos de solução',
-    extra: '<p>Gráfico de solubilidade (mockup)</p>',
-    text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução...',
-    options: ['Insaturada e resfriamento', 'Saturada e resfriamento', 'Supersaturada e resfriamento', 'Não consegui fazer a questão'],
-    correct: 'Insaturada e resfriamento',
-    tags: ['GRAF_INTERPRETACAO']
-  },
-  q2a: {
-    topic: 'Gráficos de solubilidade',
-    extra: '<p>Gráfico XYZ (mockup)</p>',
-    text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z), marque a opção com o sal mais solúvel a 20ºC e o sal cuja solubilidade diminui quando a temperatura aumenta.',
-    options: ['X e X.', 'X e Y.', 'Y e X', 'Y e Y', 'Z e X', 'Z e Y', 'Não consegui fazer a questão.'],
-    correct: 'Y e X',
-    tags: ['GRAF_INTERPRETACAO', 'ENDO_EXO_GRAFICO']
+// Questões pré-definidas (exemplo)
+const DEFAULT_QUESTIONS = [
+  { id: 'start', topic: 'Introdução às soluções', text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:', options: ['NaNO3','KNO3','KCl','NaCl','Ce2(SO4)3','Não consegui fazer a questão'], correct: 'KNO3', tags: ['GRAF_INTERPRETACAO','ENDO_EXO'], nivel: 1, obrigatoria: true },
+  { id: 'q1a', topic: 'Revisão: tipos de solução', text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução...', options: ['Insaturada e resfriamento','Saturada e resfriamento','Supersaturada e resfriamento','Não consegui fazer a questão'], correct: 'Insaturada e resfriamento', tags: ['GRAF_INTERPRETACAO'], nivel: 2, obrigatoria: false },
+  { id: 'q2a', topic: 'Gráficos de solubilidade', text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z)...', options: ['X e X.','X e Y.','Y e X','Y e Y','Z e X','Z e Y','Não consegui fazer a questão.'], correct: 'Y e X', tags: ['GRAF_INTERPRETACAO','ENDO_EXO_GRAFICO'], nivel: 3, obrigatoria: false }
+];
+
+function getQuestionsForQuiz(questionarioId) {
+  if (questionarioId) {
+    const questionarios = loadData('questionarios', []);
+    const q = questionarios.find(q => q.id === questionarioId);
+    if (q && q.perguntas && q.perguntas.length > 0) {
+      return q.perguntas;
+    }
   }
-};
+  return DEFAULT_QUESTIONS;
+}
 
 function renderQuizQuestion() {
   const qId = quizState.path[quizState.idx];
-  const q = QUESTIONS[qId];
+  const q = quizState.questions.find(q => q.id === qId);
   if (!q) { finishQuiz(); return; }
   document.getElementById('qTopic').textContent = q.topic;
   document.getElementById('qExtra').innerHTML = q.extra || '';
@@ -1182,7 +947,7 @@ function renderQuizQuestion() {
     `<button class="opt ${opt === selectedVal ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOption(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
   ).join('');
   document.getElementById('btnBack').disabled = quizState.idx === 0 || quizFinished;
-  document.getElementById('btnNext').textContent = (qId === Object.keys(QUESTIONS).pop()) ? 'Finalizar' : 'Avançar';
+  document.getElementById('btnNext').textContent = (quizState.idx === quizState.path.length - 1) ? 'Finalizar' : 'Avançar';
   document.getElementById('btnNext').disabled = !selectedVal || quizFinished;
 }
 
@@ -1207,11 +972,7 @@ function goNextQuestion() {
   const qId = quizState.path[quizState.idx];
   const val = quizState.answersByQ[qId];
   if (!val) return;
-  // Se for a última pergunta, finaliza
-  if (qId === Object.keys(QUESTIONS).pop()) { confirmFinishQuiz(); return; }
-  // Define próximo caminho
-  const next = 'q1a'; // Lógica simplificada
-  quizState.path.push(next);
+  if (quizState.idx === quizState.path.length - 1) { confirmFinishQuiz(); return; }
   quizState.idx++;
   renderQuizQuestion();
   saveQuizProgress();
@@ -1240,13 +1001,10 @@ function finishQuiz() {
   document.getElementById('progressFill').style.width = '100%';
   if (quizTimerInterval) clearInterval(quizTimerInterval);
 
-  // Calcula tags e nível
-  const tagsArr = [];
   let correctCount = 0;
   quizState.path.forEach(qId => {
-    const q = QUESTIONS[qId];
+    const q = quizState.questions.find(q => q.id === qId);
     if (q && quizState.answersByQ[qId] === q.correct) correctCount++;
-    if (q && q.tags) q.tags.forEach(t => { if (!tagsArr.includes(t)) tagsArr.push(t); });
   });
   const total = quizState.path.length;
   const pct = total ? Math.round((correctCount/total)*100) : 0;
@@ -1255,11 +1013,18 @@ function finishQuiz() {
   else if (pct >= 50) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
   else { levelIdx = 2; levelLabel = 'Vamos reforçar juntos'; }
 
+  const tagsSet = new Set();
+  quizState.path.forEach(qId => {
+    const q = quizState.questions.find(q => q.id === qId);
+    if (q && q.tags) q.tags.forEach(t => tagsSet.add(t));
+    if (q && quizState.answersByQ[qId] === 'Não consegui fazer a questão') tagsSet.add('NAO_RESPONDIDA');
+  });
+
   const answersDetail = quizState.path.map(qId => ({
     questionId: qId,
-    topic: QUESTIONS[qId]?.topic || '',
+    topic: quizState.questions.find(q => q.id === qId)?.topic || '',
     value: quizState.answersByQ[qId],
-    isCorrect: quizState.answersByQ[qId] === QUESTIONS[qId]?.correct
+    isCorrect: quizState.answersByQ[qId] === quizState.questions.find(q => q.id === qId)?.correct
   }));
 
   const attempts = loadData('tentativas', []);
@@ -1269,29 +1034,64 @@ function finishQuiz() {
     studentEmail: window.currentUser.email,
     studentName: window.currentUser.name,
     studentClass: quizState.studentClass,
-    tags: tagsArr,
+    tags: Array.from(tagsSet),
     levelIdx, levelLabel,
     answersDetail,
     sliderResponses: window.sliderResponses || {},
     tempoSegundos: quizSeconds,
     finishedAt: Date.now(),
-    score: correctCount
+    score: correctCount,
+    totalQuestions: total
   };
   attempts.push(attempt);
   saveData('tentativas', attempts);
   saveData('quiz_' + quizState.roundId, null);
-
-  // Atualiza ranking
   updateRanking(quizState.roundId);
-
-  // Mostra resultado
   showResult(attempt);
   navigateTo('result');
   launchConfetti();
 }
 
+function getQuestionsForQuiz(questionarioId) {
+  if (questionarioId) {
+    const questionarios = loadData('questionarios', []);
+    const q = questionarios.find(q => q.id === questionarioId);
+    if (q && q.perguntas && q.perguntas.length > 0) return q.perguntas;
+  }
+  return DEFAULT_QUESTIONS;
+}
+
+function confirmStartQuiz() {
+  const turma = document.getElementById('modalTurma').value.trim().toUpperCase();
+  const code = document.getElementById('modalCode').value.trim().toUpperCase();
+  const errEl = document.getElementById('modalEntryErr');
+  if (!code) { errEl.textContent = 'Informe o código.'; return; }
+  const rounds = loadData('rodadas', []);
+  const round = rounds.find(r => r.code === code);
+  if (!round) { errEl.textContent = 'Código não encontrado.'; return; }
+  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela professora.'; return; }
+  hideModal();
+
+  const questions = getQuestionsForQuiz(round.questionarioId);
+  const path = questions.map(q => q.id);
+  quizState = {
+    roundId: round.id,
+    studentClass: turma,
+    path: path,
+    answersByQ: {},
+    idx: 0,
+    questions: questions,
+    questionarioId: round.questionarioId || null
+  };
+  quizFinished = false;
+  navigateTo('quiz');
+  document.getElementById('preQuizSliders').style.display = 'block';
+  document.getElementById('quizQuestionsArea').style.display = 'none';
+  setTimeout(initSliders, 100);
+}
+
 // ============================================================
-// 14. RANKING
+// 11. RANKING
 // ============================================================
 function updateRanking(roundId) {
   const attempts = loadData('tentativas', []);
@@ -1302,9 +1102,8 @@ function updateRanking(roundId) {
     level: a.levelLabel,
     tempo: a.tempoSegundos || 0
   })).sort((a,b) => b.score - a.score || a.tempo - b.tempo);
-  saveData('ranking_' + roundId, ranked.slice(0, 3)); // top 3
+  saveData('ranking_' + roundId, ranked.slice(0, 3));
 
-  // Ranking geral
   const allUsers = {};
   attempts.forEach(a => {
     if (!allUsers[a.studentEmail]) {
@@ -1324,13 +1123,12 @@ function updateRanking(roundId) {
 function getRanking(roundId) {
   return loadData('ranking_' + roundId, []);
 }
-
 function getGeneralRanking() {
   return loadData('ranking_geral', []);
 }
 
 // ============================================================
-// 15. RESULTADO
+// 12. RESULTADO
 // ============================================================
 function showResult(attempt) {
   const correct = attempt.answersDetail.filter(d => d.isCorrect).length;
@@ -1345,7 +1143,6 @@ function showResult(attempt) {
     <div><strong>${pct}% de acerto</strong><br><span style="color:#4a6a6a;">Você acertou ${correct} de ${total} questões</span></div>
   `;
 
-  // Medalha
   const allAttempts = loadData('tentativas', []);
   const totalAttempts = allAttempts.filter(a => a.studentEmail === window.currentUser.email).length;
   const medal = getMedal(totalAttempts);
@@ -1354,7 +1151,6 @@ function showResult(attempt) {
     <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
   `;
 
-  // Ranking
   const ranking = getRanking(attempt.roundId);
   const generalRanking = getGeneralRanking();
   document.getElementById('resultRanking').innerHTML = `
@@ -1376,13 +1172,25 @@ function showResult(attempt) {
     `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
   `;
 
-  // Tags
   document.getElementById('resultTags').innerHTML = attempt.tags.length ? attempt.tags.map(t => `
     <div class="card" style="margin-bottom:12px;">
-      <h4>${TAGS[t]?.icon || '📌'} ${escapeHTML(TAGS[t]?.label || t)}</h4>
+      <h4>📌 ${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</h4>
       <p style="color:#4a6a6a;">Dica: revise este tópico com calma.</p>
     </div>
   `).join('') : '<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4></div>';
+
+  // Aprofundamento
+  if (attempt.levelIdx === 0) {
+    document.getElementById('resultAprofundamento').innerHTML = `
+      <div class="card card-green" style="margin-top:16px;">
+        <h4>📚 Aprofundamento</h4>
+        <p style="color:#4a6a6a;">Você domina o conteúdo! Que tal explorar materiais avançados sobre ${attempt.tags.map(t => TAGS_SYSTEM[t]?.label || t).join(', ')}?</p>
+        <button class="btn btn-outline btn-sm" onclick="navigateTo('dashboard-student');setStudentTab('reforcos')">Ver materiais recomendados</button>
+      </div>
+    `;
+  } else {
+    document.getElementById('resultAprofundamento').innerHTML = '';
+  }
 }
 
 function pickEncouragement(levelIdx) {
@@ -1417,13 +1225,7 @@ function launchConfetti() {
   for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
-    piece.style.cssText = `
-      position:fixed; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      left:${Math.random()*100}vw; top:-10px;
-      border-radius:${Math.random()>0.5?'50%':'0%'};
-      pointer-events:none; z-index:999;
-    `;
+    piece.style.cssText = `position:fixed; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px; background:${colors[Math.floor(Math.random()*colors.length)]}; left:${Math.random()*100}vw; top:-10px; border-radius:${Math.random()>0.5?'50%':'0%'}; pointer-events:none; z-index:999;`;
     document.body.appendChild(piece);
     const duration = 1500 + Math.random() * 1500;
     const dx = (Math.random() - 0.5) * 300;
@@ -1444,6 +1246,1110 @@ function confirmExitQuiz() {
       <button class="btn btn-primary" onclick="hideModal(); saveQuizProgress(); navigateTo('dashboard-student');">Salvar e sair</button>
     </div>
   `);
+}
+
+function openStudentEntryModal() {
+  const rounds = loadData('rodadas', []);
+  const questionarios = loadData('questionarios', []);
+  showModal(`
+    <div class="modal-title">🚀 Novo diagnóstico</div>
+    <div class="modal-sub">Peça à professora o código da aplicação.</div>
+    <label>Sua turma</label>
+    <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="text-transform:uppercase;">
+    <label>Código da aplicação</label>
+    <input type="text" id="modalCode" style="text-transform:uppercase;" placeholder="Ex: ABCD">
+    <div class="err" id="modalEntryErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmStartQuiz()">Começar</button>
+    </div>
+  `);
+}
+
+// ============================================================
+// 13. PAINEL GESTOR - COMPLETO
+// ============================================================
+function renderManagerContent() {
+  const tab = document.querySelector('#managerTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
+  setManagerTab(tab);
+}
+
+let managerTab = 'visao-geral';
+let selectedRoundId = null;
+let alunosFilterTurma = null;
+let alunosOrderBy = 'nome';
+let alunosOrderDir = 'asc';
+let alunosSearch = '';
+let chartType = 'bar';
+let uploadedFiles = [];
+const MAX_FILE_SIZE = 1024 * 1024 * 1024;
+
+function setManagerTab(tab) {
+  managerTab = tab;
+  document.querySelectorAll('#managerTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  const container = document.getElementById('managerContent');
+
+  if (tab === 'visao-geral') renderVisaoGeral(container);
+  else if (tab === 'aplicacoes') renderAplicacoes(container);
+  else if (tab === 'alunos') renderAlunos(container);
+  else if (tab === 'assuntos') renderAssuntos(container);
+  else if (tab === 'materiais') renderMateriais(container);
+  else if (tab === 'questionarios') renderQuestionarios(container);
+}
+
+function renderVisaoGeral(container) {
+  const attempts = loadData('tentativas', []);
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
+  if (turmas.length === 0) {
+    container.innerHTML = `<div class="card card-soft text-center">📭 Ainda não há diagnósticos respondidos.</div>`;
+    return;
+  }
+  const total = attempts.length;
+  const avgLevel = attempts.reduce((s, a) => s + (a.levelIdx || 0), 0) / total;
+  const tagsCount = {};
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsCount[t] = (tagsCount[t] || 0) + 1); });
+  const sorted = Object.entries(tagsCount).sort((a,b) => b[1]-a[1]);
+  const top3 = sorted.slice(0,3).map(([id]) => TAGS_SYSTEM[id]?.label || id);
+
+  container.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
+      <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--green);">${total}</div><div style="color:#4a6a6a;">diagnósticos</div></div>
+      <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--blue);">${turmas.length}</div><div style="color:#4a6a6a;">turmas</div></div>
+      <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--gold);">${avgLevel.toFixed(1)}</div><div style="color:#4a6a6a;">nível médio</div></div>
+      <div class="card text-center"><div style="font-size:1.1rem;font-weight:700;color:var(--coral);">${top3.join(', ') || '—'}</div><div style="color:#4a6a6a;">mais difíceis</div></div>
+    </div>
+    <div class="card"><div class="text-center" style="color:#4a6a6a;padding:20px 0;">📊 Gráficos detalhados na aba "Assuntos"</div></div>
+  `;
+}
+
+function renderAplicacoes(container) {
+  const rounds = loadData('rodadas', []);
+  const attempts = loadData('tentativas', []);
+  const questionarios = loadData('questionarios', []);
+
+  let html = `<div style="display:grid;grid-template-columns:280px 1fr;gap:24px;">`;
+  html += `<div>
+    <button class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="showCreateRoundModal()">➕ Nova aplicação</button>
+    ${rounds.length === 0 ? `<div class="card card-soft text-center">Nenhuma aplicação ainda.</div>` : ''}
+    ${rounds.map(r => {
+      const q = questionarios.find(q => q.id === r.questionarioId);
+      const count = attempts.filter(a => a.roundId === r.id).length;
+      const ranking = getRanking(r.id);
+      return `
+        <div class="card" style="padding:14px 16px;margin-bottom:10px;cursor:pointer;border:2px solid ${r.id === selectedRoundId ? 'var(--green)' : 'transparent'};" onclick="selectRound('${r.id}')">
+          <div style="font-weight:700;">${escapeHTML(r.label)}</div>
+          <div style="font-family:monospace;font-size:0.8rem;color:#5a7a7a;">código: ${r.code}</div>
+          <div style="font-size:0.7rem;color:#8a9a9a;">${new Date(r.createdAt).toLocaleString()}</div>
+          <div style="font-size:0.7rem;color:#5a7a7a;">${q ? '📝 ' + escapeHTML(q.nome) : 'Sem questionário'}</div>
+          <div style="font-size:0.7rem;color:#5a7a7a;">👥 ${count} respostas</div>
+          <div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;">
+            <button class="btn ${r.disabled ? 'btn-ghost' : 'btn-primary'}" style="padding:4px 14px;font-size:0.7rem;" onclick="event.stopPropagation();toggleRoundEnabled('${r.id}')">
+              ${r.disabled ? '🔴 Desabilitada' : '🟢 Ativa'}
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();generateReport('${r.id}')" style="padding:4px 14px;font-size:0.7rem;">📄 Relatório</button>
+          </div>
+          ${ranking.length ? `<div style="margin-top:8px;font-size:0.7rem;color:#5a7a7a;">🏆 Top: ${ranking.map((r,i) => `${i+1}º ${escapeHTML(r.name)} (${r.score})`).join(' • ')}</div>` : ''}
+        </div>
+      `;
+    }).join('')}
+  </div><div><div class="card"><div id="roundHeader"></div><div id="attemptsTableWrap"></div></div></div></div>`;
+  container.innerHTML = html;
+  renderRoundAttempts(rounds, attempts);
+}
+
+function renderRoundAttempts(rounds, attempts) {
+  const round = rounds.find(r => r.id === selectedRoundId);
+  const header = document.getElementById('roundHeader');
+  const wrap = document.getElementById('attemptsTableWrap');
+  if (!round) { if (header) header.innerHTML = ''; if (wrap) wrap.innerHTML = '<div class="text-center text-soft">Selecione uma aplicação.</div>'; return; }
+  header.innerHTML = `<h4 style="margin:0 0 4px;">${escapeHTML(round.label)}</h4>
+    <span style="font-family:monospace;background:var(--green);color:#fff;padding:4px 12px;border-radius:var(--radius-full);">${round.code}</span>
+    <span style="color:#5a7a7a;font-size:0.8rem;"> ${new Date(round.createdAt).toLocaleString()}</span>
+    ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
+  const list = attempts.filter(a => a.roundId === round.id);
+  if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
+  wrap.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Acertos</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tempo</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tags</th></tr></thead>
+      <tbody>${list.map(a => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentName)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentClass || '—')}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.score || 0}/${a.totalQuestions || 0}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.tempoSegundos ? Math.floor(a.tempoSegundos/60)+'m '+(a.tempoSegundos%60)+'s' : '—'}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;"><span class="level-badge ${a.levelIdx === 0 ? 'lvl-0' : a.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</span>`).join('') : '<span style="color:#8a9a9a;">nenhuma</span>'}</td>
+        </tr>
+      `).join('')}</tbody>
+    </table>
+  `;
+}
+
+function selectRound(id) { selectedRoundId = id; renderManagerContent(); }
+
+function toggleRoundEnabled(id) {
+  const rounds = loadData('rodadas', []);
+  const round = rounds.find(r => r.id === id);
+  if (round) { round.disabled = !round.disabled; saveData('rodadas', rounds); renderManagerContent(); }
+}
+
+function showCreateRoundModal() {
+  const rounds = loadData('rodadas', []);
+  const questionarios = loadData('questionarios', []);
+  showModal(`
+    <div class="modal-title">Nova aplicação</div>
+    <div class="modal-sub">Dê um nome, escolha um questionário e defina um código.</div>
+    <label>Nome da aplicação</label>
+    <input type="text" id="modalRoundLabel" value="Aplicação ${rounds.length + 1}">
+    <label>Questionário</label>
+    <select id="modalRoundQuestionario">
+      <option value="">Selecione um questionário</option>
+      ${questionarios.map(q => `<option value="${q.id}">${escapeHTML(q.nome)} (${q.perguntas?.length || 0} perguntas)</option>`).join('')}
+    </select>
+    <label>Código (4 caracteres)</label>
+    <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;">
+    <div class="err" id="modalRoundErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmCreateRound()">Criar</button>
+    </div>
+  `);
+}
+
+function generateCode() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+  return c;
+}
+
+function confirmCreateRound() {
+  const label = document.getElementById('modalRoundLabel').value.trim();
+  const questionarioId = document.getElementById('modalRoundQuestionario').value;
+  let code = document.getElementById('modalRoundCode').value.trim().toUpperCase();
+  const errEl = document.getElementById('modalRoundErr');
+  if (!questionarioId) { errEl.textContent = 'Selecione um questionário.'; return; }
+  if (!code) code = generateCode();
+  const rounds = loadData('rodadas', []);
+  if (rounds.some(r => r.code === code)) { errEl.textContent = 'Código já em uso.'; return; }
+  const round = { id: 'r_' + Date.now(), label: label || ('Aplicação ' + (rounds.length + 1)), code, questionarioId, createdAt: Date.now(), disabled: false };
+  rounds.push(round);
+  saveData('rodadas', rounds);
+  selectedRoundId = round.id;
+  hideModal();
+  renderManagerContent();
+}
+
+function generateReport(roundId) {
+  const rounds = loadData('rodadas', []);
+  const attempts = loadData('tentativas', []);
+  const round = rounds.find(r => r.id === roundId);
+  if (!round) return;
+  const list = attempts.filter(a => a.roundId === roundId).sort((a,b) => a.studentName.localeCompare(b.studentName));
+
+  let html = `
+    <div id="reportContent" style="padding:20px;font-family:'Nunito Sans',sans-serif;background:#fff;">
+      <h1 style="font-size:1.8rem;">📊 Relatório: ${escapeHTML(round.label)}</h1>
+      <p style="color:#4a6a6a;">Código: ${round.code} | Criado em: ${new Date(round.createdAt).toLocaleString()}</p>
+      <p style="color:#4a6a6a;">Total de respostas: ${list.length}</p>
+      <hr style="margin:16px 0;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+        <thead><tr style="background:#f0f5f0;">
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:left;">Aluno</th>
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:left;">Turma</th>
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:center;">Acertos</th>
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:center;">Erros</th>
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:left;">Percepção</th>
+          <th style="padding:8px 12px;border:1px solid #ddd;text-align:left;">Dificuldades</th>
+        </tr></thead>
+        <tbody>
+          ${list.map(a => {
+            const correct = a.answersDetail?.filter(d => d.isCorrect).length || 0;
+            const total = a.answersDetail?.length || 0;
+            const err = total - correct;
+            const percep = a.sliderResponses ? `E:${a.sliderResponses.engajamento||'-'} C:${a.sliderResponses.compreensao||'-'} D:${a.sliderResponses.exercicios||'-'}` : '-';
+            return `
+              <tr>
+                <td style="padding:8px 12px;border:1px solid #ddd;">${escapeHTML(a.studentName)}</td>
+                <td style="padding:8px 12px;border:1px solid #ddd;">${escapeHTML(a.studentClass || '—')}</td>
+                <td style="padding:8px 12px;border:1px solid #ddd;text-align:center;color:var(--green);">${correct}</td>
+                <td style="padding:8px 12px;border:1px solid #ddd;text-align:center;color:var(--coral);">${err}</td>
+                <td style="padding:8px 12px;border:1px solid #ddd;">${percep}</td>
+                <td style="padding:8px 12px;border:1px solid #ddd;">${a.tags?.length ? a.tags.map(t => TAGS_SYSTEM[t]?.label || t).join(', ') : '—'}</td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+      <hr style="margin:16px 0;">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;background:#f8faf8;padding:16px;border-radius:12px;">
+          <h4>📈 Distribuição de acertos</h4>
+          <div style="display:flex;align-items:flex-end;height:120px;gap:4px;margin-top:8px;">
+            ${[0,1,2,3,4,5,6,7,8,9,10].map(n => {
+              const count = list.filter(a => (a.score||0) === n).length;
+              const max = Math.max(1, ...list.map(a => a.score||0));
+              const pct = Math.round((count / max) * 100);
+              return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+                <div style="width:100%;background:var(--green);height:${pct}%;min-height:${count>0?'4px':'0'};border-radius:4px 4px 0 0;transition:0.3s;"></div>
+                <span style="font-size:0.6rem;margin-top:2px;">${n}</span>
+              </div>`;
+            }).join('')}
+          </div>
+          <p style="font-size:0.7rem;color:#8a9a9a;margin-top:4px;">Nº de acertos (${list.length} alunos)</p>
+        </div>
+        <div style="flex:1;min-width:200px;background:#f8faf8;padding:16px;border-radius:12px;">
+          <h4>🏷️ Tags mais comuns</h4>
+          ${(() => {
+            const tagCount = {};
+            list.forEach(a => { if (a.tags) a.tags.forEach(t => tagCount[t] = (tagCount[t]||0) + 1); });
+            const sorted = Object.entries(tagCount).sort((a,b) => b[1]-a[1]).slice(0,5);
+            return sorted.map(([t,c]) => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:0.8rem;"><span>${TAGS_SYSTEM[t]?.label || t}</span><span>${c} ocorrência(s)</span></div>`).join('') || '<span style="color:#8a9a9a;">Nenhuma tag registrada</span>';
+          })()}
+        </div>
+      </div>
+    </div>
+  `;
+
+  showModal(html + `
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Fechar</button>
+      <button class="btn btn-primary" onclick="downloadPDFReport()">📥 Baixar PDF</button>
+    </div>
+  `);
+  window._reportHTML = html;
+}
+
+function downloadPDFReport() {
+  const element = document.getElementById('reportContent');
+  if (!element) return;
+  const opt = {
+    margin: 10,
+    filename: 'relatorio_diagnostico.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+
+// ===== ALUNOS (com filtros) =====
+function renderAlunos(container) {
+  const attempts = loadData('tentativas', []);
+  const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
+  if (!alunosFilterTurma && turmas.length) alunosFilterTurma = turmas[0];
+
+  let html = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
+      <span style="font-weight:700;font-size:0.85rem;">Turma:</span>
+      ${turmas.map(t => `<button class="btn ${t === alunosFilterTurma ? 'btn-primary' : 'btn-ghost'}" onclick="setAlunosFilter('turma','${t.replace(/'/g,"\\'")}')" style="padding:4px 16px;font-size:0.8rem;">${escapeHTML(t)}</button>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
+      <input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="setAlunosFilter('search', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;width:200px;">
+      <select onchange="setAlunosFilter('orderBy', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;">
+        <option value="nome" ${alunosOrderBy==='nome'?'selected':''}>Ordenar por nome</option>
+        <option value="acertos" ${alunosOrderBy==='acertos'?'selected':''}>Ordenar por acertos</option>
+        <option value="erros" ${alunosOrderBy==='erros'?'selected':''}>Ordenar por erros</option>
+        <option value="tags" ${alunosOrderBy==='tags'?'selected':''}>Ordenar por dificuldade (tags)</option>
+      </select>
+      <select onchange="setAlunosFilter('orderDir', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;">
+        <option value="asc" ${alunosOrderDir==='asc'?'selected':''}>Crescente ↑</option>
+        <option value="desc" ${alunosOrderDir==='desc'?'selected':''}>Decrescente ↓</option>
+      </select>
+    </div>
+  `;
+
+  if (turmas.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">📭 Ainda não há alunos.</div>`; return; }
+
+  const inTurma = attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosFilterTurma);
+  let uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))]
+    .filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()));
+
+  // Ordenação
+  const alunosData = uniqueNames.map(n => {
+    const studAttempts = inTurma.filter(a => a.studentName.trim() === n);
+    const last = studAttempts[studAttempts.length-1];
+    const correct = last?.answersDetail?.filter(d => d.isCorrect).length || 0;
+    const totalQ = last?.answersDetail?.length || 0;
+    const tags = last?.tags || [];
+    return { name: n, correct, totalQ, err: totalQ - correct, tags, levelIdx: last?.levelIdx || 0, levelLabel: last?.levelLabel || '—', attempts: studAttempts };
+  });
+
+  if (alunosOrderBy === 'nome') {
+    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+  } else if (alunosOrderBy === 'acertos') {
+    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.correct - b.correct : b.correct - a.correct);
+  } else if (alunosOrderBy === 'erros') {
+    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.err - b.err : b.err - a.err);
+  } else if (alunosOrderBy === 'tags') {
+    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.tags.length - b.tags.length : b.tags.length - a.tags.length);
+  }
+
+  if (alunosData.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">Nenhum aluno encontrado.</div>`; return; }
+
+  html += `<div class="card" style="padding:8px 0;">`;
+  alunosData.forEach(d => {
+    html += `
+      <div onclick="toggleAlunoDetail('${slug(d.name)}')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee;cursor:pointer;">
+        <span style="font-weight:700;">${escapeHTML(d.name)}</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="chip chip-green">✅ ${d.correct}</span>
+          <span class="chip chip-coral">❌ ${d.err}</span>
+          <span class="chip chip-blue">🏷️ ${d.tags.length}</span>
+          <span class="level-badge ${d.levelIdx === 0 ? 'lvl-0' : d.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(d.levelLabel)}</span>
+        </div>
+      </div>
+      <div id="detail-${slug(d.name)}" style="display:none;padding:8px 16px 16px;background:#f0f5f0;border-radius:0 0 var(--radius-sm) var(--radius-sm);">
+        ${d.attempts.map(a => `<div style="font-size:0.85rem;padding:4px 0;border-bottom:1px solid #eee;">📘 ${escapeHTML(a.roundId || 'Diagnóstico')}: ${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</span>`).join('') : 'nenhuma dificuldade'} | ${a.score||0}/${a.totalQuestions||0} acertos</div>`).join('')}
+      </div>
+    `;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function setAlunosFilter(type, value) {
+  if (type === 'turma') alunosFilterTurma = value;
+  else if (type === 'search') alunosSearch = value;
+  else if (type === 'orderBy') alunosOrderBy = value;
+  else if (type === 'orderDir') alunosOrderDir = value;
+  renderManagerContent();
+}
+function toggleAlunoDetail(name) {
+  const el = document.getElementById('detail-'+slug(name));
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// ===== ASSUNTOS =====
+function renderAssuntos(container) {
+  const attempts = loadData('tentativas', []);
+  const counts = {};
+  Object.keys(TAGS_SYSTEM).forEach(t => counts[t] = 0);
+  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
+  const total = attempts.length || 1;
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+
+  let html = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+      <span style="font-weight:700;font-size:0.85rem;">Escolha um gráfico de visualização:</span>
+      <button class="btn ${chartType === 'bar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('bar')">📊 Barras</button>
+      <button class="btn ${chartType === 'pie' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('pie')">🍕 Pizza</button>
+      <button class="btn ${chartType === 'radar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('radar')">🕸️ Radar</button>
+    </div>
+    <div class="card" style="padding:20px;min-height:280px;display:flex;align-items:center;justify-content:center;">
+      <canvas id="chartCanvas" width="500" height="280"></canvas>
+    </div>
+    <div style="margin-top:16px;">
+      ${sorted.map(([tid, count]) => {
+        const pct = Math.round((count / total) * 100);
+        return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;">
+          <span>📌 ${escapeHTML(TAGS_SYSTEM[tid]?.label || tid)}</span>
+          <span style="font-weight:700;">${pct}%</span>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  container.innerHTML = html;
+  setTimeout(() => drawChart(sorted, total), 50);
+}
+
+function setChartType(type) { chartType = type; renderManagerContent(); }
+
+function drawChart(data, total) {
+  const canvas = document.getElementById('chartCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0,0,w,h);
+  if (data.length === 0 || data.every(d => d[1] === 0)) {
+    ctx.fillStyle = '#8a9a9a'; ctx.font = '16px Nunito Sans'; ctx.textAlign = 'center';
+    ctx.fillText('Sem dados para exibir', w/2, h/2); return;
+  }
+  const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4','#C9B8D4'];
+  if (chartType === 'bar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const pad = 40, chartW = w - 2*pad, chartH = h - 2*pad;
+    const step = chartW / (data.length + 1);
+    ctx.font = '11px Nunito Sans'; ctx.textAlign = 'center';
+    data.forEach(([tid, count], i) => {
+      const x = pad + step * (i + 1);
+      const barH = (count / max) * chartH;
+      const y = h - pad - barH;
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillRect(x - 14, y, 28, barH);
+      ctx.fillStyle = '#1a2a2a';
+      ctx.fillText(TAGS_SYSTEM[tid]?.label?.slice(0,12) || tid, x, h - pad + 18);
+      ctx.fillText(count, x, y - 6);
+    });
+  } else if (chartType === 'pie') {
+    const totalSum = data.reduce((s,d) => s+d[1], 0);
+    if (totalSum === 0) return;
+    const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 30;
+    let start = -Math.PI/2;
+    data.forEach(([tid, count], i) => {
+      const angle = (count / totalSum) * 2 * Math.PI;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+angle); ctx.closePath();
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fill();
+      start += angle;
+    });
+    let legY = 20; ctx.font = '10px Nunito Sans'; ctx.textAlign = 'left';
+    data.slice(0,6).forEach(([tid], i) => {
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillRect(w-130, legY, 12, 12);
+      ctx.fillStyle = '#1a2a2a';
+      ctx.fillText(TAGS_SYSTEM[tid]?.label?.slice(0,14) || tid, w-112, legY+10);
+      legY += 20;
+    });
+  } else if (chartType === 'radar') {
+    const max = Math.max(...data.map(d => d[1]), 1);
+    const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 40;
+    const n = data.length; if (n === 0) return;
+    for (let i=0; i<n; i++) {
+      const angle = (i/n)*2*Math.PI - Math.PI/2;
+      const x = cx + r*Math.cos(angle), y = cy + r*Math.sin(angle);
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.strokeStyle = 'rgba(0,0,0,0.1)'; ctx.stroke();
+    }
+    ctx.beginPath();
+    data.forEach(([tid, count], i) => {
+      const angle = (i/n)*2*Math.PI - Math.PI/2;
+      const val = count/max;
+      const x = cx + r*val*Math.cos(angle), y = cy + r*val*Math.sin(angle);
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(107,203,154,0.25)'; ctx.fill();
+    ctx.strokeStyle = '#6BCB9A'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.font = '10px Nunito Sans'; ctx.textAlign = 'center';
+    data.forEach(([tid], i) => {
+      const angle = (i/n)*2*Math.PI - Math.PI/2;
+      const x = cx + (r+18)*Math.cos(angle), y = cy + (r+18)*Math.sin(angle);
+      ctx.fillStyle = '#1a2a2a';
+      ctx.fillText(TAGS_SYSTEM[tid]?.label?.slice(0,8) || tid, x, y+4);
+    });
+  }
+}
+
+// ===== MATERIAIS =====
+function renderMateriais(container) {
+  const materiais = loadData('materiais', []);
+  const pastas = loadData('pastas', []);
+  const tagsPersonalizadas = loadData('tagsPersonalizadas', []);
+
+  let html = `
+    <div style="background:var(--green-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--green);margin-bottom:20px;">
+      <strong>📌 O que são tags?</strong> As tags são etiquetas (em MAIÚSCULAS) que você cria para organizar os materiais e associar às dificuldades dos alunos.
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+        ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('') : '<span style="color:#5a7a7a;">Nenhuma tag criada ainda.</span>'}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">📁 Pastas</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input type="text" id="newFolderName" placeholder="Nome da pasta" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;">
+        <button class="btn btn-secondary" onclick="addFolder()">➕ Criar pasta</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">${pastas.map(p => `<span class="chip">📁 ${escapeHTML(p)}</span>`).join('')}</div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">🏷️ Gerenciar tags (em MAIÚSCULAS)</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input type="text" id="newTagName" placeholder="Ex: ESTEQUIOMETRIA" style="flex:1;min-width:150px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;text-transform:uppercase;">
+        <button class="btn btn-secondary" onclick="addTag()">➕ Adicionar</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)} <button onclick="removeTag('${escapeHTML(t)}')" style="background:none;border:none;cursor:pointer;color:var(--coral);font-weight:700;">✕</button></span>`).join('')}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <h4 style="margin-bottom:12px;">➕ Adicionar material</h4>
+      <label>Título</label><input type="text" id="matTitle" placeholder="Ex: Lista de exercícios — Concentração" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;">
+      <label>Tipo</label><select id="matType" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;">
+        <option>Lista de exercícios</option><option>Resumo</option><option>Vídeo-aula</option><option>Outro</option>
+      </select>
+      <label>Link (opcional)</label><input type="text" id="matLink" placeholder="https://..." style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;">
+      <label>Descrição</label><input type="text" id="matDesc" placeholder="Breve descrição" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;">
+      <label>Pasta</label><select id="matFolder" style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;">
+        <option value="">Sem pasta</option>${pastas.map(p => `<option value="${escapeHTML(p)}">${escapeHTML(p)}</option>`).join('')}
+      </select>
+      <label>Tags (selecione uma ou mais)</label>
+      <select id="matTags" multiple style="margin-bottom:10px;border-radius:var(--radius-sm);padding:12px 16px;border:2px solid #e8ece8;background:#f8faf8;width:100%;height:80px;">
+        ${tagsPersonalizadas.map(t => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join('')}
+        ${tagsPersonalizadas.length === 0 ? '<option value="">Nenhuma tag criada</option>' : ''}
+      </select>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <div style="font-weight:700;">📤 Arraste ou clique para enviar um arquivo</div>
+        <div style="font-size:0.8rem;color:#5a7a7a;">Máx. 1GB · PDF, Imagem, Word, etc.</div>
+        <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)" style="display:none;">
+      </div>
+      <div id="fileList" style="margin-top:12px;"></div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="addMaterial()">Salvar material</button>
+      <div class="err" id="matErr" style="color:var(--coral);margin-top:8px;"></div>
+    </div>
+    <div id="matList"></div>
+  `;
+  container.innerHTML = html;
+  renderMaterialsList(materiais);
+}
+
+function renderMaterialsList(materiais) {
+  const wrap = document.getElementById('matList');
+  if (!wrap) return;
+  if (materiais.length === 0) { wrap.innerHTML = `<div class="card card-soft text-center">📭 Nenhum material cadastrado ainda.</div>`; return; }
+  wrap.innerHTML = materiais.slice().reverse().map(m => `
+    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
+      <div>
+        <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-blue">${escapeHTML(m.type)}</span></div>
+        <div style="font-size:0.85rem;color:#4a6a6a;margin:4px 0;">${escapeHTML(m.description || '')} ${m.folder ? '📁 ' + escapeHTML(m.folder) : ''}</div>
+        ${m.link ? `<a href="${escapeHTML(m.link)}" target="_blank" style="color:var(--green);font-weight:700;">${escapeHTML(m.link)}</a>` : ''}
+        ${m.files ? m.files.map(f => `<div style="font-size:0.75rem;color:#5a7a7a;">📄 ${escapeHTML(f)}</div>`).join('') : ''}
+        <div style="margin-top:6px;">${m.tagIds ? m.tagIds.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('') : ''}</div>
+        <div style="font-size:0.7rem;color:#8a9a9a;margin-top:4px;">🕒 ${new Date(m.createdAt).toLocaleString()}</div>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <button class="btn btn-ghost btn-sm" onclick="deleteMaterial('${m.id}')" style="padding:4px 12px;font-size:0.8rem;">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addTag() {
+  const name = document.getElementById('newTagName').value.trim().toUpperCase();
+  if (!name) return;
+  let tags = loadData('tagsPersonalizadas', []);
+  if (!tags.includes(name)) tags.push(name);
+  saveData('tagsPersonalizadas', tags);
+  document.getElementById('newTagName').value = '';
+  renderManagerContent();
+}
+function removeTag(name) {
+  if (!confirm(`Remover tag "${name}"?`)) return;
+  let tags = loadData('tagsPersonalizadas', []);
+  tags = tags.filter(t => t !== name);
+  saveData('tagsPersonalizadas', tags);
+  renderManagerContent();
+}
+function addFolder() {
+  const name = document.getElementById('newFolderName').value.trim();
+  if (!name) return;
+  let pastas = loadData('pastas', []);
+  if (!pastas.includes(name)) pastas.push(name);
+  saveData('pastas', pastas);
+  document.getElementById('newFolderName').value = '';
+  renderManagerContent();
+}
+
+function handleFiles(files) {
+  for (let f of files) {
+    if (f.size > MAX_FILE_SIZE) { alert(`O arquivo ${f.name} excede o limite de 1GB.`); continue; }
+    const id = 'f_' + Date.now() + Math.random().toString(36).slice(2,6);
+    uploadedFiles.push({ id, name: f.name, size: f.size, progress: 0 });
+    let p = 0;
+    const interval = setInterval(() => {
+      p += Math.floor(Math.random() * 12) + 3;
+      if (p >= 100) { p = 100; clearInterval(interval); }
+      const item = uploadedFiles.find(u => u.id === id);
+      if (item) { item.progress = Math.min(100, p); renderFileList(); }
+    }, 150);
+  }
+  renderFileList();
+}
+function renderFileList() {
+  const el = document.getElementById('fileList');
+  if (!el) return;
+  el.innerHTML = uploadedFiles.map(f => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f0f5f0;border-radius:var(--radius-sm);margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="material-symbols-outlined" style="color:#8a9a9a;">description</span>
+        <div><div style="font-weight:600;">${escapeHTML(f.name)}</div><div style="font-size:0.7rem;color:#5a7a7a;">${(f.size/1024/1024).toFixed(1)} MB</div></div>
+      </div>
+      <div style="min-width:70px;text-align:right;">
+        <span style="font-weight:700;font-size:0.8rem;">${Math.round(f.progress)}%</span>
+        <div class="file-progress"><div class="bar" style="width:${f.progress}%;"></div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addMaterial() {
+  const title = document.getElementById('matTitle').value.trim();
+  const type = document.getElementById('matType').value;
+  const link = document.getElementById('matLink').value.trim();
+  const description = document.getElementById('matDesc').value.trim();
+  const folder = document.getElementById('matFolder').value;
+  const tagSelect = document.getElementById('matTags');
+  const tagIds = Array.from(tagSelect.selectedOptions).map(opt => opt.value).filter(v => v);
+  const errEl = document.getElementById('matErr');
+  if (!title) { errEl.textContent = 'Dê um título ao material.'; return; }
+  if (tagIds.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
+  const materiais = loadData('materiais', []);
+  const fileNames = uploadedFiles.map(f => f.name);
+  materiais.push({ id: 'm_' + Date.now(), title, type, link, description, folder, tagIds, files: fileNames, createdAt: Date.now() });
+  saveData('materiais', materiais);
+  uploadedFiles = [];
+  renderManagerContent();
+}
+
+function deleteMaterial(id) {
+  if (!confirm('Remover este material?')) return;
+  let materiais = loadData('materiais', []);
+  materiais = materiais.filter(m => m.id !== id);
+  saveData('materiais', materiais);
+  renderManagerContent();
+}
+
+// ===== QUESTIONÁRIOS =====
+function renderQuestionarios(container) {
+  const questionarios = loadData('questionarios', []);
+  let html = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <h3 style="font-size:1.2rem;">📝 Questionários</h3>
+      <button class="btn btn-primary" onclick="showCreateQuestionarioModal()">➕ Criar questionário</button>
+    </div>
+    ${questionarios.length === 0 ? `<div class="card card-soft text-center">Nenhum questionário criado ainda.</div>` : ''}
+    ${questionarios.map(q => `
+      <div class="card" style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h4 style="margin:0;">${escapeHTML(q.nome)}</h4>
+            <p style="font-size:0.85rem;color:#5a7a7a;margin:4px 0;">${q.perguntas?.length || 0} perguntas • ${q.descricao || ''}</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary btn-sm" onclick="editQuestionario('${q.id}')" style="padding:4px 14px;font-size:0.8rem;">✏️ Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteQuestionario('${q.id}')" style="padding:4px 14px;font-size:0.8rem;">🗑️</button>
+          </div>
+        </div>
+        ${q.perguntas?.slice(0,3).map(p => `
+          <div style="font-size:0.85rem;padding:4px 8px;background:#f8faf8;border-radius:8px;margin:4px 0;border-left:3px solid ${p.obrigatoria ? 'var(--green)' : 'var(--blue)'};">
+            ${escapeHTML(p.text?.slice(0,60))}${p.text?.length > 60 ? '...' : ''}
+            <span style="font-size:0.7rem;color:#8a9a9a;"> [Nível ${p.nivel || 1}] ${p.obrigatoria ? '⭐ obrigatória' : ''}</span>
+            ${p.tags ? p.tags.map(t => `<span class="chip chip-blue">${escapeHTML(t)}</span>`).join('') : ''}
+          </div>
+        `).join('')}
+        ${(q.perguntas?.length || 0) > 3 ? `<div style="font-size:0.8rem;color:#8a9a9a;margin-top:4px;">+ ${q.perguntas.length - 3} outras perguntas</div>` : ''}
+      </div>
+    `).join('')}
+  `;
+  container.innerHTML = html;
+}
+
+function showCreateQuestionarioModal(editData) {
+  const isEdit = !!editData;
+  const q = editData || { nome: '', descricao: '', perguntas: [] };
+  showModal(`
+    <div class="modal-title">${isEdit ? '✏️ Editar' : '📝 Criar'} Questionário</div>
+    <div class="modal-sub">${isEdit ? 'Edite as informações do questionário.' : 'Crie um novo questionário com perguntas, alternativas e tags.'}</div>
+    <label>Nome do questionário</label>
+    <input type="text" id="qNome" value="${escapeHTML(q.nome)}" placeholder="Ex: Diagnóstico de Soluções">
+    <label>Descrição (opcional)</label>
+    <input type="text" id="qDesc" value="${escapeHTML(q.descricao)}" placeholder="Breve descrição">
+    <hr style="margin:16px 0;">
+    <h4 style="margin-bottom:8px;">Perguntas</h4>
+    <div id="perguntasList" style="margin-bottom:12px;">
+      ${q.perguntas?.map((p, i) => `
+        <div style="background:#f8faf8;padding:12px;border-radius:var(--radius-sm);margin-bottom:8px;border-left:3px solid ${p.obrigatoria ? 'var(--green)' : 'var(--blue)'};">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-weight:600;">${i+1}. ${escapeHTML(p.text?.slice(0,50))}${p.text?.length > 50 ? '...' : ''}</span>
+            <div>
+              <button class="btn btn-ghost btn-sm" onclick="editPergunta(${i})" style="padding:2px 10px;font-size:0.7rem;">✏️</button>
+              <button class="btn btn-ghost btn-sm" onclick="removePergunta(${i})" style="padding:2px 10px;font-size:0.7rem;color:var(--coral);">✕</button>
+            </div>
+          </div>
+          <div style="font-size:0.75rem;color:#5a7a7a;">Nível ${p.nivel || 1} • ${p.obrigatoria ? '⭐ Obrigatória' : 'Opcional'} • Tags: ${p.tags?.join(', ') || '—'}</div>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="addPerguntaModal()" style="margin-bottom:12px;">➕ Adicionar pergunta</button>
+    <div class="err" id="qErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveQuestionario('${isEdit ? q.id : ''}')">${isEdit ? 'Salvar alterações' : 'Criar questionário'}</button>
+    </div>
+  `);
+  window._editQuestionarioData = q;
+  window._editQuestionarioId = isEdit ? q.id : null;
+}
+
+let _tempPerguntaIndex = null;
+
+function addPerguntaModal() {
+  const tags = loadData('tagsPersonalizadas', []);
+  showModal(`
+    <div class="modal-title">➕ Nova pergunta</div>
+    <div class="modal-sub">Preencha os dados da pergunta.</div>
+    <label>Enunciado</label>
+    <textarea id="pText" rows="3" placeholder="Digite o texto da pergunta..."></textarea>
+    <label>Imagem (URL, opcional)</label>
+    <input type="text" id="pImage" placeholder="https://exemplo.com/imagem.png">
+    <label>Alternativas (uma por linha)</label>
+    <textarea id="pOptions" rows="4" placeholder="Opção A&#10;Opção B&#10;Opção C&#10;Opção D"></textarea>
+    <label>Resposta correta (número da alternativa, 1-indexado)</label>
+    <input type="number" id="pCorrect" min="1" max="6" value="1">
+    <label>Tags (selecione uma ou mais, em MAIÚSCULAS)</label>
+    <select id="pTags" multiple style="height:60px;">
+      ${tags.map(t => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join('')}
+      ${tags.length === 0 ? '<option value="">Nenhuma tag criada</option>' : ''}
+    </select>
+    <label>Nível de dificuldade (1 = mais fácil, 5 = mais difícil)</label>
+    <input type="number" id="pNivel" min="1" max="5" value="1">
+    <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
+      <input type="checkbox" id="pObrigatoria" checked> Pergunta obrigatória (todos os alunos respondem)
+    </label>
+    <div class="err" id="pErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmAddPergunta()">Adicionar pergunta</button>
+    </div>
+  `);
+  _tempPerguntaIndex = null;
+}
+
+function confirmAddPergunta() {
+  const text = document.getElementById('pText').value.trim();
+  const image = document.getElementById('pImage').value.trim();
+  const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
+  const correct = parseInt(document.getElementById('pCorrect').value);
+  const tagSelect = document.getElementById('pTags');
+  const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
+  const nivel = parseInt(document.getElementById('pNivel').value) || 1;
+  const obrigatoria = document.getElementById('pObrigatoria').checked;
+  const errEl = document.getElementById('pErr');
+
+  if (!text) { errEl.textContent = 'Digite o enunciado da pergunta.'; return; }
+  if (optionsRaw.length < 2) { errEl.textContent = 'Adicione pelo menos 2 alternativas.'; return; }
+  if (correct < 1 || correct > optionsRaw.length) { errEl.textContent = 'Selecione uma alternativa correta válida.'; return; }
+  if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
+
+  const pergunta = {
+    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
+    text,
+    image,
+    options: optionsRaw,
+    correct: optionsRaw[correct - 1],
+    tags,
+    nivel,
+    obrigatoria
+  };
+
+  const q = window._editQuestionarioData;
+  if (!q.perguntas) q.perguntas = [];
+  q.perguntas.push(pergunta);
+  hideModal();
+  showCreateQuestionarioModal(q);
+}
+
+function editPergunta(index) {
+  const q = window._editQuestionarioData;
+  const p = q.perguntas[index];
+  const tags = loadData('tagsPersonalizadas', []);
+  _tempPerguntaIndex = index;
+
+  showModal(`
+    <div class="modal-title">✏️ Editar pergunta</div>
+    <label>Enunciado</label>
+    <textarea id="pText" rows="3">${escapeHTML(p.text)}</textarea>
+    <label>Imagem (URL, opcional)</label>
+    <input type="text" id="pImage" value="${escapeHTML(p.image || '')}" placeholder="https://exemplo.com/imagem.png">
+    <label>Alternativas (uma por linha)</label>
+    <textarea id="pOptions" rows="4">${p.options.join('\n')}</textarea>
+    <label>Resposta correta (número da alternativa, 1-indexado)</label>
+    <input type="number" id="pCorrect" min="1" max="6" value="${p.options.indexOf(p.correct) + 1}">
+    <label>Tags</label>
+    <select id="pTags" multiple style="height:60px;">
+      ${tags.map(t => `<option value="${escapeHTML(t)}" ${p.tags.includes(t) ? 'selected' : ''}>${escapeHTML(t)}</option>`).join('')}
+      ${tags.length === 0 ? '<option value="">Nenhuma tag criada</option>' : ''}
+    </select>
+    <label>Nível de dificuldade (1-5)</label>
+    <input type="number" id="pNivel" min="1" max="5" value="${p.nivel || 1}">
+    <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
+      <input type="checkbox" id="pObrigatoria" ${p.obrigatoria ? 'checked' : ''}> Pergunta obrigatória
+    </label>
+    <div class="err" id="pErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveEditPergunta(${index})">Salvar</button>
+    </div>
+  `);
+}
+
+function saveEditPergunta(index) {
+  const text = document.getElementById('pText').value.trim();
+  const image = document.getElementById('pImage').value.trim();
+  const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
+  const correct = parseInt(document.getElementById('pCorrect').value);
+  const tagSelect = document.getElementById('pTags');
+  const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
+  const nivel = parseInt(document.getElementById('pNivel').value) || 1;
+  const obrigatoria = document.getElementById('pObrigatoria').checked;
+  const errEl = document.getElementById('pErr');
+
+  if (!text) { errEl.textContent = 'Digite o enunciado.'; return; }
+  if (optionsRaw.length < 2) { errEl.textContent = 'Adicione pelo menos 2 alternativas.'; return; }
+  if (correct < 1 || correct > optionsRaw.length) { errEl.textContent = 'Alternativa correta inválida.'; return; }
+  if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
+
+  const q = window._editQuestionarioData;
+  q.perguntas[index] = {
+    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
+    text, image,
+    options: optionsRaw,
+    correct: optionsRaw[correct - 1],
+    tags, nivel, obrigatoria
+  };
+  hideModal();
+  showCreateQuestionarioModal(q);
+}
+
+function removePergunta(index) {
+  if (!confirm('Remover esta pergunta?')) return;
+  const q = window._editQuestionarioData;
+  q.perguntas.splice(index, 1);
+  showCreateQuestionarioModal(q);
+}
+
+function saveQuestionario(editId) {
+  const nome = document.getElementById('qNome').value.trim();
+  const descricao = document.getElementById('qDesc').value.trim();
+  const qData = window._editQuestionarioData;
+  const errEl = document.getElementById('qErr');
+  if (!nome) { errEl.textContent = 'Dê um nome ao questionário.'; return; }
+  if (!qData.perguntas || qData.perguntas.length === 0) { errEl.textContent = 'Adicione pelo menos uma pergunta.'; return; }
+
+  let questionarios = loadData('questionarios', []);
+  if (editId) {
+    const idx = questionarios.findIndex(q => q.id === editId);
+    if (idx >= 0) {
+      questionarios[idx] = { ...qData, id: editId, nome, descricao };
+    }
+  } else {
+    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, createdAt: Date.now() });
+  }
+  saveData('questionarios', questionarios);
+  hideModal();
+  renderManagerContent();
+}
+
+function editQuestionario(id) {
+  const questionarios = loadData('questionarios', []);
+  const q = questionarios.find(q => q.id === id);
+  if (q) {
+    window._editQuestionarioData = { ...q };
+    window._editQuestionarioId = id;
+    showCreateQuestionarioModal(q);
+  }
+}
+
+function deleteQuestionario(id) {
+  if (!confirm('Remover este questionário e todas as suas perguntas?')) return;
+  let questionarios = loadData('questionarios', []);
+  questionarios = questionarios.filter(q => q.id !== id);
+  saveData('questionarios', questionarios);
+  renderManagerContent();
+}
+
+// ============================================================
+// 14. PAINEL ALUNO
+// ============================================================
+function renderStudentContent() {
+  const tab = document.querySelector('#studentTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
+  setStudentTab(tab);
+}
+
+let studentTab = 'visao-geral';
+
+function setStudentTab(tab) {
+  studentTab = tab;
+  document.querySelectorAll('#studentTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  const container = document.getElementById('studentContent');
+
+  if (tab === 'visao-geral') renderStudentVisaoGeral(container);
+  else if (tab === 'desempenho') renderStudentDesempenho(container);
+  else if (tab === 'reforcos') renderStudentReforcos(container);
+  else if (tab === 'ranking') renderStudentRanking(container);
+}
+
+function renderStudentVisaoGeral(container) {
+  const attempts = loadData('tentativas', []);
+  const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
+  if (mine.length === 0) {
+    container.innerHTML = `<div class="card card-soft text-center">📭 Você ainda não respondeu nenhum diagnóstico. Clique em "Novo diagnóstico" para começar.</div>`;
+    return;
+  }
+  const last = mine[mine.length-1];
+  const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
+  const total = last.answersDetail?.length || 0;
+  const pct = total ? Math.round((correct/total)*100) : 0;
+
+  let html = `
+    <div class="result-hero ${last.levelIdx === 2 ? 'warn' : ''}" style="margin-bottom:18px;">
+      <h2>${escapeHTML(last.levelLabel)}</h2>
+      <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
+    </div>
+    <div class="result-circle" style="margin:0 0 16px;">
+      <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
+      <div><strong>${pct}% de acerto</strong><br><span style="color:#4a6a6a;">Último diagnóstico</span></div>
+    </div>
+  `;
+  const totalAttempts = mine.length;
+  const medal = getMedal(totalAttempts);
+  html += `
+    <div class="text-center mb-16">
+      <div class="medal-badge" style="display:inline-flex;"><span class="medal-icon">${medal.icon}</span> <span>${medal.name}</span></div>
+      <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+    </div>
+  `;
+  if (!last.tags || last.tags.length === 0) {
+    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:#4a6a6a;">Continue praticando para manter esse domínio.</p></div>`;
+  } else {
+    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
+      last.tags.map(t => `
+        <div class="card" style="border-left:5px solid var(--green);">
+          <h4 style="font-size:0.95rem;">📌 ${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</h4>
+          <p style="font-size:0.85rem;color:#4a6a6a;">Dica: revise este tópico.</p>
+        </div>
+      `).join('') + `</div>`;
+  }
+  container.innerHTML = html;
+}
+
+function renderStudentDesempenho(container) {
+  const attempts = loadData('tentativas', []);
+  const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
+  if (mine.length === 0) {
+    container.innerHTML = `<div class="card card-soft text-center">📭 Sem dados de desempenho ainda.</div>`;
+    return;
+  }
+
+  let html = `<div style="margin-bottom:16px;">
+    <label style="font-weight:700;font-size:0.85rem;">Selecione uma aplicação para revisar:</label>
+    <select id="reviewSelect" onchange="renderReview(this.value)" style="width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:2px solid #e8ece8;background:#f8faf8;margin-top:4px;">
+      ${mine.map(a => `<option value="${a.id}">${escapeHTML(a.roundId || 'Diagnóstico')} - ${new Date(a.finishedAt).toLocaleString()}</option>`).join('')}
+    </select>
+  </div>
+  <div id="reviewContent"></div>`;
+  container.innerHTML = html;
+  if (mine.length > 0) renderReview(mine[0].id);
+}
+
+function renderReview(attemptId) {
+  const attempts = loadData('tentativas', []);
+  const attempt = attempts.find(a => a.id === attemptId);
+  const container = document.getElementById('reviewContent');
+  if (!attempt || !attempt.answersDetail) {
+    container.innerHTML = `<div class="card card-soft text-center">Nenhuma resposta encontrada.</div>`;
+    return;
+  }
+
+  let html = `<div class="card" style="padding:20px;">`;
+  attempt.answersDetail.forEach((d, i) => {
+    const q = attempt._questions?.find(q => q.id === d.questionId) || { options: [], correct: '' };
+    const isCorrect = d.isCorrect;
+    const userAnswer = d.value;
+    const correctAnswer = q.correct || '';
+    html += `
+      <div style="padding:12px 0;border-bottom:1px solid #eee;">
+        <div style="font-weight:700;font-size:0.95rem;">${i+1}. ${escapeHTML(d.topic || 'Pergunta')}</div>
+        <div style="margin-top:4px;">
+          ${q.options ? q.options.map(opt => `
+            <div style="padding:4px 8px;border-radius:8px;margin:2px 0;font-size:0.9rem;
+              ${opt === correctAnswer ? 'background:var(--green-light);border-left:4px solid var(--green);' : ''}
+              ${opt === userAnswer && opt !== correctAnswer ? 'background:var(--coral-light);border-left:4px solid var(--coral);' : ''}
+              ${opt === userAnswer && opt === correctAnswer ? 'background:var(--green-light);border-left:4px solid var(--green);' : ''}
+            ">
+              ${opt === userAnswer ? '👉 ' : ''} ${escapeHTML(opt)}
+              ${opt === correctAnswer ? ' ✅' : ''}
+              ${opt === userAnswer && opt !== correctAnswer ? ' ❌' : ''}
+            </div>
+          `).join('') : ''}
+        </div>
+        <div style="font-size:0.8rem;color:#5a7a7a;margin-top:4px;">
+          ${isCorrect ? '✅ Correta' : '❌ Errada'} • Sua resposta: ${escapeHTML(userAnswer || 'Não respondeu')}
+        </div>
+      </div>
+    `;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function renderStudentReforcos(container) {
+  const attempts = loadData('tentativas', []);
+  const materiais = loadData('materiais', []);
+  const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
+  if (mine.length === 0) {
+    container.innerHTML = `<div class="card card-soft text-center">📭 Responda um diagnóstico para receber recomendações.</div>`;
+    return;
+  }
+  const last = mine[mine.length-1];
+  const userTags = last.tags || [];
+  const recommended = materiais.filter(m => m.tagIds?.some(t => userTags.includes(t)));
+
+  let html = '';
+  if (userTags.length === 0) {
+    html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:#4a6a6a;">Sem recomendações específicas agora.</p></div>`;
+  } else if (recommended.length === 0) {
+    html += `<div class="card card-soft text-center">📭 A professora ainda não cadastrou materiais para suas dificuldades.</div>`;
+  } else {
+    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
+      recommended.map(m => `
+        <div class="card">
+          <div style="font-weight:700;">${escapeHTML(m.title)} <span class="chip chip-blue">${escapeHTML(m.type)}</span></div>
+          <p style="font-size:0.85rem;color:#4a6a6a;">${escapeHTML(m.description || '')}</p>
+          ${m.link ? `<a href="${escapeHTML(m.link)}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:8px;padding:6px 16px;font-size:0.8rem;">Abrir material</a>` : ''}
+          <div style="margin-top:4px;">${m.tagIds.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('')}</div>
+        </div>
+      `).join('') + `</div>`;
+  }
+  container.innerHTML = html;
+}
+
+function renderStudentRanking(container) {
+  const attempts = loadData('tentativas', []);
+  const rounds = loadData('rodadas', []);
+  const userAttempts = attempts.filter(a => a.studentEmail === window.currentUser?.email);
+  const last = userAttempts[userAttempts.length - 1];
+  const roundId = last?.roundId || null;
+
+  let html = '';
+  if (roundId) {
+    const ranking = getRanking(roundId);
+    html += `<div class="card" style="margin-bottom:16px;">
+      <h4>🏆 Ranking da aplicação atual</h4>
+      ${ranking.length ? ranking.map((r,i) => `
+        <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+          <span class="pos">#${i+1}</span>
+          <span class="name">${escapeHTML(r.name)} ${r.name === window.currentUser?.name ? '⭐' : ''}</span>
+          <span class="score">${r.score} pontos</span>
+        </div>
+      `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
+    </div>`;
+  } else {
+    html += `<div class="card card-soft text-center" style="margin-bottom:16px;">📭 Complete um diagnóstico para ver o ranking.</div>`;
+  }
+
+  const general = getGeneralRanking();
+  html += `<div class="card">
+    <h4>🏆 Ranking geral (todas as aplicações)</h4>
+    ${general.length ? general.map((r,i) => `
+      <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+        <span class="pos">#${i+1}</span>
+        <span class="name">${escapeHTML(r.name)} ${r.name === window.currentUser?.name ? '⭐' : ''}</span>
+        <span class="score">${r.score} média</span>
+      </div>
+    `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
+  </div>`;
+  container.innerHTML = html;
+}
+
+// ============================================================
+// 15. MODAL E UTILITÁRIOS
+// ============================================================
+function showModal(html) {
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function hideModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
 }
 
 // ============================================================
@@ -1467,9 +2373,11 @@ window.onload = function() {
       }
     }
   } catch(e) {}
+  // Inicializa sliders se estiver na tela de quiz
+  if (document.getElementById('preQuizSliders')) initSliders();
 };
 
-console.log('✅ Diagnóstico de Soluções — versão final com cookie banner, tutorial Genially e ranking!');
+console.log('✅ Diagnóstico de Soluções v3.0 — completo com todas as expansões!');
 </script>
 </body>
 </html>
