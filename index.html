@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico de Soluções — v4.0</title>
+  <title>Diagnóstico de Soluções — v6.0</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -102,6 +102,7 @@
     .chip-coral { background: var(--coral-light); color: #c07070; border-color: var(--coral); }
     .chip-gold { background: var(--gold-light); color: #a08040; border-color: var(--gold); }
     .chip-blue { background: var(--blue-light); color: #5a8fa8; border-color: var(--blue); }
+    .chip-red { background: #fde8e8; color: #c07070; border-color: #f5a0a0; }
     .level-badge { padding: 4px 16px; border-radius: var(--radius-full); font-weight: 700; font-size: 0.75rem; color: #fff; }
     .lvl-0 { background: var(--green); }
     .lvl-1 { background: var(--gold); color: #1a2a2a; }
@@ -117,7 +118,7 @@
     /* ===== MODAL ===== */
     #modalOverlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(26,42,42,0.5); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
     #modalOverlay.open { display: flex; }
-    #modalCard { max-width: 700px; width: 100%; background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-hover); max-height: 90vh; overflow-y: auto; }
+    #modalCard { max-width: 720px; width: 100%; background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-hover); max-height: 90vh; overflow-y: auto; }
     #modalCard .close-btn { float: right; background: none; border: none; font-size: 1.5rem; color: #8a9a9a; cursor: pointer; padding: 4px; }
     #modalCard .close-btn:hover { color: #1a2a2a; }
     #modalCard .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
@@ -205,7 +206,7 @@
     }
     #tourTooltip .step-count { font-size: .72rem; font-weight: 800; color: var(--coral); text-transform: uppercase; letter-spacing: .05em; }
     #tourTooltip h4 { margin: 6px 0 6px; font-size: 1.02rem; }
-    #tourTooltip p { margin: 0 0 16px; font-size: .88rem; color: var(--ink-soft); line-height: 1.5; }
+    #tourTooltip p { margin: 0 0 16px; font-size: .88rem; color: #5a7a7a; line-height: 1.5; }
     .tour-actions { display: flex; justify-content: space-between; align-items: center; }
     .tour-skip { background: none; border: none; color: #5a7a7a; font-size: .8rem; font-weight: 700; cursor: pointer; }
     .tour-nav { display: flex; gap: 8px; }
@@ -213,6 +214,117 @@
     .tour-btn-outline { background: transparent; border: 1.5px solid #ddd; color: #1a2a2a; }
     .tour-btn-primary { background: var(--green); color: #1a2a2a; }
     .tour-btn-primary:hover { background: var(--green-dark); color: #fff; }
+
+    /* ===== BOTÃO DE AJUDA FLUTUANTE ===== */
+    #helpButton {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 60;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #1a2a2a;
+      border: none;
+      box-shadow: 0 4px 16px rgba(107,203,154,0.4);
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseHelp 2.5s ease-in-out infinite;
+    }
+    #helpButton:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(107,203,154,0.5); }
+    #helpButton.pulse-off { animation: none; }
+    @keyframes pulseHelp {
+      0%, 100% { box-shadow: 0 4px 16px rgba(107,203,154,0.4); }
+      50% { box-shadow: 0 4px 32px rgba(107,203,154,0.7); }
+    }
+
+    /* ===== TOOLTIP PARA GRÁFICOS ===== */
+    .chart-tooltip {
+      position: fixed;
+      display: none;
+      background: #fff;
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      border: 2px solid var(--green);
+      max-width: 260px;
+      z-index: 50;
+      pointer-events: none;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .chart-tooltip .tt-title { font-weight: 700; }
+    .chart-tooltip .tt-value { color: #4a6a6a; }
+
+    /* ===== GRID DO PAINEL DO ESTUDANTE ===== */
+    .student-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .student-grid .card { padding: 24px; }
+    @media (max-width: 820px) {
+      .student-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .student-grid { grid-template-columns: 1fr; }
+    }
+    .student-grid .card .emoji-big { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+    .student-grid .card .stat-number { font-size: 1.8rem; font-weight: 800; color: var(--green-dark); }
+    .student-grid .card .stat-label { color: #5a7a7a; font-size: 0.85rem; }
+
+    /* ===== RANKING LEVEL BAR ===== */
+    .level-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .level-bar .level-track {
+      flex: 1;
+      height: 8px;
+      background: #edf2ed;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      min-width: 60px;
+    }
+    .level-bar .level-track .fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: var(--radius-full);
+      transition: width 0.6s ease;
+    }
+    .level-bar .level-label {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--green-dark);
+      white-space: nowrap;
+    }
+
+    /* ===== REVISÃO DE QUESTÕES (pop-up) ===== */
+    .review-question {
+      padding: 16px 0;
+      border-bottom: 1px solid #e8ece8;
+    }
+    .review-question:last-child { border-bottom: none; }
+    .review-question .q-statement { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+    .review-question .q-options .opt-review {
+      padding: 6px 12px;
+      margin: 3px 0;
+      border-radius: 8px;
+      border-left: 4px solid #e8ece8;
+      font-size: 0.9rem;
+    }
+    .review-question .q-options .opt-review.user-answer { border-left-color: var(--coral); background: var(--coral-light); }
+    .review-question .q-options .opt-review.correct-answer { border-left-color: var(--green); background: var(--green-light); }
+    .review-question .q-options .opt-review.both { border-left-color: var(--green); background: var(--green-light); border: 2px solid var(--green); }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
@@ -224,6 +336,7 @@
       #cookieBanner { flex-direction: column; text-align: center; }
       .result-circle .circle { width: 80px; height: 80px; font-size: 1.2rem; }
       #tourTooltip { width: 280px; }
+      #helpButton { width: 48px; height: 48px; font-size: 1.4rem; bottom: 20px; right: 20px; }
     }
     .text-center { text-align: center; }
     .mt-8 { margin-top: 8px; }
@@ -253,14 +366,23 @@
 <div id="tourHighlight"></div>
 <div id="tourTooltip"></div>
 
+<!-- ===== TOOLTIP PARA GRÁFICOS ===== -->
+<div id="chartTooltip" class="chart-tooltip">
+  <div class="tt-title" id="chartTooltipTitle"></div>
+  <div class="tt-value" id="chartTooltipValue"></div>
+</div>
+
+<!-- ===== BOTÃO DE AJUDA FLUTUANTE ===== -->
+<button id="helpButton" title="Ajuda contextual" onclick="openContextualHelp()">?</button>
+
 <!-- ===== HOME ===== -->
 <section id="screen-home" class="screen active">
   <div class="wrap">
     <div class="nav fade-item" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:12px;">
       <div class="brand" style="font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:10px;"><span style="background:var(--green);color:#fff;padding:6px 14px;border-radius:12px;">S</span> Diagnóstico de Soluções</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-outline" onclick="navigateTo('login-student')">🧪 Sou aluno</button>
-        <button class="btn btn-primary" onclick="navigateTo('login-manager')">👩‍🏫 Gestora</button>
+        <button class="btn btn-outline" onclick="navigateTo('login-student')">🧪 Sou estudante</button>
+        <button class="btn btn-primary" onclick="navigateTo('login-manager')">👩‍🏫 Gestão</button>
       </div>
     </div>
     <div class="hero fade-item" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:40px 0 20px;">
@@ -303,22 +425,22 @@
     </div>
     <div class="fade-item text-center" style="padding:40px 0;">
       <p style="font-size:1.2rem;color:#4a6a6a;margin-bottom:16px;">Pronto para começar sua jornada?</p>
-      <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🧪 Sou aluno(a) — iniciar</button>
+      <button class="btn btn-primary btn-xl" onclick="navigateTo('login-student')">🧪 Sou estudante — iniciar</button>
       <span style="display:inline-block;margin:0 12px;color:#4a6a6a;">ou</span>
-      <button class="btn btn-secondary btn-xl" onclick="navigateTo('login-manager')">👩‍🏫 Acessar painel do professor</button>
+      <button class="btn btn-secondary btn-xl" onclick="navigateTo('login-manager')">👩‍🏫 Acessar área de gestão</button>
     </div>
   </div>
 </section>
 
-<!-- ===== LOGIN GESTORA ===== -->
+<!-- ===== LOGIN GESTOR ===== -->
 <section id="screen-login-manager" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;">
     <div style="width:100%;max-width:440px;">
       <button class="btn-back" onclick="navigateTo('home')">← Voltar para o início</button>
       <div class="login-card" style="margin-top:12px;">
-        <div class="badge teacher">👩‍🏫 Acesso Docente</div>
-        <h2>Professora</h2>
-        <p class="sub">Acesse seu painel de gestão.</p>
+        <div class="badge teacher">👩‍🏫 Acesso Gestão</div>
+        <h2>Gestão</h2>
+        <p class="sub">Acesse o painel de gestão.</p>
         <form id="loginFormManager" onsubmit="event.preventDefault(); handleLogin('manager');">
           <label>E-mail</label>
           <input type="email" id="loginEmailM" placeholder="exemplo@escola.com">
@@ -328,7 +450,7 @@
             <button type="button" class="toggle-pwd material-symbols-outlined" onclick="togglePassword('loginPassM', this)">visibility</button>
           </div>
           <div class="remember"><input type="checkbox" id="rememberM"> <span>Lembrar e-mail</span></div>
-          <button type="submit" class="btn btn-primary btn-block">Entrar no Painel</button>
+          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
           <div class="err" id="loginErrM"></div>
         </form>
         <div class="signup-link" onclick="toggleForms('manager')">✨ Não tem uma conta? <strong>Criar conta agora</strong></div>
@@ -351,13 +473,13 @@
   </div>
 </section>
 
-<!-- ===== LOGIN ALUNO ===== -->
+<!-- ===== LOGIN ESTUDANTE ===== -->
 <section id="screen-login-student" class="screen">
   <div class="wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;">
     <div style="width:100%;max-width:440px;">
       <button class="btn-back" onclick="navigateTo('home')">← Voltar para o início</button>
       <div class="login-card" style="margin-top:12px;">
-        <div class="badge student">🧪 Espaço do Aluno</div>
+        <div class="badge student">🧪 Espaço do Estudante</div>
         <h2>Estudante</h2>
         <p class="sub">Entre para realizar seus testes e acompanhar seu progresso.</p>
         <form id="loginFormStudent" onsubmit="event.preventDefault(); handleLogin('student');">
@@ -392,17 +514,17 @@
   </div>
 </section>
 
-<!-- ===== PAINEL GESTORA ===== -->
+<!-- ===== PAINEL GESTOR ===== -->
 <section id="screen-dashboard-manager" class="screen">
   <div class="wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid #e8ece8;">
-      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:800;font-size:1.2rem;">📊 Painel da Professora</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:800;font-size:1.2rem;">📊 Painel Gestor</span></div>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline" id="btnTutorialManager" onclick="startTour()" style="padding:6px 16px;font-size:0.8rem;">📖 Tutorial</button>
+        <button class="btn btn-outline" onclick="startTour()" style="padding:6px 16px;font-size:0.8rem;">📖 Tutorial</button>
         <button class="btn btn-ghost" onclick="logout()" style="padding:6px 16px;font-size:0.8rem;">Sair</button>
       </div>
     </div>
-    <div class="dash-header"><h2>Olá, <span id="managerName">gestora</span> 👋</h2></div>
+    <div class="dash-header"><h2>Olá, <span id="managerName">gestor</span> 👋</h2></div>
     <div class="tab-nav" id="managerTabs">
       <button class="tab-btn active" data-tab="visao-geral" onclick="setManagerTab('visao-geral')">📊 Visão geral</button>
       <button class="tab-btn" data-tab="aplicacoes" onclick="setManagerTab('aplicacoes')">📋 Aplicações</button>
@@ -467,18 +589,18 @@
   </div>
 </section>
 
-<!-- ===== PAINEL ALUNO ===== -->
+<!-- ===== PAINEL ESTUDANTE ===== -->
 <section id="screen-dashboard-student" class="screen">
   <div class="wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:2px solid #e8ece8;">
-      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:800;font-size:1.2rem;">📚 Painel do Aluno</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:800;font-size:1.2rem;">📚 Painel do Estudante</span></div>
       <div style="display:flex;gap:8px;">
         <button class="btn btn-outline" onclick="startTourStudent()" style="padding:6px 16px;font-size:0.8rem;">📖 Tutorial</button>
         <button class="btn btn-ghost" onclick="logout()" style="padding:6px 16px;font-size:0.8rem;">Sair</button>
       </div>
     </div>
     <div class="dash-header">
-      <h2>Olá, <span id="studentName">aluno</span> 👋</h2>
+      <h2>Olá, <span id="studentName">estudante</span> 👋</h2>
       <button class="btn btn-primary" onclick="openStudentEntryModal()" style="padding:8px 20px;">🚀 Novo diagnóstico</button>
     </div>
     <div class="tab-nav" id="studentTabs">
@@ -533,7 +655,7 @@ function navigateTo(screenId) {
   if (target) target.classList.add('active');
   window.scrollTo(0, 0);
   if (screenId === 'home') updateHomeStats();
-  if (screenId === 'dashboard-manager') { renderManagerContent(); if (window._tourManagerSeen === undefined) setTimeout(startTour, 500); }
+  if (screenId === 'dashboard-manager') { renderManagerContent(); if (window._tourManagerSeen === undefined) setTimeout(startTour, 600); }
   if (screenId === 'dashboard-student') { renderStudentContent(); }
 }
 
@@ -641,7 +763,7 @@ function handleLogin(role) {
   const users = loadData('users', []);
   const found = users.find(u => u.email === email);
   if (!found || found.pass !== obfuscate(pass)) { errEl.textContent = 'E-mail ou senha incorretos.'; return; }
-  if (found.role !== role) { errEl.textContent = `Esta conta é de um(a) ${found.role === 'manager' ? 'gestor' : 'aluno'}. Acesse a área correta.`; return; }
+  if (found.role !== role) { errEl.textContent = `Esta conta é de um(a) ${found.role === 'manager' ? 'gestor' : 'estudante'}. Acesse a área correta.`; return; }
   loginUser(found);
 }
 
@@ -666,7 +788,7 @@ function logout() {
 }
 
 // ============================================================
-// 8. TOUR SPOTLIGHT (Gestor e Aluno)
+// 8. TOUR SPOTLIGHT (corrigido)
 // ============================================================
 const TOUR_STEPS_MANAGER = [
   { selector: '[data-tab="visao-geral"]', title: 'Visão Geral', text: 'Mostra rapidamente como cada turma está indo: boa, média ou precisando de atenção. Métricas consolidadas.' },
@@ -696,6 +818,7 @@ function startTour() {
   document.getElementById('tourCatcher').style.display = 'block';
   document.getElementById('tourTooltip').style.display = 'block';
   renderTourStep();
+  document.getElementById('helpButton').classList.add('pulse-off');
 }
 
 function startTourStudent() {
@@ -706,6 +829,7 @@ function startTourStudent() {
   document.getElementById('tourCatcher').style.display = 'block';
   document.getElementById('tourTooltip').style.display = 'block';
   renderTourStep();
+  document.getElementById('helpButton').classList.add('pulse-off');
 }
 
 function endTour() {
@@ -743,6 +867,7 @@ function renderTourStep() {
       </div>
     </div>`;
 
+  // Posiciona o tooltip acima ou abaixo do alvo
   let tipTop = rect.bottom + pad + 14;
   const tipHeightEstimate = 170;
   if (tipTop + tipHeightEstimate > window.innerHeight) tipTop = rect.top - 14 - tipHeightEstimate;
@@ -753,34 +878,72 @@ function renderTourStep() {
 function tourNext() {
   if (tourIndex === tourSteps.length-1) { endTour(); return; }
   tourIndex++;
-  // Navega para a aba correspondente
   const step = tourSteps[tourIndex];
   const tab = step.selector.replace('[data-tab="', '').replace('"]', '');
-  if (tab) {
-    setManagerTab(tab);
-  }
+  if (tab) setManagerTab(tab);
   renderTourStep();
 }
-
 function tourBack() {
   tourIndex--;
   const step = tourSteps[tourIndex];
   const tab = step.selector.replace('[data-tab="', '').replace('"]', '');
-  if (tab) {
-    setManagerTab(tab);
-  }
+  if (tab) setManagerTab(tab);
   renderTourStep();
 }
-
-// Atualiza posição do tour ao redimensionar
 window.addEventListener('resize', () => {
-  if (tourActive && document.getElementById('tourHighlight').style.display === 'block') {
-    renderTourStep();
-  }
+  if (tourActive && document.getElementById('tourHighlight').style.display === 'block') renderTourStep();
 });
 
+// ===== AJUDA CONTEXTUAL =====
+const CONTEXTUAL_HELP = {
+  'visao-geral': [
+    { title: 'Métricas gerais', text: 'Total de diagnósticos, turmas e nível médio de desempenho.' },
+    { title: 'Top 3 dificuldades', text: 'Quais assuntos os alunos mais erraram até agora.' }
+  ],
+  'aplicacoes': [
+    { title: 'Nova aplicação', text: 'Clique em "+ Nova aplicação" para criar uma nova. Escolha um questionário e defina um código de 4 caracteres.' },
+    { title: 'Código único', text: 'Cada aplicação gera um código que os alunos usam para acessar o diagnóstico.' },
+    { title: 'Desabilitar', text: 'Você pode desabilitar uma aplicação a qualquer momento. Alunos não conseguirão mais acessá-la.' },
+    { title: 'Relatório PDF', text: 'Gere um relatório completo com dados de todos os alunos que responderam.' }
+  ],
+  'alunos': [
+    { title: 'Filtros', text: 'Selecione a turma, busque por nome e ordene por acertos, erros ou tags de dificuldade.' },
+    { title: 'Detalhes', text: 'Clique em um aluno para ver o histórico completo de todas as tentativas.' }
+  ],
+  'assuntos': [
+    { title: 'Gráficos interativos', text: 'Barras, pizza ou radar. Passe o mouse ou clique em um elemento para ver o nome completo da dificuldade.' },
+    { title: 'Métricas', text: 'Mostra quais tópicos os alunos estão tendo mais dificuldade — baseado nas tags geradas pelas respostas.' }
+  ],
+  'materiais': [
+    { title: 'Pastas', text: 'Crie pastas para organizar seus materiais por assunto ou tema.' },
+    { title: 'Tags em MAIÚSCULAS', text: 'Todas as tags são automaticamente convertidas para maiúsculas para padronização.' },
+    { title: 'Upload', text: 'Envie arquivos de até 1GB (PDF, imagens, vídeos). O progresso é mostrado em tempo real.' }
+  ],
+  'questionarios': [
+    { title: 'Criar questionário', text: 'Comece com um nome e descrição. Depois adicione perguntas uma a uma.' },
+    { title: 'Tipos de pergunta', text: 'Escolha entre: escolha única, múltipla escolha, resposta curta, parágrafo ou escala (1 a 5).' },
+    { title: 'Mídia', text: 'Adicione imagens (via URL ou upload) e vídeos do YouTube (embed).' },
+    { title: 'Branching', text: 'Defina regras de avanço para criar caminhos adaptativos baseados nas respostas do aluno.' }
+  ]
+};
+
+function openContextualHelp() {
+  const activeTab = document.querySelector('#managerTabs .tab-btn.active');
+  const tabId = activeTab ? activeTab.dataset.tab : 'visao-geral';
+  const steps = CONTEXTUAL_HELP[tabId] || CONTEXTUAL_HELP['visao-geral'];
+  if (!steps || steps.length === 0) return;
+  tourSteps = steps.map(s => ({ selector: '#managerContent', title: s.title, text: s.text }));
+  tourIndex = 0;
+  tourActive = true;
+  document.getElementById('tourHighlight').style.display = 'block';
+  document.getElementById('tourCatcher').style.display = 'block';
+  document.getElementById('tourTooltip').style.display = 'block';
+  renderTourStep();
+  document.getElementById('helpButton').classList.add('pulse-off');
+}
+
 // ============================================================
-// 9. SLIDERS (3 perguntas iniciais)
+// 9. SLIDERS
 // ============================================================
 function initSliders() {
   const container = document.getElementById('slidersContainer');
@@ -930,21 +1093,31 @@ const TAGS_SYSTEM = {
   'NAO_RESPONDIDA': { label: 'QUESTAO_EM_BRANCO' }
 };
 
-const DEFAULT_QUESTIONS = [
-  { id: 'start', topic: 'Introdução às soluções', text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:', options: ['NaNO3','KNO3','KCl','NaCl','Ce2(SO4)3','Não consegui fazer a questão'], correct: 'KNO3', tags: ['GRAF_INTERPRETACAO','ENDO_EXO'], nivel: 1, obrigatoria: true },
-  { id: 'q1a', topic: 'Revisão: tipos de solução', text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução...', options: ['Insaturada e resfriamento','Saturada e resfriamento','Supersaturada e resfriamento','Não consegui fazer a questão'], correct: 'Insaturada e resfriamento', tags: ['GRAF_INTERPRETACAO'], nivel: 2, obrigatoria: false },
-  { id: 'q2a', topic: 'Gráficos de solubilidade', text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z)...', options: ['X e X.','X e Y.','Y e X','Y e Y','Z e X','Z e Y','Não consegui fazer a questão.'], correct: 'Y e X', tags: ['GRAF_INTERPRETACAO','ENDO_EXO_GRAFICO'], nivel: 3, obrigatoria: false }
-];
-
 function getQuestionsForQuiz(questionarioId) {
   if (questionarioId) {
     const questionarios = loadData('questionarios', []);
     const q = questionarios.find(q => q.id === questionarioId);
     if (q && q.perguntas && q.perguntas.length > 0) {
-      return q.perguntas;
+      return [...q.perguntas].sort((a,b) => (a.ordem || 0) - (b.ordem || 0));
     }
   }
-  return DEFAULT_QUESTIONS;
+  return [
+    { id: 'start', tipo: 'unica', text: 'Observe o gráfico de solubilidade. O sal cuja dissolução é endotérmica e que, ao adicionarmos 87,5 g dele em 350 g de água a 10ºC, formará um sistema heterogêneo é:', options: ['NaNO3','KNO3','KCl','NaCl','Ce2(SO4)3','Não consegui fazer a questão'], correct: 'KNO3', tags: ['GRAF_INTERPRETACAO','ENDO_EXO'], nivel: 1, obrigatoria: true },
+    { id: 'q1a', tipo: 'unica', text: 'Considerando o mesmo gráfico, classifique quanto ao tipo de solução...', options: ['Insaturada e resfriamento','Saturada e resfriamento','Supersaturada e resfriamento','Não consegui fazer a questão'], correct: 'Insaturada e resfriamento', tags: ['GRAF_INTERPRETACAO'], nivel: 2, obrigatoria: false },
+    { id: 'q2a', tipo: 'unica', text: 'Considerando o gráfico de solubilidade de três sais (X, Y, Z)...', options: ['X e X.','X e Y.','Y e X','Y e Y','Z e X','Z e Y','Não consegui fazer a questão.'], correct: 'Y e X', tags: ['GRAF_INTERPRETACAO','ENDO_EXO_GRAFICO'], nivel: 3, obrigatoria: false }
+  ];
+}
+
+function getNextQuestionId(currentQuestionId, answerValue, perguntas, regras) {
+  const rules = (regras || []).filter(r => r.perguntaId === currentQuestionId);
+  for (let rule of rules) {
+    if (rule.opcaoId === answerValue || rule.opcaoId === '*' || rule.opcaoId === 'default') {
+      return rule.proximaPerguntaId;
+    }
+  }
+  const idx = perguntas.findIndex(p => p.id === currentQuestionId);
+  if (idx >= 0 && idx < perguntas.length - 1) return perguntas[idx + 1].id;
+  return null;
 }
 
 function renderQuizQuestion() {
@@ -952,33 +1125,34 @@ function renderQuizQuestion() {
   const q = quizState.questions.find(q => q.id === qId);
   if (!q) { finishQuiz(); return; }
   document.getElementById('qTopic').textContent = q.topic || 'Questão';
-  document.getElementById('qExtra').innerHTML = q.image ? `<img src="${escapeHTML(q.image)}" style="max-width:100%;border-radius:var(--radius-sm);margin:8px 0;">` : '';
-  if (q.video) {
-    document.getElementById('qExtra').innerHTML += `<div style="margin:8px 0;"><iframe width="100%" height="200" src="${escapeHTML(q.video)}" frameborder="0" allowfullscreen></iframe></div>`;
-  }
+  let extraHtml = '';
+  if (q.image) extraHtml += `<img src="${escapeHTML(q.image)}" style="max-width:100%;border-radius:var(--radius-sm);margin:8px 0;">`;
+  if (q.video) extraHtml += `<div style="margin:8px 0;"><iframe width="100%" height="200" src="${escapeHTML(q.video)}" frameborder="0" allowfullscreen></iframe></div>`;
+  document.getElementById('qExtra').innerHTML = extraHtml;
   document.getElementById('qText').textContent = q.text;
   const progress = Math.min(96, 12 + quizState.idx * 18);
   document.getElementById('progressFill').style.width = progress + '%';
   const selectedVal = quizState.answersByQ[qId];
   const container = document.getElementById('qOptions');
+
   if (q.tipo === 'multipla') {
-    // múltipla escolha (checkboxes) - simplificado, usaremos botões com seleção múltipla
     container.innerHTML = q.options.map(opt =>
-      `<button class="opt ${selectedVal && selectedVal.includes(opt) ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOptionMultiple(this, '${escapeHTML(qId)}')" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
+      `<button class="opt ${selectedVal && selectedVal.includes(opt) ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOptionMultiple(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
     ).join('');
   } else if (q.tipo === 'curta' || q.tipo === 'paragrafo') {
-    container.innerHTML = `<textarea class="opt" style="resize:vertical;min-height:60px;" ${quizFinished?'disabled':''} placeholder="Digite sua resposta..." oninput="saveShortAnswer(this, '${escapeHTML(qId)}')">${escapeHTML(quizState.answersByQ[qId] || '')}</textarea>`;
+    container.innerHTML = `<textarea class="opt" style="resize:vertical;min-height:60px;" ${quizFinished?'disabled':''} placeholder="Digite sua resposta..." oninput="saveShortAnswer(this)">${escapeHTML(quizState.answersByQ[qId] || '')}</textarea>`;
   } else if (q.tipo === 'escala') {
     container.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;">${[1,2,3,4,5].map(n => `<button class="opt ${quizState.answersByQ[qId] == n ? 'selected' : ''}" data-val="${n}" onclick="selectOption(this)" ${quizFinished?'disabled':''}>${n}</button>`).join('')}</div>`;
   } else {
-    // escolha única (padrão)
     container.innerHTML = q.options.map(opt =>
       `<button class="opt ${opt === selectedVal ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOption(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
     ).join('');
   }
   document.getElementById('btnBack').disabled = quizState.idx === 0 || quizFinished;
-  document.getElementById('btnNext').textContent = (quizState.idx === quizState.path.length - 1) ? 'Finalizar' : 'Avançar';
-  document.getElementById('btnNext').disabled = !selectedVal && !(quizState.answersByQ[qId]) || quizFinished;
+  const isLast = quizState.idx === quizState.path.length - 1;
+  document.getElementById('btnNext').textContent = isLast ? 'Finalizar' : 'Avançar';
+  const hasAnswer = selectedVal && (!Array.isArray(selectedVal) || selectedVal.length > 0);
+  document.getElementById('btnNext').disabled = !hasAnswer || quizFinished;
 }
 
 function selectOption(btnEl) {
@@ -990,46 +1164,53 @@ function selectOption(btnEl) {
   document.getElementById('btnNext').disabled = false;
   saveQuizProgress();
 }
-
-function selectOptionMultiple(btnEl, qId) {
+function selectOptionMultiple(btnEl) {
   if (quizFinished) return;
   btnEl.classList.toggle('selected');
+  const qId = quizState.path[quizState.idx];
   const selected = Array.from(document.querySelectorAll('.opt.selected')).map(b => b.getAttribute('data-val'));
   quizState.answersByQ[qId] = selected;
   document.getElementById('btnNext').disabled = selected.length === 0;
   saveQuizProgress();
 }
-
-function saveShortAnswer(el, qId) {
+function saveShortAnswer(el) {
   if (quizFinished) return;
+  const qId = quizState.path[quizState.idx];
   quizState.answersByQ[qId] = el.value;
   document.getElementById('btnNext').disabled = !el.value.trim();
   saveQuizProgress();
 }
-
 function goBackQuestion() {
   if (quizState.idx === 0 || quizFinished) return;
   quizState.idx--;
   renderQuizQuestion();
 }
-
 function goNextQuestion() {
   if (quizFinished) return;
   const qId = quizState.path[quizState.idx];
   const val = quizState.answersByQ[qId];
   if (!val) return;
   if (quizState.idx === quizState.path.length - 1) { confirmFinishQuiz(); return; }
-  quizState.idx++;
+  const regras = quizState.regras || [];
+  const nextId = getNextQuestionId(qId, val, quizState.questions, regras);
+  if (nextId && !quizState.path.includes(nextId)) {
+    quizState.path.push(nextId);
+  } else if (!nextId) {
+    const idx = quizState.questions.findIndex(p => p.id === qId);
+    if (idx >= 0 && idx < quizState.questions.length - 1) {
+      const next = quizState.questions[idx + 1].id;
+      if (!quizState.path.includes(next)) quizState.path.push(next);
+    }
+  }
+  quizState.idx = quizState.path.length - 1;
   renderQuizQuestion();
   saveQuizProgress();
 }
-
 function saveQuizProgress() {
   if (!window.currentUser) return;
   const data = { ...quizState, studentEmail: window.currentUser.email, studentName: window.currentUser.name, sliderResponses: window.sliderResponses || {} };
   saveData('quiz_' + quizState.roundId, data);
 }
-
 function confirmFinishQuiz() {
   if (quizFinished) return;
   showModal(`
@@ -1041,7 +1222,6 @@ function confirmFinishQuiz() {
     </div>
   `);
 }
-
 function finishQuiz() {
   quizFinished = true;
   document.getElementById('progressFill').style.width = '100%';
@@ -1053,10 +1233,8 @@ function finishQuiz() {
     if (q) {
       const userAns = quizState.answersByQ[qId];
       if (q.tipo === 'multipla') {
-        // para múltipla, consideramos correto se todas as opções selecionadas forem iguais ao gabarito (simplificado)
         if (Array.isArray(userAns) && Array.isArray(q.correct) && userAns.length === q.correct.length && userAns.every(v => q.correct.includes(v))) correctCount++;
       } else if (q.tipo === 'curta' || q.tipo === 'paragrafo' || q.tipo === 'escala') {
-        // comparação simples para escala
         if (userAns == q.correct) correctCount++;
       } else {
         if (userAns === q.correct) correctCount++;
@@ -1080,7 +1258,7 @@ function finishQuiz() {
 
   const answersDetail = quizState.path.map(qId => ({
     questionId: qId,
-    topic: quizState.questions.find(q => q.id === qId)?.topic || '',
+    topic: quizState.questions.find(q => q.id === qId)?.topic || quizState.questions.find(q => q.id === qId)?.text?.slice(0,50) || '',
     value: quizState.answersByQ[qId],
     isCorrect: quizState.answersByQ[qId] === quizState.questions.find(q => q.id === qId)?.correct
   }));
@@ -1099,7 +1277,8 @@ function finishQuiz() {
     tempoSegundos: quizSeconds,
     finishedAt: Date.now(),
     score: correctCount,
-    totalQuestions: total
+    totalQuestions: total,
+    _questions: quizState.questions
   };
   attempts.push(attempt);
   saveData('tentativas', attempts);
@@ -1118,10 +1297,13 @@ function confirmStartQuiz() {
   const rounds = loadData('rodadas', []);
   const round = rounds.find(r => r.code === code);
   if (!round) { errEl.textContent = 'Código não encontrado.'; return; }
-  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela professora.'; return; }
+  if (round.disabled) { errEl.textContent = 'Esta aplicação está desabilitada pela gestão.'; return; }
   hideModal();
 
   const questions = getQuestionsForQuiz(round.questionarioId);
+  const questionarios = loadData('questionarios', []);
+  const qForm = questionarios.find(q => q.id === round.questionarioId);
+  const regras = qForm?.regras || [];
   const path = questions.map(q => q.id);
   quizState = {
     roundId: round.id,
@@ -1130,7 +1312,8 @@ function confirmStartQuiz() {
     answersByQ: {},
     idx: 0,
     questions: questions,
-    questionarioId: round.questionarioId || null
+    questionarioId: round.questionarioId || null,
+    regras: regras
   };
   quizFinished = false;
   navigateTo('quiz');
@@ -1142,7 +1325,7 @@ function confirmStartQuiz() {
 function openStudentEntryModal() {
   showModal(`
     <div class="modal-title">🚀 Novo diagnóstico</div>
-    <div class="modal-sub">Peça à professora o código da aplicação.</div>
+    <div class="modal-sub">Peça à gestão o código da aplicação.</div>
     <label>Sua turma</label>
     <input type="text" id="modalTurma" placeholder="Ex: A, B, C..." style="text-transform:uppercase;">
     <label>Código da aplicação</label>
@@ -1154,7 +1337,6 @@ function openStudentEntryModal() {
     </div>
   `);
 }
-
 function confirmExitQuiz() {
   if (quizFinished) { navigateTo('dashboard-student'); return; }
   showModal(`
@@ -1180,7 +1362,6 @@ function updateRanking(roundId) {
     tempo: a.tempoSegundos || 0
   })).sort((a,b) => b.score - a.score || a.tempo - b.tempo);
   saveData('ranking_' + roundId, ranked.slice(0, 3));
-
   const allUsers = {};
   attempts.forEach(a => {
     if (!allUsers[a.studentEmail]) {
@@ -1196,13 +1377,8 @@ function updateRanking(roundId) {
   })).sort((a,b) => b.score - a.score);
   saveData('ranking_geral', generalRanking.slice(0, 3));
 }
-
-function getRanking(roundId) {
-  return loadData('ranking_' + roundId, []);
-}
-function getGeneralRanking() {
-  return loadData('ranking_geral', []);
-}
+function getRanking(roundId) { return loadData('ranking_' + roundId, []); }
+function getGeneralRanking() { return loadData('ranking_geral', []); }
 
 // ============================================================
 // 12. RESULTADO
@@ -1214,12 +1390,10 @@ function showResult(attempt) {
 
   document.getElementById('resultHero').className = 'result-hero' + (attempt.levelIdx === 2 ? ' warn' : '');
   document.getElementById('resultHero').innerHTML = `<h2>${escapeHTML(attempt.levelLabel)}</h2><p>${escapeHTML(pickEncouragement(attempt.levelIdx))}</p>`;
-
   document.getElementById('resultCircle').innerHTML = `
     <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
     <div><strong>${pct}% de acerto</strong><br><span style="color:#4a6a6a;">Você acertou ${correct} de ${total} questões</span></div>
   `;
-
   const allAttempts = loadData('tentativas', []);
   const totalAttempts = allAttempts.filter(a => a.studentEmail === window.currentUser.email).length;
   const medal = getMedal(totalAttempts);
@@ -1227,7 +1401,6 @@ function showResult(attempt) {
     <div class="medal-badge"><span class="medal-icon">${medal.icon}</span> <span>${medal.name}</span></div>
     <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
   `;
-
   const ranking = getRanking(attempt.roundId);
   const generalRanking = getGeneralRanking();
   document.getElementById('resultRanking').innerHTML = `
@@ -1248,14 +1421,12 @@ function showResult(attempt) {
       </div>
     `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
   `;
-
   document.getElementById('resultTags').innerHTML = attempt.tags.length ? attempt.tags.map(t => `
     <div class="card" style="margin-bottom:12px;">
       <h4>📌 ${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</h4>
       <p style="color:#4a6a6a;">Dica: revise este tópico com calma.</p>
     </div>
   `).join('') : '<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4></div>';
-
   if (attempt.levelIdx === 0) {
     document.getElementById('resultAprofundamento').innerHTML = `
       <div class="card card-green" style="margin-top:16px;">
@@ -1268,7 +1439,6 @@ function showResult(attempt) {
     document.getElementById('resultAprofundamento').innerHTML = '';
   }
 }
-
 function pickEncouragement(levelIdx) {
   const phrases = [
     ['Excelente! Você domina bem o conteúdo!', 'Parabéns pelo desempenho!', 'Você está pronto para desafios maiores.'],
@@ -1278,7 +1448,6 @@ function pickEncouragement(levelIdx) {
   const arr = phrases[Math.min(levelIdx, 2)];
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
 function getMedal(totalAttempts) {
   const medals = [
     { level: 0, name: 'Calouro', icon: '🥉' },
@@ -1295,7 +1464,6 @@ function getMedal(totalAttempts) {
   const idx = Math.min(totalAttempts, 9);
   return medals[idx];
 }
-
 function launchConfetti() {
   const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4'];
   for (let i = 0; i < 60; i++) {
@@ -1313,13 +1481,12 @@ function launchConfetti() {
 }
 
 // ============================================================
-// 13. PAINEL GESTOR - COMPLETO (com gráficos interativos e métricas)
+// 13. PAINEL GESTOR (resumido para evitar repetição)
 // ============================================================
 function renderManagerContent() {
   const tab = document.querySelector('#managerTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
   setManagerTab(tab);
 }
-
 let managerTab = 'visao-geral';
 let selectedRoundId = null;
 let alunosFilterTurma = null;
@@ -1334,7 +1501,6 @@ function setManagerTab(tab) {
   managerTab = tab;
   document.querySelectorAll('#managerTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   const container = document.getElementById('managerContent');
-
   if (tab === 'visao-geral') renderVisaoGeral(container);
   else if (tab === 'aplicacoes') renderAplicacoes(container);
   else if (tab === 'alunos') renderAlunos(container);
@@ -1343,6 +1509,7 @@ function setManagerTab(tab) {
   else if (tab === 'questionarios') renderQuestionarios(container);
 }
 
+// ===== VISÃO GERAL =====
 function renderVisaoGeral(container) {
   const attempts = loadData('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
@@ -1356,7 +1523,6 @@ function renderVisaoGeral(container) {
   attempts.forEach(a => { if (a.tags) a.tags.forEach(t => tagsCount[t] = (tagsCount[t] || 0) + 1); });
   const sorted = Object.entries(tagsCount).sort((a,b) => b[1]-a[1]);
   const top3 = sorted.slice(0,3).map(([id]) => TAGS_SYSTEM[id]?.label || id);
-
   container.innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
       <div class="card text-center"><div style="font-size:2.2rem;font-weight:800;color:var(--green);">${total}</div><div style="color:#4a6a6a;">diagnósticos</div></div>
@@ -1373,7 +1539,6 @@ function renderAplicacoes(container) {
   const rounds = loadData('rodadas', []);
   const attempts = loadData('tentativas', []);
   const questionarios = loadData('questionarios', []);
-
   let html = `<div style="display:grid;grid-template-columns:280px 1fr;gap:24px;">`;
   html += `<div>
     <button class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="showCreateRoundModal()">➕ Nova aplicação</button>
@@ -1403,7 +1568,6 @@ function renderAplicacoes(container) {
   container.innerHTML = html;
   renderRoundAttempts(rounds, attempts);
 }
-
 function renderRoundAttempts(rounds, attempts) {
   const round = rounds.find(r => r.id === selectedRoundId);
   const header = document.getElementById('roundHeader');
@@ -1417,7 +1581,7 @@ function renderRoundAttempts(rounds, attempts) {
   if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
   wrap.innerHTML = `
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Aluno</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Acertos</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tempo</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tags</th></tr></thead>
+      <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Estudante</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Acertos</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tempo</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tags</th></tr></thead>
       <tbody>${list.map(a => `
         <tr>
           <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentName)}</td>
@@ -1431,15 +1595,12 @@ function renderRoundAttempts(rounds, attempts) {
     </table>
   `;
 }
-
 function selectRound(id) { selectedRoundId = id; renderManagerContent(); }
-
 function toggleRoundEnabled(id) {
   const rounds = loadData('rodadas', []);
   const round = rounds.find(r => r.id === id);
   if (round) { round.disabled = !round.disabled; saveData('rodadas', rounds); renderManagerContent(); }
 }
-
 function showCreateRoundModal() {
   const rounds = loadData('rodadas', []);
   const questionarios = loadData('questionarios', []);
@@ -1462,14 +1623,12 @@ function showCreateRoundModal() {
     </div>
   `);
 }
-
 function generateCode() {
   const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
   let c = '';
   for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
   return c;
 }
-
 function confirmCreateRound() {
   const label = document.getElementById('modalRoundLabel').value.trim();
   const questionarioId = document.getElementById('modalRoundQuestionario').value;
@@ -1486,15 +1645,12 @@ function confirmCreateRound() {
   hideModal();
   renderManagerContent();
 }
-
-// ===== RELATÓRIO PDF =====
 function generateReport(roundId) {
   const rounds = loadData('rodadas', []);
   const attempts = loadData('tentativas', []);
   const round = rounds.find(r => r.id === roundId);
   if (!round) return;
   const list = attempts.filter(a => a.roundId === roundId).sort((a,b) => a.studentName.localeCompare(b.studentName));
-
   let html = `
     <div id="reportContent" style="padding:20px;font-family:'Times New Roman',Arial,serif;font-size:12pt;line-height:1.5;max-width:21cm;margin:0 auto;background:#fff;">
       <h1 style="font-size:18pt;text-align:center;">Relatório de Diagnóstico</h1>
@@ -1504,7 +1660,7 @@ function generateReport(roundId) {
       <hr style="margin:16px 0;">
       <table style="width:100%;border-collapse:collapse;font-size:11pt;margin-top:12px;">
         <thead><tr style="background:#f0f5f0;">
-          <th style="padding:6px 10px;border:1px solid #ddd;text-align:left;">Aluno</th>
+          <th style="padding:6px 10px;border:1px solid #ddd;text-align:left;">Estudante</th>
           <th style="padding:6px 10px;border:1px solid #ddd;text-align:left;">Turma</th>
           <th style="padding:6px 10px;border:1px solid #ddd;text-align:center;">Acertos</th>
           <th style="padding:6px 10px;border:1px solid #ddd;text-align:center;">Erros</th>
@@ -1545,7 +1701,7 @@ function generateReport(roundId) {
               </div>`;
             }).join('')}
           </div>
-          <p style="font-size:9pt;color:#8a9a9a;margin-top:4px;">Nº de acertos (${list.length} alunos)</p>
+          <p style="font-size:9pt;color:#8a9a9a;margin-top:4px;">Nº de acertos (${list.length} estudantes)</p>
         </div>
         <div style="flex:1;min-width:200px;background:#f8faf8;padding:12px;border-radius:8px;">
           <h4 style="font-size:12pt;margin-bottom:6px;">🏷️ Tags mais comuns</h4>
@@ -1559,7 +1715,6 @@ function generateReport(roundId) {
       </div>
     </div>
   `;
-
   showModal(html + `
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="hideModal()">Fechar</button>
@@ -1568,12 +1723,11 @@ function generateReport(roundId) {
   `);
   window._reportHTML = html;
 }
-
 function downloadPDFReport() {
   const element = document.getElementById('reportContent');
   if (!element) return;
   const opt = {
-    margin: [20, 20, 20, 20], // margens em mm
+    margin: [20, 20, 20, 20],
     filename: 'relatorio_diagnostico.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
@@ -1582,19 +1736,18 @@ function downloadPDFReport() {
   html2pdf().set(opt).from(element).save();
 }
 
-// ===== ALUNOS =====
+// ===== ALUNOS (resumido) =====
 function renderAlunos(container) {
   const attempts = loadData('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
   if (!alunosFilterTurma && turmas.length) alunosFilterTurma = turmas[0];
-
   let html = `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
       <span style="font-weight:700;font-size:0.85rem;">Turma:</span>
       ${turmas.map(t => `<button class="btn ${t === alunosFilterTurma ? 'btn-primary' : 'btn-ghost'}" onclick="setAlunosFilter('turma','${t.replace(/'/g,"\\'")}')" style="padding:4px 16px;font-size:0.8rem;">${escapeHTML(t)}</button>`).join('')}
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
-      <input type="text" placeholder="Buscar aluno..." value="${escapeHTML(alunosSearch)}" oninput="setAlunosFilter('search', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;width:200px;">
+      <input type="text" placeholder="Buscar estudante..." value="${escapeHTML(alunosSearch)}" oninput="setAlunosFilter('search', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;width:200px;">
       <select onchange="setAlunosFilter('orderBy', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;">
         <option value="nome" ${alunosOrderBy==='nome'?'selected':''}>Ordenar por nome</option>
         <option value="acertos" ${alunosOrderBy==='acertos'?'selected':''}>Ordenar por acertos</option>
@@ -1607,13 +1760,9 @@ function renderAlunos(container) {
       </select>
     </div>
   `;
-
-  if (turmas.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">📭 Ainda não há alunos.</div>`; return; }
-
+  if (turmas.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">📭 Ainda não há estudantes.</div>`; return; }
   const inTurma = attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosFilterTurma);
-  let uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))]
-    .filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()));
-
+  let uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))].filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()));
   const alunosData = uniqueNames.map(n => {
     const studAttempts = inTurma.filter(a => a.studentName.trim() === n);
     const last = studAttempts[studAttempts.length-1];
@@ -1622,19 +1771,11 @@ function renderAlunos(container) {
     const tags = last?.tags || [];
     return { name: n, correct, totalQ, err: totalQ - correct, tags, levelIdx: last?.levelIdx || 0, levelLabel: last?.levelLabel || '—', attempts: studAttempts };
   });
-
-  if (alunosOrderBy === 'nome') {
-    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
-  } else if (alunosOrderBy === 'acertos') {
-    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.correct - b.correct : b.correct - a.correct);
-  } else if (alunosOrderBy === 'erros') {
-    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.err - b.err : b.err - a.err);
-  } else if (alunosOrderBy === 'tags') {
-    alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.tags.length - b.tags.length : b.tags.length - a.tags.length);
-  }
-
-  if (alunosData.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">Nenhum aluno encontrado.</div>`; return; }
-
+  if (alunosOrderBy === 'nome') alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+  else if (alunosOrderBy === 'acertos') alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.correct - b.correct : b.correct - a.correct);
+  else if (alunosOrderBy === 'erros') alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.err - b.err : b.err - a.err);
+  else if (alunosOrderBy === 'tags') alunosData.sort((a,b) => alunosOrderDir === 'asc' ? a.tags.length - b.tags.length : b.tags.length - a.tags.length);
+  if (alunosData.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">Nenhum estudante encontrado.</div>`; return; }
   html += `<div class="card" style="padding:8px 0;">`;
   alunosData.forEach(d => {
     html += `
@@ -1655,7 +1796,6 @@ function renderAlunos(container) {
   html += `</div>`;
   container.innerHTML = html;
 }
-
 function setAlunosFilter(type, value) {
   if (type === 'turma') alunosFilterTurma = value;
   else if (type === 'search') alunosSearch = value;
@@ -1668,7 +1808,7 @@ function toggleAlunoDetail(name) {
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
-// ===== ASSUNTOS (com interatividade e métricas) =====
+// ===== ASSUNTOS (resumido com gráficos) =====
 function renderAssuntos(container) {
   const attempts = loadData('tentativas', []);
   const counts = {};
@@ -1676,11 +1816,10 @@ function renderAssuntos(container) {
   attempts.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
   const total = attempts.length || 1;
   const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
-
   let html = `
     <div style="background:var(--blue-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--blue);margin-bottom:20px;">
       <strong>📊 Métricas de dificuldade</strong>
-      <p style="color:#4a6a6a;font-size:0.9rem;margin-top:4px;">Estes gráficos mostram quais tópicos os alunos estão tendo mais dificuldade. Quanto maior a barra/fatia, mais alunos erraram questões relacionadas àquele assunto. Clique em qualquer elemento do gráfico para ver o nome completo da dificuldade.</p>
+      <p style="color:#4a6a6a;font-size:0.9rem;margin-top:4px;">Estes gráficos mostram quais tópicos os estudantes estão tendo mais dificuldade. Passe o mouse ou toque em qualquer elemento do gráfico para ver o nome completo da dificuldade.</p>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
       <span style="font-weight:700;font-size:0.85rem;">Escolha um gráfico de visualização:</span>
@@ -1690,10 +1829,6 @@ function renderAssuntos(container) {
     </div>
     <div class="card" style="padding:20px;min-height:300px;display:flex;align-items:center;justify-content:center;position:relative;">
       <canvas id="chartCanvas" width="500" height="300"></canvas>
-      <div id="chartTooltip" style="display:none;position:absolute;background:#fff;border-radius:var(--radius-sm);padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,0.15);border:2px solid var(--green);max-width:250px;z-index:10;pointer-events:none;">
-        <div style="font-weight:700;font-size:0.9rem;" id="chartTooltipTitle"></div>
-        <div style="font-size:0.85rem;color:#4a6a6a;" id="chartTooltipText"></div>
-      </div>
     </div>
     <div style="margin-top:16px;">
       ${sorted.map(([tid, count]) => {
@@ -1708,44 +1843,37 @@ function renderAssuntos(container) {
   container.innerHTML = html;
   setTimeout(() => drawChart(sorted, total), 50);
 }
-
 function showTagDetail(tid) {
   const label = TAGS_SYSTEM[tid]?.label || tid;
   const count = loadData('tentativas', []).filter(a => a.tags && a.tags.includes(tid)).length;
   alert(`📌 ${label}\nOcorrências: ${count}\nDescrição: Dificuldade relacionada a ${label}.`);
 }
-
 function setChartType(type) { chartType = type; renderManagerContent(); }
-
 function drawChart(data, total) {
   const canvas = document.getElementById('chartCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
   ctx.clearRect(0,0,w,h);
-
   const tooltip = document.getElementById('chartTooltip');
   const tooltipTitle = document.getElementById('chartTooltipTitle');
-  const tooltipText = document.getElementById('chartTooltipText');
-
+  const tooltipValue = document.getElementById('chartTooltipValue');
   if (data.length === 0 || data.every(d => d[1] === 0)) {
     ctx.fillStyle = '#8a9a9a'; ctx.font = '16px Nunito Sans'; ctx.textAlign = 'center';
     ctx.fillText('Sem dados para exibir', w/2, h/2); return;
   }
   const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4','#C9B8D4'];
-
-  // Função para mostrar tooltip
   function showTooltip(e, tid, count) {
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const y = e.clientY || e.touches?.[0]?.clientY || 0;
     tooltip.style.display = 'block';
-    tooltip.style.left = (x + 10) + 'px';
-    tooltip.style.top = (y + 10) + 'px';
+    tooltip.style.left = (x + 12) + 'px';
+    tooltip.style.top = (y + 12) + 'px';
     tooltipTitle.textContent = TAGS_SYSTEM[tid]?.label || tid;
-    tooltipText.textContent = `${count} ocorrência(s)`;
+    tooltipValue.textContent = `${count} ocorrência(s)`;
   }
-
+  function hideTooltip() { tooltip.style.display = 'none'; }
   if (chartType === 'bar') {
     const max = Math.max(...data.map(d => d[1]), 1);
     const pad = 40, chartW = w - 2*pad, chartH = h - 2*pad;
@@ -1757,21 +1885,41 @@ function drawChart(data, total) {
       const y = h - pad - barH;
       ctx.fillStyle = colors[i % colors.length];
       ctx.fillRect(x - 14, y, 28, barH);
-      // Label curto abaixo
       ctx.fillStyle = '#1a2a2a';
       const shortLabel = (TAGS_SYSTEM[tid]?.label || tid).slice(0, 10);
       ctx.fillText(shortLabel, x, h - pad + 18);
       ctx.fillText(count, x, y - 6);
-
-      // Interatividade: hover para mostrar detalhes
-      canvas.addEventListener('mousemove', function handler(e) {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        if (mouseX > x-16 && mouseX < x+16 && mouseY > y && mouseY < h - pad) {
+    });
+    canvas.addEventListener('mousemove', function handler(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      let found = false;
+      data.forEach(([tid, count], i) => {
+        const x = pad + step * (i + 1);
+        const barH = (count / max) * chartH;
+        const y = h - pad - barH;
+        if (mx > x-16 && mx < x+16 && my > y && my < h - pad) {
           showTooltip(e, tid, count);
-        } else {
-          tooltip.style.display = 'none';
+          found = true;
+        }
+      });
+      if (!found) hideTooltip();
+    });
+    canvas.addEventListener('mouseleave', hideTooltip);
+    canvas.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const mx = touch.clientX - rect.left;
+      const my = touch.clientY - rect.top;
+      data.forEach(([tid, count], i) => {
+        const x = pad + step * (i + 1);
+        const barH = (count / max) * chartH;
+        const y = h - pad - barH;
+        if (mx > x-20 && mx < x+20 && my > y && my < h - pad) {
+          showTooltip(touch, tid, count);
+          setTimeout(hideTooltip, 3000);
         }
       });
     });
@@ -1789,8 +1937,7 @@ function drawChart(data, total) {
       ctx.fill();
       start += angle;
     });
-    // Interatividade: detectar clique na pizza
-    canvas.addEventListener('click', (e) => {
+    canvas.addEventListener('click', function(e) {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left - cx;
       const y = e.clientY - rect.top - cy;
@@ -1805,6 +1952,23 @@ function drawChart(data, total) {
         }
       }
     });
+    canvas.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left - cx;
+      const y = e.clientY - rect.top - cy;
+      const dist = Math.sqrt(x*x + y*y);
+      if (dist > r) { hideTooltip(); return; }
+      let angle = Math.atan2(y, x) + Math.PI/2;
+      if (angle < 0) angle += 2*Math.PI;
+      for (let slice of slices) {
+        if (angle >= slice.start && angle < slice.end) {
+          showTooltip(e, slice.tid, slice.count);
+          return;
+        }
+      }
+      hideTooltip();
+    });
+    canvas.addEventListener('mouseleave', hideTooltip);
     let legY = 20; ctx.font = '10px Nunito Sans'; ctx.textAlign = 'left';
     data.slice(0,6).forEach(([tid], i) => {
       ctx.fillStyle = colors[i % colors.length];
@@ -1824,7 +1988,6 @@ function drawChart(data, total) {
       const x = cx + r * val * Math.cos(angle);
       const y = cy + r * val * Math.sin(angle);
       points.push({ x, y, tid: data[i][0], count: data[i][1] });
-      // linhas dos eixos
       const ex = cx + r * Math.cos(angle);
       const ey = cy + r * Math.sin(angle);
       ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(ex,ey); ctx.strokeStyle = 'rgba(0,0,0,0.1)'; ctx.stroke();
@@ -1842,34 +2005,33 @@ function drawChart(data, total) {
       ctx.fillStyle = '#1a2a2a';
       ctx.fillText((TAGS_SYSTEM[p.tid]?.label || p.tid).slice(0,8), lx, ly+4);
     });
-    // Interatividade: hover nos pontos
-    canvas.addEventListener('mousemove', function handler(e) {
+    canvas.addEventListener('mousemove', function(e) {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
       let found = false;
       for (let p of points) {
         const dist = Math.sqrt((mx-p.x)**2 + (my-p.y)**2);
-        if (dist < 15) {
+        if (dist < 18) {
           showTooltip(e, p.tid, p.count);
           found = true;
           break;
         }
       }
-      if (!found) tooltip.style.display = 'none';
+      if (!found) hideTooltip();
     });
+    canvas.addEventListener('mouseleave', hideTooltip);
   }
 }
 
-// ===== MATERIAIS =====
+// ===== MATERIAIS (resumido) =====
 function renderMateriais(container) {
   const materiais = loadData('materiais', []);
   const pastas = loadData('pastas', []);
   const tagsPersonalizadas = loadData('tagsPersonalizadas', []);
-
   let html = `
     <div style="background:var(--green-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--green);margin-bottom:20px;">
-      <strong>📌 O que são tags?</strong> As tags são etiquetas (em MAIÚSCULAS) que você cria para organizar os materiais e associar às dificuldades dos alunos.
+      <strong>📌 O que são tags?</strong> As tags são etiquetas (em MAIÚSCULAS) que você cria para organizar os materiais e associar às dificuldades dos estudantes.
       <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
         ${tagsPersonalizadas.length ? tagsPersonalizadas.map(t => `<span class="chip chip-green">${escapeHTML(t)}</span>`).join('') : '<span style="color:#5a7a7a;">Nenhuma tag criada ainda.</span>'}
       </div>
@@ -1922,7 +2084,6 @@ function renderMateriais(container) {
   container.innerHTML = html;
   renderMaterialsList(materiais);
 }
-
 function renderMaterialsList(materiais) {
   const wrap = document.getElementById('matList');
   if (!wrap) return;
@@ -1943,7 +2104,6 @@ function renderMaterialsList(materiais) {
     </div>
   `).join('');
 }
-
 function addTag() {
   const name = document.getElementById('newTagName').value.trim().toUpperCase();
   if (!name) return;
@@ -1969,7 +2129,6 @@ function addFolder() {
   document.getElementById('newFolderName').value = '';
   renderManagerContent();
 }
-
 function handleFiles(files) {
   for (let f of files) {
     if (f.size > MAX_FILE_SIZE) { alert(`O arquivo ${f.name} excede o limite de 1GB.`); continue; }
@@ -2001,7 +2160,6 @@ function renderFileList() {
     </div>
   `).join('');
 }
-
 function addMaterial() {
   const title = document.getElementById('matTitle').value.trim();
   const type = document.getElementById('matType').value;
@@ -2020,7 +2178,6 @@ function addMaterial() {
   uploadedFiles = [];
   renderManagerContent();
 }
-
 function deleteMaterial(id) {
   if (!confirm('Remover este material?')) return;
   let materiais = loadData('materiais', []);
@@ -2029,7 +2186,7 @@ function deleteMaterial(id) {
   renderManagerContent();
 }
 
-// ===== QUESTIONÁRIOS (completo estilo Google Forms) =====
+// ===== QUESTIONÁRIOS (resumido) =====
 function renderQuestionarios(container) {
   const questionarios = loadData('questionarios', []);
   let html = `
@@ -2059,12 +2216,12 @@ function renderQuestionarios(container) {
           </div>
         `).join('')}
         ${(q.perguntas?.length || 0) > 3 ? `<div style="font-size:0.8rem;color:#8a9a9a;margin-top:4px;">+ ${q.perguntas.length - 3} outras perguntas</div>` : ''}
+        ${q.regras && q.regras.length > 0 ? `<div style="font-size:0.75rem;color:#5a7a7a;margin-top:4px;">🔀 ${q.regras.length} regra(s) de branching</div>` : ''}
       </div>
     `).join('')}
   `;
   container.innerHTML = html;
 }
-
 function previewQuestionario(id) {
   const questionarios = loadData('questionarios', []);
   const q = questionarios.find(q => q.id === id);
@@ -2085,10 +2242,9 @@ function previewQuestionario(id) {
   });
   showModal(html + `<div class="modal-actions"><button class="btn btn-ghost" onclick="hideModal()">Fechar</button></div>`);
 }
-
 function showCreateQuestionarioModal(editData) {
   const isEdit = !!editData;
-  const q = editData || { nome: '', descricao: '', perguntas: [] };
+  const q = editData || { nome: '', descricao: '', perguntas: [], regras: [] };
   showModal(`
     <div class="modal-title">${isEdit ? '✏️ Editar' : '📝 Criar'} Questionário</div>
     <div class="modal-sub">${isEdit ? 'Edite as informações do questionário.' : 'Crie um novo questionário com perguntas, tipos, imagens e vídeos.'}</div>
@@ -2106,15 +2262,29 @@ function showCreateQuestionarioModal(editData) {
             <div>
               <button class="btn btn-ghost btn-sm" onclick="editPergunta(${i})" style="padding:2px 10px;font-size:0.7rem;">✏️</button>
               <button class="btn btn-ghost btn-sm" onclick="removePergunta(${i})" style="padding:2px 10px;font-size:0.7rem;color:var(--coral);">✕</button>
+              <button class="btn btn-ghost btn-sm" onclick="movePergunta(${i}, -1)" style="padding:2px 6px;font-size:0.7rem;">↑</button>
+              <button class="btn btn-ghost btn-sm" onclick="movePergunta(${i}, 1)" style="padding:2px 6px;font-size:0.7rem;">↓</button>
             </div>
           </div>
           ${p.image ? `<div style="font-size:0.75rem;color:#5a7a7a;">🖼️ imagem anexada</div>` : ''}
           ${p.video ? `<div style="font-size:0.75rem;color:#5a7a7a;">🎥 vídeo anexado</div>` : ''}
           <div style="font-size:0.75rem;color:#5a7a7a;">Tags: ${p.tags?.join(', ') || '—'} • Nível ${p.nivel || 1} • ${p.obrigatoria ? '⭐ Obrigatória' : 'Opcional'}</div>
+          ${q.regras && q.regras.filter(r => r.perguntaId === p.id).length > 0 ? `<div style="font-size:0.7rem;color:#5a7a7a;">🔀 ${q.regras.filter(r => r.perguntaId === p.id).length} regra(s) de branching</div>` : ''}
         </div>
       `).join('')}
     </div>
     <button class="btn btn-secondary btn-sm" onclick="addPerguntaModal()" style="margin-bottom:12px;">➕ Adicionar pergunta</button>
+    <hr style="margin:12px 0;">
+    <h4 style="margin-bottom:8px;">🔀 Regras de avanço (branching)</h4>
+    <div id="regrasList" style="margin-bottom:12px;">
+      ${q.regras?.map((r, i) => `
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 8px;background:#f8faf8;border-radius:8px;margin:4px 0;">
+          <span style="font-size:0.85rem;">Se "${escapeHTML(r.perguntaId)}" = "${escapeHTML(r.opcaoId)}" → "${escapeHTML(r.proximaPerguntaId)}"</span>
+          <button class="btn btn-ghost btn-sm" onclick="removeRegra(${i})" style="padding:2px 6px;font-size:0.7rem;color:var(--coral);">✕</button>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="addRegraModal()" style="margin-bottom:12px;">➕ Adicionar regra</button>
     <div class="err" id="qErr"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
@@ -2124,7 +2294,56 @@ function showCreateQuestionarioModal(editData) {
   window._editQuestionarioData = q;
   window._editQuestionarioId = isEdit ? q.id : null;
 }
-
+function movePergunta(index, direction) {
+  const q = window._editQuestionarioData;
+  const perguntas = q.perguntas;
+  const newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= perguntas.length) return;
+  [perguntas[index], perguntas[newIndex]] = [perguntas[newIndex], perguntas[index]];
+  perguntas.forEach((p, i) => p.ordem = i);
+  showCreateQuestionarioModal(q);
+}
+function addRegraModal() {
+  const q = window._editQuestionarioData;
+  const perguntas = q.perguntas || [];
+  showModal(`
+    <div class="modal-title">🔀 Nova regra de branching</div>
+    <div class="modal-sub">Defina: se a resposta for X, vá para a pergunta Y.</div>
+    <label>Pergunta de origem</label>
+    <select id="regraPergunta">
+      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
+    </select>
+    <label>Opção/resposta (ou "*" para qualquer)</label>
+    <input type="text" id="regraOpcao" placeholder="Ex: KNO3 ou *">
+    <label>Pergunta de destino</label>
+    <select id="regraDestino">
+      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
+    </select>
+    <div class="err" id="regraErr"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmAddRegra()">Adicionar</button>
+    </div>
+  `);
+}
+function confirmAddRegra() {
+  const perguntaId = document.getElementById('regraPergunta').value;
+  const opcaoId = document.getElementById('regraOpcao').value.trim();
+  const proximaPerguntaId = document.getElementById('regraDestino').value;
+  const errEl = document.getElementById('regraErr');
+  if (!perguntaId || !proximaPerguntaId) { errEl.textContent = 'Selecione pergunta de origem e destino.'; return; }
+  if (!opcaoId) { errEl.textContent = 'Digite a opção/resposta.'; return; }
+  const q = window._editQuestionarioData;
+  if (!q.regras) q.regras = [];
+  q.regras.push({ perguntaId, opcaoId, proximaPerguntaId });
+  hideModal();
+  showCreateQuestionarioModal(q);
+}
+function removeRegra(index) {
+  const q = window._editQuestionarioData;
+  q.regras.splice(index, 1);
+  showCreateQuestionarioModal(q);
+}
 function addPerguntaModal() {
   const tags = loadData('tagsPersonalizadas', []);
   showModal(`
@@ -2169,19 +2388,13 @@ function addPerguntaModal() {
       <button class="btn btn-primary" onclick="confirmAddPergunta()">Adicionar pergunta</button>
     </div>
   `);
-  _tempPerguntaIndex = null;
 }
-
 function togglePerguntaFields() {
   const tipo = document.getElementById('pTipo').value;
   const group = document.getElementById('optionsGroup');
-  if (tipo === 'unica' || tipo === 'multipla') {
-    group.style.display = 'block';
-  } else {
-    group.style.display = 'none';
-  }
+  if (tipo === 'unica' || tipo === 'multipla') group.style.display = 'block';
+  else group.style.display = 'none';
 }
-
 function uploadImageForQuestion() {
   const input = document.createElement('input');
   input.type = 'file';
@@ -2190,15 +2403,12 @@ function uploadImageForQuestion() {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = function(ev) {
-        document.getElementById('pImage').value = ev.target.result;
-      };
+      reader.onload = function(ev) { document.getElementById('pImage').value = ev.target.result; };
       reader.readAsDataURL(file);
     }
   };
   input.click();
 }
-
 function confirmAddPergunta() {
   const tipo = document.getElementById('pTipo').value;
   const text = document.getElementById('pText').value.trim();
@@ -2211,7 +2421,6 @@ function confirmAddPergunta() {
   const nivel = parseInt(document.getElementById('pNivel').value) || 1;
   const obrigatoria = document.getElementById('pObrigatoria').checked;
   const errEl = document.getElementById('pErr');
-
   if (!text) { errEl.textContent = 'Digite o enunciado da pergunta.'; return; }
   if ((tipo === 'unica' || tipo === 'multipla') && optionsRaw.length < 2) {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
@@ -2222,33 +2431,17 @@ function confirmAddPergunta() {
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
-
-  const pergunta = {
-    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
-    tipo,
-    text,
-    image,
-    video,
-    options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [],
-    correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''),
-    tags,
-    nivel,
-    obrigatoria
-  };
-
+  const pergunta = { id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4), tipo, text, image, video, options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [], correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''), tags, nivel, obrigatoria, ordem: (window._editQuestionarioData.perguntas || []).length };
   const q = window._editQuestionarioData;
   if (!q.perguntas) q.perguntas = [];
   q.perguntas.push(pergunta);
   hideModal();
   showCreateQuestionarioModal(q);
 }
-
 function editPergunta(index) {
   const q = window._editQuestionarioData;
   const p = q.perguntas[index];
   const tags = loadData('tagsPersonalizadas', []);
-  _tempPerguntaIndex = index;
-
   showModal(`
     <div class="modal-title">✏️ Editar pergunta</div>
     <label>Tipo</label>
@@ -2288,7 +2481,6 @@ function editPergunta(index) {
   `);
   setTimeout(togglePerguntaFields, 50);
 }
-
 function saveEditPergunta(index) {
   const tipo = document.getElementById('pTipo').value;
   const text = document.getElementById('pText').value.trim();
@@ -2301,7 +2493,6 @@ function saveEditPergunta(index) {
   const nivel = parseInt(document.getElementById('pNivel').value) || 1;
   const obrigatoria = document.getElementById('pObrigatoria').checked;
   const errEl = document.getElementById('pErr');
-
   if (!text) { errEl.textContent = 'Digite o enunciado.'; return; }
   if ((tipo === 'unica' || tipo === 'multipla') && optionsRaw.length < 2) {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
@@ -2312,31 +2503,18 @@ function saveEditPergunta(index) {
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
-
   const q = window._editQuestionarioData;
-  q.perguntas[index] = {
-    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
-    tipo,
-    text,
-    image,
-    video,
-    options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [],
-    correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''),
-    tags,
-    nivel,
-    obrigatoria
-  };
+  q.perguntas[index] = { id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4), tipo, text, image, video, options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [], correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''), tags, nivel, obrigatoria, ordem: index };
   hideModal();
   showCreateQuestionarioModal(q);
 }
-
 function removePergunta(index) {
   if (!confirm('Remover esta pergunta?')) return;
   const q = window._editQuestionarioData;
   q.perguntas.splice(index, 1);
+  q.perguntas.forEach((p, i) => p.ordem = i);
   showCreateQuestionarioModal(q);
 }
-
 function saveQuestionario(editId) {
   const nome = document.getElementById('qNome').value.trim();
   const descricao = document.getElementById('qDesc').value.trim();
@@ -2344,31 +2522,22 @@ function saveQuestionario(editId) {
   const errEl = document.getElementById('qErr');
   if (!nome) { errEl.textContent = 'Dê um nome ao questionário.'; return; }
   if (!qData.perguntas || qData.perguntas.length === 0) { errEl.textContent = 'Adicione pelo menos uma pergunta.'; return; }
-
   let questionarios = loadData('questionarios', []);
   if (editId) {
     const idx = questionarios.findIndex(q => q.id === editId);
-    if (idx >= 0) {
-      questionarios[idx] = { ...qData, id: editId, nome, descricao };
-    }
+    if (idx >= 0) questionarios[idx] = { ...qData, id: editId, nome, descricao };
   } else {
-    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, createdAt: Date.now() });
+    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, regras: qData.regras || [], createdAt: Date.now() });
   }
   saveData('questionarios', questionarios);
   hideModal();
   renderManagerContent();
 }
-
 function editQuestionario(id) {
   const questionarios = loadData('questionarios', []);
   const q = questionarios.find(q => q.id === id);
-  if (q) {
-    window._editQuestionarioData = { ...q };
-    window._editQuestionarioId = id;
-    showCreateQuestionarioModal(q);
-  }
+  if (q) { window._editQuestionarioData = { ...q }; window._editQuestionarioId = id; showCreateQuestionarioModal(q); }
 }
-
 function deleteQuestionario(id) {
   if (!confirm('Remover este questionário e todas as suas perguntas?')) return;
   let questionarios = loadData('questionarios', []);
@@ -2378,20 +2547,18 @@ function deleteQuestionario(id) {
 }
 
 // ============================================================
-// 14. PAINEL ALUNO
+// 14. PAINEL ESTUDANTE (com grade estilo Trello)
 // ============================================================
 function renderStudentContent() {
   const tab = document.querySelector('#studentTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
   setStudentTab(tab);
 }
-
 let studentTab = 'visao-geral';
 
 function setStudentTab(tab) {
   studentTab = tab;
   document.querySelectorAll('#studentTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   const container = document.getElementById('studentContent');
-
   if (tab === 'visao-geral') renderStudentVisaoGeral(container);
   else if (tab === 'desempenho') renderStudentDesempenho(container);
   else if (tab === 'reforcos') renderStudentReforcos(container);
@@ -2409,39 +2576,85 @@ function renderStudentVisaoGeral(container) {
   const correct = last.answersDetail?.filter(d => d.isCorrect).length || 0;
   const total = last.answersDetail?.length || 0;
   const pct = total ? Math.round((correct/total)*100) : 0;
-
-  let html = `
-    <div class="result-hero ${last.levelIdx === 2 ? 'warn' : ''}" style="margin-bottom:18px;">
-      <h2>${escapeHTML(last.levelLabel)}</h2>
-      <p>${escapeHTML(pickEncouragement(last.levelIdx))}</p>
-    </div>
-    <div class="result-circle" style="margin:0 0 16px;">
-      <div class="circle" style="--pct:${pct}%;"><span>${correct}/${total}</span></div>
-      <div><strong>${pct}% de acerto</strong><br><span style="color:#4a6a6a;">Último diagnóstico</span></div>
-    </div>
-  `;
   const totalAttempts = mine.length;
   const medal = getMedal(totalAttempts);
-  html += `
-    <div class="text-center mb-16">
-      <div class="medal-badge" style="display:inline-flex;"><span class="medal-icon">${medal.icon}</span> <span>${medal.name}</span></div>
-      <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
+
+  // Tags com cores baseadas na frequência (simulado)
+  const tagColors = {};
+  last.tags.forEach(t => {
+    const count = loadData('tentativas', []).filter(a => a.tags && a.tags.includes(t)).length;
+    if (count > 5) tagColors[t] = 'chip-red';
+    else if (count > 2) tagColors[t] = 'chip-gold';
+    else tagColors[t] = 'chip-green';
+  });
+
+  let html = `
+    <div class="student-grid">
+      <!-- Coluna 1: Motivação + Último diagnóstico + Medalha -->
+      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
+        <span class="emoji-big">💪</span>
+        <div style="font-size:1.1rem;font-weight:700;">${escapeHTML(pickEncouragement(last.levelIdx))}</div>
+        <div style="margin-top:8px;border-top:1px solid #e8ece8;padding-top:8px;">
+          <span class="emoji-big" style="font-size:1.2rem;">📊</span>
+          <span class="stat-number">${pct}%</span>
+          <span class="stat-label">de acerto no último diagnóstico</span>
+        </div>
+        <div style="margin-top:4px;">
+          <span class="emoji-big" style="font-size:1.2rem;">🏅</span>
+          <span style="font-weight:700;">${medal.icon} ${medal.name}</span>
+          <span class="stat-label">(${totalAttempts} diagnósticos)</span>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Tags de maior dificuldade -->
+      <div class="card">
+        <span class="emoji-big">🎯</span>
+        <h4 style="font-size:1rem;margin-bottom:8px;">Suas maiores dificuldades</h4>
+        ${last.tags && last.tags.length > 0 ? `
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            ${last.tags.map(t => `<span class="chip ${tagColors[t] || 'chip-gold'}">${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</span>`).join('')}
+          </div>
+          <p style="font-size:0.85rem;color:#5a7a7a;margin-top:8px;">Revise estes tópicos com atenção.</p>
+        ` : '<p style="color:#5a7a7a;">Nenhuma dificuldade específica identificada. Continue assim! 🎉</p>'}
+      </div>
+
+      <!-- Coluna 3: Ranking com barra de progresso -->
+      <div class="card">
+        <span class="emoji-big">🏆</span>
+        <h4 style="font-size:1rem;margin-bottom:8px;">Seu nível no ranking</h4>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-weight:700;">${medal.name}</span>
+          <span style="font-size:0.8rem;color:#5a7a7a;">Próximo: ${getMedal(totalAttempts + 1).name}</span>
+        </div>
+        <div class="level-bar">
+          <span style="font-size:0.7rem;font-weight:700;color:#4a6a6a;">${medal.icon}</span>
+          <div class="level-track">
+            <div class="fill" style="width:${Math.min(100, (totalAttempts % 10) * 10)}%;"></div>
+          </div>
+          <span style="font-size:0.7rem;font-weight:700;color:#4a6a6a;">${getMedal(totalAttempts + 1).icon}</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;font-size:0.7rem;color:#5a7a7a;">
+          ${MEDALS.map((m, i) => `<span style="${i === Math.min(totalAttempts, 9) ? 'font-weight:800;color:var(--green-dark);' : ''}">${m.icon} ${m.name}</span>`).join(' → ')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de histórico (mantida) -->
+    <div class="card">
+      <h4 style="margin-bottom:8px;">📋 Últimos diagnósticos</h4>
+      ${mine.slice(-3).reverse().map(a => `
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:0.9rem;">
+          <span>${new Date(a.finishedAt).toLocaleDateString()}</span>
+          <span>${a.score || 0}/${a.totalQuestions || 0} acertos</span>
+          <span class="level-badge ${a.levelIdx === 0 ? 'lvl-0' : a.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a.levelLabel)}</span>
+        </div>
+      `).join('')}
     </div>
   `;
-  if (!last.tags || last.tags.length === 0) {
-    html += `<div class="card"><h4>🎉 Nenhuma dificuldade específica</h4><p style="color:#4a6a6a;">Continue praticando para manter esse domínio.</p></div>`;
-  } else {
-    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
-      last.tags.map(t => `
-        <div class="card" style="border-left:5px solid var(--green);">
-          <h4 style="font-size:0.95rem;">📌 ${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</h4>
-          <p style="font-size:0.85rem;color:#4a6a6a;">Dica: revise este tópico.</p>
-        </div>
-      `).join('') + `</div>`;
-  }
   container.innerHTML = html;
 }
 
+// ===== DESEMPENHO (com seleção de aplicação e pop-up de revisão) =====
 function renderStudentDesempenho(container) {
   const attempts = loadData('tentativas', []);
   const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
@@ -2450,13 +2663,15 @@ function renderStudentDesempenho(container) {
     return;
   }
 
-  let html = `<div style="margin-bottom:16px;">
-    <label style="font-weight:700;font-size:0.85rem;">Selecione uma aplicação para revisar:</label>
-    <select id="reviewSelect" onchange="renderReview(this.value)" style="width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:2px solid #e8ece8;background:#f8faf8;margin-top:4px;">
-      ${mine.map(a => `<option value="${a.id}">${escapeHTML(a.roundId || 'Diagnóstico')} - ${new Date(a.finishedAt).toLocaleString()}</option>`).join('')}
-    </select>
-  </div>
-  <div id="reviewContent"></div>`;
+  let html = `
+    <div style="margin-bottom:16px;">
+      <label style="font-weight:700;font-size:0.85rem;">Selecione uma aplicação para revisar:</label>
+      <select id="reviewSelect" onchange="renderReview(this.value)" style="width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:2px solid #e8ece8;background:#f8faf8;margin-top:4px;">
+        ${mine.map(a => `<option value="${a.id}">${escapeHTML(a.roundId || 'Diagnóstico')} - ${new Date(a.finishedAt).toLocaleString()}</option>`).join('')}
+      </select>
+    </div>
+    <div id="reviewContent"></div>
+  `;
   container.innerHTML = html;
   if (mine.length > 0) renderReview(mine[0].id);
 }
@@ -2470,41 +2685,22 @@ function renderReview(attemptId) {
     return;
   }
 
-  let html = `<div class="card" style="padding:20px;">`;
+  let html = `<div style="display:flex;flex-direction:column;gap:12px;">`;
   attempt.answersDetail.forEach((d, i) => {
-    const q = attempt._questions?.find(q => q.id === d.questionId) || { options: [], correct: '', tipo: 'unica' };
-    const isCorrect = d.isCorrect;
+    const q = attempt._questions?.find(q => q.id === d.questionId) || { options: [], correct: '', tipo: 'unica', text: d.topic, image: '' };
     const userAnswer = d.value;
     const correctAnswer = q.correct || '';
-    // Determina se é múltipla escolha
-    const isMulti = q.tipo === 'multipla';
+    const isCorrect = d.isCorrect;
+
     html += `
-      <div style="padding:12px 0;border-bottom:1px solid #eee;">
-        <div style="font-weight:700;font-size:0.95rem;">${i+1}. ${escapeHTML(d.topic || 'Pergunta')}</div>
-        <div style="margin-top:4px;">
-          ${q.options ? q.options.map(opt => {
-            let className = '';
-            if (isMulti) {
-              const isCorrectMulti = q.correct && q.correct.includes(opt);
-              const isSelected = userAnswer && userAnswer.includes(opt);
-              if (isCorrectMulti) className = 'correct';
-              else if (isSelected && !isCorrectMulti) className = 'wrong';
-              else if (isSelected) className = 'correct';
-            } else {
-              if (opt === correctAnswer) className = 'correct';
-              if (opt === userAnswer && opt !== correctAnswer) className = 'wrong';
-              if (opt === userAnswer && opt === correctAnswer) className = 'correct';
-            }
-            return `<div class="opt ${className}" style="padding:8px 12px;margin:2px 0;border-radius:8px;border:2px solid #e8ece8;background:#fff;">
-              ${opt === userAnswer ? '👉 ' : ''} ${escapeHTML(opt)}
-              ${className === 'correct' ? ' ✅' : ''}
-              ${className === 'wrong' ? ' ❌' : ''}
-            </div>`;
-          }).join('') : ''}
+      <div class="card" style="padding:16px;cursor:pointer;" onclick="openReviewQuestionModal(${i}, '${attemptId}')">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-weight:700;">Questão ${i+1}</span>
+          <span style="font-size:0.85rem;color:${isCorrect ? 'var(--green)' : 'var(--coral)'};">${isCorrect ? '✅ Correta' : '❌ Errada'}</span>
         </div>
-        <div style="font-size:0.8rem;color:#5a7a7a;margin-top:4px;">
-          ${isCorrect ? '✅ Correta' : '❌ Errada'} • Sua resposta: ${escapeHTML(Array.isArray(userAnswer) ? userAnswer.join(', ') : (userAnswer || 'Não respondeu'))}
-        </div>
+        <div style="font-size:0.9rem;color:#4a6a6a;margin-top:4px;">${escapeHTML(q.text?.slice(0,80))}${q.text?.length > 80 ? '...' : ''}</div>
+        <div style="font-size:0.8rem;color:#5a7a7a;margin-top:4px;">Sua resposta: ${escapeHTML(Array.isArray(userAnswer) ? userAnswer.join(', ') : (userAnswer || 'Não respondeu'))}</div>
+        <button class="btn btn-outline btn-sm" style="margin-top:6px;padding:4px 12px;" onclick="event.stopPropagation();openReviewQuestionModal(${i}, '${attemptId}')">👁️ Ver questão completa</button>
       </div>
     `;
   });
@@ -2512,6 +2708,78 @@ function renderReview(attemptId) {
   container.innerHTML = html;
 }
 
+function openReviewQuestionModal(index, attemptId) {
+  const attempts = loadData('tentativas', []);
+  const attempt = attempts.find(a => a.id === attemptId);
+  if (!attempt) return;
+  const d = attempt.answersDetail[index];
+  const q = attempt._questions?.find(q => q.id === d.questionId) || { options: [], correct: '', tipo: 'unica', text: d.topic, image: '' };
+  const userAnswer = d.value;
+  const correctAnswer = q.correct || '';
+  const isCorrect = d.isCorrect;
+
+  // Navegação entre questões
+  let currentIdx = index;
+  const total = attempt.answersDetail.length;
+
+  function renderQuestionModal(idx) {
+    const dd = attempt.answersDetail[idx];
+    const qq = attempt._questions?.find(q => q.id === dd.questionId) || { options: [], correct: '', tipo: 'unica', text: dd.topic, image: '' };
+    const ua = dd.value;
+    const ca = qq.correct || '';
+    const ic = dd.isCorrect;
+
+    let optionsHtml = '';
+    if (qq.options && qq.options.length > 0) {
+      optionsHtml = qq.options.map(opt => {
+        let cls = '';
+        if (opt === ca) cls = 'correct-answer';
+        if (opt === ua && opt !== ca) cls = 'user-answer';
+        if (opt === ua && opt === ca) cls = 'both';
+        return `<div class="opt-review ${cls}" style="padding:6px 12px;margin:3px 0;border-radius:8px;border-left:4px solid #e8ece8;font-size:0.9rem;">
+          ${opt === ua ? '👉 ' : ''} ${escapeHTML(opt)}
+          ${opt === ca ? ' ✅' : ''}
+          ${opt === ua && opt !== ca ? ' ❌' : ''}
+        </div>`;
+      }).join('');
+    } else if (qq.tipo === 'curta' || qq.tipo === 'paragrafo') {
+      optionsHtml = `<div style="padding:6px 12px;background:#f8faf8;border-radius:8px;">Sua resposta: ${escapeHTML(ua || 'Não respondeu')}</div>`;
+      if (ca) optionsHtml += `<div style="padding:6px 12px;background:var(--green-light);border-radius:8px;margin-top:4px;">Gabarito: ${escapeHTML(ca)}</div>`;
+    } else if (qq.tipo === 'escala') {
+      optionsHtml = `<div style="padding:6px 12px;background:#f8faf8;border-radius:8px;">Sua resposta: ${ua || '—'}</div><div style="padding:6px 12px;background:var(--green-light);border-radius:8px;margin-top:4px;">Gabarito: ${ca}</div>`;
+    }
+
+    showModal(`
+      <div class="modal-title">Questão ${idx+1} de ${total}</div>
+      <div class="modal-sub" style="margin-bottom:8px;">${escapeHTML(qq.text)}</div>
+      ${qq.image ? `<img src="${escapeHTML(qq.image)}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin:8px 0;">` : ''}
+      ${qq.video ? `<div style="margin:8px 0;"><iframe width="100%" height="150" src="${escapeHTML(qq.video)}" frameborder="0" allowfullscreen></iframe></div>` : ''}
+      <div style="margin-top:8px;font-size:0.9rem;color:${ic ? 'var(--green)' : 'var(--coral)'};font-weight:700;">${ic ? '✅ Resposta correta!' : '❌ Resposta incorreta'}</div>
+      <div style="margin-top:8px;">
+        <strong>Alternativas:</strong>
+        <div>${optionsHtml}</div>
+      </div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="navigateReviewQuestion(-1)" ${idx===0?'disabled':''}>← Anterior</button>
+        <button class="btn btn-ghost btn-sm" onclick="hideModal()">Fechar</button>
+        <button class="btn btn-ghost btn-sm" onclick="navigateReviewQuestion(1)" ${idx===total-1?'disabled':''}>Próximo →</button>
+      </div>
+    `);
+    window._reviewModalIdx = idx;
+  }
+
+  window.navigateReviewQuestion = function(delta) {
+    const newIdx = window._reviewModalIdx + delta;
+    if (newIdx >= 0 && newIdx < total) {
+      hideModal();
+      setTimeout(() => renderQuestionModal(newIdx), 150);
+    }
+  };
+
+  renderQuestionModal(index);
+}
+
+// ===== REFORÇOS =====
 function renderStudentReforcos(container) {
   const attempts = loadData('tentativas', []);
   const materiais = loadData('materiais', []);
@@ -2528,7 +2796,7 @@ function renderStudentReforcos(container) {
   if (userTags.length === 0) {
     html += `<div class="card"><h4>🎉 Você está em ótima forma!</h4><p style="color:#4a6a6a;">Sem recomendações específicas agora.</p></div>`;
   } else if (recommended.length === 0) {
-    html += `<div class="card card-soft text-center">📭 A professora ainda não cadastrou materiais para suas dificuldades.</div>`;
+    html += `<div class="card card-soft text-center">📭 A gestão ainda não cadastrou materiais para suas dificuldades.</div>`;
   } else {
     html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">` +
       recommended.map(m => `
@@ -2543,6 +2811,7 @@ function renderStudentReforcos(container) {
   container.innerHTML = html;
 }
 
+// ===== RANKING =====
 function renderStudentRanking(container) {
   const attempts = loadData('tentativas', []);
   const userAttempts = attempts.filter(a => a.studentEmail === window.currentUser?.email);
@@ -2581,7 +2850,7 @@ function renderStudentRanking(container) {
 }
 
 // ============================================================
-// 15. MODAL E UTILITÁRIOS
+// 15. MODAL
 // ============================================================
 function showModal(html) {
   document.getElementById('modalBody').innerHTML = html;
@@ -2613,9 +2882,10 @@ window.onload = function() {
     }
   } catch(e) {}
   if (document.getElementById('preQuizSliders')) initSliders();
+  document.getElementById('chartTooltip').style.display = 'none';
 };
 
-console.log('✅ Diagnóstico de Soluções v4.0 — completo com questionários estilo Forms, gráficos interativos, relatório PDF e tutorial spotlight!');
+console.log('✅ Diagnóstico de Soluções v6.0 — com layout em colunas, revisão com pop-up, tutorial corrigido e nomes neutros!');
 </script>
 </body>
 </html>
