@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico de Soluções — v6.0</title>
+  <title>Diagnóstico de Soluções — v7.0</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -166,6 +166,16 @@
     .opt.wrong { border-color: var(--coral); background: var(--coral-light); }
     .quiz-nav { display: flex; justify-content: space-between; margin-top: 22px; gap: 12px; }
     .quiz-actions { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
+    .slider-desc-box {
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 6px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
 
     /* ===== RESULTADO ===== */
     .result-hero { border-radius: var(--radius); padding: 32px 36px; margin-bottom: 24px; background: var(--green-light); border: 2px solid var(--green); text-align: center; }
@@ -179,7 +189,7 @@
     .medal-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-light); border: 2px solid var(--gold); border-radius: var(--radius-full); padding: 6px 20px 6px 12px; font-weight: 700; font-size: 0.9rem; }
     .medal-badge .medal-icon { font-size: 1.6rem; }
 
-    /* ===== SLIDER ===== */
+    /* ===== SLIDER (sem balão flutuante, com caixa descritiva) ===== */
     .slider-container { margin: 20px 0; padding: 20px 0; border-bottom: 1px solid #eee; }
     .slider-container label { font-weight: 700; font-size: 1rem; display: block; margin-bottom: 8px; }
     .slider-track { position: relative; height: 12px; background: linear-gradient(to right, #f5a0a0, #f5d76e, #6bcb9a); border-radius: var(--radius-full); cursor: pointer; touch-action: none; }
@@ -188,9 +198,6 @@
     .slider-track .slider-labels { display: flex; justify-content: space-between; position: relative; top: 16px; font-size: 0.8rem; font-weight: 600; color: #4a6a6a; }
     .slider-track .slider-labels span { cursor: pointer; padding: 2px 6px; border-radius: 12px; transition: 0.2s; }
     .slider-track .slider-labels span.active { background: var(--green); color: #fff; }
-    .slider-bubble { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); background: #1a2a2a; color: #fff; padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; white-space: nowrap; opacity: 0; transition: 0.2s; pointer-events: none; z-index: 3; }
-    .slider-bubble.visible { opacity: 1; }
-    .slider-value { text-align: center; font-weight: 700; font-size: 1.2rem; margin-top: 4px; color: var(--green-dark); }
 
     /* ===== TOUR SPOTLIGHT ===== */
     #tourHighlight {
@@ -238,6 +245,7 @@
     }
     #helpButton:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(107,203,154,0.5); }
     #helpButton.pulse-off { animation: none; }
+    #helpButton.hidden { display: none; }
     @keyframes pulseHelp {
       0%, 100% { box-shadow: 0 4px 16px rgba(107,203,154,0.4); }
       50% { box-shadow: 0 4px 32px rgba(107,203,154,0.7); }
@@ -264,22 +272,18 @@
     /* ===== GRID DO PAINEL DO ESTUDANTE ===== */
     .student-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 20px;
       margin-bottom: 24px;
     }
-    .student-grid .card { padding: 24px; }
-    @media (max-width: 820px) {
-      .student-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 500px) {
-      .student-grid { grid-template-columns: 1fr; }
-    }
-    .student-grid .card .emoji-big { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+    .student-grid .card { padding: 20px; border-radius: var(--radius); }
+    @media (max-width: 820px) { .student-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .student-grid { grid-template-columns: 1fr; } }
+    .student-grid .card .emoji-big { font-size: 2.2rem; display: block; margin-bottom: 6px; }
     .student-grid .card .stat-number { font-size: 1.8rem; font-weight: 800; color: var(--green-dark); }
     .student-grid .card .stat-label { color: #5a7a7a; font-size: 0.85rem; }
 
-    /* ===== RANKING LEVEL BAR ===== */
+    /* ===== LEVEL BAR ===== */
     .level-bar {
       display: flex;
       align-items: center;
@@ -309,10 +313,7 @@
     }
 
     /* ===== REVISÃO DE QUESTÕES (pop-up) ===== */
-    .review-question {
-      padding: 16px 0;
-      border-bottom: 1px solid #e8ece8;
-    }
+    .review-question { padding: 16px 0; border-bottom: 1px solid #e8ece8; }
     .review-question:last-child { border-bottom: none; }
     .review-question .q-statement { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
     .review-question .q-options .opt-review {
@@ -585,6 +586,7 @@
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
       <button class="btn btn-primary" onclick="navigateTo('dashboard-student')">📊 Ver meu painel</button>
       <button class="btn btn-ghost" onclick="navigateTo('home')">Início</button>
+      <button class="btn btn-secondary" onclick="generateStudentReportFromCurrent()">📧 Receber relatório por e-mail</button>
     </div>
   </div>
 </section>
@@ -639,7 +641,7 @@ function initCookieBanner() {
 // ============================================================
 function loadData(key, fallback) {
   try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
-  catch(e) { return fallback; }
+  catch(e) { console.warn('Erro ao carregar', key, e); return fallback; }
 }
 function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 function obfuscate(str) { try { return btoa(unescape(encodeURIComponent(str))); } catch(e) { return str; } }
@@ -657,6 +659,10 @@ function navigateTo(screenId) {
   if (screenId === 'home') updateHomeStats();
   if (screenId === 'dashboard-manager') { renderManagerContent(); if (window._tourManagerSeen === undefined) setTimeout(startTour, 600); }
   if (screenId === 'dashboard-student') { renderStudentContent(); }
+  // Ocultar botão de ajuda no quiz
+  const helpBtn = document.getElementById('helpButton');
+  if (screenId === 'quiz') helpBtn.classList.add('hidden');
+  else helpBtn.classList.remove('hidden');
 }
 
 // ============================================================
@@ -788,7 +794,7 @@ function logout() {
 }
 
 // ============================================================
-// 8. TOUR SPOTLIGHT (corrigido)
+// 8. TOUR SPOTLIGHT (CORRIGIDO)
 // ============================================================
 const TOUR_STEPS_MANAGER = [
   { selector: '[data-tab="visao-geral"]', title: 'Visão Geral', text: 'Mostra rapidamente como cada turma está indo: boa, média ou precisando de atenção. Métricas consolidadas.' },
@@ -867,7 +873,6 @@ function renderTourStep() {
       </div>
     </div>`;
 
-  // Posiciona o tooltip acima ou abaixo do alvo
   let tipTop = rect.bottom + pad + 14;
   const tipHeightEstimate = 170;
   if (tipTop + tipHeightEstimate > window.innerHeight) tipTop = rect.top - 14 - tipHeightEstimate;
@@ -943,7 +948,7 @@ function openContextualHelp() {
 }
 
 // ============================================================
-// 9. SLIDERS
+// 9. SLIDERS (com caixa descritiva colorida)
 // ============================================================
 function initSliders() {
   const container = document.getElementById('slidersContainer');
@@ -953,31 +958,28 @@ function initSliders() {
       <label>1. Qual seu nível de engajamento com esse tema?</label>
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
-        <div class="slider-bubble">Intermediário</div>
         <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-engajamento">3</div>
-      <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-engajamento">Estudei moderadamente e preciso fazer mais exercícios</div>
+      <div class="slider-desc-box" id="slider-desc-engajamento" style="background:#f5d76e;border-color:#f5d76e;">Estudei moderadamente e preciso fazer mais exercícios</div>
     </div>
     <div class="slider-container" data-slider="compreensao">
       <label>2. Qual o nível de dificuldade da compreensão das aulas desse tema, para você?</label>
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
-        <div class="slider-bubble">Entendi o básico</div>
         <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-compreensao">3</div>
-      <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-compreensao">Entendi o básico (algumas dúvidas)</div>
+      <div class="slider-desc-box" id="slider-desc-compreensao" style="background:#f5d76e;border-color:#f5d76e;">Entendi o básico (algumas dúvidas)</div>
     </div>
     <div class="slider-container" data-slider="exercicios">
       <label>3. Qual o nível de dificuldade no momento de fazer os exercícios, para você?</label>
       <div class="slider-track" data-min="1" data-max="5" data-value="3">
         <div class="slider-thumb" style="left:50%;"></div>
-        <div class="slider-bubble">Equilibrada</div>
         <div class="slider-labels"><span data-value="1">1</span><span data-value="2">2</span><span data-value="3">3</span><span data-value="4">4</span><span data-value="5">5</span></div>
       </div>
       <div class="slider-value" id="slider-val-exercicios">3</div>
-      <div style="font-size:0.85rem;color:#5a7a7a;margin-top:4px;" id="slider-desc-exercicios">Estou com a dificuldade e facilidade equilibradas</div>
+      <div class="slider-desc-box" id="slider-desc-exercicios" style="background:#f5d76e;border-color:#f5d76e;">Estou com a dificuldade e facilidade equilibradas</div>
     </div>
   `;
   container.innerHTML = slidersHTML;
@@ -987,7 +989,6 @@ function initSliders() {
 function setupSliders() {
   document.querySelectorAll('.slider-track').forEach(track => {
     const thumb = track.querySelector('.slider-thumb');
-    const bubble = track.querySelector('.slider-bubble');
     const labels = track.querySelectorAll('.slider-labels span');
     const min = parseInt(track.dataset.min);
     const max = parseInt(track.dataset.max);
@@ -1000,19 +1001,23 @@ function setupSliders() {
     };
     const sliderId = track.closest('.slider-container').dataset.slider;
     const descList = descs[sliderId] || [];
+    const colors = ['#f5a0a0', '#f5b8a0', '#f5d76e', '#b8d96e', '#6bcb9a'];
 
     function updateSlider(val) {
       val = Math.min(max, Math.max(min, val));
       value = val;
       const pct = ((val - min) / (max - min)) * 100;
       thumb.style.left = pct + '%';
-      bubble.textContent = descList[val-1] || '';
       const valEl = document.getElementById('slider-val-' + sliderId);
       if (valEl) valEl.textContent = val;
-      const descEl = document.getElementById('slider-desc-' + sliderId);
-      if (descEl && descList[val-1]) descEl.textContent = descList[val-1];
+      const descBox = document.getElementById('slider-desc-' + sliderId);
+      if (descBox) {
+        descBox.textContent = descList[val-1] || '';
+        descBox.style.background = colors[val-1] || '#edf2ed';
+        descBox.style.borderColor = colors[val-1] || '#edf2ed';
+        descBox.style.color = '#1a2a2a';
+      }
       labels.forEach(l => l.classList.toggle('active', parseInt(l.dataset.value) === val));
-      bubble.classList.add('visible');
     }
 
     let isDragging = false;
@@ -1083,6 +1088,7 @@ let quizFinished = false;
 let quizTimerInterval = null;
 let quizSeconds = 0;
 let sliderResponses = {};
+let currentResultAttempt = null; // para o relatório
 
 const TAGS_SYSTEM = {
   'GRAF_INTERPRETACAO': { label: 'INTERPRETACAO_DE_GRAFICOS' },
@@ -1140,7 +1146,7 @@ function renderQuizQuestion() {
       `<button class="opt ${selectedVal && selectedVal.includes(opt) ? 'selected' : ''}" data-val="${escapeHTML(opt)}" onclick="selectOptionMultiple(this)" ${quizFinished ? 'disabled' : ''}>${escapeHTML(opt)}</button>`
     ).join('');
   } else if (q.tipo === 'curta' || q.tipo === 'paragrafo') {
-    container.innerHTML = `<textarea class="opt" style="resize:vertical;min-height:60px;" ${quizFinished?'disabled':''} placeholder="Digite sua resposta..." oninput="saveShortAnswer(this)">${escapeHTML(quizState.answersByQ[qId] || '')}</textarea>`;
+    container.innerHTML = `<textarea class="opt" style="resize:vertical;min-height:80px;width:100%;padding:12px;border-radius:var(--radius-sm);border:2px solid #e8ece8;background:#f8faf8;font-family:inherit;font-size:0.95rem;" ${quizFinished?'disabled':''} placeholder="Digite sua resposta aqui..." oninput="saveShortAnswer(this)">${escapeHTML(quizState.answersByQ[qId] || '')}</textarea>`;
   } else if (q.tipo === 'escala') {
     container.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;">${[1,2,3,4,5].map(n => `<button class="opt ${quizState.answersByQ[qId] == n ? 'selected' : ''}" data-val="${n}" onclick="selectOption(this)" ${quizFinished?'disabled':''}>${n}</button>`).join('')}</div>`;
   } else {
@@ -1244,8 +1250,8 @@ function finishQuiz() {
   const total = quizState.path.length;
   const pct = total ? Math.round((correctCount/total)*100) : 0;
   let levelIdx, levelLabel;
-  if (pct >= 80) { levelIdx = 0; levelLabel = 'Domínio sólido'; }
-  else if (pct >= 50) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
+  if (pct >= 70) { levelIdx = 0; levelLabel = 'Domínio sólido'; }
+  else if (pct >= 40) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
   else { levelIdx = 2; levelLabel = 'Vamos reforçar juntos'; }
 
   const tagsSet = new Set();
@@ -1284,9 +1290,10 @@ function finishQuiz() {
   saveData('tentativas', attempts);
   saveData('quiz_' + quizState.roundId, null);
   updateRanking(quizState.roundId);
+  currentResultAttempt = attempt;
   showResult(attempt);
   navigateTo('result');
-  launchConfetti();
+  launchConfetti(2000); // 2 segundos
 }
 
 function confirmStartQuiz() {
@@ -1401,14 +1408,21 @@ function showResult(attempt) {
     <div class="medal-badge"><span class="medal-icon">${medal.icon}</span> <span>${medal.name}</span></div>
     <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
   `;
-  const ranking = getRanking(attempt.roundId);
-  const generalRanking = getGeneralRanking();
+  // Ranking com censura
+  const ranking = getRanking(attempt.roundId).map(r => ({
+    ...r,
+    displayName: r.name === window.currentUser?.name ? r.name : 'Estudante'
+  }));
+  const generalRanking = getGeneralRanking().map(r => ({
+    ...r,
+    displayName: r.name === window.currentUser?.name ? r.name : 'Estudante'
+  }));
   document.getElementById('resultRanking').innerHTML = `
     <h4>🏆 Ranking da aplicação</h4>
     ${ranking.length ? ranking.map((r,i) => `
       <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
         <span class="pos">#${i+1}</span>
-        <span class="name">${escapeHTML(r.name)}</span>
+        <span class="name">${escapeHTML(r.displayName)}</span>
         <span class="score">${r.score} pontos</span>
       </div>
     `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
@@ -1416,7 +1430,7 @@ function showResult(attempt) {
     ${generalRanking.length ? generalRanking.map((r,i) => `
       <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
         <span class="pos">#${i+1}</span>
-        <span class="name">${escapeHTML(r.name)}</span>
+        <span class="name">${escapeHTML(r.displayName)}</span>
         <span class="score">${r.score} média</span>
       </div>
     `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
@@ -1464,14 +1478,17 @@ function getMedal(totalAttempts) {
   const idx = Math.min(totalAttempts, 9);
   return medals[idx];
 }
-function launchConfetti() {
+function launchConfetti(durationMs) {
   const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4'];
+  const totalDuration = durationMs || 2000;
+  const pieces = [];
   for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.cssText = `position:fixed; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px; background:${colors[Math.floor(Math.random()*colors.length)]}; left:${Math.random()*100}vw; top:-10px; border-radius:${Math.random()>0.5?'50%':'0%'}; pointer-events:none; z-index:999;`;
     document.body.appendChild(piece);
-    const duration = 1500 + Math.random() * 1500;
+    pieces.push(piece);
+    const duration = totalDuration * (0.7 + Math.random() * 0.6);
     const dx = (Math.random() - 0.5) * 300;
     piece.animate([
       { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
@@ -1481,7 +1498,105 @@ function launchConfetti() {
 }
 
 // ============================================================
-// 13. PAINEL GESTOR (resumido para evitar repetição)
+// 13. RELATÓRIO DO ALUNO (PDF + Simulação de e-mail)
+// ============================================================
+function generateStudentReportFromCurrent() {
+  if (!currentResultAttempt) {
+    alert('Nenhum diagnóstico finalizado para gerar relatório.');
+    return;
+  }
+  generateStudentReport(currentResultAttempt);
+}
+
+function generateStudentReportForAttempt(attemptId) {
+  const attempts = loadData('tentativas', []);
+  const attempt = attempts.find(a => a.id === attemptId);
+  if (!attempt) { alert('Tentativa não encontrada.'); return; }
+  generateStudentReport(attempt);
+}
+
+function generateStudentReport(attempt) {
+  const correct = attempt.answersDetail.filter(d => d.isCorrect).length;
+  const total = attempt.answersDetail.length;
+  const pct = total ? Math.round((correct/total)*100) : 0;
+
+  let html = `
+    <div id="reportContent" style="padding:20px;font-family:'Times New Roman',Arial,serif;font-size:12pt;line-height:1.5;max-width:21cm;margin:0 auto;background:#fff;">
+      <h1 style="font-size:18pt;text-align:center;">Meu Relatório de Diagnóstico</h1>
+      <p style="text-align:center;font-size:14pt;font-weight:bold;">${escapeHTML(attempt.studentName)}</p>
+      <p style="text-align:center;color:#4a6a6a;font-size:11pt;">Turma: ${escapeHTML(attempt.studentClass || '—')}</p>
+      <p style="text-align:center;color:#4a6a6a;font-size:11pt;">Data: ${new Date(attempt.finishedAt).toLocaleString()}</p>
+      <p style="text-align:center;color:#4a6a6a;font-size:11pt;">Tempo gasto: ${attempt.tempoSegundos ? Math.floor(attempt.tempoSegundos/60)+'m '+(attempt.tempoSegundos%60)+'s' : '—'}</p>
+      <hr style="margin:16px 0;">
+      <h2 style="font-size:16pt;">Resumo</h2>
+      <p><strong>Resultado:</strong> ${escapeHTML(attempt.levelLabel)}</p>
+      <p><strong>Acertos:</strong> ${correct} de ${total} (${pct}%)</p>
+      <p><strong>Dificuldades identificadas:</strong> ${attempt.tags.length ? attempt.tags.map(t => TAGS_SYSTEM[t]?.label || t).join(', ') : 'Nenhuma'}</p>
+      <hr style="margin:16px 0;">
+      <h2 style="font-size:16pt;">Percepção inicial</h2>
+      ${attempt.sliderResponses ? `
+        <p><strong>Engajamento:</strong> ${attempt.sliderResponses.engajamento || '-'} - ${['Não comecei a estudar','Estudei pouco','Estudei moderadamente','Estudei o suficiente','Estudei bastante'][(attempt.sliderResponses.engajamento||1)-1]}</p>
+        <p><strong>Compreensão das aulas:</strong> ${attempt.sliderResponses.compreensao || '-'} - ${['Não entendi','Entendi poucas partes','Entendi o básico','Entendi bem','Entendi muito bem'][(attempt.sliderResponses.compreensao||1)-1]}</p>
+        <p><strong>Dificuldade nos exercícios:</strong> ${attempt.sliderResponses.exercicios || '-'} - ${['Muita dificuldade','Alguma dificuldade','Equilibrada','Alguma facilidade','Muita facilidade'][(attempt.sliderResponses.exercicios||1)-1]}</p>
+      ` : '<p>Não disponível</p>'}
+      <hr style="margin:16px 0;">
+      <h2 style="font-size:16pt;">Detalhamento das questões</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:11pt;margin-top:8px;">
+        <thead><tr style="background:#f0f5f0;">
+          <th style="padding:6px 10px;border:1px solid #ddd;text-align:left;">#</th>
+          <th style="padding:6px 10px;border:1px solid #ddd;text-align:left;">Pergunta</th>
+          <th style="padding:6px 10px;border:1px solid #ddd;text-align:center;">Resultado</th>
+        </tr></thead>
+        <tbody>
+          ${attempt.answersDetail.map((d,i) => `
+            <tr>
+              <td style="padding:6px 10px;border:1px solid #ddd;text-align:center;">${i+1}</td>
+              <td style="padding:6px 10px;border:1px solid #ddd;">${escapeHTML(d.topic || 'Pergunta')}</td>
+              <td style="padding:6px 10px;border:1px solid #ddd;text-align:center;color:${d.isCorrect ? '#2a7a5a' : '#c07070'};">${d.isCorrect ? '✅ Correta' : '❌ Errada'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  // Mostrar modal com opção de baixar
+  showModal(`
+    <div class="modal-title">📧 Relatório</div>
+    <div class="modal-sub">Seu relatório foi gerado com sucesso. Deseja recebê-lo por e-mail?</div>
+    <p style="color:#4a6a6a;margin-bottom:12px;">O relatório será enviado para: <strong>${escapeHTML(window.currentUser?.email || 'seu e-mail')}</strong></p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn btn-outline" onclick="downloadStudentReport()">📥 Baixar PDF</button>
+      <button class="btn btn-primary" onclick="simulateEmailSend()">📧 Enviar por e-mail</button>
+      <button class="btn btn-ghost" onclick="hideModal()">Fechar</button>
+    </div>
+  `);
+  window._studentReportHTML = html;
+}
+
+function downloadStudentReport() {
+  const element = document.createElement('div');
+  element.innerHTML = window._studentReportHTML;
+  const opt = {
+    margin: [20, 20, 20, 20],
+    filename: 'meu_relatorio_diagnostico.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+  hideModal();
+}
+
+function simulateEmailSend() {
+  hideModal();
+  const email = window.currentUser?.email || 'seu e-mail';
+  alert(`📧 Simulação: O relatório foi enviado para ${email}! (Verifique sua caixa de entrada)\n\nNa versão final, um e-mail com o PDF anexado será enviado automaticamente.`);
+  downloadStudentReport(); // Baixa também para garantir
+}
+
+// ============================================================
+// 14. PAINEL GESTOR (com correções)
 // ============================================================
 function renderManagerContent() {
   const tab = document.querySelector('#managerTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
@@ -1534,7 +1649,7 @@ function renderVisaoGeral(container) {
   `;
 }
 
-// ===== APLICAÇÕES =====
+// ===== APLICAÇÕES (com nível corrigido) =====
 function renderAplicacoes(container) {
   const rounds = loadData('rodadas', []);
   const attempts = loadData('tentativas', []);
@@ -1568,6 +1683,7 @@ function renderAplicacoes(container) {
   container.innerHTML = html;
   renderRoundAttempts(rounds, attempts);
 }
+
 function renderRoundAttempts(rounds, attempts) {
   const round = rounds.find(r => r.id === selectedRoundId);
   const header = document.getElementById('roundHeader');
@@ -1579,6 +1695,18 @@ function renderRoundAttempts(rounds, attempts) {
     ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
   const list = attempts.filter(a => a.roundId === round.id);
   if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
+  // Recalcular nível com base no percentual para exibição
+  list.forEach(a => {
+    const correct = a.answersDetail?.filter(d => d.isCorrect).length || 0;
+    const totalQ = a.answersDetail?.length || 0;
+    const pct = totalQ ? Math.round((correct/totalQ)*100) : 0;
+    let levelLabel, levelIdx;
+    if (pct >= 70) { levelIdx = 0; levelLabel = 'Domínio sólido'; }
+    else if (pct >= 40) { levelIdx = 1; levelLabel = 'Alguns pontos de atenção'; }
+    else { levelIdx = 2; levelLabel = 'Vamos reforçar juntos'; }
+    a._displayLevelIdx = levelIdx;
+    a._displayLevelLabel = levelLabel;
+  });
   wrap.innerHTML = `
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
       <thead><tr><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Estudante</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Turma</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Acertos</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tempo</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Nível</th><th style="text-align:left;padding:8px 12px;border-bottom:2px solid #e8ece8;">Tags</th></tr></thead>
@@ -1588,13 +1716,14 @@ function renderRoundAttempts(rounds, attempts) {
           <td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHTML(a.studentClass || '—')}</td>
           <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.score || 0}/${a.totalQuestions || 0}</td>
           <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.tempoSegundos ? Math.floor(a.tempoSegundos/60)+'m '+(a.tempoSegundos%60)+'s' : '—'}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eee;"><span class="level-badge ${a.levelIdx === 0 ? 'lvl-0' : a.levelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a.levelLabel)}</span></td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eee;"><span class="level-badge ${a._displayLevelIdx === 0 ? 'lvl-0' : a._displayLevelIdx === 1 ? 'lvl-1' : 'lvl-2'}">${escapeHTML(a._displayLevelLabel)}</span></td>
           <td style="padding:8px 12px;border-bottom:1px solid #eee;">${a.tags?.length ? a.tags.map(t => `<span class="chip chip-blue">${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</span>`).join('') : '<span style="color:#8a9a9a;">nenhuma</span>'}</td>
         </tr>
       `).join('')}</tbody>
     </table>
   `;
 }
+
 function selectRound(id) { selectedRoundId = id; renderManagerContent(); }
 function toggleRoundEnabled(id) {
   const rounds = loadData('rodadas', []);
@@ -1612,7 +1741,7 @@ function showCreateRoundModal() {
     <label>Questionário</label>
     <select id="modalRoundQuestionario">
       <option value="">Selecione um questionário</option>
-      ${questionarios.map(q => `<option value="${q.id}">${escapeHTML(q.nome)} (${q.perguntas?.length || 0} perguntas)</option>`).join('')}
+      ${questionarios.map(q => `<option value="${q.id}">${escapeHTML(q.nome)} (${q.perguntas?.length || 0} perguntas) - ${q.status === 'published' ? '📌 Publicado' : '📝 Rascunho'}</option>`).join('')}
     </select>
     <label>Código (4 caracteres)</label>
     <input type="text" id="modalRoundCode" value="${generateCode()}" style="text-transform:uppercase;">
@@ -1736,15 +1865,19 @@ function downloadPDFReport() {
   html2pdf().set(opt).from(element).save();
 }
 
-// ===== ALUNOS (resumido) =====
+// ===== ALUNOS (com filtro de turma) =====
 function renderAlunos(container) {
   const attempts = loadData('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
   if (!alunosFilterTurma && turmas.length) alunosFilterTurma = turmas[0];
+
   let html = `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
       <span style="font-weight:700;font-size:0.85rem;">Turma:</span>
-      ${turmas.map(t => `<button class="btn ${t === alunosFilterTurma ? 'btn-primary' : 'btn-ghost'}" onclick="setAlunosFilter('turma','${t.replace(/'/g,"\\'")}')" style="padding:4px 16px;font-size:0.8rem;">${escapeHTML(t)}</button>`).join('')}
+      <select onchange="setAlunosFilter('turma', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;">
+        <option value="">Todas</option>
+        ${turmas.map(t => `<option value="${escapeHTML(t)}" ${t === alunosFilterTurma ? 'selected' : ''}>${escapeHTML(t)}</option>`).join('')}
+      </select>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
       <input type="text" placeholder="Buscar estudante..." value="${escapeHTML(alunosSearch)}" oninput="setAlunosFilter('search', this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;width:200px;">
@@ -1760,9 +1893,13 @@ function renderAlunos(container) {
       </select>
     </div>
   `;
+
   if (turmas.length === 0) { container.innerHTML = html + `<div class="card card-soft text-center">📭 Ainda não há estudantes.</div>`; return; }
-  const inTurma = attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosFilterTurma);
-  let uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))].filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()));
+
+  const inTurma = alunosFilterTurma ? attempts.filter(a => ((a.studentClass || 'Sem turma').trim() || 'Sem turma') === alunosFilterTurma) : attempts;
+  let uniqueNames = [...new Set(inTurma.map(a => a.studentName.trim()))]
+    .filter(n => n.toLowerCase().includes(alunosSearch.toLowerCase()));
+
   const alunosData = uniqueNames.map(n => {
     const studAttempts = inTurma.filter(a => a.studentName.trim() === n);
     const last = studAttempts[studAttempts.length-1];
@@ -1808,15 +1945,30 @@ function toggleAlunoDetail(name) {
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
-// ===== ASSUNTOS (resumido com gráficos) =====
+// ===== ASSUNTOS (com legenda, filtro por questionário e tooltips corrigidos) =====
+let assuntosFilterQuestionario = 'todos';
+
 function renderAssuntos(container) {
   const attempts = loadData('tentativas', []);
+  const questionarios = loadData('questionarios', []);
+  let filtered = attempts;
+  if (assuntosFilterQuestionario !== 'todos') {
+    filtered = attempts.filter(a => a.questionarioId === assuntosFilterQuestionario);
+  }
   const counts = {};
   Object.keys(TAGS_SYSTEM).forEach(t => counts[t] = 0);
-  attempts.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
-  const total = attempts.length || 1;
+  filtered.forEach(a => { if (a.tags) a.tags.forEach(t => counts[t] = (counts[t] || 0) + 1); });
+  const total = filtered.length || 1;
   const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+
   let html = `
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;">
+      <span style="font-weight:700;font-size:0.85rem;">📋 Questionário:</span>
+      <select onchange="setAssuntosFilter(this.value)" style="padding:8px 16px;border-radius:var(--radius-full);border:2px solid #e8ece8;background:#f8faf8;">
+        <option value="todos" ${assuntosFilterQuestionario==='todos'?'selected':''}>Todos</option>
+        ${questionarios.map(q => `<option value="${q.id}" ${assuntosFilterQuestionario===q.id?'selected':''}>${escapeHTML(q.nome)}</option>`).join('')}
+      </select>
+    </div>
     <div style="background:var(--blue-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--blue);margin-bottom:20px;">
       <strong>📊 Métricas de dificuldade</strong>
       <p style="color:#4a6a6a;font-size:0.9rem;margin-top:4px;">Estes gráficos mostram quais tópicos os estudantes estão tendo mais dificuldade. Passe o mouse ou toque em qualquer elemento do gráfico para ver o nome completo da dificuldade.</p>
@@ -1830,6 +1982,7 @@ function renderAssuntos(container) {
     <div class="card" style="padding:20px;min-height:300px;display:flex;align-items:center;justify-content:center;position:relative;">
       <canvas id="chartCanvas" width="500" height="300"></canvas>
     </div>
+    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;" id="chartLegend"></div>
     <div style="margin-top:16px;">
       ${sorted.map(([tid, count]) => {
         const pct = Math.round((count / total) * 100);
@@ -1843,12 +1996,17 @@ function renderAssuntos(container) {
   container.innerHTML = html;
   setTimeout(() => drawChart(sorted, total), 50);
 }
+function setAssuntosFilter(val) {
+  assuntosFilterQuestionario = val;
+  renderManagerContent();
+}
 function showTagDetail(tid) {
   const label = TAGS_SYSTEM[tid]?.label || tid;
   const count = loadData('tentativas', []).filter(a => a.tags && a.tags.includes(tid)).length;
   alert(`📌 ${label}\nOcorrências: ${count}\nDescrição: Dificuldade relacionada a ${label}.`);
 }
 function setChartType(type) { chartType = type; renderManagerContent(); }
+
 function drawChart(data, total) {
   const canvas = document.getElementById('chartCanvas');
   if (!canvas) return;
@@ -1860,9 +2018,18 @@ function drawChart(data, total) {
   const tooltipValue = document.getElementById('chartTooltipValue');
   if (data.length === 0 || data.every(d => d[1] === 0)) {
     ctx.fillStyle = '#8a9a9a'; ctx.font = '16px Nunito Sans'; ctx.textAlign = 'center';
-    ctx.fillText('Sem dados para exibir', w/2, h/2); return;
+    ctx.fillText('Sem dados para exibir', w/2, h/2);
+    document.getElementById('chartLegend').innerHTML = '';
+    return;
   }
   const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4','#C9B8D4'];
+
+  // Gerar legenda
+  const legendHtml = data.map(([tid], i) =>
+    `<span style="display:inline-flex;align-items:center;gap:4px;font-size:0.75rem;font-weight:600;"><span style="display:inline-block;width:16px;height:16px;background:${colors[i % colors.length]};border-radius:4px;"></span> ${escapeHTML(TAGS_SYSTEM[tid]?.label || tid)}</span>`
+  ).join('');
+  document.getElementById('chartLegend').innerHTML = legendHtml;
+
   function showTooltip(e, tid, count) {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX || e.touches?.[0]?.clientX || 0;
@@ -1874,11 +2041,12 @@ function drawChart(data, total) {
     tooltipValue.textContent = `${count} ocorrência(s)`;
   }
   function hideTooltip() { tooltip.style.display = 'none'; }
+
   if (chartType === 'bar') {
     const max = Math.max(...data.map(d => d[1]), 1);
     const pad = 40, chartW = w - 2*pad, chartH = h - 2*pad;
     const step = chartW / (data.length + 1);
-    ctx.font = '11px Nunito Sans'; ctx.textAlign = 'center';
+    ctx.font = '10px Nunito Sans'; ctx.textAlign = 'center';
     data.forEach(([tid, count], i) => {
       const x = pad + step * (i + 1);
       const barH = (count / max) * chartH;
@@ -1886,25 +2054,20 @@ function drawChart(data, total) {
       ctx.fillStyle = colors[i % colors.length];
       ctx.fillRect(x - 14, y, 28, barH);
       ctx.fillStyle = '#1a2a2a';
-      const shortLabel = (TAGS_SYSTEM[tid]?.label || tid).slice(0, 10);
-      ctx.fillText(shortLabel, x, h - pad + 18);
       ctx.fillText(count, x, y - 6);
-    });
-    canvas.addEventListener('mousemove', function handler(e) {
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      let found = false;
-      data.forEach(([tid, count], i) => {
-        const x = pad + step * (i + 1);
-        const barH = (count / max) * chartH;
-        const y = h - pad - barH;
-        if (mx > x-16 && mx < x+16 && my > y && my < h - pad) {
+      // Interatividade
+      const barX = x - 14;
+      const barW = 28;
+      const barY = y;
+      const barHeight = barH;
+      canvas.addEventListener('mousemove', function handler(e) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        if (mx > barX && mx < barX + barW && my > barY && my < barY + barHeight) {
           showTooltip(e, tid, count);
-          found = true;
         }
       });
-      if (!found) hideTooltip();
     });
     canvas.addEventListener('mouseleave', hideTooltip);
     canvas.addEventListener('touchstart', function(e) {
@@ -1937,21 +2100,7 @@ function drawChart(data, total) {
       ctx.fill();
       start += angle;
     });
-    canvas.addEventListener('click', function(e) {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left - cx;
-      const y = e.clientY - rect.top - cy;
-      const dist = Math.sqrt(x*x + y*y);
-      if (dist > r) return;
-      let angle = Math.atan2(y, x) + Math.PI/2;
-      if (angle < 0) angle += 2*Math.PI;
-      for (let slice of slices) {
-        if (angle >= slice.start && angle < slice.end) {
-          showTagDetail(slice.tid);
-          break;
-        }
-      }
-    });
+    // Tooltip interativo
     canvas.addEventListener('mousemove', function(e) {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left - cx;
@@ -1969,13 +2118,20 @@ function drawChart(data, total) {
       hideTooltip();
     });
     canvas.addEventListener('mouseleave', hideTooltip);
-    let legY = 20; ctx.font = '10px Nunito Sans'; ctx.textAlign = 'left';
-    data.slice(0,6).forEach(([tid], i) => {
-      ctx.fillStyle = colors[i % colors.length];
-      ctx.fillRect(w-130, legY, 12, 12);
-      ctx.fillStyle = '#1a2a2a';
-      ctx.fillText((TAGS_SYSTEM[tid]?.label || tid).slice(0,14), w-112, legY+10);
-      legY += 20;
+    canvas.addEventListener('click', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left - cx;
+      const y = e.clientY - rect.top - cy;
+      const dist = Math.sqrt(x*x + y*y);
+      if (dist > r) return;
+      let angle = Math.atan2(y, x) + Math.PI/2;
+      if (angle < 0) angle += 2*Math.PI;
+      for (let slice of slices) {
+        if (angle >= slice.start && angle < slice.end) {
+          showTagDetail(slice.tid);
+          break;
+        }
+      }
     });
   } else if (chartType === 'radar') {
     const max = Math.max(...data.map(d => d[1]), 1);
@@ -2005,6 +2161,7 @@ function drawChart(data, total) {
       ctx.fillStyle = '#1a2a2a';
       ctx.fillText((TAGS_SYSTEM[p.tid]?.label || p.tid).slice(0,8), lx, ly+4);
     });
+    // Tooltip interativo
     canvas.addEventListener('mousemove', function(e) {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
@@ -2012,7 +2169,7 @@ function drawChart(data, total) {
       let found = false;
       for (let p of points) {
         const dist = Math.sqrt((mx-p.x)**2 + (my-p.y)**2);
-        if (dist < 18) {
+        if (dist < 20) {
           showTooltip(e, p.tid, p.count);
           found = true;
           break;
@@ -2024,7 +2181,9 @@ function drawChart(data, total) {
   }
 }
 
-// ===== MATERIAIS (resumido) =====
+// ============================================================
+// 15. MATERIAIS (resumido)
+// ============================================================
 function renderMateriais(container) {
   const materiais = loadData('materiais', []);
   const pastas = loadData('pastas', []);
@@ -2186,7 +2345,9 @@ function deleteMaterial(id) {
   renderManagerContent();
 }
 
-// ===== QUESTIONÁRIOS (resumido) =====
+// ============================================================
+// 16. EDITOR DE QUESTIONÁRIOS (com rascunho/publicado, marcador visual)
+// ============================================================
 function renderQuestionarios(container) {
   const questionarios = loadData('questionarios', []);
   let html = `
@@ -2199,7 +2360,7 @@ function renderQuestionarios(container) {
       <div class="card" style="margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <div>
-            <h4 style="margin:0;">${escapeHTML(q.nome)}</h4>
+            <h4 style="margin:0;">${escapeHTML(q.nome)} <span style="font-size:0.7rem;font-weight:600;padding:2px 12px;border-radius:var(--radius-full);background:${q.status === 'published' ? 'var(--green-light)' : 'var(--coral-light)'};color:${q.status === 'published' ? 'var(--green-dark)' : 'var(--coral)'};">${q.status === 'published' ? '📌 Publicado' : '📝 Rascunho'}</span></h4>
             <p style="font-size:0.85rem;color:#5a7a7a;margin:4px 0;">${q.descricao || ''} • ${q.perguntas?.length || 0} perguntas</p>
           </div>
           <div style="display:flex;gap:8px;">
@@ -2222,6 +2383,7 @@ function renderQuestionarios(container) {
   `;
   container.innerHTML = html;
 }
+
 function previewQuestionario(id) {
   const questionarios = loadData('questionarios', []);
   const q = questionarios.find(q => q.id === id);
@@ -2242,9 +2404,10 @@ function previewQuestionario(id) {
   });
   showModal(html + `<div class="modal-actions"><button class="btn btn-ghost" onclick="hideModal()">Fechar</button></div>`);
 }
+
 function showCreateQuestionarioModal(editData) {
   const isEdit = !!editData;
-  const q = editData || { nome: '', descricao: '', perguntas: [], regras: [] };
+  const q = editData || { nome: '', descricao: '', perguntas: [], regras: [], status: 'draft' };
   showModal(`
     <div class="modal-title">${isEdit ? '✏️ Editar' : '📝 Criar'} Questionário</div>
     <div class="modal-sub">${isEdit ? 'Edite as informações do questionário.' : 'Crie um novo questionário com perguntas, tipos, imagens e vídeos.'}</div>
@@ -2252,6 +2415,11 @@ function showCreateQuestionarioModal(editData) {
     <input type="text" id="qNome" value="${escapeHTML(q.nome)}" placeholder="Ex: Diagnóstico de Soluções">
     <label>Descrição (opcional)</label>
     <input type="text" id="qDesc" value="${escapeHTML(q.descricao)}" placeholder="Breve descrição">
+    <label>Status</label>
+    <select id="qStatus">
+      <option value="draft" ${q.status==='draft'?'selected':''}>📝 Rascunho</option>
+      <option value="published" ${q.status==='published'?'selected':''}>📌 Publicado</option>
+    </select>
     <hr style="margin:16px 0;">
     <h4 style="margin-bottom:8px;">Perguntas</h4>
     <div id="perguntasList" style="margin-bottom:12px;">
@@ -2288,7 +2456,7 @@ function showCreateQuestionarioModal(editData) {
     <div class="err" id="qErr"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveQuestionario('${isEdit ? q.id : ''}')">${isEdit ? 'Salvar alterações' : 'Criar questionário'}</button>
+      <button class="btn btn-primary" onclick="saveQuestionario('${isEdit ? q.id : ''}')">Salvar</button>
     </div>
   `);
   window._editQuestionarioData = q;
@@ -2344,11 +2512,13 @@ function removeRegra(index) {
   q.regras.splice(index, 1);
   showCreateQuestionarioModal(q);
 }
+
+// ===== ADICIONAR PERGUNTA (com clique para marcar correta) =====
 function addPerguntaModal() {
   const tags = loadData('tagsPersonalizadas', []);
   showModal(`
     <div class="modal-title">➕ Nova pergunta</div>
-    <div class="modal-sub">Preencha os dados da pergunta. Você pode adicionar imagem ou vídeo.</div>
+    <div class="modal-sub">Preencha os dados da pergunta. Clique nas alternativas para marcar a(s) correta(s).</div>
     <label>Tipo de pergunta</label>
     <select id="pTipo" onchange="togglePerguntaFields()">
       <option value="unica">Escolha única</option>
@@ -2367,17 +2537,16 @@ function addPerguntaModal() {
     <label>Vídeo (URL do YouTube, ex: https://www.youtube.com/embed/...)</label>
     <input type="text" id="pVideo" placeholder="https://www.youtube.com/embed/VIDEO_ID">
     <div id="optionsGroup">
-      <label>Alternativas (uma por linha)</label>
-      <textarea id="pOptions" rows="4" placeholder="Opção A&#10;Opção B&#10;Opção C&#10;Opção D"></textarea>
-      <label>Resposta correta (número da alternativa, 1-indexado)</label>
-      <input type="number" id="pCorrect" min="1" max="6" value="1">
+      <label>Alternativas (uma por linha) - Clique nas alternativas para marcar a(s) correta(s)</label>
+      <textarea id="pOptions" rows="4" placeholder="Opção A&#10;Opção B&#10;Opção C&#10;Opção D" oninput="renderOptionClicks()"></textarea>
+      <div id="optionClicksContainer" style="margin-top:6px;display:flex;flex-direction:column;gap:4px;"></div>
     </div>
-    <label>Tags (selecione uma ou mais, em MAIÚSCULAS)</label>
+    <label>Tags (selecione uma ou mais, em MAIÚSCULAS) <span style="font-size:0.75rem;color:#5a7a7a;">(Identificam o conteúdo da pergunta)</span></label>
     <select id="pTags" multiple style="height:60px;">
       ${tags.map(t => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join('')}
       ${tags.length === 0 ? '<option value="">Nenhuma tag criada</option>' : ''}
     </select>
-    <label>Nível de dificuldade (1 = mais fácil, 5 = mais difícil)</label>
+    <label>Nível de dificuldade (1 = mais fácil, 5 = mais difícil) <span style="font-size:0.75rem;color:#5a7a7a;">(Ajuda a criar questões adaptativas)</span></label>
     <input type="number" id="pNivel" min="1" max="5" value="1">
     <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
       <input type="checkbox" id="pObrigatoria" checked> Pergunta obrigatória
@@ -2388,13 +2557,69 @@ function addPerguntaModal() {
       <button class="btn btn-primary" onclick="confirmAddPergunta()">Adicionar pergunta</button>
     </div>
   `);
+  setTimeout(() => {
+    renderOptionClicks();
+    document.getElementById('pTipo').addEventListener('change', () => {
+      setTimeout(renderOptionClicks, 100);
+    });
+  }, 100);
+  window._selectedCorrectOptions = [];
 }
-function togglePerguntaFields() {
-  const tipo = document.getElementById('pTipo').value;
-  const group = document.getElementById('optionsGroup');
-  if (tipo === 'unica' || tipo === 'multipla') group.style.display = 'block';
-  else group.style.display = 'none';
+
+function renderOptionClicks() {
+  const container = document.getElementById('optionClicksContainer');
+  const textarea = document.getElementById('pOptions');
+  if (!container || !textarea) return;
+  const options = textarea.value.split('\n').filter(s => s.trim());
+  container.innerHTML = options.map((opt, idx) => `
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:#f8faf8;border-radius:8px;border:1px solid #e8ece8;cursor:pointer;" onclick="toggleCorrectOption(${idx})" id="optClick_${idx}">
+      <span style="font-weight:700;">${idx+1}.</span>
+      <span style="flex:1;">${escapeHTML(opt)}</span>
+      <span style="font-size:0.8rem;color:#8a9a9a;" id="optStatus_${idx}">[Clique para marcar]</span>
+    </div>
+  `).join('');
+  // Reaplica seleções se existirem
+  if (window._selectedCorrectOptions) {
+    window._selectedCorrectOptions.forEach(idx => {
+      const el = document.getElementById('optClick_' + idx);
+      if (el) {
+        el.style.borderColor = 'var(--green)';
+        el.style.background = 'var(--green-light)';
+        const status = document.getElementById('optStatus_' + idx);
+        if (status) status.textContent = '✅ Correta';
+      }
+    });
+  }
 }
+
+function toggleCorrectOption(idx) {
+  const el = document.getElementById('optClick_' + idx);
+  const status = document.getElementById('optStatus_' + idx);
+  if (!el) return;
+  if (window._selectedCorrectOptions.includes(idx)) {
+    window._selectedCorrectOptions = window._selectedCorrectOptions.filter(i => i !== idx);
+    el.style.borderColor = '#e8ece8';
+    el.style.background = '#f8faf8';
+    if (status) status.textContent = '[Clique para marcar]';
+  } else {
+    const tipo = document.getElementById('pTipo').value;
+    if (tipo === 'unica') {
+      // Desmarca todos
+      document.querySelectorAll('#optionClicksContainer div').forEach(div => {
+        div.style.borderColor = '#e8ece8';
+        div.style.background = '#f8faf8';
+        const st = div.querySelector('.opt-status');
+        if (st) st.textContent = '[Clique para marcar]';
+      });
+      window._selectedCorrectOptions = [];
+    }
+    window._selectedCorrectOptions.push(idx);
+    el.style.borderColor = 'var(--green)';
+    el.style.background = 'var(--green-light)';
+    if (status) status.textContent = '✅ Correta';
+  }
+}
+
 function uploadImageForQuestion() {
   const input = document.createElement('input');
   input.type = 'file';
@@ -2409,13 +2634,19 @@ function uploadImageForQuestion() {
   };
   input.click();
 }
+function togglePerguntaFields() {
+  const tipo = document.getElementById('pTipo').value;
+  const group = document.getElementById('optionsGroup');
+  if (tipo === 'unica' || tipo === 'multipla') group.style.display = 'block';
+  else group.style.display = 'none';
+  setTimeout(renderOptionClicks, 100);
+}
 function confirmAddPergunta() {
   const tipo = document.getElementById('pTipo').value;
   const text = document.getElementById('pText').value.trim();
   const image = document.getElementById('pImage').value.trim();
   const video = document.getElementById('pVideo').value.trim();
   const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
-  const correct = parseInt(document.getElementById('pCorrect').value);
   const tagSelect = document.getElementById('pTags');
   const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
   const nivel = parseInt(document.getElementById('pNivel').value) || 1;
@@ -2426,12 +2657,25 @@ function confirmAddPergunta() {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
     return;
   }
-  if ((tipo === 'unica' || tipo === 'multipla') && (correct < 1 || correct > optionsRaw.length)) {
-    errEl.textContent = 'Selecione uma alternativa correta válida.';
+  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptions.length === 0) {
+    errEl.textContent = 'Marque pelo menos uma alternativa como correta.';
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
-  const pergunta = { id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4), tipo, text, image, video, options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [], correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''), tags, nivel, obrigatoria, ordem: (window._editQuestionarioData.perguntas || []).length };
+  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptions.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
+  const pergunta = {
+    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
+    tipo,
+    text,
+    image,
+    video,
+    options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [],
+    correct: correct,
+    tags,
+    nivel,
+    obrigatoria,
+    ordem: (window._editQuestionarioData.perguntas || []).length
+  };
   const q = window._editQuestionarioData;
   if (!q.perguntas) q.perguntas = [];
   q.perguntas.push(pergunta);
@@ -2442,6 +2686,13 @@ function editPergunta(index) {
   const q = window._editQuestionarioData;
   const p = q.perguntas[index];
   const tags = loadData('tagsPersonalizadas', []);
+  window._selectedCorrectOptions = [];
+  if (p.options && p.correct) {
+    p.correct.forEach(c => {
+      const idx = p.options.indexOf(c);
+      if (idx >= 0) window._selectedCorrectOptions.push(idx);
+    });
+  }
   showModal(`
     <div class="modal-title">✏️ Editar pergunta</div>
     <label>Tipo</label>
@@ -2460,9 +2711,8 @@ function editPergunta(index) {
     <input type="text" id="pVideo" value="${escapeHTML(p.video || '')}" placeholder="https://www.youtube.com/embed/...">
     <div id="optionsGroup" style="${(p.tipo==='unica'||p.tipo==='multipla')?'block':'none'}">
       <label>Alternativas</label>
-      <textarea id="pOptions" rows="4">${p.options ? p.options.join('\n') : ''}</textarea>
-      <label>Resposta correta</label>
-      <input type="number" id="pCorrect" min="1" max="6" value="${p.options ? p.options.indexOf(p.correct)+1 : 1}">
+      <textarea id="pOptions" rows="4" oninput="renderOptionClicks()">${p.options ? p.options.join('\n') : ''}</textarea>
+      <div id="optionClicksContainer" style="margin-top:6px;display:flex;flex-direction:column;gap:4px;"></div>
     </div>
     <label>Tags</label>
     <select id="pTags" multiple style="height:60px;">
@@ -2479,7 +2729,22 @@ function editPergunta(index) {
       <button class="btn btn-primary" onclick="saveEditPergunta(${index})">Salvar</button>
     </div>
   `);
-  setTimeout(togglePerguntaFields, 50);
+  setTimeout(() => {
+    togglePerguntaFields();
+    renderOptionClicks();
+    // Reaplica seleções
+    setTimeout(() => {
+      window._selectedCorrectOptions.forEach(idx => {
+        const el = document.getElementById('optClick_' + idx);
+        if (el) {
+          el.style.borderColor = 'var(--green)';
+          el.style.background = 'var(--green-light)';
+          const status = document.getElementById('optStatus_' + idx);
+          if (status) status.textContent = '✅ Correta';
+        }
+      });
+    }, 100);
+  }, 100);
 }
 function saveEditPergunta(index) {
   const tipo = document.getElementById('pTipo').value;
@@ -2487,7 +2752,6 @@ function saveEditPergunta(index) {
   const image = document.getElementById('pImage').value.trim();
   const video = document.getElementById('pVideo').value.trim();
   const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
-  const correct = parseInt(document.getElementById('pCorrect').value);
   const tagSelect = document.getElementById('pTags');
   const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
   const nivel = parseInt(document.getElementById('pNivel').value) || 1;
@@ -2498,13 +2762,26 @@ function saveEditPergunta(index) {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
     return;
   }
-  if ((tipo === 'unica' || tipo === 'multipla') && (correct < 1 || correct > optionsRaw.length)) {
-    errEl.textContent = 'Alternativa correta inválida.';
+  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptions.length === 0) {
+    errEl.textContent = 'Marque pelo menos uma alternativa como correta.';
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
+  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptions.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
   const q = window._editQuestionarioData;
-  q.perguntas[index] = { id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4), tipo, text, image, video, options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [], correct: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw[correct - 1] : (tipo === 'escala' ? correct : ''), tags, nivel, obrigatoria, ordem: index };
+  q.perguntas[index] = {
+    id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
+    tipo,
+    text,
+    image,
+    video,
+    options: (tipo === 'unica' || tipo === 'multipla') ? optionsRaw : [],
+    correct: correct,
+    tags,
+    nivel,
+    obrigatoria,
+    ordem: index
+  };
   hideModal();
   showCreateQuestionarioModal(q);
 }
@@ -2518,6 +2795,7 @@ function removePergunta(index) {
 function saveQuestionario(editId) {
   const nome = document.getElementById('qNome').value.trim();
   const descricao = document.getElementById('qDesc').value.trim();
+  const status = document.getElementById('qStatus').value;
   const qData = window._editQuestionarioData;
   const errEl = document.getElementById('qErr');
   if (!nome) { errEl.textContent = 'Dê um nome ao questionário.'; return; }
@@ -2525,9 +2803,9 @@ function saveQuestionario(editId) {
   let questionarios = loadData('questionarios', []);
   if (editId) {
     const idx = questionarios.findIndex(q => q.id === editId);
-    if (idx >= 0) questionarios[idx] = { ...qData, id: editId, nome, descricao };
+    if (idx >= 0) questionarios[idx] = { ...qData, id: editId, nome, descricao, status };
   } else {
-    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, regras: qData.regras || [], createdAt: Date.now() });
+    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, regras: qData.regras || [], status: status || 'draft', createdAt: Date.now() });
   }
   saveData('questionarios', questionarios);
   hideModal();
@@ -2547,7 +2825,7 @@ function deleteQuestionario(id) {
 }
 
 // ============================================================
-// 14. PAINEL ESTUDANTE (com grade estilo Trello)
+// 17. PAINEL ESTUDANTE (com grid 4 cards)
 // ============================================================
 function renderStudentContent() {
   const tab = document.querySelector('#studentTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
@@ -2579,68 +2857,40 @@ function renderStudentVisaoGeral(container) {
   const totalAttempts = mine.length;
   const medal = getMedal(totalAttempts);
 
-  // Tags com cores baseadas na frequência (simulado)
-  const tagColors = {};
-  last.tags.forEach(t => {
-    const count = loadData('tentativas', []).filter(a => a.tags && a.tags.includes(t)).length;
-    if (count > 5) tagColors[t] = 'chip-red';
-    else if (count > 2) tagColors[t] = 'chip-gold';
-    else tagColors[t] = 'chip-green';
-  });
+  // Determinar principal dificuldade (tag mais frequente)
+  let mainDifficulty = 'Nenhuma';
+  let mainDifficultyIcon = '🎯';
+  if (last.tags && last.tags.length > 0) {
+    // Pegar a primeira tag ou a mais representativa
+    mainDifficulty = TAGS_SYSTEM[last.tags[0]]?.label || last.tags[0];
+    mainDifficultyIcon = '📌';
+  }
 
   let html = `
     <div class="student-grid">
-      <!-- Coluna 1: Motivação + Último diagnóstico + Medalha -->
-      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
+      <div class="card">
         <span class="emoji-big">💪</span>
-        <div style="font-size:1.1rem;font-weight:700;">${escapeHTML(pickEncouragement(last.levelIdx))}</div>
-        <div style="margin-top:8px;border-top:1px solid #e8ece8;padding-top:8px;">
-          <span class="emoji-big" style="font-size:1.2rem;">📊</span>
-          <span class="stat-number">${pct}%</span>
-          <span class="stat-label">de acerto no último diagnóstico</span>
-        </div>
-        <div style="margin-top:4px;">
-          <span class="emoji-big" style="font-size:1.2rem;">🏅</span>
-          <span style="font-weight:700;">${medal.icon} ${medal.name}</span>
-          <span class="stat-label">(${totalAttempts} diagnósticos)</span>
-        </div>
+        <div style="font-size:1rem;font-weight:700;min-height:50px;">${escapeHTML(pickEncouragement(last.levelIdx))}</div>
       </div>
-
-      <!-- Coluna 2: Tags de maior dificuldade -->
       <div class="card">
-        <span class="emoji-big">🎯</span>
-        <h4 style="font-size:1rem;margin-bottom:8px;">Suas maiores dificuldades</h4>
-        ${last.tags && last.tags.length > 0 ? `
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            ${last.tags.map(t => `<span class="chip ${tagColors[t] || 'chip-gold'}">${escapeHTML(TAGS_SYSTEM[t]?.label || t)}</span>`).join('')}
-          </div>
-          <p style="font-size:0.85rem;color:#5a7a7a;margin-top:8px;">Revise estes tópicos com atenção.</p>
-        ` : '<p style="color:#5a7a7a;">Nenhuma dificuldade específica identificada. Continue assim! 🎉</p>'}
+        <span class="emoji-big">📊</span>
+        <div class="stat-number">${pct}%</div>
+        <div class="stat-label">de acerto no último diagnóstico</div>
+        <div style="font-size:0.8rem;color:#5a7a7a;margin-top:4px;">${new Date(last.finishedAt).toLocaleDateString()}</div>
       </div>
-
-      <!-- Coluna 3: Ranking com barra de progresso -->
       <div class="card">
-        <span class="emoji-big">🏆</span>
-        <h4 style="font-size:1rem;margin-bottom:8px;">Seu nível no ranking</h4>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-weight:700;">${medal.name}</span>
-          <span style="font-size:0.8rem;color:#5a7a7a;">Próximo: ${getMedal(totalAttempts + 1).name}</span>
-        </div>
-        <div class="level-bar">
-          <span style="font-size:0.7rem;font-weight:700;color:#4a6a6a;">${medal.icon}</span>
-          <div class="level-track">
-            <div class="fill" style="width:${Math.min(100, (totalAttempts % 10) * 10)}%;"></div>
-          </div>
-          <span style="font-size:0.7rem;font-weight:700;color:#4a6a6a;">${getMedal(totalAttempts + 1).icon}</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;font-size:0.7rem;color:#5a7a7a;">
-          ${MEDALS.map((m, i) => `<span style="${i === Math.min(totalAttempts, 9) ? 'font-weight:800;color:var(--green-dark);' : ''}">${m.icon} ${m.name}</span>`).join(' → ')}
-        </div>
+        <span class="emoji-big">🏅</span>
+        <div style="font-weight:700;">${medal.icon} ${medal.name}</div>
+        <div class="stat-label">${totalAttempts} diagnóstico(s) completos</div>
+      </div>
+      <div class="card">
+        <span class="emoji-big">${mainDifficultyIcon}</span>
+        <div style="font-weight:700;">${escapeHTML(mainDifficulty)}</div>
+        <div class="stat-label">Principal dificuldade identificada</div>
       </div>
     </div>
 
-    <!-- Seção de histórico (mantida) -->
-    <div class="card">
+    <div class="card" style="margin-top:16px;">
       <h4 style="margin-bottom:8px;">📋 Últimos diagnósticos</h4>
       ${mine.slice(-3).reverse().map(a => `
         <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:0.9rem;">
@@ -2654,7 +2904,7 @@ function renderStudentVisaoGeral(container) {
   container.innerHTML = html;
 }
 
-// ===== DESEMPENHO (com seleção de aplicação e pop-up de revisão) =====
+// ===== DESEMPENHO (com revisão de questões e relatório) =====
 function renderStudentDesempenho(container) {
   const attempts = loadData('tentativas', []);
   const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
@@ -2662,7 +2912,6 @@ function renderStudentDesempenho(container) {
     container.innerHTML = `<div class="card card-soft text-center">📭 Sem dados de desempenho ainda.</div>`;
     return;
   }
-
   let html = `
     <div style="margin-bottom:16px;">
       <label style="font-weight:700;font-size:0.85rem;">Selecione uma aplicação para revisar:</label>
@@ -2671,6 +2920,9 @@ function renderStudentDesempenho(container) {
       </select>
     </div>
     <div id="reviewContent"></div>
+    <div style="margin-top:16px;">
+      <button class="btn btn-secondary" onclick="generateStudentReportForAttempt(document.getElementById('reviewSelect').value)">📧 Gerar relatório desta tentativa</button>
+    </div>
   `;
   container.innerHTML = html;
   if (mine.length > 0) renderReview(mine[0].id);
@@ -2684,14 +2936,12 @@ function renderReview(attemptId) {
     container.innerHTML = `<div class="card card-soft text-center">Nenhuma resposta encontrada.</div>`;
     return;
   }
-
   let html = `<div style="display:flex;flex-direction:column;gap:12px;">`;
   attempt.answersDetail.forEach((d, i) => {
     const q = attempt._questions?.find(q => q.id === d.questionId) || { options: [], correct: '', tipo: 'unica', text: d.topic, image: '' };
     const userAnswer = d.value;
     const correctAnswer = q.correct || '';
     const isCorrect = d.isCorrect;
-
     html += `
       <div class="card" style="padding:16px;cursor:pointer;" onclick="openReviewQuestionModal(${i}, '${attemptId}')">
         <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -2718,7 +2968,6 @@ function openReviewQuestionModal(index, attemptId) {
   const correctAnswer = q.correct || '';
   const isCorrect = d.isCorrect;
 
-  // Navegação entre questões
   let currentIdx = index;
   const total = attempt.answersDetail.length;
 
@@ -2767,7 +3016,6 @@ function openReviewQuestionModal(index, attemptId) {
     `);
     window._reviewModalIdx = idx;
   }
-
   window.navigateReviewQuestion = function(delta) {
     const newIdx = window._reviewModalIdx + delta;
     if (newIdx >= 0 && newIdx < total) {
@@ -2775,7 +3023,6 @@ function openReviewQuestionModal(index, attemptId) {
       setTimeout(() => renderQuestionModal(newIdx), 150);
     }
   };
-
   renderQuestionModal(index);
 }
 
@@ -2811,7 +3058,7 @@ function renderStudentReforcos(container) {
   container.innerHTML = html;
 }
 
-// ===== RANKING =====
+// ===== RANKING (com censura) =====
 function renderStudentRanking(container) {
   const attempts = loadData('tentativas', []);
   const userAttempts = attempts.filter(a => a.studentEmail === window.currentUser?.email);
@@ -2820,13 +3067,16 @@ function renderStudentRanking(container) {
 
   let html = '';
   if (roundId) {
-    const ranking = getRanking(roundId);
+    const ranking = getRanking(roundId).map(r => ({
+      ...r,
+      displayName: r.name === window.currentUser?.name ? r.name : 'Estudante'
+    }));
     html += `<div class="card" style="margin-bottom:16px;">
       <h4>🏆 Ranking da aplicação atual</h4>
       ${ranking.length ? ranking.map((r,i) => `
         <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
           <span class="pos">#${i+1}</span>
-          <span class="name">${escapeHTML(r.name)} ${r.name === window.currentUser?.name ? '⭐' : ''}</span>
+          <span class="name">${escapeHTML(r.displayName)}</span>
           <span class="score">${r.score} pontos</span>
         </div>
       `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
@@ -2835,13 +3085,16 @@ function renderStudentRanking(container) {
     html += `<div class="card card-soft text-center" style="margin-bottom:16px;">📭 Complete um diagnóstico para ver o ranking.</div>`;
   }
 
-  const general = getGeneralRanking();
+  const general = getGeneralRanking().map(r => ({
+    ...r,
+    displayName: r.name === window.currentUser?.name ? r.name : 'Estudante'
+  }));
   html += `<div class="card">
     <h4>🏆 Ranking geral (todas as aplicações)</h4>
     ${general.length ? general.map((r,i) => `
       <div class="ranking-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
         <span class="pos">#${i+1}</span>
-        <span class="name">${escapeHTML(r.name)} ${r.name === window.currentUser?.name ? '⭐' : ''}</span>
+        <span class="name">${escapeHTML(r.displayName)}</span>
         <span class="score">${r.score} média</span>
       </div>
     `).join('') : '<p style="color:#8a9a9a;">Aguardando mais participantes...</p>'}
@@ -2850,7 +3103,7 @@ function renderStudentRanking(container) {
 }
 
 // ============================================================
-// 15. MODAL
+// 18. MODAL
 // ============================================================
 function showModal(html) {
   document.getElementById('modalBody').innerHTML = html;
@@ -2861,7 +3114,7 @@ function hideModal() {
 }
 
 // ============================================================
-// 16. INICIALIZAÇÃO
+// 19. INICIALIZAÇÃO
 // ============================================================
 initCookieBanner();
 updateHomeStats();
@@ -2885,7 +3138,7 @@ window.onload = function() {
   document.getElementById('chartTooltip').style.display = 'none';
 };
 
-console.log('✅ Diagnóstico de Soluções v6.0 — com layout em colunas, revisão com pop-up, tutorial corrigido e nomes neutros!');
+console.log('✅ Diagnóstico de Soluções v7.0 — completa com todas as correções e melhorias!');
 </script>
 </body>
 </html>
