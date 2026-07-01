@@ -118,16 +118,16 @@
     /* ===== MODAL ===== */
     #modalOverlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(26,42,42,0.5); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
     #modalOverlay.open { display: flex; }
-    #modalCard { max-width: 720px; width: 100%; background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-hover); max-height: 90vh; overflow-y: auto; }
-    #modalCard .close-btn { float: right; background: none; border: none; font-size: 1.5rem; color: #8a9a9a; cursor: pointer; padding: 4px; }
+    #modalCard { max-width: 96vw; width: 100%; max-height: 96vh; background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-hover); overflow-y: auto; }
+    #modalCard .close-btn { float: right; background: none; border: none; font-size: 1.8rem; color: #8a9a9a; cursor: pointer; padding: 4px; line-height: 1; }
     #modalCard .close-btn:hover { color: #1a2a2a; }
-    #modalCard .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    #modalCard .modal-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 4px; padding-right: 40px; }
     #modalCard .modal-sub { color: #5a7a7a; margin-bottom: 20px; line-height: 1.6; }
     #modalCard label { font-weight: 700; font-size: 0.85rem; color: #4a6a6a; display: block; margin-bottom: 4px; }
     #modalCard input, #modalCard select, #modalCard textarea { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 2px solid #e8ece8; background: #f8faf8; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; margin-bottom: 12px; transition: 0.2s; }
     #modalCard input:focus, #modalCard select:focus, #modalCard textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgba(107,203,154,0.15); }
     #modalCard .err { color: var(--coral); font-size: 0.85rem; min-height: 1.4em; margin-top: 4px; }
-    .modal-actions { display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end; flex-wrap: wrap; }
 
     /* ===== RANKING ===== */
     .ranking-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
@@ -317,15 +317,63 @@
     .review-question:last-child { border-bottom: none; }
     .review-question .q-statement { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
     .review-question .q-options .opt-review {
-      padding: 6px 12px;
-      margin: 3px 0;
+      padding: 8px 14px;
+      margin: 4px 0;
       border-radius: 8px;
       border-left: 4px solid #e8ece8;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
     .review-question .q-options .opt-review.user-answer { border-left-color: var(--coral); background: var(--coral-light); }
     .review-question .q-options .opt-review.correct-answer { border-left-color: var(--green); background: var(--green-light); }
     .review-question .q-options .opt-review.both { border-left-color: var(--green); background: var(--green-light); border: 2px solid var(--green); }
+
+    /* ===== LAYOUT GRÁFICO (Assuntos) ===== */
+    .chart-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .chart-layout .chart-canvas-wrapper {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chart-layout .chart-legend {
+      flex: 0 0 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 0;
+    }
+    .chart-layout .chart-legend .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1a2a2a;
+    }
+    .chart-layout .chart-legend .legend-item .color-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ===== FORMULÁRIO EXPANSÍVEL (Questionário) ===== */
+    .inline-form {
+      background: #f8faf8;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin: 12px 0;
+      border: 1px solid #e8ece8;
+      display: none;
+    }
+    .inline-form.open { display: block; }
+    .inline-form .form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
@@ -338,6 +386,10 @@
       .result-circle .circle { width: 80px; height: 80px; font-size: 1.2rem; }
       #tourTooltip { width: 280px; }
       #helpButton { width: 48px; height: 48px; font-size: 1.4rem; bottom: 20px; right: 20px; }
+      #modalCard { max-width: 98vw; max-height: 98vh; padding: 16px; }
+      .chart-layout { flex-direction: column; }
+      .chart-layout .chart-legend { flex: 1; flex-direction: row; flex-wrap: wrap; }
+      .student-grid { grid-template-columns: 1fr 1fr; }
     }
     .text-center { text-align: center; }
     .mt-8 { margin-top: 8px; }
@@ -586,7 +638,7 @@
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
       <button class="btn btn-primary" onclick="navigateTo('dashboard-student')">📊 Ver meu painel</button>
       <button class="btn btn-ghost" onclick="navigateTo('home')">Início</button>
-      <button class="btn btn-secondary" onclick="generateStudentReportFromCurrent()">📧 Receber relatório por e-mail</button>
+      <button class="btn btn-secondary btn-xl" onclick="generateStudentReportFromCurrent()" style="background:var(--blue-light);border-color:var(--blue);">📧 Receber relatório por e-mail</button>
     </div>
   </div>
 </section>
@@ -618,7 +670,7 @@
 <!-- ===== MODAL ===== -->
 <div id="modalOverlay">
   <div class="card" id="modalCard">
-    <button class="close-btn" onclick="hideModal()">✕</button>
+    <button class="close-btn" onclick="checkCloseModal()">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
@@ -659,7 +711,6 @@ function navigateTo(screenId) {
   if (screenId === 'home') updateHomeStats();
   if (screenId === 'dashboard-manager') { renderManagerContent(); if (window._tourManagerSeen === undefined) setTimeout(startTour, 600); }
   if (screenId === 'dashboard-student') { renderStudentContent(); }
-  // Ocultar botão de ajuda no quiz
   const helpBtn = document.getElementById('helpButton');
   if (screenId === 'quiz') helpBtn.classList.add('hidden');
   else helpBtn.classList.remove('hidden');
@@ -794,7 +845,7 @@ function logout() {
 }
 
 // ============================================================
-// 8. TOUR SPOTLIGHT (CORRIGIDO)
+// 8. TOUR SPOTLIGHT
 // ============================================================
 const TOUR_STEPS_MANAGER = [
   { selector: '[data-tab="visao-geral"]', title: 'Visão Geral', text: 'Mostra rapidamente como cada turma está indo: boa, média ou precisando de atenção. Métricas consolidadas.' },
@@ -1081,14 +1132,14 @@ function startQuizAfterSliders() {
 }
 
 // ============================================================
-// 10. QUIZ (adaptativo)
+// 10. QUIZ
 // ============================================================
 let quizState = null;
 let quizFinished = false;
 let quizTimerInterval = null;
 let quizSeconds = 0;
 let sliderResponses = {};
-let currentResultAttempt = null; // para o relatório
+let currentResultAttempt = null;
 
 const TAGS_SYSTEM = {
   'GRAF_INTERPRETACAO': { label: 'INTERPRETACAO_DE_GRAFICOS' },
@@ -1293,7 +1344,7 @@ function finishQuiz() {
   currentResultAttempt = attempt;
   showResult(attempt);
   navigateTo('result');
-  launchConfetti(2000); // 2 segundos
+  launchConfetti(2000);
 }
 
 function confirmStartQuiz() {
@@ -1408,7 +1459,6 @@ function showResult(attempt) {
     <div class="medal-badge"><span class="medal-icon">${medal.icon}</span> <span>${medal.name}</span></div>
     <p style="color:#4a6a6a;font-size:0.85rem;margin-top:4px;">Você já completou ${totalAttempts} diagnóstico(s)!</p>
   `;
-  // Ranking com censura
   const ranking = getRanking(attempt.roundId).map(r => ({
     ...r,
     displayName: r.name === window.currentUser?.name ? r.name : 'Estudante'
@@ -1481,13 +1531,11 @@ function getMedal(totalAttempts) {
 function launchConfetti(durationMs) {
   const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4'];
   const totalDuration = durationMs || 2000;
-  const pieces = [];
   for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.cssText = `position:fixed; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px; background:${colors[Math.floor(Math.random()*colors.length)]}; left:${Math.random()*100}vw; top:-10px; border-radius:${Math.random()>0.5?'50%':'0%'}; pointer-events:none; z-index:999;`;
     document.body.appendChild(piece);
-    pieces.push(piece);
     const duration = totalDuration * (0.7 + Math.random() * 0.6);
     const dx = (Math.random() - 0.5) * 300;
     piece.animate([
@@ -1498,7 +1546,7 @@ function launchConfetti(durationMs) {
 }
 
 // ============================================================
-// 13. RELATÓRIO DO ALUNO (PDF + Simulação de e-mail)
+// 13. RELATÓRIO DO ALUNO (PDF + E-mail)
 // ============================================================
 function generateStudentReportFromCurrent() {
   if (!currentResultAttempt) {
@@ -1560,7 +1608,6 @@ function generateStudentReport(attempt) {
     </div>
   `;
 
-  // Mostrar modal com opção de baixar
   showModal(`
     <div class="modal-title">📧 Relatório</div>
     <div class="modal-sub">Seu relatório foi gerado com sucesso. Deseja recebê-lo por e-mail?</div>
@@ -1592,7 +1639,7 @@ function simulateEmailSend() {
   hideModal();
   const email = window.currentUser?.email || 'seu e-mail';
   alert(`📧 Simulação: O relatório foi enviado para ${email}! (Verifique sua caixa de entrada)\n\nNa versão final, um e-mail com o PDF anexado será enviado automaticamente.`);
-  downloadStudentReport(); // Baixa também para garantir
+  downloadStudentReport();
 }
 
 // ============================================================
@@ -1611,6 +1658,7 @@ let alunosSearch = '';
 let chartType = 'bar';
 let uploadedFiles = [];
 const MAX_FILE_SIZE = 1024 * 1024 * 1024;
+let assuntosFilterQuestionario = 'todos';
 
 function setManagerTab(tab) {
   managerTab = tab;
@@ -1624,7 +1672,6 @@ function setManagerTab(tab) {
   else if (tab === 'questionarios') renderQuestionarios(container);
 }
 
-// ===== VISÃO GERAL =====
 function renderVisaoGeral(container) {
   const attempts = loadData('tentativas', []);
   const turmas = [...new Set(attempts.map(a => (a.studentClass || 'Sem turma').trim() || 'Sem turma'))];
@@ -1649,7 +1696,7 @@ function renderVisaoGeral(container) {
   `;
 }
 
-// ===== APLICAÇÕES (com nível corrigido) =====
+// ===== APLICAÇÕES =====
 function renderAplicacoes(container) {
   const rounds = loadData('rodadas', []);
   const attempts = loadData('tentativas', []);
@@ -1695,7 +1742,6 @@ function renderRoundAttempts(rounds, attempts) {
     ${round.disabled ? ' <span style="color:var(--coral);font-weight:700;">🔴 Desabilitada</span>' : ''}`;
   const list = attempts.filter(a => a.roundId === round.id);
   if (list.length === 0) { wrap.innerHTML = '<div class="text-center text-soft">Ainda não há respostas.</div>'; return; }
-  // Recalcular nível com base no percentual para exibição
   list.forEach(a => {
     const correct = a.answersDetail?.filter(d => d.isCorrect).length || 0;
     const totalQ = a.answersDetail?.length || 0;
@@ -1945,9 +1991,9 @@ function toggleAlunoDetail(name) {
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
-// ===== ASSUNTOS (com legenda, filtro por questionário e tooltips corrigidos) =====
-let assuntosFilterQuestionario = 'todos';
-
+// ============================================================
+// 15. ASSUNTOS (com layout gráfico à esquerda, legenda à direita)
+// ============================================================
 function renderAssuntos(container) {
   const attempts = loadData('tentativas', []);
   const questionarios = loadData('questionarios', []);
@@ -1979,10 +2025,12 @@ function renderAssuntos(container) {
       <button class="btn ${chartType === 'pie' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('pie')">🍕 Pizza</button>
       <button class="btn ${chartType === 'radar' ? 'btn-primary' : 'btn-ghost'}" onclick="setChartType('radar')">🕸️ Radar</button>
     </div>
-    <div class="card" style="padding:20px;min-height:300px;display:flex;align-items:center;justify-content:center;position:relative;">
-      <canvas id="chartCanvas" width="500" height="300"></canvas>
+    <div class="chart-layout">
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartCanvas" width="500" height="300"></canvas>
+      </div>
+      <div class="chart-legend" id="chartLegend"></div>
     </div>
-    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;" id="chartLegend"></div>
     <div style="margin-top:16px;">
       ${sorted.map(([tid, count]) => {
         const pct = Math.round((count / total) * 100);
@@ -1996,6 +2044,7 @@ function renderAssuntos(container) {
   container.innerHTML = html;
   setTimeout(() => drawChart(sorted, total), 50);
 }
+
 function setAssuntosFilter(val) {
   assuntosFilterQuestionario = val;
   renderManagerContent();
@@ -2022,11 +2071,11 @@ function drawChart(data, total) {
     document.getElementById('chartLegend').innerHTML = '';
     return;
   }
-  const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4','#C9B8D4'];
+  const colors = ['#6BCB9A','#8FC1D9','#F5D76E','#F5A0A0','#D4F0E4','#C9B8D4','#A78BFA','#F472B6','#34D399','#FBBF24'];
 
   // Gerar legenda
   const legendHtml = data.map(([tid], i) =>
-    `<span style="display:inline-flex;align-items:center;gap:4px;font-size:0.75rem;font-weight:600;"><span style="display:inline-block;width:16px;height:16px;background:${colors[i % colors.length]};border-radius:4px;"></span> ${escapeHTML(TAGS_SYSTEM[tid]?.label || tid)}</span>`
+    `<div class="legend-item"><span class="color-box" style="background:${colors[i % colors.length]};"></span> ${escapeHTML(TAGS_SYSTEM[tid]?.label || tid)}</div>`
   ).join('');
   document.getElementById('chartLegend').innerHTML = legendHtml;
 
@@ -2100,7 +2149,6 @@ function drawChart(data, total) {
       ctx.fill();
       start += angle;
     });
-    // Tooltip interativo
     canvas.addEventListener('mousemove', function(e) {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left - cx;
@@ -2151,7 +2199,7 @@ function drawChart(data, total) {
     ctx.beginPath();
     points.forEach((p, i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
     ctx.closePath();
-    ctx.fillStyle = 'rgba(107,203,154,0.25)'; ctx.fill();
+    ctx.fillStyle = 'rgba(107,203,154,0.2)'; ctx.fill();
     ctx.strokeStyle = '#6BCB9A'; ctx.lineWidth = 2; ctx.stroke();
     ctx.font = '10px Nunito Sans'; ctx.textAlign = 'center';
     points.forEach((p, i) => {
@@ -2161,7 +2209,7 @@ function drawChart(data, total) {
       ctx.fillStyle = '#1a2a2a';
       ctx.fillText((TAGS_SYSTEM[p.tid]?.label || p.tid).slice(0,8), lx, ly+4);
     });
-    // Tooltip interativo
+    // Interatividade
     canvas.addEventListener('mousemove', function(e) {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
@@ -2182,7 +2230,7 @@ function drawChart(data, total) {
 }
 
 // ============================================================
-// 15. MATERIAIS (resumido)
+// 16. MATERIAIS (resumido - sem alterações estruturais)
 // ============================================================
 function renderMateriais(container) {
   const materiais = loadData('materiais', []);
@@ -2346,7 +2394,7 @@ function deleteMaterial(id) {
 }
 
 // ============================================================
-// 16. EDITOR DE QUESTIONÁRIOS (com rascunho/publicado, marcador visual)
+// 17. QUESTIONÁRIOS (com formulário expansível inline)
 // ============================================================
 function renderQuestionarios(container) {
   const questionarios = loadData('questionarios', []);
@@ -2405,18 +2453,23 @@ function previewQuestionario(id) {
   showModal(html + `<div class="modal-actions"><button class="btn btn-ghost" onclick="hideModal()">Fechar</button></div>`);
 }
 
+// ===== MODAL DO EDITOR (com formulário expansível) =====
+let _questionarioFormDirty = false;
+
 function showCreateQuestionarioModal(editData) {
   const isEdit = !!editData;
   const q = editData || { nome: '', descricao: '', perguntas: [], regras: [], status: 'draft' };
+  _questionarioFormDirty = false;
+
   showModal(`
     <div class="modal-title">${isEdit ? '✏️ Editar' : '📝 Criar'} Questionário</div>
     <div class="modal-sub">${isEdit ? 'Edite as informações do questionário.' : 'Crie um novo questionário com perguntas, tipos, imagens e vídeos.'}</div>
     <label>Nome do questionário</label>
-    <input type="text" id="qNome" value="${escapeHTML(q.nome)}" placeholder="Ex: Diagnóstico de Soluções">
+    <input type="text" id="qNome" value="${escapeHTML(q.nome)}" placeholder="Ex: Diagnóstico de Soluções" onchange="_questionarioFormDirty=true">
     <label>Descrição (opcional)</label>
-    <input type="text" id="qDesc" value="${escapeHTML(q.descricao)}" placeholder="Breve descrição">
+    <input type="text" id="qDesc" value="${escapeHTML(q.descricao)}" placeholder="Breve descrição" onchange="_questionarioFormDirty=true">
     <label>Status</label>
-    <select id="qStatus">
+    <select id="qStatus" onchange="_questionarioFormDirty=true">
       <option value="draft" ${q.status==='draft'?'selected':''}>📝 Rascunho</option>
       <option value="published" ${q.status==='published'?'selected':''}>📌 Publicado</option>
     </select>
@@ -2441,7 +2494,8 @@ function showCreateQuestionarioModal(editData) {
         </div>
       `).join('')}
     </div>
-    <button class="btn btn-secondary btn-sm" onclick="addPerguntaModal()" style="margin-bottom:12px;">➕ Adicionar pergunta</button>
+    <button class="btn btn-secondary btn-sm" onclick="showInlinePerguntaForm()" style="margin-bottom:12px;">➕ Adicionar pergunta (inline)</button>
+    <div id="inlinePerguntaForm" class="inline-form"></div>
     <hr style="margin:12px 0;">
     <h4 style="margin-bottom:8px;">🔀 Regras de avanço (branching)</h4>
     <div id="regrasList" style="margin-bottom:12px;">
@@ -2452,75 +2506,72 @@ function showCreateQuestionarioModal(editData) {
         </div>
       `).join('')}
     </div>
-    <button class="btn btn-secondary btn-sm" onclick="addRegraModal()" style="margin-bottom:12px;">➕ Adicionar regra</button>
+    <button class="btn btn-secondary btn-sm" onclick="showInlineRegraForm()" style="margin-bottom:12px;">➕ Adicionar regra (inline)</button>
+    <div id="inlineRegraForm" class="inline-form"></div>
     <div class="err" id="qErr"></div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveQuestionario('${isEdit ? q.id : ''}')">Salvar</button>
+      <button class="btn btn-ghost" onclick="checkCloseModal()">Cancelar</button>
+      <button class="btn btn-outline" onclick="saveQuestionarioDraft()">💾 Salvar rascunho</button>
+      <button class="btn btn-primary" onclick="saveQuestionarioPublished()">📌 Finalizar e publicar</button>
     </div>
   `);
   window._editQuestionarioData = q;
   window._editQuestionarioId = isEdit ? q.id : null;
-}
-function movePergunta(index, direction) {
-  const q = window._editQuestionarioData;
-  const perguntas = q.perguntas;
-  const newIndex = index + direction;
-  if (newIndex < 0 || newIndex >= perguntas.length) return;
-  [perguntas[index], perguntas[newIndex]] = [perguntas[newIndex], perguntas[index]];
-  perguntas.forEach((p, i) => p.ordem = i);
-  showCreateQuestionarioModal(q);
-}
-function addRegraModal() {
-  const q = window._editQuestionarioData;
-  const perguntas = q.perguntas || [];
-  showModal(`
-    <div class="modal-title">🔀 Nova regra de branching</div>
-    <div class="modal-sub">Defina: se a resposta for X, vá para a pergunta Y.</div>
-    <label>Pergunta de origem</label>
-    <select id="regraPergunta">
-      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
-    </select>
-    <label>Opção/resposta (ou "*" para qualquer)</label>
-    <input type="text" id="regraOpcao" placeholder="Ex: KNO3 ou *">
-    <label>Pergunta de destino</label>
-    <select id="regraDestino">
-      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
-    </select>
-    <div class="err" id="regraErr"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmAddRegra()">Adicionar</button>
-    </div>
-  `);
-}
-function confirmAddRegra() {
-  const perguntaId = document.getElementById('regraPergunta').value;
-  const opcaoId = document.getElementById('regraOpcao').value.trim();
-  const proximaPerguntaId = document.getElementById('regraDestino').value;
-  const errEl = document.getElementById('regraErr');
-  if (!perguntaId || !proximaPerguntaId) { errEl.textContent = 'Selecione pergunta de origem e destino.'; return; }
-  if (!opcaoId) { errEl.textContent = 'Digite a opção/resposta.'; return; }
-  const q = window._editQuestionarioData;
-  if (!q.regras) q.regras = [];
-  q.regras.push({ perguntaId, opcaoId, proximaPerguntaId });
-  hideModal();
-  showCreateQuestionarioModal(q);
-}
-function removeRegra(index) {
-  const q = window._editQuestionarioData;
-  q.regras.splice(index, 1);
-  showCreateQuestionarioModal(q);
+  // Fechar com X pergunta se houver alterações
+  const closeBtn = document.querySelector('#modalCard .close-btn');
+  if (closeBtn) {
+    closeBtn.onclick = function() {
+      if (_questionarioFormDirty) {
+        if (confirm('Você tem alterações não salvas. Deseja realmente fechar?')) {
+          hideModal();
+        }
+      } else {
+        hideModal();
+      }
+    };
+  }
+  // Monitorar mudanças nos inputs
+  document.addEventListener('change', function handler(e) {
+    if (e.target.closest('#modalCard')) _questionarioFormDirty = true;
+  });
 }
 
-// ===== ADICIONAR PERGUNTA (com clique para marcar correta) =====
-function addPerguntaModal() {
+function saveQuestionarioDraft() {
+  saveQuestionarioInternal('draft');
+}
+function saveQuestionarioPublished() {
+  if (confirm('Deseja publicar este questionário? Os alunos poderão acessá-lo nas aplicações.')) {
+    saveQuestionarioInternal('published');
+  }
+}
+function saveQuestionarioInternal(status) {
+  const nome = document.getElementById('qNome').value.trim();
+  const descricao = document.getElementById('qDesc').value.trim();
+  const qData = window._editQuestionarioData;
+  const errEl = document.getElementById('qErr');
+  if (!nome) { errEl.textContent = 'Dê um nome ao questionário.'; return; }
+  if (!qData.perguntas || qData.perguntas.length === 0) { errEl.textContent = 'Adicione pelo menos uma pergunta.'; return; }
+  let questionarios = loadData('questionarios', []);
+  const editId = window._editQuestionarioId;
+  if (editId) {
+    const idx = questionarios.findIndex(q => q.id === editId);
+    if (idx >= 0) questionarios[idx] = { ...qData, id: editId, nome, descricao, status };
+  } else {
+    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, regras: qData.regras || [], status, createdAt: Date.now() });
+  }
+  saveData('questionarios', questionarios);
+  hideModal();
+  renderManagerContent();
+}
+
+// ===== FORMS EXPANSÍVEIS (Inline) =====
+function showInlinePerguntaForm() {
+  const container = document.getElementById('inlinePerguntaForm');
   const tags = loadData('tagsPersonalizadas', []);
-  showModal(`
-    <div class="modal-title">➕ Nova pergunta</div>
-    <div class="modal-sub">Preencha os dados da pergunta. Clique nas alternativas para marcar a(s) correta(s).</div>
-    <label>Tipo de pergunta</label>
-    <select id="pTipo" onchange="togglePerguntaFields()">
+  container.innerHTML = `
+    <div style="font-weight:700;margin-bottom:8px;">➕ Nova pergunta</div>
+    <label>Tipo</label>
+    <select id="pTipoInline" onchange="toggleInlinePerguntaFields()">
       <option value="unica">Escolha única</option>
       <option value="multipla">Múltipla escolha</option>
       <option value="curta">Resposta curta</option>
@@ -2528,141 +2579,127 @@ function addPerguntaModal() {
       <option value="escala">Escala (1 a 5)</option>
     </select>
     <label>Enunciado</label>
-    <textarea id="pText" rows="3" placeholder="Digite o texto da pergunta..."></textarea>
-    <label>Imagem (URL ou upload)</label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-      <input type="text" id="pImage" placeholder="https://exemplo.com/imagem.png" style="flex:1;">
-      <button class="btn btn-secondary btn-sm" onclick="uploadImageForQuestion()">📤 Upload</button>
+    <textarea id="pTextInline" rows="2" placeholder="Digite o texto da pergunta..."></textarea>
+    <label>Imagem (URL)</label>
+    <input type="text" id="pImageInline" placeholder="https://exemplo.com/imagem.png">
+    <label>Vídeo (URL YouTube embed)</label>
+    <input type="text" id="pVideoInline" placeholder="https://www.youtube.com/embed/...">
+    <div id="optionsGroupInline">
+      <label>Alternativas (uma por linha)</label>
+      <textarea id="pOptionsInline" rows="3" placeholder="Opção A&#10;Opção B&#10;Opção C" oninput="renderInlineOptionClicks()"></textarea>
+      <div id="inlineOptionClicks" style="margin-top:6px;"></div>
     </div>
-    <label>Vídeo (URL do YouTube, ex: https://www.youtube.com/embed/...)</label>
-    <input type="text" id="pVideo" placeholder="https://www.youtube.com/embed/VIDEO_ID">
-    <div id="optionsGroup">
-      <label>Alternativas (uma por linha) - Clique nas alternativas para marcar a(s) correta(s)</label>
-      <textarea id="pOptions" rows="4" placeholder="Opção A&#10;Opção B&#10;Opção C&#10;Opção D" oninput="renderOptionClicks()"></textarea>
-      <div id="optionClicksContainer" style="margin-top:6px;display:flex;flex-direction:column;gap:4px;"></div>
-    </div>
-    <label>Tags (selecione uma ou mais, em MAIÚSCULAS) <span style="font-size:0.75rem;color:#5a7a7a;">(Identificam o conteúdo da pergunta)</span></label>
-    <select id="pTags" multiple style="height:60px;">
+    <label>Tags</label>
+    <select id="pTagsInline" multiple style="height:60px;">
       ${tags.map(t => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join('')}
       ${tags.length === 0 ? '<option value="">Nenhuma tag criada</option>' : ''}
     </select>
-    <label>Nível de dificuldade (1 = mais fácil, 5 = mais difícil) <span style="font-size:0.75rem;color:#5a7a7a;">(Ajuda a criar questões adaptativas)</span></label>
-    <input type="number" id="pNivel" min="1" max="5" value="1">
+    <label>Nível de dificuldade (1-5)</label>
+    <input type="number" id="pNivelInline" min="1" max="5" value="1">
     <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
-      <input type="checkbox" id="pObrigatoria" checked> Pergunta obrigatória
+      <input type="checkbox" id="pObrigatoriaInline" checked> Obrigatória
     </label>
-    <div class="err" id="pErr"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmAddPergunta()">Adicionar pergunta</button>
+    <div class="form-actions">
+      <button class="btn btn-ghost btn-sm" onclick="hideInlineForm('inlinePerguntaForm')">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="confirmAddPerguntaInline()">Adicionar</button>
     </div>
-  `);
+  `;
+  container.classList.add('open');
+  window._selectedCorrectOptionsInline = [];
   setTimeout(() => {
-    renderOptionClicks();
-    document.getElementById('pTipo').addEventListener('change', () => {
-      setTimeout(renderOptionClicks, 100);
-    });
-  }, 100);
-  window._selectedCorrectOptions = [];
+    toggleInlinePerguntaFields();
+    renderInlineOptionClicks();
+  }, 50);
 }
 
-function renderOptionClicks() {
-  const container = document.getElementById('optionClicksContainer');
-  const textarea = document.getElementById('pOptions');
+function hideInlineForm(id) {
+  document.getElementById(id).classList.remove('open');
+  document.getElementById(id).innerHTML = '';
+}
+
+function toggleInlinePerguntaFields() {
+  const tipo = document.getElementById('pTipoInline').value;
+  const group = document.getElementById('optionsGroupInline');
+  if (tipo === 'unica' || tipo === 'multipla') group.style.display = 'block';
+  else group.style.display = 'none';
+  setTimeout(renderInlineOptionClicks, 100);
+}
+
+function renderInlineOptionClicks() {
+  const container = document.getElementById('inlineOptionClicks');
+  const textarea = document.getElementById('pOptionsInline');
   if (!container || !textarea) return;
   const options = textarea.value.split('\n').filter(s => s.trim());
   container.innerHTML = options.map((opt, idx) => `
-    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:#f8faf8;border-radius:8px;border:1px solid #e8ece8;cursor:pointer;" onclick="toggleCorrectOption(${idx})" id="optClick_${idx}">
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:#f8faf8;border-radius:8px;border:1px solid #e8ece8;cursor:pointer;" onclick="toggleInlineCorrectOption(${idx})" id="inlineOpt_${idx}">
       <span style="font-weight:700;">${idx+1}.</span>
       <span style="flex:1;">${escapeHTML(opt)}</span>
-      <span style="font-size:0.8rem;color:#8a9a9a;" id="optStatus_${idx}">[Clique para marcar]</span>
+      <span style="font-size:0.8rem;color:#8a9a9a;" id="inlineOptStatus_${idx}">[Clique para marcar]</span>
     </div>
   `).join('');
-  // Reaplica seleções se existirem
-  if (window._selectedCorrectOptions) {
-    window._selectedCorrectOptions.forEach(idx => {
-      const el = document.getElementById('optClick_' + idx);
+  // Reaplica seleções
+  if (window._selectedCorrectOptionsInline) {
+    window._selectedCorrectOptionsInline.forEach(idx => {
+      const el = document.getElementById('inlineOpt_' + idx);
       if (el) {
         el.style.borderColor = 'var(--green)';
         el.style.background = 'var(--green-light)';
-        const status = document.getElementById('optStatus_' + idx);
+        const status = document.getElementById('inlineOptStatus_' + idx);
         if (status) status.textContent = '✅ Correta';
       }
     });
   }
 }
 
-function toggleCorrectOption(idx) {
-  const el = document.getElementById('optClick_' + idx);
-  const status = document.getElementById('optStatus_' + idx);
+function toggleInlineCorrectOption(idx) {
+  const el = document.getElementById('inlineOpt_' + idx);
+  const status = document.getElementById('inlineOptStatus_' + idx);
   if (!el) return;
-  if (window._selectedCorrectOptions.includes(idx)) {
-    window._selectedCorrectOptions = window._selectedCorrectOptions.filter(i => i !== idx);
+  if (window._selectedCorrectOptionsInline.includes(idx)) {
+    window._selectedCorrectOptionsInline = window._selectedCorrectOptionsInline.filter(i => i !== idx);
     el.style.borderColor = '#e8ece8';
     el.style.background = '#f8faf8';
     if (status) status.textContent = '[Clique para marcar]';
   } else {
-    const tipo = document.getElementById('pTipo').value;
+    const tipo = document.getElementById('pTipoInline').value;
     if (tipo === 'unica') {
-      // Desmarca todos
-      document.querySelectorAll('#optionClicksContainer div').forEach(div => {
+      document.querySelectorAll('#inlineOptionClicks div').forEach(div => {
         div.style.borderColor = '#e8ece8';
         div.style.background = '#f8faf8';
-        const st = div.querySelector('.opt-status');
+        const st = div.querySelector('.inline-opt-status');
         if (st) st.textContent = '[Clique para marcar]';
       });
-      window._selectedCorrectOptions = [];
+      window._selectedCorrectOptionsInline = [];
     }
-    window._selectedCorrectOptions.push(idx);
+    window._selectedCorrectOptionsInline.push(idx);
     el.style.borderColor = 'var(--green)';
     el.style.background = 'var(--green-light)';
     if (status) status.textContent = '✅ Correta';
   }
 }
 
-function uploadImageForQuestion() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/*';
-  input.onchange = function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(ev) { document.getElementById('pImage').value = ev.target.result; };
-      reader.readAsDataURL(file);
-    }
-  };
-  input.click();
-}
-function togglePerguntaFields() {
-  const tipo = document.getElementById('pTipo').value;
-  const group = document.getElementById('optionsGroup');
-  if (tipo === 'unica' || tipo === 'multipla') group.style.display = 'block';
-  else group.style.display = 'none';
-  setTimeout(renderOptionClicks, 100);
-}
-function confirmAddPergunta() {
-  const tipo = document.getElementById('pTipo').value;
-  const text = document.getElementById('pText').value.trim();
-  const image = document.getElementById('pImage').value.trim();
-  const video = document.getElementById('pVideo').value.trim();
-  const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
-  const tagSelect = document.getElementById('pTags');
+function confirmAddPerguntaInline() {
+  const tipo = document.getElementById('pTipoInline').value;
+  const text = document.getElementById('pTextInline').value.trim();
+  const image = document.getElementById('pImageInline').value.trim();
+  const video = document.getElementById('pVideoInline').value.trim();
+  const optionsRaw = document.getElementById('pOptionsInline').value.trim().split('\n').filter(s => s.trim());
+  const tagSelect = document.getElementById('pTagsInline');
   const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
-  const nivel = parseInt(document.getElementById('pNivel').value) || 1;
-  const obrigatoria = document.getElementById('pObrigatoria').checked;
-  const errEl = document.getElementById('pErr');
-  if (!text) { errEl.textContent = 'Digite o enunciado da pergunta.'; return; }
+  const nivel = parseInt(document.getElementById('pNivelInline').value) || 1;
+  const obrigatoria = document.getElementById('pObrigatoriaInline').checked;
+  const errEl = document.getElementById('qErr');
+  if (!text) { errEl.textContent = 'Digite o enunciado.'; return; }
   if ((tipo === 'unica' || tipo === 'multipla') && optionsRaw.length < 2) {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
     return;
   }
-  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptions.length === 0) {
+  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptionsInline.length === 0) {
     errEl.textContent = 'Marque pelo menos uma alternativa como correta.';
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
-  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptions.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
+  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptionsInline.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
   const pergunta = {
     id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
     tipo,
@@ -2679,24 +2716,79 @@ function confirmAddPergunta() {
   const q = window._editQuestionarioData;
   if (!q.perguntas) q.perguntas = [];
   q.perguntas.push(pergunta);
-  hideModal();
+  hideInlineForm('inlinePerguntaForm');
+  showCreateQuestionarioModal(q);
+}
+
+function showInlineRegraForm() {
+  const container = document.getElementById('inlineRegraForm');
+  const q = window._editQuestionarioData;
+  const perguntas = q.perguntas || [];
+  container.innerHTML = `
+    <div style="font-weight:700;margin-bottom:8px;">🔀 Nova regra</div>
+    <label>Pergunta de origem</label>
+    <select id="regraPerguntaInline">
+      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
+    </select>
+    <label>Opção/resposta (ou "*" para qualquer)</label>
+    <input type="text" id="regraOpcaoInline" placeholder="Ex: KNO3 ou *">
+    <label>Pergunta de destino</label>
+    <select id="regraDestinoInline">
+      ${perguntas.map(p => `<option value="${p.id}">${escapeHTML(p.text?.slice(0,40))}</option>`).join('')}
+    </select>
+    <div class="form-actions">
+      <button class="btn btn-ghost btn-sm" onclick="hideInlineForm('inlineRegraForm')">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="confirmAddRegraInline()">Adicionar</button>
+    </div>
+  `;
+  container.classList.add('open');
+}
+
+function confirmAddRegraInline() {
+  const perguntaId = document.getElementById('regraPerguntaInline').value;
+  const opcaoId = document.getElementById('regraOpcaoInline').value.trim();
+  const proximaPerguntaId = document.getElementById('regraDestinoInline').value;
+  const errEl = document.getElementById('qErr');
+  if (!perguntaId || !proximaPerguntaId) { errEl.textContent = 'Selecione pergunta de origem e destino.'; return; }
+  if (!opcaoId) { errEl.textContent = 'Digite a opção/resposta.'; return; }
+  const q = window._editQuestionarioData;
+  if (!q.regras) q.regras = [];
+  q.regras.push({ perguntaId, opcaoId, proximaPerguntaId });
+  hideInlineForm('inlineRegraForm');
+  showCreateQuestionarioModal(q);
+}
+
+function movePergunta(index, direction) {
+  const q = window._editQuestionarioData;
+  const perguntas = q.perguntas;
+  const newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= perguntas.length) return;
+  [perguntas[index], perguntas[newIndex]] = [perguntas[newIndex], perguntas[index]];
+  perguntas.forEach((p, i) => p.ordem = i);
+  showCreateQuestionarioModal(q);
+}
+function removeRegra(index) {
+  const q = window._editQuestionarioData;
+  q.regras.splice(index, 1);
   showCreateQuestionarioModal(q);
 }
 function editPergunta(index) {
   const q = window._editQuestionarioData;
   const p = q.perguntas[index];
   const tags = loadData('tagsPersonalizadas', []);
-  window._selectedCorrectOptions = [];
+  window._selectedCorrectOptionsInline = [];
   if (p.options && p.correct) {
     p.correct.forEach(c => {
       const idx = p.options.indexOf(c);
-      if (idx >= 0) window._selectedCorrectOptions.push(idx);
+      if (idx >= 0) window._selectedCorrectOptionsInline.push(idx);
     });
   }
-  showModal(`
-    <div class="modal-title">✏️ Editar pergunta</div>
+  // Usar o mesmo inline, mas carregar os dados
+  const container = document.getElementById('inlinePerguntaForm');
+  container.innerHTML = `
+    <div style="font-weight:700;margin-bottom:8px;">✏️ Editar pergunta</div>
     <label>Tipo</label>
-    <select id="pTipo" onchange="togglePerguntaFields()">
+    <select id="pTipoInline" onchange="toggleInlinePerguntaFields()">
       <option value="unica" ${p.tipo==='unica'?'selected':''}>Escolha única</option>
       <option value="multipla" ${p.tipo==='multipla'?'selected':''}>Múltipla escolha</option>
       <option value="curta" ${p.tipo==='curta'?'selected':''}>Resposta curta</option>
@@ -2704,70 +2796,71 @@ function editPergunta(index) {
       <option value="escala" ${p.tipo==='escala'?'selected':''}>Escala (1 a 5)</option>
     </select>
     <label>Enunciado</label>
-    <textarea id="pText" rows="3">${escapeHTML(p.text)}</textarea>
+    <textarea id="pTextInline" rows="2">${escapeHTML(p.text)}</textarea>
     <label>Imagem (URL)</label>
-    <input type="text" id="pImage" value="${escapeHTML(p.image || '')}" placeholder="https://exemplo.com/imagem.png">
+    <input type="text" id="pImageInline" value="${escapeHTML(p.image || '')}">
     <label>Vídeo (URL YouTube embed)</label>
-    <input type="text" id="pVideo" value="${escapeHTML(p.video || '')}" placeholder="https://www.youtube.com/embed/...">
-    <div id="optionsGroup" style="${(p.tipo==='unica'||p.tipo==='multipla')?'block':'none'}">
+    <input type="text" id="pVideoInline" value="${escapeHTML(p.video || '')}">
+    <div id="optionsGroupInline">
       <label>Alternativas</label>
-      <textarea id="pOptions" rows="4" oninput="renderOptionClicks()">${p.options ? p.options.join('\n') : ''}</textarea>
-      <div id="optionClicksContainer" style="margin-top:6px;display:flex;flex-direction:column;gap:4px;"></div>
+      <textarea id="pOptionsInline" rows="3" oninput="renderInlineOptionClicks()">${p.options ? p.options.join('\n') : ''}</textarea>
+      <div id="inlineOptionClicks" style="margin-top:6px;"></div>
     </div>
     <label>Tags</label>
-    <select id="pTags" multiple style="height:60px;">
+    <select id="pTagsInline" multiple style="height:60px;">
       ${tags.map(t => `<option value="${escapeHTML(t)}" ${p.tags.includes(t) ? 'selected' : ''}>${escapeHTML(t)}</option>`).join('')}
     </select>
     <label>Nível</label>
-    <input type="number" id="pNivel" min="1" max="5" value="${p.nivel || 1}">
+    <input type="number" id="pNivelInline" min="1" max="5" value="${p.nivel || 1}">
     <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
-      <input type="checkbox" id="pObrigatoria" ${p.obrigatoria ? 'checked' : ''}> Pergunta obrigatória
+      <input type="checkbox" id="pObrigatoriaInline" ${p.obrigatoria ? 'checked' : ''}> Obrigatória
     </label>
-    <div class="err" id="pErr"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hideModal();showCreateQuestionarioModal(window._editQuestionarioData)">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveEditPergunta(${index})">Salvar</button>
+    <div class="form-actions">
+      <button class="btn btn-ghost btn-sm" onclick="hideInlineForm('inlinePerguntaForm')">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="saveEditPerguntaInline(${index})">Salvar</button>
     </div>
-  `);
+  `;
+  container.classList.add('open');
   setTimeout(() => {
-    togglePerguntaFields();
-    renderOptionClicks();
+    toggleInlinePerguntaFields();
+    renderInlineOptionClicks();
     // Reaplica seleções
     setTimeout(() => {
-      window._selectedCorrectOptions.forEach(idx => {
-        const el = document.getElementById('optClick_' + idx);
+      window._selectedCorrectOptionsInline.forEach(idx => {
+        const el = document.getElementById('inlineOpt_' + idx);
         if (el) {
           el.style.borderColor = 'var(--green)';
           el.style.background = 'var(--green-light)';
-          const status = document.getElementById('optStatus_' + idx);
+          const status = document.getElementById('inlineOptStatus_' + idx);
           if (status) status.textContent = '✅ Correta';
         }
       });
     }, 100);
   }, 100);
 }
-function saveEditPergunta(index) {
-  const tipo = document.getElementById('pTipo').value;
-  const text = document.getElementById('pText').value.trim();
-  const image = document.getElementById('pImage').value.trim();
-  const video = document.getElementById('pVideo').value.trim();
-  const optionsRaw = document.getElementById('pOptions').value.trim().split('\n').filter(s => s.trim());
-  const tagSelect = document.getElementById('pTags');
+
+function saveEditPerguntaInline(index) {
+  const tipo = document.getElementById('pTipoInline').value;
+  const text = document.getElementById('pTextInline').value.trim();
+  const image = document.getElementById('pImageInline').value.trim();
+  const video = document.getElementById('pVideoInline').value.trim();
+  const optionsRaw = document.getElementById('pOptionsInline').value.trim().split('\n').filter(s => s.trim());
+  const tagSelect = document.getElementById('pTagsInline');
   const tags = Array.from(tagSelect.selectedOptions).map(o => o.value).filter(v => v);
-  const nivel = parseInt(document.getElementById('pNivel').value) || 1;
-  const obrigatoria = document.getElementById('pObrigatoria').checked;
-  const errEl = document.getElementById('pErr');
+  const nivel = parseInt(document.getElementById('pNivelInline').value) || 1;
+  const obrigatoria = document.getElementById('pObrigatoriaInline').checked;
+  const errEl = document.getElementById('qErr');
   if (!text) { errEl.textContent = 'Digite o enunciado.'; return; }
   if ((tipo === 'unica' || tipo === 'multipla') && optionsRaw.length < 2) {
     errEl.textContent = 'Adicione pelo menos 2 alternativas.';
     return;
   }
-  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptions.length === 0) {
+  if ((tipo === 'unica' || tipo === 'multipla') && window._selectedCorrectOptionsInline.length === 0) {
     errEl.textContent = 'Marque pelo menos uma alternativa como correta.';
     return;
   }
   if (tags.length === 0) { errEl.textContent = 'Selecione pelo menos uma tag.'; return; }
-  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptions.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
+  const correct = (tipo === 'unica' || tipo === 'multipla') ? window._selectedCorrectOptionsInline.map(i => optionsRaw[i]) : (tipo === 'escala' ? nivel : '');
   const q = window._editQuestionarioData;
   q.perguntas[index] = {
     id: 'p_' + Date.now() + Math.random().toString(36).slice(2,4),
@@ -2782,34 +2875,16 @@ function saveEditPergunta(index) {
     obrigatoria,
     ordem: index
   };
-  hideModal();
+  hideInlineForm('inlinePerguntaForm');
   showCreateQuestionarioModal(q);
 }
+
 function removePergunta(index) {
   if (!confirm('Remover esta pergunta?')) return;
   const q = window._editQuestionarioData;
   q.perguntas.splice(index, 1);
   q.perguntas.forEach((p, i) => p.ordem = i);
   showCreateQuestionarioModal(q);
-}
-function saveQuestionario(editId) {
-  const nome = document.getElementById('qNome').value.trim();
-  const descricao = document.getElementById('qDesc').value.trim();
-  const status = document.getElementById('qStatus').value;
-  const qData = window._editQuestionarioData;
-  const errEl = document.getElementById('qErr');
-  if (!nome) { errEl.textContent = 'Dê um nome ao questionário.'; return; }
-  if (!qData.perguntas || qData.perguntas.length === 0) { errEl.textContent = 'Adicione pelo menos uma pergunta.'; return; }
-  let questionarios = loadData('questionarios', []);
-  if (editId) {
-    const idx = questionarios.findIndex(q => q.id === editId);
-    if (idx >= 0) questionarios[idx] = { ...qData, id: editId, nome, descricao, status };
-  } else {
-    questionarios.push({ id: 'q_' + Date.now(), nome, descricao, perguntas: qData.perguntas, regras: qData.regras || [], status: status || 'draft', createdAt: Date.now() });
-  }
-  saveData('questionarios', questionarios);
-  hideModal();
-  renderManagerContent();
 }
 function editQuestionario(id) {
   const questionarios = loadData('questionarios', []);
@@ -2825,7 +2900,7 @@ function deleteQuestionario(id) {
 }
 
 // ============================================================
-// 17. PAINEL ESTUDANTE (com grid 4 cards)
+// 18. PAINEL ESTUDANTE
 // ============================================================
 function renderStudentContent() {
   const tab = document.querySelector('#studentTabs .tab-btn.active')?.dataset.tab || 'visao-geral';
@@ -2857,11 +2932,9 @@ function renderStudentVisaoGeral(container) {
   const totalAttempts = mine.length;
   const medal = getMedal(totalAttempts);
 
-  // Determinar principal dificuldade (tag mais frequente)
   let mainDifficulty = 'Nenhuma';
   let mainDifficultyIcon = '🎯';
   if (last.tags && last.tags.length > 0) {
-    // Pegar a primeira tag ou a mais representativa
     mainDifficulty = TAGS_SYSTEM[last.tags[0]]?.label || last.tags[0];
     mainDifficultyIcon = '📌';
   }
@@ -2904,7 +2977,7 @@ function renderStudentVisaoGeral(container) {
   container.innerHTML = html;
 }
 
-// ===== DESEMPENHO (com revisão de questões e relatório) =====
+// ===== DESEMPENHO (com botão de relatório em destaque) =====
 function renderStudentDesempenho(container) {
   const attempts = loadData('tentativas', []);
   const mine = attempts.filter(a => a.studentEmail === window.currentUser?.email).sort((a,b) => a.finishedAt - b.finishedAt);
@@ -2913,6 +2986,10 @@ function renderStudentDesempenho(container) {
     return;
   }
   let html = `
+    <div style="margin-bottom:16px;background:var(--blue-light);padding:16px 20px;border-radius:var(--radius-sm);border-left:5px solid var(--blue);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span style="font-weight:700;">📧 Gerar relatório da tentativa selecionada</span>
+      <button class="btn btn-primary btn-xl" onclick="generateStudentReportForAttempt(document.getElementById('reviewSelect').value)" style="background:var(--green);color:#1a2a2a;">📧 Receber relatório por e-mail</button>
+    </div>
     <div style="margin-bottom:16px;">
       <label style="font-weight:700;font-size:0.85rem;">Selecione uma aplicação para revisar:</label>
       <select id="reviewSelect" onchange="renderReview(this.value)" style="width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:2px solid #e8ece8;background:#f8faf8;margin-top:4px;">
@@ -2920,9 +2997,6 @@ function renderStudentDesempenho(container) {
       </select>
     </div>
     <div id="reviewContent"></div>
-    <div style="margin-top:16px;">
-      <button class="btn btn-secondary" onclick="generateStudentReportForAttempt(document.getElementById('reviewSelect').value)">📧 Gerar relatório desta tentativa</button>
-    </div>
   `;
   container.innerHTML = html;
   if (mine.length > 0) renderReview(mine[0].id);
@@ -2985,30 +3059,30 @@ function openReviewQuestionModal(index, attemptId) {
         if (opt === ca) cls = 'correct-answer';
         if (opt === ua && opt !== ca) cls = 'user-answer';
         if (opt === ua && opt === ca) cls = 'both';
-        return `<div class="opt-review ${cls}" style="padding:6px 12px;margin:3px 0;border-radius:8px;border-left:4px solid #e8ece8;font-size:0.9rem;">
+        return `<div class="opt-review ${cls}" style="padding:8px 14px;margin:4px 0;border-radius:8px;border-left:4px solid #e8ece8;font-size:0.95rem;line-height:1.5;">
           ${opt === ua ? '👉 ' : ''} ${escapeHTML(opt)}
           ${opt === ca ? ' ✅' : ''}
           ${opt === ua && opt !== ca ? ' ❌' : ''}
         </div>`;
       }).join('');
     } else if (qq.tipo === 'curta' || qq.tipo === 'paragrafo') {
-      optionsHtml = `<div style="padding:6px 12px;background:#f8faf8;border-radius:8px;">Sua resposta: ${escapeHTML(ua || 'Não respondeu')}</div>`;
-      if (ca) optionsHtml += `<div style="padding:6px 12px;background:var(--green-light);border-radius:8px;margin-top:4px;">Gabarito: ${escapeHTML(ca)}</div>`;
+      optionsHtml = `<div style="padding:8px 14px;background:#f8faf8;border-radius:8px;margin:4px 0;font-size:0.95rem;">Sua resposta: ${escapeHTML(ua || 'Não respondeu')}</div>`;
+      if (ca) optionsHtml += `<div style="padding:8px 14px;background:var(--green-light);border-radius:8px;margin:4px 0;font-size:0.95rem;">Gabarito: ${escapeHTML(ca)}</div>`;
     } else if (qq.tipo === 'escala') {
-      optionsHtml = `<div style="padding:6px 12px;background:#f8faf8;border-radius:8px;">Sua resposta: ${ua || '—'}</div><div style="padding:6px 12px;background:var(--green-light);border-radius:8px;margin-top:4px;">Gabarito: ${ca}</div>`;
+      optionsHtml = `<div style="padding:8px 14px;background:#f8faf8;border-radius:8px;margin:4px 0;font-size:0.95rem;">Sua resposta: ${ua || '—'}</div><div style="padding:8px 14px;background:var(--green-light);border-radius:8px;margin:4px 0;font-size:0.95rem;">Gabarito: ${ca}</div>`;
     }
 
     showModal(`
       <div class="modal-title">Questão ${idx+1} de ${total}</div>
-      <div class="modal-sub" style="margin-bottom:8px;">${escapeHTML(qq.text)}</div>
+      <div class="modal-sub" style="margin-bottom:8px;font-size:1.05rem;line-height:1.6;">${escapeHTML(qq.text)}</div>
       ${qq.image ? `<img src="${escapeHTML(qq.image)}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin:8px 0;">` : ''}
       ${qq.video ? `<div style="margin:8px 0;"><iframe width="100%" height="150" src="${escapeHTML(qq.video)}" frameborder="0" allowfullscreen></iframe></div>` : ''}
-      <div style="margin-top:8px;font-size:0.9rem;color:${ic ? 'var(--green)' : 'var(--coral)'};font-weight:700;">${ic ? '✅ Resposta correta!' : '❌ Resposta incorreta'}</div>
+      <div style="margin-top:8px;font-size:0.95rem;color:${ic ? 'var(--green)' : 'var(--coral)'};font-weight:700;">${ic ? '✅ Resposta correta!' : '❌ Resposta incorreta'}</div>
       <div style="margin-top:8px;">
         <strong>Alternativas:</strong>
-        <div>${optionsHtml}</div>
+        <div style="margin-top:4px;">${optionsHtml}</div>
       </div>
-      <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;">
+      <div style="margin-top:16px;display:flex;justify-content:space-between;gap:8px;">
         <button class="btn btn-ghost btn-sm" onclick="navigateReviewQuestion(-1)" ${idx===0?'disabled':''}>← Anterior</button>
         <button class="btn btn-ghost btn-sm" onclick="hideModal()">Fechar</button>
         <button class="btn btn-ghost btn-sm" onclick="navigateReviewQuestion(1)" ${idx===total-1?'disabled':''}>Próximo →</button>
@@ -3026,7 +3100,7 @@ function openReviewQuestionModal(index, attemptId) {
   renderQuestionModal(index);
 }
 
-// ===== REFORÇOS =====
+// ===== REFORÇOS E RANKING (sem alterações estruturais) =====
 function renderStudentReforcos(container) {
   const attempts = loadData('tentativas', []);
   const materiais = loadData('materiais', []);
@@ -3058,7 +3132,6 @@ function renderStudentReforcos(container) {
   container.innerHTML = html;
 }
 
-// ===== RANKING (com censura) =====
 function renderStudentRanking(container) {
   const attempts = loadData('tentativas', []);
   const userAttempts = attempts.filter(a => a.studentEmail === window.currentUser?.email);
@@ -3103,18 +3176,28 @@ function renderStudentRanking(container) {
 }
 
 // ============================================================
-// 18. MODAL
+// 19. MODAL (com check de fechamento)
 // ============================================================
+function checkCloseModal() {
+  if (_questionarioFormDirty) {
+    if (confirm('Você tem alterações não salvas. Deseja realmente fechar?')) {
+      hideModal();
+    }
+  } else {
+    hideModal();
+  }
+}
 function showModal(html) {
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
 }
 function hideModal() {
   document.getElementById('modalOverlay').classList.remove('open');
+  _questionarioFormDirty = false;
 }
 
 // ============================================================
-// 19. INICIALIZAÇÃO
+// 20. INICIALIZAÇÃO
 // ============================================================
 initCookieBanner();
 updateHomeStats();
@@ -3138,7 +3221,7 @@ window.onload = function() {
   document.getElementById('chartTooltip').style.display = 'none';
 };
 
-console.log('✅ Diagnóstico de Soluções v7.0 — completa com todas as correções e melhorias!');
+console.log('✅ Diagnóstico de Soluções v7.0 — com gráfico+legenda, editor expansível e botões de confirmação!');
 </script>
 </body>
 </html>
